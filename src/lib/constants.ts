@@ -43,6 +43,7 @@ export const NAVIGATION_ITEMS = [
   { name: 'About', href: '/about' },           // Company information
   { name: 'Portfolio', href: '/portfolio' },   // Work samples and case studies
   { name: 'Pricing', href: '/pricing' },       // Pricing information
+  { name: 'Portal', href: '/portal' },         // Member portal access
   { name: 'Contact', href: '/contact' },       // Contact form - final CTA
 ] as const;
 

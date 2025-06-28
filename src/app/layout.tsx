@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '../components/providers/ThemeProvider'
 import { PasswordProtection } from '../components/auth/PasswordProtection'
+import { AuthProvider } from '../hooks/useAuth'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -72,9 +73,11 @@ export default function RootLayout({
           defaultTheme="system"
           storageKey="prism-writing-theme"
         >
-          <PasswordProtection>
-            {children}
-          </PasswordProtection>
+          <AuthProvider>
+            <PasswordProtection>
+              {children}
+            </PasswordProtection>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
