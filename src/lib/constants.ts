@@ -34,79 +34,18 @@ export const SITE_CONFIG = {
 } as const;
 
 /**
- * Main navigation structure
- * Professional, conversion-focused navigation with clear hierarchy
- * Ordered by user journey: Services -> Portfolio -> About -> Resources -> Contact
+ * Main navigation items
+ * Used in both desktop and mobile navigation components
+ * Order matters - reflects information hierarchy
  */
 export const NAVIGATION_ITEMS = [
-  { 
-    name: 'Services', 
-    href: '/services',
-    submenu: [
-      { name: 'API Documentation', href: '/services/api-documentation' },
-      { name: 'Standard Operating Procedures', href: '/services/sops' },
-      { name: 'User Manuals', href: '/services/user-manuals' },
-      { name: 'Onboarding Guides', href: '/services/onboarding-guides' },
-      { name: 'Process Documentation', href: '/services/process-documentation' },
-      { name: 'Training Materials', href: '/services/training-materials' }
-    ]
-  },
-  { name: 'Portfolio', href: '/portfolio' },
-  { 
-    name: 'About', 
-    href: '/about',
-    submenu: [
-      { name: 'Our Mission', href: '/about#mission' },
-      { name: 'Our Values', href: '/about#values' },
-      { name: 'Our Expertise', href: '/about#expertise' },
-      { name: 'Meet the Team', href: '/about#team' }
-    ]
-  },
-  { 
-    name: 'Resources', 
-    href: '/resources',
-    submenu: [
-      { name: 'Blog', href: '/blog' },
-      { name: 'Case Studies', href: '/case-studies' },
-      { name: 'Best Practices', href: '/resources/best-practices' },
-      { name: 'Templates', href: '/resources/templates' }
-    ]
-  },
-  { name: 'Testimonials', href: '/testimonials' },
-  { name: 'FAQ', href: '/faq' },
-  { name: 'Contact', href: '/contact' }
+  { name: 'Services', href: '/services' },     // Primary offering - first priority
+  { name: 'About', href: '/about' },           // Company information
+  { name: 'Portfolio', href: '/portfolio' },   // Work samples and case studies
+  { name: 'Pricing', href: '/pricing' },       // Pricing information
+  { name: 'Portal', href: '/portal' },         // Member portal access
+  { name: 'Contact', href: '/contact' },       // Contact form - final CTA
 ] as const;
-
-/**
- * Footer navigation structure
- * Simplified version of main navigation plus legal/business info
- */
-export const FOOTER_NAVIGATION = {
-  quickLinks: [
-    { name: 'Services', href: '/services' },
-    { name: 'Portfolio', href: '/portfolio' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' }
-  ],
-  services: [
-    { name: 'API Documentation', href: '/services/api-documentation' },
-    { name: 'SOPs', href: '/services/sops' },
-    { name: 'User Manuals', href: '/services/user-manuals' },
-    { name: 'Training Materials', href: '/services/training-materials' }
-  ],
-  legal: [
-    { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
-    { name: 'Cookie Policy', href: '/cookies' },
-    { name: 'Accessibility Statement', href: '/accessibility' }
-  ],
-  resources: [
-    { name: 'Blog', href: '/blog' },
-    { name: 'Case Studies', href: '/case-studies' },
-    { name: 'FAQ', href: '/faq' },
-    { name: 'Templates', href: '/resources/templates' }
-  ]
-} as const;
 
 /**
  * Social media links for the business
@@ -163,6 +102,37 @@ export const BUDGETS = [
 ] as const;
 
 /**
+ * Footer navigation structure
+ * Simplified version of main navigation plus legal/business info
+ */
+export const FOOTER_NAVIGATION = {
+  quickLinks: [
+    { name: 'Services', href: '/services' },
+    { name: 'Portfolio', href: '/portfolio' },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' }
+  ],
+  services: [
+    { name: 'API Documentation', href: '/services/api-documentation' },
+    { name: 'SOPs', href: '/services/sops' },
+    { name: 'User Manuals', href: '/services/user-manuals' },
+    { name: 'Training Materials', href: '/services/training-materials' }
+  ],
+  legal: [
+    { name: 'Privacy Policy', href: '/privacy' },
+    { name: 'Terms of Service', href: '/terms' },
+    { name: 'Cookie Policy', href: '/cookies' },
+    { name: 'Accessibility Statement', href: '/accessibility' }
+  ],
+  resources: [
+    { name: 'Blog', href: '/blog' },
+    { name: 'Compliance Standards', href: '/resources' },
+    { name: 'FAQ', href: '/faq' },
+    { name: 'Testimonials', href: '/testimonials' }
+  ]
+} as const;
+
+/**
  * Business information for footer and contact sections
  * Complete business details for professional presentation
  */
@@ -216,111 +186,3 @@ export const CERTIFICATIONS = [
     logo: '/images/certifications/accessibility-logo.svg'
   }
 ] as const;
-
-/**
- * Design system inspired by leading SaaS websites
- * Clean, professional, conversion-focused design tokens
- */
-export const DESIGN_TOKENS = {
-  colors: {
-    primary: {
-      50: '#f0f9ff',
-      100: '#e0f2fe',
-      500: '#3b82f6',
-      600: '#2563eb',
-      700: '#1d4ed8',
-      900: '#1e3a8a'
-    },
-    success: '#10b981',
-    warning: '#f59e0b',
-    error: '#ef4444',
-    neutral: {
-      50: '#f9fafb',
-      100: '#f3f4f6',
-      200: '#e5e7eb',
-      500: '#6b7280',
-      700: '#374151',
-      900: '#111827'
-    }
-  },
-  typography: {
-    fontFamily: {
-      sans: ['Inter', 'system-ui', 'sans-serif'],
-      mono: ['Fira Code', 'monospace']
-    },
-    fontSize: {
-      xs: '0.75rem',
-      sm: '0.875rem',
-      base: '1rem',
-      lg: '1.125rem',
-      xl: '1.25rem',
-      '2xl': '1.5rem',
-      '3xl': '1.875rem',
-      '4xl': '2.25rem'
-    }
-  },
-  spacing: {
-    section: '5rem',
-    container: '1280px'
-  },
-  borderRadius: {
-    sm: '0.375rem',
-    md: '0.5rem',
-    lg: '0.75rem',
-    xl: '1rem'
-  }
-} as const;
-
-/**
- * Call-to-action messages for different sections
- * Conversion-optimized copy for key interaction points
- */
-export const CTA_MESSAGES = {
-  hero: {
-    primary: 'Get Clear Documentation',
-    secondary: 'Schedule Consultation'
-  },
-  services: {
-    primary: 'Start Your Project',
-    secondary: 'Learn More'
-  },
-  portfolio: {
-    primary: 'See Our Work',
-    secondary: 'Download Sample'
-  },
-  testimonials: {
-    primary: 'Work With Us',
-    secondary: 'Read More Reviews'
-  },
-  contact: {
-    primary: 'Send Message',
-    secondary: 'Call Now'
-  }
-} as const;
-
-/**
- * SEO-optimized meta descriptions for each page
- * Tailored for technical writing business
- */
-export const SEO_META = {
-  home: {
-    title: 'Professional Technical Writing Services | Prism Writing',
-    description: 'Clear, user-focused technical documentation that drives results. API docs, user guides, SOPs, and training materials. Get your free consultation today.'
-  },
-  services: {
-    title: 'Technical Writing Services | API Docs, SOPs, User Guides',
-    description: 'Expert technical writing services including API documentation, standard operating procedures, user manuals, and onboarding guides. Quality guaranteed.'
-  },
-  portfolio: {
-    title: 'Technical Writing Portfolio | Sample Documentation Projects',
-    description: 'View our portfolio of professional technical writing projects. API documentation, user guides, training materials, and process documentation samples.'
-  },
-  about: {
-    title: 'About Prism Writing | Expert Technical Writing Team',
-    description: 'Meet our team of certified technical writers. Learn about our mission, values, and expertise in creating documentation that users actually love.'
-  },
-  contact: {
-    title: 'Contact Prism Writing | Get Your Free Consultation',
-    description: 'Ready to improve your documentation? Contact our technical writing experts for a free consultation. Quick response guaranteed.'
-  }
-} as const;

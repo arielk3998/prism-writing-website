@@ -1,5 +1,4 @@
 import Navigation from '../../components/layout/Navigation';
-import EnhancedFooter from '../../components/layout/EnhancedFooter';
 import { siteConfig } from '../../config/siteConfig';
 import Link from 'next/link';
 
@@ -229,9 +228,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-
-      {/* Enhanced Footer */}
-      <EnhancedFooter />
     </div>
   );
 }

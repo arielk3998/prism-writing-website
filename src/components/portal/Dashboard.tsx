@@ -14,6 +14,20 @@ interface User {
   avatar?: string
 }
 
+interface WorkRequest {
+  id: string;
+  clientId: string;
+  title: string;
+  type: string;
+  description: string;
+  timeline: string;
+  budget: string;
+  status: string;
+  submittedAt: string;
+  priority: string;
+  deadline?: string;
+}
+
 interface DashboardProps {
   user: User | null
 }
@@ -35,7 +49,7 @@ export default function Dashboard({ user }: DashboardProps) {
 
   const getWorkRequests = () => {
     const workRequests = JSON.parse(localStorage.getItem('workRequests') || '[]')
-    return workRequests.filter((req: any) => req.clientId === user.id)
+    return workRequests.filter((req: WorkRequest) => req.clientId === user.id)
   }
 
   const renderClientRequests = () => {
@@ -54,7 +68,7 @@ export default function Dashboard({ user }: DashboardProps) {
           </div>
         ) : (
           <div className="space-y-4">
-            {requests.map((request: any) => (
+            {requests.map((request: WorkRequest) => (
               <div key={request.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                 <div className="flex justify-between items-start mb-2">
                   <h4 className="font-medium text-gray-900 dark:text-white">{request.title}</h4>

@@ -26,7 +26,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
 import MobileNav from './MobileNav';
 import { SimpleDarkModeToggle } from '../ui/SimpleDarkModeToggle';
 import { AnimatedLogo } from '../ui/AnimatedLogo';
@@ -37,8 +36,6 @@ interface NavigationProps {
 }
 
 export default function Navigation({ currentPage }: NavigationProps) {
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-
   return (
     // Main navigation container with glass-morphism effect
     // Uses backdrop-blur for modern transparent overlay design
@@ -51,51 +48,25 @@ export default function Navigation({ currentPage }: NavigationProps) {
               <AnimatedLogo 
                 width={160} 
                 height={40} 
-                className="hover:scale-105 transition-transform duration-300" 
+                className="scale-110 hover:scale-125 transition-transform duration-300" 
               />
             </Link>
           </div>
           
-          {/* Desktop Navigation Links with Dropdowns */}
+          {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
             {NAVIGATION_ITEMS.map((item) => (
-              <div 
+              <a 
                 key={item.name}
-                className="relative group"
-                onMouseEnter={() => 'submenu' in item && setOpenDropdown(item.name)}
-                onMouseLeave={() => setOpenDropdown(null)}
+                href={item.href} 
+                className={`transition-colors ${
+                  currentPage === item.href
+                    ? 'text-indigo-600 dark:text-indigo-400 font-semibold'  // Active state styling
+                    : 'text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'  // Default and hover states
+                }`}
               >
-                <Link 
-                  href={item.href} 
-                  className={`flex items-center transition-colors ${
-                    currentPage === item.href
-                      ? 'text-indigo-600 dark:text-indigo-400 font-semibold'  // Active state styling
-                      : 'text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'  // Default and hover states
-                  }`}
-                >
-                  {item.name}
-                  {'submenu' in item && (
-                    <svg className="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  )}
-                </Link>
-                
-                {/* Dropdown Menu */}
-                {'submenu' in item && openDropdown === item.name && (
-                  <div className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
-                    {item.submenu.map((subItem) => (
-                      <Link
-                        key={subItem.name}
-                        href={subItem.href}
-                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                      >
-                        {subItem.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
+                {item.name}
+              </a>
             ))}
             {/* Dark mode toggle for desktop */}
             <SimpleDarkModeToggle />

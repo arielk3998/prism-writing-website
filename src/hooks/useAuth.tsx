@@ -32,17 +32,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkExistingSession = async () => {
     try {
-      // SECURITY: Disable persistent sessions - always require fresh login
-      // This ensures coop members and all users must authenticate each time
+      // Check localStorage for existing session
+      const storedUser = localStorage.getItem('prism_user')
+      const storedToken = localStorage.getItem('prism_token')
       
-      // Clear any existing stored data to force fresh login
-      localStorage.removeItem('prism_user')
-      localStorage.removeItem('prism_token')
-      sessionStorage.removeItem('prism_user')
-      sessionStorage.removeItem('prism_token')
-      
-      // Always start with no user - require fresh authentication
-      setUser(null)
+      if (storedUser && storedToken) {
+        setUser(JSON.parse(storedUser))
+      }
     } catch (error) {
       console.error('Session check failed:', error)
     } finally {
@@ -59,34 +55,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const demoUsers = [
         {
           id: '1',
-          name: 'Ariel Karagodskiy',
-          email: 'Ariel.karagodskiy@gmail.com',
-          role: 'admin' as const,
-          password: 'Merlak0105!'
-        },
-        {
-          id: '2',
-          name: 'Margot',
-          email: 'MMRK2015@gmail.com',
-          role: 'admin' as const,
-          password: 'Margot93!'
-        },
-        {
-          id: '3',
           name: 'Admin User',
           email: 'admin@prismwriting.com',
           role: 'admin' as const,
           password: 'admin123'
         },
         {
-          id: '4', 
+          id: '2', 
           name: 'Team Member',
           email: 'member@prismwriting.com',
           role: 'member' as const,
           password: 'member123'
         },
         {
-          id: '5',
+          id: '3',
           name: 'Client User',
           email: 'client@example.com', 
           role: 'client' as const,
@@ -106,17 +88,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const { password, ...userWithoutPassword } = foundUser
         setUser(userWithoutPassword)
         
-        // SECURITY: Use sessionStorage only (clears when browser/tab closes)
-        // Do NOT store in localStorage for persistent sessions
-        sessionStorage.setItem('prism_user', JSON.stringify(userWithoutPassword))
-        sessionStorage.setItem('prism_token', 'demo-token-' + foundUser.id)
-        sessionStorage.setItem('prism_login_time', Date.now().toString())
-        
-        // Set automatic logout after 2 hours for security
-        setTimeout(() => {
-          logout()
-          alert('Session expired for security. Please log in again.')
-        }, 2 * 60 * 60 * 1000) // 2 hours
+        // Store session data
+        localStorage.setItem('prism_user', JSON.stringify(userWithoutPassword))
+        localStorage.setItem('prism_token', 'demo-token-' + foundUser.id)
         
         return true
       }
@@ -132,21 +106,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setUser(null)
-    // Clear all possible storage locations
     localStorage.removeItem('prism_user')
     localStorage.removeItem('prism_token')
-    sessionStorage.removeItem('prism_user')
-    sessionStorage.removeItem('prism_token')
-    sessionStorage.removeItem('prism_login_time')
-    
-    // Force page reload to ensure clean state
-    window.location.href = '/portal'
   }
 
   const updateUser = (updatedUser: User) => {
     setUser(updatedUser)
-    // Only update session storage, not localStorage
-    sessionStorage.setItem('prism_user', JSON.stringify(updatedUser))
+    localStorage.setItem('prism_user', JSON.stringify(updatedUser))
   }
 
   const value = {

@@ -11,7 +11,7 @@ export default function PortfolioCard({ item, onViewSample }: PortfolioCardProps
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
       {/* Visual Header */}
-      <div className={`relative h-48 flex items-center justify-center bg-gradient-to-br ${
+      <div className={`h-48 flex items-center justify-center bg-gradient-to-br ${
         item.color.from === 'blue-500' ? 'from-blue-500 to-indigo-600' :
         item.color.from === 'purple-500' ? 'from-purple-500 to-pink-600' :
         item.color.from === 'green-500' ? 'from-green-500 to-emerald-600' :
@@ -22,14 +22,8 @@ export default function PortfolioCard({ item, onViewSample }: PortfolioCardProps
         item.color.from === 'red-500' ? 'from-red-500 to-pink-600' :
         item.color.from === 'yellow-500' ? 'from-yellow-500 to-orange-600' :
         'from-indigo-500 to-purple-600'
-      } overflow-hidden`}>
-        {/* Subtle watermark */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
-          <div className="text-4xl font-bold text-white rotate-45 select-none">
-            PRISM
-          </div>
-        </div>
-        <div className="text-white text-center relative z-10">
+      }`}>
+        <div className="text-white text-center">
           <svg className="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
             <path d={item.icon} />
           </svg>

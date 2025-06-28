@@ -1,5 +1,4 @@
 import Navigation from '../../components/layout/Navigation';
-import EnhancedFooter from '../../components/layout/EnhancedFooter';
 import { siteConfig } from '../../config/siteConfig';
 
 export default function About() {
@@ -251,9 +250,6 @@ export default function About() {
           </a>
         </div>
       </section>
-
-      {/* Enhanced Footer */}
-      <EnhancedFooter />
     </div>
   );
 }

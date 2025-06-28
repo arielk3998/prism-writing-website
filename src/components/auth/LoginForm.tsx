@@ -74,13 +74,11 @@ export default function LoginForm() {
 
       {/* Demo Credentials */}
       <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-        <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Admin Accounts:</h4>
+        <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Demo Credentials:</h4>
         <div className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
-          <div><strong>Ariel:</strong> Ariel.karagodskiy@gmail.com</div>
-          <div><strong>Margot:</strong> MMRK2015@gmail.com</div>
-          <div><strong>Demo Admin:</strong> admin@prismwriting.com / admin123</div>
-          <div><strong>Demo Member:</strong> member@prismwriting.com / member123</div>
-          <div><strong>Demo Client:</strong> client@example.com / client123</div>
+          <div><strong>Admin:</strong> admin@prismwriting.com / admin123</div>
+          <div><strong>Member:</strong> member@prismwriting.com / member123</div>
+          <div><strong>Client:</strong> client@example.com / client123</div>
         </div>
       </div>
     </div>

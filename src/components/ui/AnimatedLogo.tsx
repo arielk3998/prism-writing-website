@@ -28,16 +28,16 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
   const logoWidth = width || defaultDimensions.width;
   const logoHeight = height || defaultDimensions.height;
 
-  // Simplified animation calculations - reduced flickering
-  const heartbeatScale = 1 + Math.sin(time * 0.3) * 0.008; // Much more subtle breathing effect
-  const hoverScale = isHovered ? 1.03 : 1; // Reduced hover scale
+  // Enhanced animation calculations
+  const heartbeatScale = 1 + Math.sin(time * 0.5) * 0.015; // Subtle breathing effect
+  const hoverScale = isHovered ? 1.05 : 1;
   const finalScale = hoverScale * heartbeatScale;
 
-  // Reduced animation frequency to prevent flickering
+  // Animation loop for continuous effects
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(t => t + 0.05); // Much slower update rate
-    }, 100); // 10fps instead of 60fps
+      setTime(t => t + 0.016); // ~60fps
+    }, 16);
     return () => clearInterval(interval);
   }, []);
 

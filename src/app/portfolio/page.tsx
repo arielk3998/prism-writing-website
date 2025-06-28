@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import Navigation from '../../components/layout/Navigation';
-import EnhancedFooter from '../../components/layout/EnhancedFooter';
 import PortfolioCard from '../../components/portfolio/PortfolioCard';
 import SampleViewer from '../../components/portfolio/SampleViewer';
 import { portfolioItems, PortfolioItem } from '../../data/portfolioData';
+import { siteConfig } from '../../config/siteConfig';
 
 export default function Portfolio() {
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
@@ -157,8 +157,43 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Enhanced Footer */}
-      <EnhancedFooter />
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="md:col-span-2">
+              <h6 className="text-2xl font-bold text-indigo-400 mb-4">
+                {siteConfig.company.shortName}
+              </h6>
+              <p className="text-gray-300 mb-4">
+                {siteConfig.company.description}
+              </p>
+              <p className="text-gray-400 text-sm">
+                © 2024 {siteConfig.company.name}. All rights reserved.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4 block">Services</h4>
+              <ul className="space-y-2 text-gray-300">
+                <li><a href="/services#api-documentation" className="hover:text-indigo-400 transition-colors">API Documentation</a></li>
+                <li><a href="/services#user-guides" className="hover:text-indigo-400 transition-colors">User Guides</a></li>
+                <li><a href="/services#process-documentation" className="hover:text-indigo-400 transition-colors">Process Documentation</a></li>
+                <li><a href="/services#content-strategy" className="hover:text-indigo-400 transition-colors">Content Strategy</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4 block">Contact</h4>
+              <ul className="space-y-2 text-gray-300">
+                <li>Email: {siteConfig.company.email}</li>
+                <li>Available for consultation</li>
+                <li><a href="/contact" className="hover:text-indigo-400 transition-colors">Schedule Consultation</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
 
       {/* Sample Viewer Modal */}
       {selectedItem && (
