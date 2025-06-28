@@ -1,4 +1,5 @@
 import Navigation from '../../components/layout/Navigation';
+import EnhancedFooter from '../../components/layout/EnhancedFooter';
 import Link from 'next/link';
 import { siteConfig } from '../../config/siteConfig';
 import { ServiceCard, PackageCard, IndustryCard } from '../../components/shared/Cards';
@@ -95,6 +96,9 @@ export default function Services() {
           </div>
         </div>
       </section>
+
+      {/* Enhanced Footer */}
+      <EnhancedFooter />
     </div>
   );
 }

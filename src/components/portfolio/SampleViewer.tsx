@@ -12,10 +12,10 @@ export default function SampleViewer({ item, isOpen, onClose }: SampleViewerProp
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black bg-opacity-50 backdrop-blur-sm">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className={`px-6 py-4 text-white bg-gradient-to-r ${
+        <div className={`px-4 sm:px-6 py-3 sm:py-4 text-white bg-gradient-to-r ${
           item.color.from === 'blue-500' ? 'from-blue-500 to-indigo-600' :
           item.color.from === 'purple-500' ? 'from-purple-500 to-pink-600' :
           item.color.from === 'green-500' ? 'from-green-500 to-emerald-600' :
@@ -28,9 +28,9 @@ export default function SampleViewer({ item, isOpen, onClose }: SampleViewerProp
           'from-indigo-500 to-purple-600'
         }`}>
           <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-bold">{item.title}</h2>
-              <p className="text-blue-100 opacity-90">{item.subtitle}</p>
+            <div className="flex-1 min-w-0 pr-4">
+              <h2 className="text-xl sm:text-2xl font-bold truncate">{item.title}</h2>
+              <p className="text-blue-100 opacity-90 text-sm sm:text-base truncate">{item.subtitle}</p>
             </div>
             <button
               onClick={onClose}
@@ -45,7 +45,7 @@ export default function SampleViewer({ item, isOpen, onClose }: SampleViewerProp
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-100px)]">
+        <div className="p-4 sm:p-6 overflow-y-auto max-h-[calc(95vh-80px)] sm:max-h-[calc(90vh-100px)]">
           {/* Overview */}
           <div className="mb-8">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Project Overview</h3>
@@ -77,22 +77,22 @@ export default function SampleViewer({ item, isOpen, onClose }: SampleViewerProp
             </div>
 
             {/* Project Details */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-              <div className="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">{item.pages}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Pages</div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mb-8">
+              <div className="text-center p-2 sm:p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">{item.pages}</div>
+                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Pages</div>
               </div>
-              <div className="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">{item.year}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Year</div>
+              <div className="text-center p-2 sm:p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">{item.year}</div>
+                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Year</div>
               </div>
-              <div className="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">{item.category}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Type</div>
+              <div className="text-center p-2 sm:p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">{item.category}</div>
+                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Type</div>
               </div>
-              <div className="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">10/10</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Quality</div>
+              <div className="text-center p-2 sm:p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">10/10</div>
+                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Quality</div>
               </div>
             </div>
           </div>
@@ -129,15 +129,53 @@ export default function SampleViewer({ item, isOpen, onClose }: SampleViewerProp
             </div>
           )}
 
-          {/* Sample Content Preview */}
+          {/* Sample Content Preview with Watermark */}
           <div className="mb-8">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Sample Content Preview</h3>
-            <div className="border-l-4 border-indigo-500 pl-4 py-2 bg-gray-50 dark:bg-gray-700 rounded-r-lg">
+            <div className="relative border-l-4 border-indigo-500 pl-4 py-2 bg-gray-50 dark:bg-gray-700 rounded-r-lg">
+              {/* Watermark */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-10 dark:opacity-20 pointer-events-none">
+                <div className="text-6xl font-bold text-gray-500 dark:text-gray-400 rotate-45 select-none">
+                  PRISM WRITING
+                </div>
+              </div>
               <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">Extract from: {item.title}</div>
-              <div className="prose dark:prose-invert max-w-none">
+              <div className="prose dark:prose-invert max-w-none relative z-10">
                 <p className="text-gray-700 dark:text-gray-300 italic">
                   &ldquo;{item.sampleContent.excerpt}&rdquo;
                 </p>
+              </div>
+              {/* Copyright notice */}
+              <div className="mt-4 pt-2 border-t border-gray-200 dark:border-gray-600 text-xs text-gray-500 dark:text-gray-400">
+                © 2024 Prism Writing Cooperative. Sample content for demonstration purposes only.
+              </div>
+            </div>
+          </div>
+
+          {/* Download Section */}
+          <div className="mb-8">
+            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-lg p-6 border border-indigo-200 dark:border-indigo-700">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    Download Complete Sample
+                  </h4>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">
+                    Get the full watermarked PDF sample to review our work quality and approach.
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    // Generate PDF download - we'll implement this function
+                    window.open(`/api/download-sample/${item.id}`, '_blank');
+                  }}
+                  className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2 whitespace-nowrap"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Download PDF
+                </button>
               </div>
             </div>
           </div>

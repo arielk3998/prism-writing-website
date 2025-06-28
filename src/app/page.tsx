@@ -1,4 +1,5 @@
 import Navigation from '../components/layout/Navigation'
+import EnhancedFooter from '../components/layout/EnhancedFooter'
 import HeroSection from '../components/herosection/HeroSection'
 import Link from 'next/link'
 import { siteConfig } from '../config/siteConfig'
@@ -96,6 +97,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Enhanced Footer */}
+      <EnhancedFooter />
     </div>
   )
 }

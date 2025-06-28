@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import { ThemeProvider } from '../components/providers/ThemeProvider'
 import { PasswordProtection } from '../components/auth/PasswordProtection'
 import { AuthProvider } from '../hooks/useAuth'
+import SessionCleaner from '../components/auth/SessionCleaner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -74,6 +75,7 @@ export default function RootLayout({
           storageKey="prism-writing-theme"
         >
           <AuthProvider>
+            <SessionCleaner />
             <PasswordProtection>
               {children}
             </PasswordProtection>

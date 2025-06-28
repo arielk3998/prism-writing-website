@@ -1,5 +1,7 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "framework": "nextjs"
+  "buildCommand": "cd projects/prism-writing-website && npm run build",
+  "outputDirectory": "projects/prism-writing-website/.next",
+  "installCommand": "cd projects/prism-writing-website && npm install",
+  "framework": "nextjs",
+  "rootDirectory": "projects/prism-writing-website"
 }
