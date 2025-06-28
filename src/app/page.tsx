@@ -23,43 +23,8 @@ import {
   ModernFeatureGrid,
   ModernNavigation,
 } from '../components/ui/ModernComponents';
+import { TechIllustration } from '../components/ui/EnhancedGraphics';
 import EnhancedFooter from '../components/layout/EnhancedFooter';
-
-// Modern icon components using SVG
-const DocumentIcon = () => (
-  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-  </svg>
-);
-
-const CodeIcon = () => (
-  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-          d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-  </svg>
-);
-
-const ShieldIcon = () => (
-  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-  </svg>
-);
-
-const UsersIcon = () => (
-  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-          d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-  </svg>
-);
-
-const ChartIcon = () => (
-  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-  </svg>
-);
 
 const CheckIcon = () => (
   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,37 +61,37 @@ export default function Home() {
   // Core features for the feature grid
   const features = [
     {
-      icon: <DocumentIcon />,
+      icon: <TechIllustration type="documentation" size="small" />,
       title: 'Technical Documentation',
       description: 'Comprehensive technical writing services including API docs, user manuals, and SOPs that drive user engagement and reduce support tickets.',
       color: 'bg-blue-100 text-blue-600',
     },
     {
-      icon: <CodeIcon />,
+      icon: <TechIllustration type="api" size="small" />,
       title: 'API Documentation',
       description: 'Developer-focused documentation that makes complex APIs accessible, with interactive examples and clear implementation guides.',
       color: 'bg-green-100 text-green-600',
     },
     {
-      icon: <ShieldIcon />,
+      icon: <TechIllustration type="security" size="small" />,
       title: 'Compliance Documentation',
       description: 'Regulatory compliance documentation for HIPAA, SOX, ISO standards, and industry-specific requirements that keep you audit-ready.',
       color: 'bg-purple-100 text-purple-600',
     },
     {
-      icon: <UsersIcon />,
+      icon: <TechIllustration type="training" size="small" />,
       title: 'User Experience Design',
       description: 'User-centered documentation design that improves product adoption and reduces training costs through intuitive information architecture.',
       color: 'bg-orange-100 text-orange-600',
     },
     {
-      icon: <ChartIcon />,
+      icon: <TechIllustration type="analytics" size="small" />,
       title: 'Analytics & Optimization',
       description: 'Data-driven documentation strategies with performance tracking, user analytics, and continuous optimization for maximum impact.',
       color: 'bg-pink-100 text-pink-600',
     },
     {
-      icon: <CheckIcon />,
+      icon: <TechIllustration type="research" size="small" />,
       title: 'Quality Assurance',
       description: 'Rigorous quality control processes ensuring accuracy, consistency, and brand alignment across all documentation deliverables.',
       color: 'bg-cyan-100 text-cyan-600',
@@ -139,21 +104,21 @@ export default function Home() {
       title: 'API Documentation',
       description: 'Interactive developer guides that accelerate adoption',
       features: ['OpenAPI Integration', 'Code Examples', 'Authentication Guides', 'SDKs & Libraries'],
-      icon: <CodeIcon />,
+      icon: <TechIllustration type="api" size="small" />,
       color: 'from-blue-500 to-purple-600',
     },
     {
       title: 'Standard Operating Procedures',
       description: 'Clear processes that ensure compliance and efficiency',
       features: ['ISO Compliance', 'Process Mapping', 'Training Materials', 'Quality Metrics'],
-      icon: <ShieldIcon />,
+      icon: <TechIllustration type="security" size="small" />,
       color: 'from-green-500 to-teal-600',
     },
     {
       title: 'User Manuals',
       description: 'Intuitive guides that reduce support costs',
       features: ['User Journey Maps', 'Visual Tutorials', 'Troubleshooting', 'Multi-format Publishing'],
-      icon: <DocumentIcon />,
+      icon: <TechIllustration type="documentation" size="small" />,
       color: 'from-purple-500 to-pink-600',
     },
   ];

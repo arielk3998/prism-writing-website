@@ -1,19 +1,62 @@
-import Navigation from '../../components/layout/Navigation';
-import EnhancedFooter from '../../components/layout/EnhancedFooter';
+'use client';
+
+import React from 'react';
 import Link from 'next/link';
+import { ModernNavigation, ModernButton } from '@/components/ui/ModernComponents';
+import EnhancedFooter from '@/components/layout/EnhancedFooter';
+import { DarkModeToggle } from '@/components/ui/DarkModeToggle';
+import ScrollToTop from '@/components/ui/ScrollToTop';
 
 export default function Portal() {
+  // Navigation items
+  const navItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Services', href: '/services' },
+    { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Resources', href: '/resources' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'About', href: '/about' },
+  ];
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      <Navigation currentPage="/portal" />
+      {/* Modern Navigation */}
+      <ModernNavigation
+        logo={
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">P</span>
+            </div>
+            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Prism Writing
+            </span>
+          </Link>
+        }
+        navItems={navItems}
+        actions={
+          <div className="flex items-center space-x-4">
+            <DarkModeToggle />
+            <Link href="/contact">
+              <ModernButton variant="outline" size="sm">
+                Get Quote
+              </ModernButton>
+            </Link>
+            <Link href="/portal">
+              <ModernButton variant="primary" size="sm">
+                Client Portal
+              </ModernButton>
+            </Link>
+          </div>
+        }
+      />
 
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-900 dark:to-blue-900">
+      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <h1 className="text-4xl sm:text-5xl font-bold text-contrast-high mb-6">
             Client Portal
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-contrast mb-8 max-w-3xl mx-auto">
             Access your projects, collaborate with our team, and track progress in real-time through our secure client portal.
           </p>
         </div>
@@ -158,6 +201,7 @@ export default function Portal() {
         </div>
       </section>
 
+      <ScrollToTop />
       <EnhancedFooter />
     </div>
   );

@@ -1,10 +1,17 @@
+'use client';
+
 import React from 'react';
-import { Metadata } from 'next';
+import Link from 'next/link';
 import { 
   ModernCard, 
   ModernSectionHeader, 
-  ModernStats 
+  ModernStats,
+  ModernNavigation,
+  ModernButton
 } from '@/components/ui/ModernComponents';
+import EnhancedFooter from '@/components/layout/EnhancedFooter';
+import { DarkModeToggle } from '@/components/ui/DarkModeToggle';
+import ScrollToTop from '@/components/ui/ScrollToTop';
 import { 
   Users, 
   Target, 
@@ -22,13 +29,16 @@ import {
   Award
 } from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'About Us - Prism Writing',
-  description: 'Learn about Prism Writing\'s mission, values, and cooperative approach to technical writing and documentation services.',
-  keywords: 'about, technical writing cooperative, mission, values, team',
-};
-
 export default function AboutPage() {
+  // Navigation items
+  const navItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Services', href: '/services' },
+    { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Resources', href: '/resources' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'About', href: '/about', isActive: true },
+  ];
   const cooperativeAdvantages = [
     {
       icon: Users,
@@ -122,32 +132,62 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      {/* Modern Navigation */}
+      <ModernNavigation
+        logo={
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">P</span>
+            </div>
+            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Prism Writing
+            </span>
+          </Link>
+        }
+        navItems={navItems}
+        actions={
+          <div className="flex items-center space-x-4">
+            <DarkModeToggle />
+            <Link href="/contact">
+              <ModernButton variant="outline" size="sm">
+                Get Quote
+              </ModernButton>
+            </Link>
+            <Link href="/portal">
+              <ModernButton variant="primary" size="sm">
+                Client Portal
+              </ModernButton>
+            </Link>
+          </div>
+        }
+      />
+
       {/* Hero Section */}
-      <section className="pt-20 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-purple-600/5"></div>
+      <section className="pt-32 pb-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-contrast-high mb-6">
               About
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 ml-3">
                 Prism Writing
               </span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
+            <p className="text-xl text-muted-contrast max-w-3xl mx-auto leading-relaxed mb-8">
               We&apos;re a technical writing cooperative dedicated to transforming complex technical concepts 
               into clear, accessible documentation that empowers users and drives adoption.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-12">
-              <div className="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full text-sm font-medium text-blue-700 border border-blue-200">
+              <div className="inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/30 rounded-full text-sm font-medium text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700">
                 <Check className="w-4 h-4 mr-2" />
                 Cooperative Model
               </div>
-              <div className="inline-flex items-center px-4 py-2 bg-purple-50 rounded-full text-sm font-medium text-purple-700 border border-purple-200">
+              <div className="inline-flex items-center px-4 py-2 bg-purple-50 dark:bg-purple-900/30 rounded-full text-sm font-medium text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-700">
                 <Check className="w-4 h-4 mr-2" />
                 Expert Team
               </div>
-              <div className="inline-flex items-center px-4 py-2 bg-green-50 rounded-full text-sm font-medium text-green-700 border border-green-200">
+              <div className="inline-flex items-center px-4 py-2 bg-green-50 dark:bg-green-900/30 rounded-full text-sm font-medium text-green-700 dark:text-green-300 border border-green-200 dark:border-green-700">
                 <Check className="w-4 h-4 mr-2" />
                 Quality Focused
               </div>
@@ -157,7 +197,7 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white/50">
+      <section className="py-16 bg-gray-50 dark:bg-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ModernStats stats={companyStats} />
         </div>
@@ -172,7 +212,7 @@ export default function AboutPage() {
                 title="Our Mission"
                 subtitle="Bridging the gap between innovative technology and successful user adoption"
               />
-              <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
+              <div className="space-y-6 text-lg text-muted-contrast leading-relaxed">
                 <p>
                   At Prism Writing, we believe that great documentation is the bridge between innovative technology 
                   and successful user adoption. Our mission is to make complex technical information accessible, 
@@ -190,9 +230,9 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="lg:pl-8">
-              <ModernCard className="bg-gradient-to-br from-blue-50 to-purple-50 p-8 border-0">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                  <Users className="w-6 h-6 mr-3 text-blue-600" />
+              <ModernCard className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-8 border-0">
+                <h3 className="text-2xl font-bold text-contrast-high mb-6 flex items-center">
+                  <Users className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
                   Why Choose a Cooperative?
                 </h3>
                 <div className="space-y-4">
@@ -202,8 +242,8 @@ export default function AboutPage() {
                         <advantage.icon className="w-4 h-4 text-white" />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-gray-900 mb-1">{advantage.title}</h4>
-                        <p className="text-gray-600 text-sm">{advantage.description}</p>
+                        <h4 className="font-semibold text-contrast-high mb-1">{advantage.title}</h4>
+                        <p className="text-muted-contrast text-sm">{advantage.description}</p>
                       </div>
                     </div>
                   ))}
@@ -215,7 +255,7 @@ export default function AboutPage() {
       </section>
 
       {/* Expertise Section */}
-      <section className="py-16 bg-white/50">
+      <section className="py-16 bg-gray-50 dark:bg-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ModernSectionHeader
             title="Our Expertise"
@@ -226,13 +266,13 @@ export default function AboutPage() {
             {expertiseAreas.map((area, index) => (
               <div 
                 key={index} 
-                className="group bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
                 <div className={`w-16 h-16 bg-gradient-to-br ${area.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   <area.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{area.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{area.description}</p>
+                <h3 className="text-xl font-semibold text-contrast-high mb-3">{area.title}</h3>
+                <p className="text-muted-contrast leading-relaxed">{area.description}</p>
               </div>
             ))}
           </div>
@@ -254,8 +294,8 @@ export default function AboutPage() {
                   <value.icon className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{value.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                  <h3 className="text-xl font-semibold text-contrast-high mb-2">{value.title}</h3>
+                  <p className="text-muted-contrast leading-relaxed">{value.description}</p>
                 </div>
               </div>
             ))}
@@ -277,14 +317,16 @@ export default function AboutPage() {
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
             Let&apos;s discuss how our cooperative approach can transform your technical documentation.
           </p>
-          <a 
-            href="/contact"
-            className="inline-flex items-center px-8 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-100 transition-colors"
-          >
-            Start a Conversation
-          </a>
+          <Link href="/contact">
+            <ModernButton variant="secondary" size="lg">
+              Start a Conversation
+            </ModernButton>
+          </Link>
         </div>
       </section>
+
+      <ScrollToTop />
+      <EnhancedFooter />
     </div>
   );
 }

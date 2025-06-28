@@ -18,46 +18,10 @@ import {
   ModernButton,
   ModernNavigation,
 } from '../../components/ui/ModernComponents';
+import { EnhancedPortfolioCard, TechIllustration } from '../../components/ui/EnhancedGraphics';
 import EnhancedFooter from '../../components/layout/EnhancedFooter';
-import PortfolioCard from '../../components/portfolio/PortfolioCard';
 import SampleViewer from '../../components/portfolio/SampleViewer';
 import { portfolioItems, PortfolioItem } from '../../data/portfolioData';
-
-// Filter icons
-const AllIcon = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-          d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-  </svg>
-);
-
-const CodeIcon = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-          d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-  </svg>
-);
-
-const DocumentIcon = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-  </svg>
-);
-
-const ShieldIcon = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-  </svg>
-);
-
-const BookIcon = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-  </svg>
-);
 
 export default function Portfolio() {
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
@@ -73,23 +37,117 @@ export default function Portfolio() {
     { label: 'About', href: '/about' },
   ];
 
-  // Filter categories
+  // Map portfolio categories to our enhanced graphics categories
+  const getCategoryKey = (category: string): keyof typeof import('../../components/ui/EnhancedGraphics').CategoryBackgrounds => {
+    const mapping: Record<string, keyof typeof import('../../components/ui/EnhancedGraphics').CategoryBackgrounds> = {
+      'API Documentation': 'api-docs',
+      'SDK Documentation': 'api-docs',
+      'User Guide': 'user-manual',
+      'Installation Guide': 'user-manual',
+      'Process Documentation': 'sop',
+      'Regulatory Documentation': 'compliance',
+      'Technical Specifications': 'sop',
+      'Change Management': 'sop',
+      'Training Materials': 'training',
+      'Research Documentation': 'research'
+    };
+    return mapping[category] || 'user-manual';
+  };
+
+  // Filter categories with enhanced icons
   const filterCategories = [
-    { id: 'all', label: 'All Projects', icon: <AllIcon />, count: portfolioItems.length },
-    { id: 'api-docs', label: 'API Documentation', icon: <CodeIcon />, count: portfolioItems.filter(item => item.category === 'api-docs').length },
-    { id: 'user-manual', label: 'User Manuals', icon: <DocumentIcon />, count: portfolioItems.filter(item => item.category === 'user-manual').length },
-    { id: 'sop', label: 'SOPs', icon: <ShieldIcon />, count: portfolioItems.filter(item => item.category === 'sop').length },
-    { id: 'training', label: 'Training Materials', icon: <BookIcon />, count: portfolioItems.filter(item => item.category === 'training').length },
+    { 
+      id: 'all', 
+      label: 'All Projects', 
+      icon: <TechIllustration type="documentation" size="small" className="w-5 h-5" />, 
+      count: portfolioItems.length 
+    },
+    { 
+      id: 'API Documentation', 
+      label: 'API & SDK', 
+      icon: <TechIllustration type="api" size="small" className="w-5 h-5" />, 
+      count: portfolioItems.filter(item => ['API Documentation', 'SDK Documentation'].includes(item.category)).length 
+    },
+    { 
+      id: 'User Guide', 
+      label: 'User Guides', 
+      icon: <TechIllustration type="documentation" size="small" className="w-5 h-5" />, 
+      count: portfolioItems.filter(item => ['User Guide', 'Installation Guide'].includes(item.category)).length 
+    },
+    { 
+      id: 'Process Documentation', 
+      label: 'Process & SOPs', 
+      icon: <TechIllustration type="security" size="small" className="w-5 h-5" />, 
+      count: portfolioItems.filter(item => ['Process Documentation', 'Technical Specifications', 'Change Management'].includes(item.category)).length 
+    },
+    { 
+      id: 'Training Materials', 
+      label: 'Training', 
+      icon: <TechIllustration type="training" size="small" className="w-5 h-5" />, 
+      count: portfolioItems.filter(item => item.category === 'Training Materials').length 
+    },
+    { 
+      id: 'Research Documentation', 
+      label: 'Research', 
+      icon: <TechIllustration type="research" size="small" className="w-5 h-5" />, 
+      count: portfolioItems.filter(item => ['Research Documentation', 'Regulatory Documentation'].includes(item.category)).length 
+    },
   ];
 
   // Filter portfolio items
   const filteredItems = activeFilter === 'all' 
     ? portfolioItems 
-    : portfolioItems.filter(item => item.category === activeFilter);
+    : portfolioItems.filter(item => {
+        if (activeFilter === 'API Documentation') return ['API Documentation', 'SDK Documentation'].includes(item.category);
+        if (activeFilter === 'User Guide') return ['User Guide', 'Installation Guide'].includes(item.category);
+        if (activeFilter === 'Process Documentation') return ['Process Documentation', 'Technical Specifications', 'Change Management'].includes(item.category);
+        if (activeFilter === 'Research Documentation') return ['Research Documentation', 'Regulatory Documentation'].includes(item.category);
+        return item.category === activeFilter;
+      });
 
   const handleViewSample = (item: PortfolioItem) => {
     setSelectedItem(item);
     setIsViewerOpen(true);
+  };
+
+  const handleDownloadSample = async (sampleId: string) => {
+    try {
+      // Call the download API
+      const response = await fetch(`/api/download-sample/${sampleId}`);
+      
+      if (response.ok) {
+        // Get the filename from the response headers or use a default
+        const contentDisposition = response.headers.get('Content-Disposition');
+        let filename = 'sample.pdf';
+        if (contentDisposition) {
+          const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+          if (filenameMatch) {
+            filename = filenameMatch[1];
+          }
+        }
+
+        // Create a blob and download the file
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } else if (response.status === 501) {
+        // Sample not yet implemented - show demo message
+        const item = portfolioItems.find(item => item.downloadable?.sampleId === sampleId);
+        const filename = item?.downloadable?.filename || 'sample.pdf';
+        alert(`Sample download for "${filename}" is being prepared. This is a demo - in production, a watermarked PDF would be downloaded.`);
+      } else {
+        throw new Error('Download failed');
+      }
+    } catch (error) {
+      console.error('Download error:', error);
+      alert('Sorry, there was an error downloading the sample. Please try again later.');
+    }
   };
 
   const handleCloseViewer = () => {
@@ -128,25 +186,80 @@ export default function Portfolio() {
         }
       />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-100">
-        <div className="max-w-7xl mx-auto text-center">
+      {/* Hero Section with Enhanced Graphics */}
+      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Animated background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+          {/* Floating geometric shapes */}
+          <motion.div
+            className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl opacity-10"
+            animate={{ 
+              y: [0, -20, 0],
+              rotate: [0, 10, 0] 
+            }}
+            transition={{ 
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut" 
+            }}
+          />
+          <motion.div
+            className="absolute top-40 right-20 w-16 h-16 bg-gradient-to-br from-emerald-400 to-cyan-500 rounded-full opacity-10"
+            animate={{ 
+              y: [0, 15, 0],
+              x: [0, 10, 0] 
+            }}
+            transition={{ 
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1 
+            }}
+          />
+          <motion.div
+            className="absolute bottom-20 left-1/4 w-12 h-12 bg-gradient-to-br from-orange-400 to-pink-500 rounded-lg opacity-10"
+            animate={{ 
+              y: [0, -10, 0],
+              rotate: [0, -15, 0] 
+            }}
+            transition={{ 
+              duration: 7,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2 
+            }}
+          />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto text-center">
+          <motion.div
+            className="mb-8"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <TechIllustration type="documentation" size="large" className="mx-auto mb-6" />
+          </motion.div>
+          
           <motion.h1
-            className="text-5xl sm:text-6xl font-bold text-gray-900 mb-6"
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Our Portfolio
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              Our Portfolio
+            </span>
           </motion.h1>
+          
           <motion.p
             className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Explore our collection of high-quality technical documentation across various industries. 
-            Each sample demonstrates our commitment to clarity, usability, and professional excellence.
+            Explore our collection of <span className="font-semibold text-blue-600">high-quality technical documentation</span> across various industries. 
+            Each sample demonstrates our commitment to <span className="font-semibold text-purple-600">clarity, usability, and professional excellence</span>.
           </motion.p>
           
           {/* Portfolio Stats */}
@@ -227,9 +340,16 @@ export default function Portfolio() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <PortfolioCard
-                    item={item}
+                  <EnhancedPortfolioCard
+                    title={item.title}
+                    description={item.description}
+                    category={getCategoryKey(item.category)}
+                    tags={item.tags}
+                    pages={item.pages}
+                    year={item.year}
                     onViewSample={() => handleViewSample(item)}
+                    downloadable={item.downloadable}
+                    onDownload={handleDownloadSample}
                   />
                 </motion.div>
               ))}

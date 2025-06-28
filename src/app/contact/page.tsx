@@ -1,10 +1,28 @@
 'use client';
 
 import React from 'react';
-import { ModernContactForm, ModernSectionHeader } from '@/components/ui/ModernComponents';
+import Link from 'next/link';
+import { 
+  ModernContactForm, 
+  ModernSectionHeader,
+  ModernNavigation,
+  ModernButton
+} from '@/components/ui/ModernComponents';
+import EnhancedFooter from '@/components/layout/EnhancedFooter';
+import { DarkModeToggle } from '@/components/ui/DarkModeToggle';
+import ScrollToTop from '@/components/ui/ScrollToTop';
 import { MapPin, Phone, Mail, Clock, MessageCircle, Zap, Globe, Users } from 'lucide-react';
 
 export default function ContactPage() {
+  // Navigation items
+  const navItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Services', href: '/services' },
+    { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Resources', href: '/resources' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'About', href: '/about' },
+  ];
   const handleContactSubmit = (data: {
     name: string;
     email: string;
@@ -46,32 +64,32 @@ export default function ContactPage() {
       title: "Email Us",
       value: "hello@prismwriting.com",
       subtitle: "We respond within 24 hours",
-      iconBg: "bg-blue-50",
-      iconColor: "text-blue-600"
+      iconBg: "bg-blue-50 dark:bg-blue-900/30",
+      iconColor: "text-blue-600 dark:text-blue-400"
     },
     {
       icon: Phone,
       title: "Call Us",
       value: "+1 (555) 123-4567",
       subtitle: "Mon-Fri 9AM-6PM EST",
-      iconBg: "bg-purple-50",
-      iconColor: "text-purple-600"
+      iconBg: "bg-purple-50 dark:bg-purple-900/30",
+      iconColor: "text-purple-600 dark:text-purple-400"
     },
     {
       icon: MapPin,
       title: "Location",
       value: "Remote-First Company",
       subtitle: "Serving clients worldwide",
-      iconBg: "bg-green-50",
-      iconColor: "text-green-600"
+      iconBg: "bg-green-50 dark:bg-green-900/30",
+      iconColor: "text-green-600 dark:text-green-400"
     },
     {
       icon: Clock,
       title: "Response Time",
       value: "24-48 hours",
       subtitle: "For project inquiries",
-      iconBg: "bg-orange-50",
-      iconColor: "text-orange-600"
+      iconBg: "bg-orange-50 dark:bg-orange-900/30",
+      iconColor: "text-orange-600 dark:text-orange-400"
     }
   ];
 
@@ -95,23 +113,53 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      {/* Modern Navigation */}
+      <ModernNavigation
+        logo={
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">P</span>
+            </div>
+            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Prism Writing
+            </span>
+          </Link>
+        }
+        navItems={navItems}
+        actions={
+          <div className="flex items-center space-x-4">
+            <DarkModeToggle />
+            <Link href="/contact">
+              <ModernButton variant="outline" size="sm">
+                Get Quote
+              </ModernButton>
+            </Link>
+            <Link href="/portal">
+              <ModernButton variant="primary" size="sm">
+                Client Portal
+              </ModernButton>
+            </Link>
+          </div>
+        }
+      />
+
       {/* Hero Section */}
-      <section className="pt-20 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-purple-600/5"></div>
+      <section className="pt-32 pb-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-contrast-high mb-6">
               Let&apos;s Create Something
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 block mt-2">
                 Amazing Together
               </span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
+            <p className="text-xl text-muted-contrast max-w-3xl mx-auto leading-relaxed mb-8">
               Ready to transform your technical documentation? We&apos;re here to help you communicate complex ideas with clarity and impact.
             </p>
-            <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full text-sm font-medium text-gray-700 border border-blue-200/50">
-              <Clock className="w-4 h-4 mr-2 text-blue-600" />
+            <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-full text-sm font-medium text-muted-contrast border border-blue-200/50 dark:border-blue-700/50">
+              <Clock className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" />
               Quick Response • Expert Team • Quality Guaranteed
             </div>
           </div>
@@ -168,15 +216,15 @@ export default function ContactPage() {
               {/* Contact Details Grid */}
               <div className="grid sm:grid-cols-2 gap-6">
                 {contactInfo.map((info, index) => (
-                  <div key={index} className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow duration-300 group">
+                  <div key={index} className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300 group">
                     <div className="flex items-start space-x-4">
-                      <div className={`w-12 h-12 ${info.iconBg} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                      <div className={`w-12 h-12 ${info.iconBg} dark:bg-opacity-20 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                         <info.icon className={`w-6 h-6 ${info.iconColor}`} />
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-lg font-semibold text-gray-900 mb-1">{info.title}</h4>
-                        <p className="text-gray-900 font-medium">{info.value}</p>
-                        <p className="text-sm text-gray-500 mt-1">{info.subtitle}</p>
+                        <h4 className="text-lg font-semibold text-contrast-high mb-1">{info.title}</h4>
+                        <p className="text-contrast-high font-medium">{info.value}</p>
+                        <p className="text-sm text-muted-contrast mt-1">{info.subtitle}</p>
                       </div>
                     </div>
                   </div>
@@ -184,13 +232,13 @@ export default function ContactPage() {
               </div>
 
               {/* FAQ Section */}
-              <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h3>
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-gray-700">
+                <h3 className="text-2xl font-bold text-contrast-high mb-6">Frequently Asked Questions</h3>
                 <div className="space-y-6">
                   {faqs.map((faq, index) => (
-                    <div key={index} className="border-b border-gray-100 last:border-b-0 pb-4 last:pb-0">
-                      <h4 className="font-semibold text-gray-900 mb-2">{faq.question}</h4>
-                      <p className="text-gray-600 text-sm leading-relaxed">{faq.answer}</p>
+                    <div key={index} className="border-b border-gray-100 dark:border-gray-700 last:border-b-0 pb-4 last:pb-0">
+                      <h4 className="font-semibold text-contrast-high mb-2">{faq.question}</h4>
+                      <p className="text-muted-contrast text-sm leading-relaxed">{faq.answer}</p>
                     </div>
                   ))}
                 </div>
@@ -221,6 +269,9 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <ScrollToTop />
+      <EnhancedFooter />
     </div>
   );
 }
