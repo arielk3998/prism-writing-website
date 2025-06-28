@@ -26,9 +26,62 @@ export default function Dashboard({ user }: DashboardProps) {
   const tabs = [
     { id: 'overview', label: 'Overview', icon: '📊' },
     { id: 'files', label: 'Files', icon: '📁' },
-    { id: 'projects', label: 'Projects', icon: '🚀' },
+    ...(user.role === 'client' 
+      ? [{ id: 'requests', label: 'My Requests', icon: '📝' }]
+      : [{ id: 'projects', label: 'Projects', icon: '🚀' }]
+    ),
     { id: 'settings', label: 'Settings', icon: '⚙️' }
   ]
+
+  const getWorkRequests = () => {
+    const workRequests = JSON.parse(localStorage.getItem('workRequests') || '[]')
+    return workRequests.filter((req: any) => req.clientId === user.id)
+  }
+
+  const renderClientRequests = () => {
+    const requests = getWorkRequests()
+    
+    return (
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">My Work Requests</h3>
+        {requests.length === 0 ? (
+          <div className="text-center py-8">
+            <div className="text-4xl mb-4">📝</div>
+            <p className="text-gray-500 dark:text-gray-400 mb-4">No work requests yet</p>
+            <p className="text-sm text-gray-400 dark:text-gray-500">
+              Use the &quot;New Request&quot; tab to submit your first project
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {requests.map((request: any) => (
+              <div key={request.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <div className="flex justify-between items-start mb-2">
+                  <h4 className="font-medium text-gray-900 dark:text-white">{request.title}</h4>
+                  <span className={`px-2 py-1 text-xs rounded-full ${
+                    request.status === 'submitted' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' :
+                    request.status === 'in-progress' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
+                    request.status === 'review' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200' :
+                    request.status === 'completed' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                    'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
+                  }`}>
+                    {request.status.replace('-', ' ').toUpperCase()}
+                  </span>
+                </div>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">{request.description}</p>
+                <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 space-x-4">
+                  <span>Type: {request.type.replace('-', ' ')}</span>
+                  <span>Priority: {request.priority}</span>
+                  {request.deadline && <span>Due: {new Date(request.deadline).toLocaleDateString()}</span>}
+                  {request.budget && <span>Budget: ${request.budget}</span>}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  }
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -51,6 +104,8 @@ export default function Dashboard({ user }: DashboardProps) {
             <p className="text-gray-600 dark:text-gray-300">Project management coming soon...</p>
           </div>
         )
+      case 'requests':
+        return renderClientRequests()
       case 'settings':
         return (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
