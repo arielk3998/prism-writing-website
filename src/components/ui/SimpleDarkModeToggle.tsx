@@ -52,30 +52,17 @@ export function SimpleDarkModeToggle() {
   const toggleTheme = () => {
     if (theme === 'light') {
       setTheme('dark')
-    } else if (theme === 'dark') {
-      setTheme('system')
     } else {
       setTheme('light')
     }
   }
 
   const getIcon = () => {
-    if (theme === 'dark') {
-      return <MoonIcon />
-    } else if (theme === 'light') {
-      return <SunIcon />
-    } else {
-      // System theme - show appropriate icon based on actual preference
-      const systemIsDark = typeof window !== 'undefined' && 
-        window.matchMedia('(prefers-color-scheme: dark)').matches
-      return systemIsDark ? <MoonIcon /> : <SunIcon />
-    }
+    return theme === 'dark' ? <MoonIcon /> : <SunIcon />
   }
 
   const getLabel = () => {
-    if (theme === 'dark') return 'Switch to system theme'
-    if (theme === 'light') return 'Switch to dark mode'
-    return 'Switch to light mode'
+    return theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
   }
 
   return (
