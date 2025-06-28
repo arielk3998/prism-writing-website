@@ -1,101 +1,371 @@
-import Navigation from '../components/layout/Navigation'
-import HeroSection from '../components/herosection/HeroSection'
-import Link from 'next/link'
-import { siteConfig } from '../config/siteConfig'
-import { FeatureCard, IndustryCard } from '../components/shared/Cards'
-import { IconName } from '../components/ui/Icons'
+/**
+ * Prism Writing Homepage - Modern Refactored Version
+ * 
+ * A complete transformation of the homepage using our modern design system
+ * and component library. Features stunning visuals, micro-interactions,
+ * and conversion-focused layout inspired by top technology websites.
+ * 
+ * @module Homepage
+ * @version 3.0.0
+ * @author Prism Writing Cooperative
+ */
+
+'use client';
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import {
+  ModernHero,
+  ModernButton,
+  ModernCard,
+  ModernStats,
+  ModernFeatureGrid,
+  ModernNavigation,
+} from '../components/ui/ModernComponents';
+import EnhancedFooter from '../components/layout/EnhancedFooter';
+
+// Modern icon components using SVG
+const DocumentIcon = () => (
+  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+  </svg>
+);
+
+const CodeIcon = () => (
+  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+          d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+  </svg>
+);
+
+const ShieldIcon = () => (
+  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+  </svg>
+);
+
+const UsersIcon = () => (
+  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+          d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+  </svg>
+);
+
+const ChartIcon = () => (
+  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+          d="M5 13l4 4L19 7" />
+  </svg>
+);
+
+const RocketIcon = () => (
+  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+  </svg>
+);
 
 export default function Home() {
+  // Navigation items
+  const navItems = [
+    { label: 'Home', href: '/', isActive: true },
+    { label: 'Services', href: '/services' },
+    { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Resources', href: '/resources' },
+    { label: 'About', href: '/about' },
+  ];
+
+  // Company statistics
+  const stats = [
+    { value: 500, label: 'Projects Completed', suffix: '+' },
+    { value: 150, label: 'Happy Clients', suffix: '+' },
+    { value: 99, label: 'Success Rate', suffix: '%' },
+    { value: 24, label: 'Hour Support', suffix: '/7' },
+  ];
+
+  // Core features for the feature grid
+  const features = [
+    {
+      icon: <DocumentIcon />,
+      title: 'Technical Documentation',
+      description: 'Comprehensive technical writing services including API docs, user manuals, and SOPs that drive user engagement and reduce support tickets.',
+      color: 'bg-blue-100 text-blue-600',
+    },
+    {
+      icon: <CodeIcon />,
+      title: 'API Documentation',
+      description: 'Developer-focused documentation that makes complex APIs accessible, with interactive examples and clear implementation guides.',
+      color: 'bg-green-100 text-green-600',
+    },
+    {
+      icon: <ShieldIcon />,
+      title: 'Compliance Documentation',
+      description: 'Regulatory compliance documentation for HIPAA, SOX, ISO standards, and industry-specific requirements that keep you audit-ready.',
+      color: 'bg-purple-100 text-purple-600',
+    },
+    {
+      icon: <UsersIcon />,
+      title: 'User Experience Design',
+      description: 'User-centered documentation design that improves product adoption and reduces training costs through intuitive information architecture.',
+      color: 'bg-orange-100 text-orange-600',
+    },
+    {
+      icon: <ChartIcon />,
+      title: 'Analytics & Optimization',
+      description: 'Data-driven documentation strategies with performance tracking, user analytics, and continuous optimization for maximum impact.',
+      color: 'bg-pink-100 text-pink-600',
+    },
+    {
+      icon: <CheckIcon />,
+      title: 'Quality Assurance',
+      description: 'Rigorous quality control processes ensuring accuracy, consistency, and brand alignment across all documentation deliverables.',
+      color: 'bg-cyan-100 text-cyan-600',
+    },
+  ];
+
+  // Service highlights for preview section
+  const serviceHighlights = [
+    {
+      title: 'API Documentation',
+      description: 'Interactive developer guides that accelerate adoption',
+      features: ['OpenAPI Integration', 'Code Examples', 'Authentication Guides', 'SDKs & Libraries'],
+      icon: <CodeIcon />,
+      color: 'from-blue-500 to-purple-600',
+    },
+    {
+      title: 'Standard Operating Procedures',
+      description: 'Clear processes that ensure compliance and efficiency',
+      features: ['ISO Compliance', 'Process Mapping', 'Training Materials', 'Quality Metrics'],
+      icon: <ShieldIcon />,
+      color: 'from-green-500 to-teal-600',
+    },
+    {
+      title: 'User Manuals',
+      description: 'Intuitive guides that reduce support costs',
+      features: ['User Journey Maps', 'Visual Tutorials', 'Troubleshooting', 'Multi-format Publishing'],
+      icon: <DocumentIcon />,
+      color: 'from-purple-500 to-pink-600',
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <Navigation currentPage="/" />
-      
+    <div className="min-h-screen bg-white">
+      {/* Modern Navigation */}
+      <ModernNavigation
+        logo={
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">P</span>
+            </div>
+            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Prism Writing
+            </span>
+          </Link>
+        }
+        navItems={navItems}
+        actions={
+          <div className="flex items-center space-x-4">
+            <Link href="/contact">
+              <ModernButton variant="outline" size="sm">
+                Get Quote
+              </ModernButton>
+            </Link>
+            <Link href="/portal">
+              <ModernButton variant="primary" size="sm">
+                Client Portal
+              </ModernButton>
+            </Link>
+          </div>
+        }
+      />
+
       {/* Hero Section */}
-      <HeroSection />
+      <ModernHero
+        title="Transform Ideas Into Powerful Documentation"
+        subtitle="We create technical documentation that drives business results. From API guides to compliance materials, our expert writers turn complex information into clear, actionable content that your users will love."
+        gradient="linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)"
+      >
+        <Link href="/services">
+          <ModernButton variant="primary" size="lg">
+            Explore Our Services
+          </ModernButton>
+        </Link>
+        <Link href="/portfolio">
+          <ModernButton variant="outline" size="lg">
+            View Our Work
+          </ModernButton>
+        </Link>
+      </ModernHero>
+
+      {/* Statistics Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Trusted by Companies Worldwide
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Our track record speaks for itself. We&apos;ve helped hundreds of companies 
+              create documentation that drives real business impact.
+            </p>
+          </motion.div>
+          <ModernStats stats={stats} />
+        </div>
+      </section>
 
       {/* Features Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-800">
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
-            Why Choose {siteConfig.company.shortName}?
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {siteConfig.features.map((feature) => (
-              <FeatureCard
-                key={feature.id}
-                title={feature.title}
-                description={feature.description}
-                icon={feature.icon as IconName}
-              />
-            ))}
-          </div>
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Why Choose Prism Writing?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              We don&apos;t just write documentation—we create strategic content that drives 
+              user engagement, reduces support costs, and accelerates product adoption.
+            </p>
+          </motion.div>
+          <ModernFeatureGrid features={features} columns={3} />
         </div>
       </section>
 
-      {/* Services Preview */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      {/* Services Preview Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Our Services</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              From API documentation to user manuals, we provide comprehensive technical writing solutions 
-              tailored to your business needs.
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Core Services</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              From API documentation to compliance materials, we provide end-to-end 
+              technical writing solutions that grow with your business.
             </p>
-          </div>
+          </motion.div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {siteConfig.services.map((service) => (
-              <div key={service.id} className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                <div className="bg-indigo-100 dark:bg-indigo-900 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                  {/* Simple icon rendering for homepage preview */}
-                  <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{service.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  {service.description}
-                </p>
-                <ul className="text-sm text-gray-500 dark:text-gray-400 space-y-1">
-                  {service.features.slice(0, 4).map((feature, index) => (
-                    <li key={index}>• {feature}</li>
-                  ))}
-                </ul>
-              </div>
+          <div className="grid lg:grid-cols-3 gap-8 mb-16">
+            {serviceHighlights.map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <ModernCard variant="elevated" className="h-full">
+                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${service.color} text-white mb-6`}>
+                    {service.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 mb-6 leading-relaxed">
+                    {service.description}
+                  </p>
+                  <ul className="space-y-2 mb-6">
+                    {service.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center text-gray-600">
+                        <div className="w-4 h-4 text-green-500 mr-3">
+                          <CheckIcon />
+                        </div>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/services">
+                    <ModernButton variant="outline" size="sm" fullWidth>
+                      Learn More
+                    </ModernButton>
+                  </Link>
+                </ModernCard>
+              </motion.div>
             ))}
           </div>
 
-          {/* Industry Focus */}
-          <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-lg p-8 mb-12">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-center">Industries We Serve</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-              {siteConfig.industries.map((industry) => (
-                <IndustryCard
-                  key={industry.id}
-                  title={industry.title}
-                  description={industry.description}
-                  icon={industry.icon as IconName}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="text-center">
-            <Link 
-              href="/services" 
-              className="inline-flex items-center bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition duration-300"
-            >
-              View All Services & Pricing
-              <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <Link href="/services">
+              <ModernButton variant="primary" size="lg">
+                View All Services & Pricing
+              </ModernButton>
             </Link>
-            <p className="mt-4 text-gray-600 dark:text-gray-300">
-              Need something custom? <Link href="/contact" className="text-indigo-600 dark:text-indigo-400 hover:underline">Let&apos;s discuss your project</Link>
+            <p className="mt-4 text-gray-600">
+              Need something custom?{' '}
+              <Link href="/contact" className="text-blue-600 hover:underline font-medium">
+                Let&apos;s discuss your project
+              </Link>
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
+
+      {/* Call-to-Action Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-purple-600">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20 text-white mb-6">
+              <RocketIcon />
+            </div>
+            <h2 className="text-4xl font-bold text-white mb-6">
+              Ready to Transform Your Documentation?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8 leading-relaxed">
+              Join hundreds of companies who&apos;ve revolutionized their user experience 
+              with our expert technical writing services. Start your project today.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contact">
+                <ModernButton variant="secondary" size="lg">
+                  Start Your Project
+                </ModernButton>
+              </Link>
+              <Link href="/portfolio">
+                <ModernButton variant="outline" size="lg">
+                  See Our Work
+                </ModernButton>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Enhanced Footer */}
+      <EnhancedFooter />
     </div>
-  )
+  );
 }

@@ -1,230 +1,223 @@
-import Navigation from '../../components/layout/Navigation';
-import { siteConfig } from '../../config/siteConfig';
-import Link from 'next/link';
+'use client';
 
-export default function Contact() {
+import React from 'react';
+import { ModernContactForm, ModernSectionHeader } from '@/components/ui/ModernComponents';
+import { MapPin, Phone, Mail, Clock, MessageCircle, Zap, Globe, Users } from 'lucide-react';
+
+export default function ContactPage() {
+  const handleContactSubmit = (data: {
+    name: string;
+    email: string;
+    company: string;
+    service: string;
+    message: string;
+  }) => {
+    // Handle form submission here
+    console.log('Contact form submitted:', data);
+    // In a real implementation, you would send this to your backend
+  };
+
+  const processSteps = [
+    {
+      icon: MessageCircle,
+      title: "Tell Us About Your Project",
+      description: "Share your requirements, timeline, and goals through our contact form."
+    },
+    {
+      icon: Users,
+      title: "Strategy Call",
+      description: "We'll schedule a consultation to understand your needs and provide recommendations."
+    },
+    {
+      icon: Zap,
+      title: "Proposal & Timeline",
+      description: "Receive a detailed proposal with scope, timeline, and transparent pricing."
+    },
+    {
+      icon: Globe,
+      title: "Project Delivery",
+      description: "Experience seamless project execution with regular updates and quality deliverables."
+    }
+  ];
+
+  const contactInfo = [
+    {
+      icon: Mail,
+      title: "Email Us",
+      value: "hello@prismwriting.com",
+      subtitle: "We respond within 24 hours",
+      iconBg: "bg-blue-50",
+      iconColor: "text-blue-600"
+    },
+    {
+      icon: Phone,
+      title: "Call Us",
+      value: "+1 (555) 123-4567",
+      subtitle: "Mon-Fri 9AM-6PM EST",
+      iconBg: "bg-purple-50",
+      iconColor: "text-purple-600"
+    },
+    {
+      icon: MapPin,
+      title: "Location",
+      value: "Remote-First Company",
+      subtitle: "Serving clients worldwide",
+      iconBg: "bg-green-50",
+      iconColor: "text-green-600"
+    },
+    {
+      icon: Clock,
+      title: "Response Time",
+      value: "24-48 hours",
+      subtitle: "For project inquiries",
+      iconBg: "bg-orange-50",
+      iconColor: "text-orange-600"
+    }
+  ];
+
+  const faqs = [
+    {
+      question: "What's your typical turnaround time?",
+      answer: "Most projects are completed within 1-3 weeks, depending on scope and complexity. We provide detailed timelines during our initial consultation."
+    },
+    {
+      question: "Do you offer rush services?",
+      answer: "Yes! We can accommodate urgent projects with 24-48 hour turnaround for an additional fee. Contact us to discuss expedited options."
+    },
+    {
+      question: "What industries do you serve?",
+      answer: "We work with technology companies, startups, healthcare, finance, manufacturing, and many other sectors requiring clear technical communication."
+    },
+    {
+      question: "Do you provide revisions?",
+      answer: "Absolutely! We include up to 3 rounds of revisions in all projects to ensure the final deliverable meets your exact requirements."
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <Navigation currentPage="/contact" />
-
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Let&apos;s Work Together
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto">
-            Ready to transform your technical documentation? Let&apos;s discuss your project and explore how {siteConfig.company.shortName} can help.
-          </p>
-        </div>
-      </section>
-
-      {/* Contact Options */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Information */}
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Get In Touch</h2>
-              
-              <div className="space-y-8">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mr-4">
-                    <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Email Us</h3>
-                    <p className="text-gray-600 dark:text-gray-300 mb-2">
-                      <a href={`mailto:${siteConfig.company.email}`} className="text-indigo-600 dark:text-indigo-400 hover:underline">
-                        {siteConfig.company.email}
-                      </a>
-                    </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {siteConfig.company.responseTime}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mr-4">
-                    <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Call Us</h3>
-                    <p className="text-gray-600 dark:text-gray-300 mb-2">
-                      <a href={`tel:${siteConfig.company.phone}`} className="text-indigo-600 dark:text-indigo-400 hover:underline">
-                        {siteConfig.company.phone}
-                      </a>
-                    </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Business hours: {siteConfig.company.businessHours}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mr-4">
-                    <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Quick Response</h3>
-                    <p className="text-gray-600 dark:text-gray-300 mb-2">
-                      Free {siteConfig.company.consultationDuration} consultation call
-                    </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Available same week for urgent projects
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Project Types */}
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">What Can We Help With?</h2>
-              
-              <div className="grid gap-6">
-                {siteConfig.services.slice(0, 4).map((service) => (
-                  <div key={service.id} className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">
-                      {service.description}
-                    </p>
-                    <p className="text-indigo-600 dark:text-indigo-400 font-medium text-sm">
-                      Starting at ${service.startingPrice.toLocaleString()}
-                    </p>
-                  </div>
-                ))}
-                
-                <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900 dark:to-blue-900 rounded-lg p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    Custom Projects
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">
-                    Don&apos;t see what you need? We work on custom documentation projects and enterprise initiatives.
-                  </p>
-                  <Link 
-                    href="/services"
-                    className="text-indigo-600 dark:text-indigo-400 font-medium text-sm hover:underline"
-                  >
-                    View All Services →
-                  </Link>
-                </div>
-              </div>
+      <section className="pt-20 pb-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-purple-600/5"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+              Let&apos;s Create Something
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 block mt-2">
+                Amazing Together
+              </span>
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
+              Ready to transform your technical documentation? We&apos;re here to help you communicate complex ideas with clarity and impact.
+            </p>
+            <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full text-sm font-medium text-gray-700 border border-blue-200/50">
+              <Clock className="w-4 h-4 mr-2 text-blue-600" />
+              Quick Response • Expert Team • Quality Guaranteed
             </div>
           </div>
         </div>
       </section>
 
-      {/* Process Overview */}
-      <section className="py-16 bg-white dark:bg-gray-900">
+      {/* Process Steps */}
+      <section className="py-16 bg-white/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">How We Work</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Our collaborative process ensures you get exactly what you need, on time and on budget.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">1</span>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Discovery Call</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Free {siteConfig.company.consultationDuration} consultation to understand your needs and goals.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">2</span>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Proposal</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Detailed scope, timeline, and fixed-price quote delivered within 48 hours.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">3</span>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Collaborative Work</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Regular check-ins and feedback loops throughout the project.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">4</span>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Delivery</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Final documentation delivered in your preferred format.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Industries We Serve */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Industries We Serve</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Our expertise spans multiple industries, bringing specialized knowledge to your documentation needs.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {siteConfig.industries.map((industry) => (
-              <div key={industry.id} className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center shadow-lg">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  {industry.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  {industry.description}
-                </p>
+          <ModernSectionHeader
+            title="Our Simple Process"
+            subtitle="From initial contact to final delivery, we make it easy"
+            centered
+          />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+            {processSteps.map((step, index) => (
+              <div key={index} className="text-center group">
+                <div className="relative">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                    <step.icon className="w-8 h-8 text-white" />
+                  </div>
+                  {index < processSteps.length - 1 && (
+                    <div className="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-blue-200 to-purple-200 transform -translate-x-8"></div>
+                  )}
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
+                <p className="text-gray-600 text-sm">{step.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-indigo-600 dark:bg-indigo-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Get Started?
-          </h2>
-          <p className="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
-            Drop us a line and let&apos;s discuss how we can help improve your technical documentation.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href={`mailto:${siteConfig.company.email}?subject=Documentation Project Inquiry`}
-              className="bg-white text-indigo-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-colors inline-block"
-            >
-              Send Email
-            </a>
-            <a
-              href={`tel:${siteConfig.company.phone}`}
-              className="border-2 border-white text-white hover:bg-white hover:text-indigo-600 px-8 py-3 rounded-lg font-semibold transition-colors inline-block"
-            >
-              Call Now
-            </a>
+      {/* Main Contact Section */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full transform translate-x-16 -translate-y-16"></div>
+              <div className="relative">
+                <div className="mb-8">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Get Started Today</h2>
+                  <p className="text-gray-600">
+                    Tell us about your project and we&apos;ll get back to you within 24 hours with a personalized proposal.
+                  </p>
+                </div>
+                <ModernContactForm onSubmit={handleContactSubmit} />
+              </div>
+            </div>
+
+            {/* Contact Information */}
+            <div className="space-y-8">
+              {/* Contact Details Grid */}
+              <div className="grid sm:grid-cols-2 gap-6">
+                {contactInfo.map((info, index) => (
+                  <div key={index} className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow duration-300 group">
+                    <div className="flex items-start space-x-4">
+                      <div className={`w-12 h-12 ${info.iconBg} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                        <info.icon className={`w-6 h-6 ${info.iconColor}`} />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-lg font-semibold text-gray-900 mb-1">{info.title}</h4>
+                        <p className="text-gray-900 font-medium">{info.value}</p>
+                        <p className="text-sm text-gray-500 mt-1">{info.subtitle}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* FAQ Section */}
+              <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h3>
+                <div className="space-y-6">
+                  {faqs.map((faq, index) => (
+                    <div key={index} className="border-b border-gray-100 last:border-b-0 pb-4 last:pb-0">
+                      <h4 className="font-semibold text-gray-900 mb-2">{faq.question}</h4>
+                      <p className="text-gray-600 text-sm leading-relaxed">{faq.answer}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* CTA Card */}
+              <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+                <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
+                <p className="text-blue-100 mb-6">
+                  Join hundreds of satisfied clients who trust us with their technical communication needs.
+                </p>
+                <div className="flex items-center space-x-4 text-sm">
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                    <span>24/7 Support</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                    <span>Quick Turnaround</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                    <span>Quality Guaranteed</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

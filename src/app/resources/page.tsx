@@ -1,15 +1,34 @@
-import Navigation from '../../components/layout/Navigation';
-import EnhancedFooter from '../../components/layout/EnhancedFooter';
-import Link from 'next/link';
+'use client';
 
-export default function Resources() {
+import React, { useState } from 'react';
+import { 
+  ModernCard, 
+  ModernSectionHeader
+} from '@/components/ui/ModernComponents';
+import { 
+  Heart, 
+  Code, 
+  Search, 
+  ExternalLink, 
+  Shield, 
+  CheckCircle, 
+  Eye,
+  BookOpen,
+  FileText
+} from 'lucide-react';
+
+export default function ResourcesPage() {
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+
   const resourceCategories = [
     {
+      id: 'healthcare',
       title: "Healthcare & Life Sciences",
       description: "Compliance standards for healthcare, medical devices, and life sciences documentation",
-      icon: "🏥",
-      color: "bg-green-100 dark:bg-green-900",
-      iconColor: "text-green-600 dark:text-green-400",
+      icon: Heart,
+      color: "from-green-500 to-green-600",
+      bgColor: "bg-green-50",
       resources: [
         {
           name: "HIPAA (Health Insurance Portability and Accountability Act)",
@@ -24,103 +43,16 @@ export default function Resources() {
           url: "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-system-qs-regulationmedical-device-good-manufacturing-practices",
           authority: "U.S. Food and Drug Administration",
           relevance: "Critical for medical device documentation and SOPs"
-        },
-        {
-          name: "ISO 13485 (Medical Devices Quality Management)",
-          description: "International standard for quality management systems in medical devices",
-          url: "https://www.iso.org/standard/59752.html",
-          authority: "International Organization for Standardization",
-          relevance: "Global standard for medical device documentation systems"
-        },
-        {
-          name: "GxP Guidelines (Good Practice Guidelines)",
-          description: "Quality guidelines for pharmaceutical and medical device industries",
-          url: "https://www.fda.gov/drugs/pharmaceutical-quality-resources/facts-about-current-good-manufacturing-practices-cgmps",
-          authority: "FDA and International Regulatory Bodies",
-          relevance: "Essential for pharmaceutical documentation and training"
         }
       ]
     },
     {
-      title: "Manufacturing & Industrial",
-      description: "Safety, quality, and operational standards for manufacturing environments",
-      icon: "🏭",
-      color: "bg-blue-100 dark:bg-blue-900",
-      iconColor: "text-blue-600 dark:text-blue-400",
-      resources: [
-        {
-          name: "OSHA (Occupational Safety and Health Administration)",
-          description: "Workplace safety and health standards and regulations",
-          url: "https://www.osha.gov/",
-          authority: "U.S. Department of Labor",
-          relevance: "Mandatory for all workplace safety documentation and training"
-        },
-        {
-          name: "ISO 9001 (Quality Management Systems)",
-          description: "International standard for quality management systems",
-          url: "https://www.iso.org/iso-9001-quality-management.html",
-          authority: "International Organization for Standardization",
-          relevance: "Foundation for quality documentation and process control"
-        },
-        {
-          name: "ISO 45001 (Occupational Health and Safety)",
-          description: "International standard for occupational health and safety management",
-          url: "https://www.iso.org/iso-45001-occupational-health-and-safety.html",
-          authority: "International Organization for Standardization",
-          relevance: "Global framework for safety management documentation"
-        },
-        {
-          name: "ANSI (American National Standards Institute)",
-          description: "Coordinates U.S. voluntary consensus standards system",
-          url: "https://www.ansi.org/",
-          authority: "American National Standards Institute",
-          relevance: "Source for industry-specific technical standards and documentation"
-        }
-      ]
-    },
-    {
-      title: "Financial Services",
-      description: "Regulatory compliance for financial institutions and fintech companies",
-      icon: "🏦",
-      color: "bg-purple-100 dark:bg-purple-900",
-      iconColor: "text-purple-600 dark:text-purple-400",
-      resources: [
-        {
-          name: "SOX (Sarbanes-Oxley Act)",
-          description: "Financial reporting and corporate governance requirements",
-          url: "https://www.sec.gov/about/laws/soa2002.pdf",
-          authority: "U.S. Securities and Exchange Commission",
-          relevance: "Critical for financial documentation and audit procedures"
-        },
-        {
-          name: "GDPR (General Data Protection Regulation)",
-          description: "Data protection and privacy regulation for EU operations",
-          url: "https://gdpr.eu/",
-          authority: "European Union",
-          relevance: "Essential for data handling procedures and privacy documentation"
-        },
-        {
-          name: "PCI DSS (Payment Card Industry Data Security Standard)",
-          description: "Security standards for credit card data protection",
-          url: "https://www.pcisecuritystandards.org/",
-          authority: "PCI Security Standards Council",
-          relevance: "Required for payment processing documentation and procedures"
-        },
-        {
-          name: "FFIEC Guidelines",
-          description: "Federal financial institutions examination guidelines",
-          url: "https://www.ffiec.gov/",
-          authority: "Federal Financial Institutions Examination Council",
-          relevance: "Banking and financial institution compliance documentation"
-        }
-      ]
-    },
-    {
+      id: 'technology',
       title: "Technology & Software",
       description: "Standards for software development, cybersecurity, and IT operations",
-      icon: "💻",
-      color: "bg-indigo-100 dark:bg-indigo-900",
-      iconColor: "text-indigo-600 dark:text-indigo-400",
+      icon: Code,
+      color: "from-indigo-500 to-indigo-600",
+      bgColor: "bg-indigo-50",
       resources: [
         {
           name: "NIST Cybersecurity Framework",
@@ -135,342 +67,218 @@ export default function Resources() {
           url: "https://www.iso.org/isoiec-27001-information-security.html",
           authority: "International Organization for Standardization",
           relevance: "Global standard for information security documentation"
-        },
-        {
-          name: "ITIL (Information Technology Infrastructure Library)",
-          description: "Best practices for IT service management",
-          url: "https://www.axelos.com/best-practice-solutions/itil",
-          authority: "AXELOS",
-          relevance: "Framework for IT operations and service management documentation"
-        },
-        {
-          name: "WCAG (Web Content Accessibility Guidelines)",
-          description: "Guidelines for making web content accessible to people with disabilities",
-          url: "https://www.w3.org/WAI/WCAG21/quickref/",
-          authority: "World Wide Web Consortium (W3C)",
-          relevance: "Essential for accessible documentation and user interface design"
-        }
-      ]
-    },
-    {
-      title: "Environmental & Safety",
-      description: "Environmental protection and workplace safety standards",
-      icon: "🌱",
-      color: "bg-green-100 dark:bg-green-900",
-      iconColor: "text-green-600 dark:text-green-400",
-      resources: [
-        {
-          name: "EPA (Environmental Protection Agency)",
-          description: "Environmental regulations and compliance requirements",
-          url: "https://www.epa.gov/",
-          authority: "U.S. Environmental Protection Agency",
-          relevance: "Required for environmental compliance documentation"
-        },
-        {
-          name: "ISO 14001 (Environmental Management Systems)",
-          description: "International standard for environmental management systems",
-          url: "https://www.iso.org/iso-14001-environmental-management.html",
-          authority: "International Organization for Standardization",
-          relevance: "Global framework for environmental management documentation"
-        },
-        {
-          name: "OSHA Hazard Communication Standard",
-          description: "Requirements for chemical hazard communication in the workplace",
-          url: "https://www.osha.gov/hazcom/",
-          authority: "Occupational Safety and Health Administration",
-          relevance: "Critical for safety data sheets and chemical handling procedures"
-        },
-        {
-          name: "RCRA (Resource Conservation and Recovery Act)",
-          description: "Federal law governing disposal of solid and hazardous waste",
-          url: "https://www.epa.gov/rcra",
-          authority: "U.S. Environmental Protection Agency",
-          relevance: "Essential for waste management and disposal documentation"
         }
       ]
     }
   ];
 
-  const documentationStandards = [
+  const complianceProcess = [
     {
-      name: "IEEE Standards for Documentation",
-      description: "Professional standards for technical documentation",
-      url: "https://standards.ieee.org/",
-      category: "Technical Writing"
+      icon: Search,
+      title: "Compliance Assessment",
+      description: "We start every project by identifying applicable standards and compliance requirements for your industry."
     },
     {
-      name: "Society for Technical Communication (STC)",
-      description: "Professional organization advancing technical communication",
-      url: "https://www.stc.org/",
-      category: "Professional Development"
+      icon: CheckCircle,
+      title: "Standard Integration",
+      description: "We build compliance requirements directly into our documentation structure and content strategy."
     },
     {
-      name: "Plain Language Guidelines",
-      description: "Federal guidelines for clear government communication",
-      url: "https://www.plainlanguage.gov/",
-      category: "Writing Standards"
-    },
-    {
-      name: "API Documentation Standards",
-      description: "OpenAPI Specification for API documentation",
-      url: "https://swagger.io/specification/",
-      category: "Technical Standards"
+      icon: Eye,
+      title: "Ongoing Monitoring",
+      description: "We stay current with regulatory changes and update documentation to maintain compliance over time."
     }
+  ];
+
+  const filteredCategories = resourceCategories.filter(category => {
+    if (activeFilter === 'all') return true;
+    return category.id === activeFilter;
+  }).filter(category => {
+    if (!searchTerm) return true;
+    return category.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           category.description.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
+  const filterButtons = [
+    { id: 'all', label: 'All Industries' },
+    { id: 'healthcare', label: 'Healthcare' },
+    { id: 'technology', label: 'Technology' }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <Navigation currentPage="/resources" />
-
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Compliance & Standards Resources
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto">
-            Official standards, regulations, and guidelines that inform our documentation practices. 
-            We ensure all deliverables meet or exceed industry compliance requirements.
-          </p>
-        </div>
-      </section>
-
-      {/* Compliance Overview */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Why Compliance Matters
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              In regulated industries, documentation isn&apos;t just about usability—it&apos;s about legal compliance, 
-              safety, and risk management. Our team stays current with all relevant standards to ensure your 
-              documentation meets regulatory requirements.
+      <section className="pt-20 pb-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-purple-600/5"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+              Compliance
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 block mt-2">
+                Resources
+              </span>
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
+              Comprehensive collection of industry standards, compliance requirements, and best practices 
+              for technical documentation across all major sectors.
             </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">⚖️</span>
+            <div className="flex flex-wrap justify-center gap-4">
+              <div className="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full text-sm font-medium text-blue-700 border border-blue-200">
+                <BookOpen className="w-4 h-4 mr-2" />
+                Industry Standards
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Legal Compliance</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Ensure your documentation meets all regulatory requirements and legal standards for your industry.
-              </p>
-            </div>
-            
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🛡️</span>
+              <div className="inline-flex items-center px-4 py-2 bg-purple-50 rounded-full text-sm font-medium text-purple-700 border border-purple-200">
+                <Shield className="w-4 h-4 mr-2" />
+                Compliance Guidelines
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Risk Mitigation</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Proper documentation reduces liability and helps prevent costly compliance violations.
-              </p>
-            </div>
-            
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">✅</span>
+              <div className="inline-flex items-center px-4 py-2 bg-green-50 rounded-full text-sm font-medium text-green-700 border border-green-200">
+                <FileText className="w-4 h-4 mr-2" />
+                Best Practices
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Audit Readiness</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Well-documented processes and procedures make audits smoother and more successful.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Industry Standards */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">
-            Industry-Specific Standards
-          </h2>
-          
-          <div className="space-y-12">
-            {resourceCategories.map((category, categoryIndex) => (
-              <div key={categoryIndex} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-                <div className={`${category.color} px-6 py-4`}>
-                  <div className="flex items-center">
-                    <span className="text-3xl mr-4">{category.icon}</span>
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                        {category.title}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-300">
-                        {category.description}
-                      </p>
-                    </div>
+      {/* Search and Filter Section */}
+      <section className="py-8 bg-white/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+            {/* Search */}
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search resources..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            {/* Filter Buttons */}
+            <div className="flex flex-wrap gap-2">
+              {filterButtons.map((button) => (
+                <button
+                  key={button.id}
+                  onClick={() => setActiveFilter(button.id)}
+                  className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+                    activeFilter === button.id
+                      ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
+                      : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
+                  }`}
+                >
+                  {button.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Resources Grid */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8">
+            {filteredCategories.map((category, categoryIndex) => (
+              <ModernCard key={categoryIndex} className="p-8">
+                <div className="flex items-start space-x-6 mb-8">
+                  <div className={`w-16 h-16 bg-gradient-to-br ${category.color} rounded-2xl flex items-center justify-center flex-shrink-0`}>
+                    <category.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-2">{category.title}</h2>
+                    <p className="text-gray-600 text-lg">{category.description}</p>
                   </div>
                 </div>
-                
-                <div className="p-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {category.resources.map((resource, resourceIndex) => (
-                      <div key={resourceIndex} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
-                        <div className="flex items-start justify-between mb-3">
-                          <h4 className="font-semibold text-gray-900 dark:text-white text-lg">
-                            {resource.name}
-                          </h4>
-                          <a
-                            href={resource.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 ml-2 flex-shrink-0"
-                          >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                          </a>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  {category.resources.map((resource, resourceIndex) => (
+                    <div key={resourceIndex} className={`${category.bgColor} rounded-xl p-6 hover:shadow-md transition-shadow duration-200`}>
+                      <div className="flex items-start justify-between mb-4">
+                        <h3 className="text-lg font-semibold text-gray-900 flex-1">{resource.name}</h3>
+                        <a
+                          href={resource.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="ml-3 p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                        >
+                          <ExternalLink className="w-5 h-5" />
+                        </a>
+                      </div>
+                      <p className="text-gray-700 mb-4 leading-relaxed">{resource.description}</p>
+                      <div className="space-y-2 text-sm">
+                        <div>
+                          <span className="font-medium text-gray-900">Authority: </span>
+                          <span className="text-gray-600">{resource.authority}</span>
                         </div>
-                        <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">
-                          {resource.description}
-                        </p>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">
-                          <strong>Authority:</strong> {resource.authority}
-                        </div>
-                        <div className="text-xs text-indigo-600 dark:text-indigo-400">
-                          <strong>Relevance:</strong> {resource.relevance}
+                        <div>
+                          <span className="font-medium text-gray-900">Relevance: </span>
+                          <span className="text-gray-600">{resource.relevance}</span>
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
+              </ModernCard>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Documentation Standards */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">
-            Professional Documentation Standards
-          </h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {documentationStandards.map((standard, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900 px-2 py-1 rounded-full">
-                    {standard.category}
-                  </span>
-                  <a
-                    href={standard.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </a>
+      {/* Compliance Process Section */}
+      <section className="py-16 bg-white/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ModernSectionHeader
+            title="Our Compliance Approach"
+            subtitle="How we ensure your documentation meets all relevant industry standards"
+            centered
+          />
+          <div className="grid md:grid-cols-3 gap-8 mt-12">
+            {complianceProcess.map((step, index) => (
+              <div key={index} className="text-center group">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <step.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
-                  {standard.name}
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  {standard.description}
-                </p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">{step.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{step.description}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How We Apply These Standards */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              How We Apply These Standards
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Our team doesn&apos;t just reference these standards—we actively incorporate them into every project.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-              <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                Compliance Assessment
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                We start every project by identifying applicable standards and compliance requirements for your industry.
-              </p>
-            </div>
-            
-            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-              <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                Standard Integration
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                We build compliance requirements directly into our documentation structure and content strategy.
-              </p>
-            </div>
-            
-            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                Ongoing Monitoring
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                We stay current with regulatory changes and update documentation to maintain compliance over time.
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-indigo-600 dark:bg-indigo-700">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">
+      <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-600 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="w-full h-full bg-repeat" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+          }}></div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Need Compliant Documentation?
           </h2>
-          <p className="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
             Let our experts ensure your documentation meets all relevant industry standards and regulatory requirements.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
+            <a
               href="/contact"
-              className="inline-flex items-center bg-white text-indigo-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold text-lg transition duration-300"
+              className="inline-flex items-center px-8 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-100 transition-colors"
             >
               Discuss Your Compliance Needs
-              <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-            <Link 
+              <ExternalLink className="ml-2 w-5 h-5" />
+            </a>
+            <a
               href="/services"
-              className="inline-flex items-center border-2 border-white text-white hover:bg-white hover:text-indigo-600 px-8 py-3 rounded-lg font-semibold text-lg transition duration-300"
+              className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-blue-600 transition-colors"
             >
               View Our Services
-            </Link>
+            </a>
           </div>
         </div>
       </section>
-
-      {/* Enhanced Footer */}
-      <EnhancedFooter />
     </div>
   );
 }

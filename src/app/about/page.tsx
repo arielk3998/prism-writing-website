@@ -1,251 +1,286 @@
-import Navigation from '../../components/layout/Navigation';
-import { siteConfig } from '../../config/siteConfig';
+import React from 'react';
+import { Metadata } from 'next';
+import { 
+  ModernCard, 
+  ModernSectionHeader, 
+  ModernStats 
+} from '@/components/ui/ModernComponents';
+import { 
+  Users, 
+  Target, 
+  Heart, 
+  Lightbulb, 
+  Code, 
+  Briefcase, 
+  BookOpen, 
+  Shield, 
+  Palette, 
+  Edit,
+  Zap,
+  Globe,
+  Check,
+  Award
+} from 'lucide-react';
 
-export default function About() {
+export const metadata: Metadata = {
+  title: 'About Us - Prism Writing',
+  description: 'Learn about Prism Writing\'s mission, values, and cooperative approach to technical writing and documentation services.',
+  keywords: 'about, technical writing cooperative, mission, values, team',
+};
+
+export default function AboutPage() {
+  const cooperativeAdvantages = [
+    {
+      icon: Users,
+      title: "Shared Expertise",
+      description: "Multiple writers collaborate on complex projects, bringing diverse perspectives and specialized knowledge."
+    },
+    {
+      icon: Award,
+      title: "Quality Assurance",
+      description: "Peer review ensures consistent high standards and catches issues before delivery."
+    },
+    {
+      icon: Heart,
+      title: "Fair Practices",
+      description: "Transparent pricing and ethical business model that values both writers and clients."
+    },
+    {
+      icon: Lightbulb,
+      title: "Innovation",
+      description: "Collective knowledge drives innovative solutions to complex documentation challenges."
+    }
+  ];
+
+  const expertiseAreas = [
+    {
+      icon: Code,
+      title: "Software Development",
+      description: "Former developers and engineers who understand code, APIs, and software architecture from the inside out.",
+      color: "from-blue-500 to-blue-600"
+    },
+    {
+      icon: Briefcase,
+      title: "Business & Strategy",
+      description: "MBAs and business analysts who excel at translating technical capabilities into business value.",
+      color: "from-green-500 to-green-600"
+    },
+    {
+      icon: BookOpen,
+      title: "Education & Training",
+      description: "Instructional designers and educators who specialize in learning-focused documentation and training materials.",
+      color: "from-purple-500 to-purple-600"
+    },
+    {
+      icon: Shield,
+      title: "Compliance & Regulatory",
+      description: "Legal and compliance experts who navigate complex regulatory requirements across industries.",
+      color: "from-indigo-500 to-indigo-600"
+    },
+    {
+      icon: Palette,
+      title: "User Experience",
+      description: "UX researchers and designers who ensure documentation serves real user needs and workflows.",
+      color: "from-pink-500 to-pink-600"
+    },
+    {
+      icon: Edit,
+      title: "Content Strategy",
+      description: "Marketing and content strategists who understand how documentation fits into broader customer journeys.",
+      color: "from-orange-500 to-orange-600"
+    }
+  ];
+
+  const coreValues = [
+    {
+      icon: Zap,
+      title: "Clarity First",
+      description: "We prioritize clear, concise communication over technical jargon. If users can't understand it, we haven't done our job."
+    },
+    {
+      icon: Users,
+      title: "Collaborative Excellence",
+      description: "We work closely with your team to understand context, goals, and user needs. The best documentation comes from partnership."
+    },
+    {
+      icon: Target,
+      title: "User-Centered Design",
+      description: "Every document we create is designed with the end user in mind. We consider their context, skills, and goals at every step."
+    },
+    {
+      icon: Globe,
+      title: "Continuous Improvement",
+      description: "We measure the success of our documentation through user feedback and analytics, constantly refining our approach."
+    }
+  ];
+
+  const companyStats = [
+    { label: "Years of Experience", value: 10, suffix: "+" },
+    { label: "Projects Completed", value: 500, suffix: "+" },
+    { label: "Client Satisfaction", value: 98, suffix: "%" },
+    { label: "Industries Served", value: 25, suffix: "+" }
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <Navigation currentPage="/about" />
-
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            About {siteConfig.company.shortName}
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto">
-            We&apos;re a technical writing cooperative dedicated to transforming complex technical concepts 
-            into clear, accessible documentation that empowers users and drives adoption.
-          </p>
+      <section className="pt-20 pb-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-purple-600/5"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+              About
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 ml-3">
+                Prism Writing
+              </span>
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
+              We&apos;re a technical writing cooperative dedicated to transforming complex technical concepts 
+              into clear, accessible documentation that empowers users and drives adoption.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 mb-12">
+              <div className="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full text-sm font-medium text-blue-700 border border-blue-200">
+                <Check className="w-4 h-4 mr-2" />
+                Cooperative Model
+              </div>
+              <div className="inline-flex items-center px-4 py-2 bg-purple-50 rounded-full text-sm font-medium text-purple-700 border border-purple-200">
+                <Check className="w-4 h-4 mr-2" />
+                Expert Team
+              </div>
+              <div className="inline-flex items-center px-4 py-2 bg-green-50 rounded-full text-sm font-medium text-green-700 border border-green-200">
+                <Check className="w-4 h-4 mr-2" />
+                Quality Focused
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-white/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ModernStats stats={companyStats} />
         </div>
       </section>
 
       {/* Mission Section */}
-      <section className="py-16 bg-white dark:bg-gray-900">
+      <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Our Mission
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                At {siteConfig.company.shortName}, we believe that great documentation is the bridge between innovative technology 
-                and successful user adoption. Our mission is to make complex technical information accessible, 
-                actionable, and engaging for diverse audiences.
-              </p>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                As a cooperative, we bring together experienced technical writers who share a commitment to 
-                excellence, collaboration, and continuous learning. This structure allows us to offer specialized 
-                expertise while maintaining the agility and personal attention of a boutique firm.
-              </p>
-              <p className="text-lg text-gray-600 dark:text-gray-300">
-                Our cooperative model ensures fair compensation for our writers while delivering exceptional 
-                value to our clients through collaborative expertise and shared accountability.
-              </p>
+              <ModernSectionHeader
+                title="Our Mission"
+                subtitle="Bridging the gap between innovative technology and successful user adoption"
+              />
+              <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
+                <p>
+                  At Prism Writing, we believe that great documentation is the bridge between innovative technology 
+                  and successful user adoption. Our mission is to make complex technical information accessible, 
+                  actionable, and engaging for diverse audiences.
+                </p>
+                <p>
+                  As a cooperative, we bring together experienced technical writers who share a commitment to 
+                  excellence, collaboration, and continuous learning. This structure allows us to offer specialized 
+                  expertise while maintaining the agility and personal attention of a boutique firm.
+                </p>
+                <p>
+                  Our cooperative model ensures fair compensation for our writers while delivering exceptional 
+                  value to our clients through collaborative expertise and shared accountability.
+                </p>
+              </div>
             </div>
             <div className="lg:pl-8">
-              <div className="bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-900 dark:to-blue-900 rounded-lg p-8">
-                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Why Choose a Cooperative?</h3>
-                <ul className="space-y-4">
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white">Shared Expertise</h4>
-                      <p className="text-gray-600 dark:text-gray-300">Multiple writers collaborate on complex projects</p>
+              <ModernCard className="bg-gradient-to-br from-blue-50 to-purple-50 p-8 border-0">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                  <Users className="w-6 h-6 mr-3 text-blue-600" />
+                  Why Choose a Cooperative?
+                </h3>
+                <div className="space-y-4">
+                  {cooperativeAdvantages.map((advantage, index) => (
+                    <div key={index} className="flex items-start space-x-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <advantage.icon className="w-4 h-4 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900 mb-1">{advantage.title}</h4>
+                        <p className="text-gray-600 text-sm">{advantage.description}</p>
+                      </div>
                     </div>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white">Quality Assurance</h4>
-                      <p className="text-gray-600 dark:text-gray-300">Peer review ensures consistent high standards</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white">Fair Practices</h4>
-                      <p className="text-gray-600 dark:text-gray-300">Transparent pricing and ethical business model</p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+                  ))}
+                </div>
+              </ModernCard>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Our Expertise</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Our cooperative brings together writers with diverse backgrounds and specialized knowledge across industries and technologies.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-              <div className="w-16 h-16 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                </svg>
+      {/* Expertise Section */}
+      <section className="py-16 bg-white/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ModernSectionHeader
+            title="Our Expertise"
+            subtitle="Our cooperative brings together writers with diverse backgrounds and specialized knowledge across industries and technologies"
+            centered
+          />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+            {expertiseAreas.map((area, index) => (
+              <div 
+                key={index} 
+                className="group bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className={`w-16 h-16 bg-gradient-to-br ${area.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <area.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">{area.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{area.description}</p>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Software Development</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Former developers and engineers who understand code, APIs, and software architecture from the inside out.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-              <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 4h6m-6 4h6" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Business & Strategy</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                MBAs and business analysts who excel at translating technical capabilities into business value.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-              <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Education & Training</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Instructional designers and educators who specialize in learning-focused documentation and training materials.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Compliance & Regulatory</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Legal and compliance experts who navigate complex regulatory requirements in healthcare, finance, and manufacturing.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-              <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">User Experience</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                UX researchers and designers who ensure documentation serves real user needs and workflows.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-              <div className="w-16 h-16 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Content Strategy</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Marketing and content strategists who understand how documentation fits into broader customer journeys.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Values Section */}
-      <section className="py-16 bg-white dark:bg-gray-900">
+      <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Our Values</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              These principles guide everything we do, from how we work together to how we serve our clients.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="flex items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mr-4">
-                <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+          <ModernSectionHeader
+            title="Our Values"
+            subtitle="These principles guide everything we do, from how we work together to how we serve our clients"
+            centered
+          />
+          <div className="grid md:grid-cols-2 gap-8 mt-12">
+            {coreValues.map((value, index) => (
+              <div key={index} className="flex items-start space-x-4 group">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  <value.icon className="w-6 h-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{value.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Clarity First</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  We prioritize clear, concise communication over technical jargon. If users can&apos;t understand it, we haven&apos;t done our job.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mr-4">
-                <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Collaborative Excellence</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  We work closely with your team to understand context, goals, and user needs. The best documentation comes from partnership.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mr-4">
-                <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">User-Centered Design</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Every document we create is designed with the end user in mind. We consider their context, skills, and goals at every step.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mr-4">
-                <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Continuous Improvement</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  We measure the success of our documentation through user feedback and analytics, constantly refining our approach.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-indigo-600 dark:bg-indigo-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+      <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-600 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="w-full h-full bg-repeat" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+          }}></div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Work Together?
           </h2>
-          <p className="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
             Let&apos;s discuss how our cooperative approach can transform your technical documentation.
           </p>
-          <a href="/contact" className="bg-white text-indigo-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-colors inline-block">
+          <a 
+            href="/contact"
+            className="inline-flex items-center px-8 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-100 transition-colors"
+          >
             Start a Conversation
           </a>
         </div>
