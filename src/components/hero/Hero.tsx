@@ -1,20 +1,36 @@
+'use client'
+
 interface HeroProps {
-  // TODO: Define props based on: create a simple hero section component with a call-to-action button
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
+  onButtonClick?: () => void;
 }
 
-export default function Hero({ }: HeroProps) {
+export default function Hero({ 
+  title = "Transform Your Ideas Into Compelling Content",
+  subtitle = "Professional writing services that engage your audience and drive results",
+  buttonText = "Get Started Today",
+  onButtonClick
+}: HeroProps) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-        Hero
-      </h2>
-      
-      {/* TODO: Implement hero functionality based on: create a simple hero section component with a call-to-action button */}
-      <div className="space-y-4">
-        <p className="text-gray-600 dark:text-gray-300">
-          Hero content will be implemented here.
+    <section className="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+          {title}
+        </h1>
+        
+        <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+          {subtitle}
         </p>
+        
+        <button
+          onClick={onButtonClick}
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-lg text-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+        >
+          {buttonText}
+        </button>
       </div>
-    </div>
+    </section>
   )
 }

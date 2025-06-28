@@ -1,13 +1,9 @@
 import Navigation from '../components/layout/Navigation'
 import HeroSection from '../components/herosection/HeroSection'
 import Link from 'next/link'
-import HeroSection from '../components/herosection/HeroSection'
 import { siteConfig } from '../config/siteConfig'
-import HeroSection from '../components/herosection/HeroSection'
 import { FeatureCard, IndustryCard } from '../components/shared/Cards'
-import HeroSection from '../components/herosection/HeroSection'
 import { IconName } from '../components/ui/Icons'
-import HeroSection from '../components/herosection/HeroSection'
 
 export default function Home() {
   return (
@@ -15,37 +11,7 @@ export default function Home() {
       <Navigation currentPage="/" />
       
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            {siteConfig.company.tagline.split(' ').slice(0, -2).join(' ')}
-            <span className="text-indigo-600 dark:text-indigo-400 block">
-              {siteConfig.company.tagline.split(' ').slice(-2).join(' ')}
-            </span>
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-            {siteConfig.company.description}
-          </p>
-          
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Link 
-              href={siteConfig.cta.primary.href}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition duration-300"
-            >
-              {siteConfig.cta.primary.text}
-            </Link>
-            <Link 
-              href={siteConfig.cta.secondary.href}
-              className="bg-white dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 border-2 border-indigo-600 dark:border-indigo-400 px-8 py-3 rounded-lg font-semibold text-lg hover:bg-indigo-50 dark:hover:bg-gray-700 transition duration-300"
-            >
-              {siteConfig.cta.secondary.text}
-            </Link>
-          <HeroSection />
-          </div>
-        <HeroSection />
-        </div>
-      </section>
+      <HeroSection />
 
       {/* Features Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-800">
@@ -62,9 +28,7 @@ export default function Home() {
                 icon={feature.icon as IconName}
               />
             ))}
-          <HeroSection />
           </div>
-        <HeroSection />
         </div>
       </section>
 
@@ -77,7 +41,6 @@ export default function Home() {
               From API documentation to user manuals, we provide comprehensive technical writing solutions 
               tailored to your business needs.
             </p>
-          <HeroSection />
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
@@ -88,7 +51,6 @@ export default function Home() {
                   <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                <HeroSection />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{service.title}</h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">
@@ -99,10 +61,8 @@ export default function Home() {
                     <li key={index}>• {feature}</li>
                   ))}
                 </ul>
-              <HeroSection />
               </div>
             ))}
-          <HeroSection />
           </div>
 
           {/* Industry Focus */}
@@ -117,9 +77,7 @@ export default function Home() {
                   icon={industry.icon as IconName}
                 />
               ))}
-            <HeroSection />
             </div>
-          <HeroSection />
           </div>
 
           <div className="text-center">
@@ -135,12 +93,9 @@ export default function Home() {
             <p className="mt-4 text-gray-600 dark:text-gray-300">
               Need something custom? <Link href="/contact" className="text-indigo-600 dark:text-indigo-400 hover:underline">Let&apos;s discuss your project</Link>
             </p>
-          <HeroSection />
           </div>
-        <HeroSection />
         </div>
       </section>
-    <HeroSection />
     </div>
   )
 }

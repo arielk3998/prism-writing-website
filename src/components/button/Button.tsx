@@ -1,20 +1,47 @@
+'use client'
+
+import { ReactNode } from 'react';
+
 interface ButtonProps {
-  // TODO: Define props based on: create a simple hero section component with a call-to-action button
+  children: ReactNode;
+  onClick?: () => void;
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
+  className?: string;
 }
 
-export default function Button({ }: ButtonProps) {
+export default function Button({ 
+  children,
+  onClick,
+  variant = 'primary',
+  size = 'md',
+  disabled = false,
+  className = ''
+}: ButtonProps) {
+  const baseClasses = 'font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
+  
+  const variantClasses = {
+    primary: 'bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500',
+    secondary: 'bg-gray-600 hover:bg-gray-700 text-white focus:ring-gray-500',
+    outline: 'border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white focus:ring-blue-500'
+  };
+  
+  const sizeClasses = {
+    sm: 'py-2 px-4 text-sm',
+    md: 'py-3 px-6 text-base',
+    lg: 'py-4 px-8 text-lg'
+  };
+  
+  const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : '';
+  
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-        Button
-      </h2>
-      
-      {/* TODO: Implement button functionality based on: create a simple hero section component with a call-to-action button */}
-      <div className="space-y-4">
-        <p className="text-gray-600 dark:text-gray-300">
-          Button content will be implemented here.
-        </p>
-      </div>
-    </div>
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${disabledClasses} ${className}`}
+    >
+      {children}
+    </button>
   )
 }
