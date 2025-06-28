@@ -55,20 +55,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const demoUsers = [
         {
           id: '1',
+          name: 'Ariel Karagodskiy',
+          email: 'Ariel.karagodskiy2gmail.com',
+          role: 'admin' as const,
+          password: 'Merlak0105!'
+        },
+        {
+          id: '2',
+          name: 'Margot',
+          email: 'MMRK2015@gmail.com',
+          role: 'admin' as const,
+          password: 'Margot93!'
+        },
+        {
+          id: '3',
           name: 'Admin User',
           email: 'admin@prismwriting.com',
           role: 'admin' as const,
           password: 'admin123'
         },
         {
-          id: '2', 
+          id: '4', 
           name: 'Team Member',
           email: 'member@prismwriting.com',
           role: 'member' as const,
           password: 'member123'
         },
         {
-          id: '3',
+          id: '5',
           name: 'Client User',
           email: 'client@example.com', 
           role: 'client' as const,
