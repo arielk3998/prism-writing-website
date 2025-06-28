@@ -56,7 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         {
           id: '1',
           name: 'Ariel Karagodskiy',
-          email: 'Ariel.karagodskiy2gmail.com',
+          email: 'Ariel.karagodskiy@gmail.com',
           role: 'admin' as const,
           password: 'Merlak0105!'
         },
