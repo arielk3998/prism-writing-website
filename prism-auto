@@ -1,0 +1,5 @@
+#!/bin/bash
+# Prism Auto Complete - Development Automation
+cd "$(dirname "$0")"
+source automation/.venv/bin/activate
+python automation/prism_auto_complete.py "$@"

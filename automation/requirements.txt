@@ -1,0 +1,19 @@
+# Python dependencies for Prism Auto automation tool
+
+# Core dependencies (required)
+pyyaml>=6.0
+
+# Optional AI service integrations (will work without these)
+# anthropic>=0.3.0
+# openai>=1.0.0
+
+# Optional development utilities
+# click>=8.0.0
+# rich>=13.0.0
+# python-dotenv>=1.0.0
+
+# Optional: Advanced features
+# gitpython>=3.1.0  # For advanced git operations
+# jinja2>=3.1.0     # For template rendering
+# watchdog>=3.0.0   # For file watching
+# psutil>=5.9.0     # For system monitoring

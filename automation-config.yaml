@@ -1,0 +1,134 @@
+# Prism Writing Development Automation Configuration
+
+project:
+  name: "prism-writing-website"
+  type: "nextjs"
+  framework: "react-typescript"
+  src_dir: "src"
+  components_dir: "src/components"
+  pages_dir: "src/app"
+  config_dir: "src/config"
+
+automation:
+  auto_commit: true
+  auto_deploy: true
+  run_tests: true
+  generate_docs: true
+  backup_before_changes: true
+  max_file_size_mb: 10
+  allowed_file_types: [".tsx", ".ts", ".js", ".jsx", ".css", ".scss", ".md", ".json", ".yaml"]
+
+git:
+  main_branch: "master"
+  auto_push: false
+  commit_message_prefix: "feat"
+  branch_naming: "feature/{request-type}-{timestamp}"
+
+deployment:
+  platform: "vercel"
+  production_url: "https://prismwriting.com"
+  staging_url: "https://prism-writing-website-staging.vercel.app"
+  build_command: "npm run build"
+  output_directory: ".next"
+  environment_variables:
+    - "NODE_ENV"
+    - "NEXT_PUBLIC_SITE_URL"
+
+ai_assistant:
+  model: "claude-3.5-sonnet"
+  max_iterations: 10
+  confidence_threshold: 0.8
+  context_window: 200000
+  temperature: 0.1
+
+testing:
+  build_test: true
+  lint_test: true
+  type_check: true
+  unit_tests: false  # Add when test framework is set up
+  e2e_tests: false   # Add when Playwright/Cypress is set up
+  performance_tests: false
+  accessibility_tests: false
+
+quality_gates:
+  max_build_time_minutes: 5
+  max_bundle_size_mb: 5
+  min_lighthouse_score: 90
+  max_lint_errors: 0
+  max_type_errors: 0
+
+notifications:
+  slack_webhook: null
+  email_recipients: []
+  discord_webhook: null
+
+file_templates:
+  component: |
+    'use client'
+    
+    interface {ComponentName}Props {
+      // Add props here
+    }
+    
+    export default function {ComponentName}({ }: {ComponentName}Props) {
+      return (
+        <div className="">
+          {/* Component content */}
+        </div>
+      );
+    }
+  
+  page: |
+    import Navigation from '../components/layout/Navigation';
+    import { siteConfig } from '../config/siteConfig';
+    
+    export default function {PageName}() {
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+          <Navigation currentPage="/{page-slug}" />
+          
+          {/* Page content */}
+          <main className="py-20 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
+                {PageName}
+              </h1>
+            </div>
+          </main>
+        </div>
+      );
+    }
+
+request_patterns:
+  new_page:
+    keywords: ["new page", "create page", "add page"]
+    files_to_create: ["src/app/{page}/page.tsx"]
+    template: "page"
+  
+  component:
+    keywords: ["component", "widget", "ui element"]
+    files_to_create: ["src/components/{category}/{ComponentName}.tsx"]
+    template: "component"
+  
+  enhancement:
+    keywords: ["enhance", "improve", "update", "modify"]
+    files_to_modify: ["existing"]
+    
+  bugfix:
+    keywords: ["fix", "bug", "error", "issue"]
+    files_to_modify: ["existing"]
+    priority: "high"
+  
+  styling:
+    keywords: ["style", "css", "design", "theme"]
+    files_to_modify: ["tailwind.config.ts", "src/app/globals.css"]
+
+common_dependencies:
+  forms: ["react-hook-form", "@hookform/resolvers", "zod"]
+  animations: ["framer-motion", "react-spring"]
+  icons: ["lucide-react", "react-icons"]
+  utilities: ["clsx", "tailwind-merge"]
+  date: ["date-fns", "dayjs"]
+  charts: ["recharts", "chart.js"]
+  markdown: ["react-markdown", "remark-gfm"]
+  validation: ["zod", "yup"]
