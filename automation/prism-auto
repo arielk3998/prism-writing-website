@@ -1,0 +1,90 @@
+#!/bin/bash
+# Prism Auto - Quick wrapper script for the automation system
+
+set -e
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+NC='\033[0m' # No Color
+
+# Banner
+echo -e "${PURPLE}"
+echo "╔═══════════════════════════════════════════════════════════════╗"
+echo "║                         PRISM AUTO                           ║"
+echo "║            Development Automation for Prism Writing          ║"
+echo "╚═══════════════════════════════════════════════════════════════╝"
+echo -e "${NC}"
+
+# Check if Python is available
+if ! command -v python3 &> /dev/null; then
+    echo -e "${RED}Error: Python 3 is required but not installed.${NC}"
+    exit 1
+fi
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+AUTOMATION_DIR="$SCRIPT_DIR"
+
+# Check if we're in the right directory
+if [ ! -f "$AUTOMATION_DIR/prism_auto_complete.py" ]; then
+    echo -e "${RED}Error: prism_auto_complete.py not found in $AUTOMATION_DIR${NC}"
+    echo "Make sure you're running this script from the automation directory."
+    exit 1
+fi
+
+# Check if request is provided
+if [ $# -eq 0 ]; then
+    echo -e "${YELLOW}Usage: $0 \"your request here\" [options]${NC}"
+    echo ""
+    echo "Examples:"
+    echo "  $0 \"create a new about page with team information\""
+    echo "  $0 \"fix the mobile navigation menu\" --skip-deploy"
+    echo "  $0 \"add a contact form with validation\" --analyze-only"
+    echo ""
+    echo "Options:"
+    echo "  --analyze-only    Only analyze the request, don't implement"
+    echo "  --skip-tests      Skip running tests"
+    echo "  --skip-commit     Skip git commit"
+    echo "  --skip-deploy     Skip deployment"
+    echo "  --auto-confirm    Auto-confirm implementation without user prompt"
+    echo "  --force           Force implementation without backups"
+    echo "  --debug           Enable debug output"
+    echo ""
+    exit 1
+fi
+
+# Check if virtual environment exists and activate it
+if [ -d "$AUTOMATION_DIR/venv" ]; then
+    echo -e "${BLUE}Activating virtual environment...${NC}"
+    source "$AUTOMATION_DIR/venv/bin/activate"
+elif [ -d "$AUTOMATION_DIR/.venv" ]; then
+    echo -e "${BLUE}Activating virtual environment...${NC}"
+    source "$AUTOMATION_DIR/.venv/bin/activate"
+fi
+
+# Install requirements if needed
+if [ -f "$AUTOMATION_DIR/requirements.txt" ]; then
+    echo -e "${BLUE}Checking dependencies...${NC}"
+    pip install -q -r "$AUTOMATION_DIR/requirements.txt"
+fi
+
+# Run the automation
+echo -e "${GREEN}Starting Prism Auto...${NC}"
+echo ""
+
+cd "$AUTOMATION_DIR"
+python3 prism_auto_complete.py "$@"
+
+# Check exit code
+if [ $? -eq 0 ]; then
+    echo ""
+    echo -e "${GREEN}✅ Automation completed successfully!${NC}"
+else
+    echo ""
+    echo -e "${RED}❌ Automation failed. Check the logs above for details.${NC}"
+    exit 1
+fi

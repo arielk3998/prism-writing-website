@@ -917,3 +917,137 @@ export default function Placeholder() {{
                     result["errors"].append(f"Failed to create {file_path}: {file_result['error']}")
         
         return result
+    
+    def deploy(self) -> Dict:
+        """Deploy the application to production"""
+        if not self.config["automation"]["auto_deploy"]:
+            self.log("Auto-deploy disabled, skipping...")
+            return {"status": "skipped"}
+        
+        self.log("Starting deployment...")
+        
+        deploy_config = self.config.get("deployment", {})
+        platform = deploy_config.get("platform", "vercel")
+        
+        try:
+            if platform == "vercel":
+                return self.deploy_to_vercel()
+            elif platform == "netlify":
+                return self.deploy_to_netlify()
+            elif platform == "aws":
+                return self.deploy_to_aws()
+            else:
+                return {
+                    "status": "failed",
+                    "error": f"Unsupported deployment platform: {platform}"
+                }
+        except Exception as e:
+            self.log(f"Deployment failed: {e}", "ERROR")
+            return {
+                "status": "failed",
+                "error": str(e)
+            }
+    
+    def deploy_to_vercel(self) -> Dict:
+        """Deploy to Vercel platform"""
+        try:
+            # Check if Vercel CLI is available
+            self.run_command("npx vercel --version")
+            
+            # Build the project
+            self.log("Building project for deployment...")
+            self.run_command("npm run build")
+            
+            # Deploy to Vercel
+            self.log("Deploying to Vercel...")
+            deploy_result = self.run_command("npx vercel --prod --yes")
+            
+            # Extract deployment URL from output
+            deployment_url = None
+            for line in deploy_result.stdout.split('\n'):
+                if 'https://' in line and 'vercel.app' in line:
+                    deployment_url = line.strip()
+                    break
+            
+            return {
+                "status": "success",
+                "platform": "vercel",
+                "url": deployment_url or self.config["deployment"]["production_url"],
+                "deployment_id": self.extract_deployment_id(deploy_result.stdout),
+                "build_time": self.extract_build_time(deploy_result.stdout)
+            }
+            
+        except subprocess.CalledProcessError as e:
+            return {
+                "status": "failed",
+                "platform": "vercel",
+                "error": str(e),
+                "stderr": e.stderr
+            }
+    
+    def deploy_to_netlify(self) -> Dict:
+        """Deploy to Netlify platform"""
+        try:
+            # Check if Netlify CLI is available
+            self.run_command("npx netlify --version")
+            
+            # Build the project
+            self.log("Building project for deployment...")
+            self.run_command("npm run build")
+            
+            # Deploy to Netlify
+            self.log("Deploying to Netlify...")
+            deploy_result = self.run_command("npx netlify deploy --prod --dir=.next")
+            
+            return {
+                "status": "success",
+                "platform": "netlify",
+                "url": self.config["deployment"]["production_url"],
+                "deployment_id": self.extract_deployment_id(deploy_result.stdout)
+            }
+            
+        except subprocess.CalledProcessError as e:
+            return {
+                "status": "failed",
+                "platform": "netlify",
+                "error": str(e)
+            }
+    
+    def deploy_to_aws(self) -> Dict:
+        """Deploy to AWS (basic implementation)"""
+        try:
+            # This would require AWS CLI and proper configuration
+            self.log("AWS deployment not fully implemented")
+            return {
+                "status": "failed",
+                "platform": "aws",
+                "error": "AWS deployment requires additional setup"
+            }
+            
+        except Exception as e:
+            return {
+                "status": "failed",
+                "platform": "aws",
+                "error": str(e)
+            }
+    
+    def extract_deployment_id(self, output: str) -> Optional[str]:
+        """Extract deployment ID from deployment output"""
+        # This would parse the deployment output to extract relevant IDs
+        import re
+        
+        # Vercel deployment ID pattern
+        vercel_pattern = r'https://([a-z0-9-]+)\.vercel\.app'
+        match = re.search(vercel_pattern, output)
+        if match:
+            return match.group(1)
+        
+        return None
+    
+    def extract_build_time(self, output: str) -> Optional[str]:
+        """Extract build time from deployment output"""
+        # Parse build time information if available
+        for line in output.split('\n'):
+            if 'Build time:' in line or 'Built in' in line:
+                return line.strip()
+        return None
