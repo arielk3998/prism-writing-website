@@ -564,7 +564,14 @@ class PrismDevAutomator:
                 }
             
             # Add all changes (excluding .next and other ignored files)
-            self.run_command("git add .")
+            # Use git add with specific paths to avoid ignored file warnings
+            try:
+                self.run_command("git add --all")
+            except subprocess.CalledProcessError:
+                # If git add --all fails, try adding specific file types
+                self.log("Falling back to selective file adding...", "WARNING")
+                self.run_command("git add *.tsx *.ts *.js *.jsx *.css *.md *.json *.yaml *.yml || true")
+                self.run_command("git add src/ automation/ docs/ || true")
             
             # Generate commit message
             commit_message = self.generate_commit_message(implementation, analysis)
