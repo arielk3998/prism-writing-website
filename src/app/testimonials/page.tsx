@@ -1,5 +1,7 @@
-import Navigation from '../../components/layout/Navigation';
+import { ModernNavigation } from '@/components/ui/ModernComponents';
 import EnhancedFooter from '../../components/layout/EnhancedFooter';
+import { DarkModeToggle } from '@/components/ui/DarkModeToggle';
+import ScrollToTop from '@/components/ui/ScrollToTop';
 import Link from 'next/link';
 
 export default function Testimonials() {
@@ -68,7 +70,49 @@ export default function Testimonials() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      <Navigation currentPage="/testimonials" />
+      <ModernNavigation
+        logo={
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="w-8 h-8">
+              <svg viewBox="0 0 32 32" className="w-full h-full">
+                <defs>
+                  <linearGradient id="prismGradientTestimonials" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#4f46e5" />
+                    <stop offset="33%" stopColor="#0891b2" />
+                    <stop offset="66%" stopColor="#059669" />
+                    <stop offset="100%" stopColor="#dc2626" />
+                  </linearGradient>
+                </defs>
+                <path d="M 6 10 L 16 8 L 16 20 L 6 22 Z" fill="url(#prismGradientTestimonials)" opacity="0.95"/>
+                <line x1="16" y1="11" x2="24" y2="9" stroke="#4f46e5" strokeWidth="2" opacity="0.9"/>
+                <line x1="16" y1="14" x2="26" y2="14" stroke="#0891b2" strokeWidth="2" opacity="0.9"/>
+                <line x1="16" y1="17" x2="24" y2="19" stroke="#dc2626" strokeWidth="2" opacity="0.9"/>
+              </svg>
+            </div>
+            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Prism Writing
+            </span>
+          </Link>
+        }
+        navItems={[
+          { label: 'Services', href: '/services' },
+          { label: 'Portfolio', href: '/portfolio' },
+          { label: 'Resources', href: '/resources' },
+          { label: 'Blog', href: '/blog' },
+          { label: 'About', href: '/about' },
+          { label: 'Contact', href: '/contact' }
+        ]}
+        actions={
+          <div className="flex items-center space-x-4">
+            <DarkModeToggle />
+            <Link href="/portal">
+              <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300">
+                Portal
+              </button>
+            </Link>
+          </div>
+        }
+      />
 
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-900 dark:to-blue-900">
@@ -179,6 +223,7 @@ export default function Testimonials() {
       </section>
 
       <EnhancedFooter />
+      <ScrollToTop />
     </div>
   );
 }
