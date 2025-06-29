@@ -15,12 +15,12 @@ export const metadata: Metadata = {
   authors: [{ name: 'Prism Writing Cooperative' }],
   icons: {
     icon: [
-      { url: '/favicon.svg?v=2', type: 'image/svg+xml' },
-      { url: '/favicon-32x32.svg?v=2', sizes: '32x32', type: 'image/svg+xml' },
-      { url: '/favicon-16x16.svg?v=2', sizes: '16x16', type: 'image/svg+xml' }
+      { url: '/favicon.svg?v=3', type: 'image/svg+xml' },
+      { url: '/favicon-32x32.svg?v=3', sizes: '32x32', type: 'image/svg+xml' },
+      { url: '/favicon-16x16.svg?v=3', sizes: '16x16', type: 'image/svg+xml' }
     ],
-    apple: '/logo-icon.svg?v=2',
-    shortcut: '/favicon-32x32.svg?v=2',
+    apple: '/logo-icon.svg?v=3',
+    shortcut: '/favicon-32x32.svg?v=3',
   },
   openGraph: {
     title: 'Prism Writing - Technical Writing Cooperative',
@@ -47,11 +47,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         {/* Additional favicon links for maximum compatibility */}
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
-        <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg?v=2" />
-        <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg?v=2" />
-        <link rel="apple-touch-icon" href="/logo-icon.svg?v=2" />
-        <link rel="shortcut icon" href="/favicon-32x32.svg?v=2" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
+        <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg?v=3" />
+        <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg?v=3" />
+        <link rel="apple-touch-icon" href="/logo-icon.svg?v=3" />
+        <link rel="shortcut icon" href="/favicon-32x32.svg?v=3" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

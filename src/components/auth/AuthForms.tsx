@@ -13,7 +13,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
-import { AnimatedLogo } from '../ui/AnimatedLogo';
 
 interface AuthFormsProps {
   onSuccess?: () => void;
@@ -128,7 +127,9 @@ export function AuthForms({ onSuccess, initialMode = 'login' }: AuthFormsProps) 
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 300 }}
             >
-              <AnimatedLogo className="w-20 h-20" />
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-3xl">P</span>
+              </div>
             </motion.div>
             <h1 className="text-2xl font-light text-white mb-2 tracking-wide">
               {mode === 'login' ? 'Welcome Back' : 'Join Prism Writing'}
