@@ -25,6 +25,7 @@ import {
 } from '../components/ui/ModernComponents';
 import { TechIllustration } from '../components/ui/EnhancedGraphics';
 import EnhancedFooter from '../components/layout/EnhancedFooter';
+import { DarkModeToggle } from '../components/ui/DarkModeToggle';
 
 const CheckIcon = () => (
   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -140,14 +141,20 @@ export default function Home() {
         navItems={navItems}
         actions={
           <div className="flex items-center space-x-4">
+            <DarkModeToggle />
             <Link href="/contact">
               <ModernButton variant="outline" size="sm">
                 Get Quote
               </ModernButton>
             </Link>
             <Link href="/portal">
+              <ModernButton variant="secondary" size="sm">
+                Legacy Portal
+              </ModernButton>
+            </Link>
+            <Link href="/portal-enhanced">
               <ModernButton variant="primary" size="sm">
-                Client Portal
+                Member Portal
               </ModernButton>
             </Link>
           </div>
