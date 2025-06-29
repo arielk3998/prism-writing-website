@@ -16,6 +16,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth, usePermissions } from '../../contexts/AuthContext';
 import { User } from '../../lib/auth';
 import EnhancedFileManager from './EnhancedFileManager';
+import AccountManagement from './AccountManagement';
 import { DarkModeToggle } from '../ui/DarkModeToggle';
 
 interface DashboardProps {
@@ -160,6 +161,7 @@ export default function EnhancedDashboard({ user }: DashboardProps) {
     { id: 'files', label: 'Files', icon: '📁' },
     { id: 'projects', label: hasRole('client') ? 'My Projects' : 'Projects', icon: '🚀' },
     { id: 'messages', label: 'Messages', icon: '💬' },
+    { id: 'account', label: 'Account', icon: '👤' },
     ...(hasRole('admin') ? [{ id: 'admin', label: 'Admin', icon: '⚙️' }] : []),
     { id: 'settings', label: 'Settings', icon: '⚙️' }
   ];
@@ -283,6 +285,9 @@ export default function EnhancedDashboard({ user }: DashboardProps) {
             </div>
           </div>
         );
+
+      case 'account':
+        return <AccountManagement user={user} />;
 
       case 'admin':
         return hasRole('admin') ? (

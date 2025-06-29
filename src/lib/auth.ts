@@ -42,43 +42,96 @@ export interface RegisterData {
   role?: 'member' | 'client';
 }
 
-// Mock user database (in a real app, this would be a proper database)
-const mockUsers: User[] = [
-  {
-    id: '1',
-    email: 'admin@prismwriting.com',
-    name: 'Admin User',
-    role: 'admin',
-    joinedAt: '2024-01-01T00:00:00Z',
-    permissions: ['read', 'write', 'delete', 'admin'],
-    status: 'active'
-  },
-  {
-    id: '2',
-    email: 'member@prismwriting.com',
-    name: 'Cooperative Member',
-    role: 'member',
-    joinedAt: '2024-01-15T00:00:00Z',
-    permissions: ['read', 'write'],
-    status: 'active'
-  },
-  {
-    id: '3',
-    email: 'client@example.com',
-    name: 'Client User',
-    role: 'client',
-    joinedAt: '2024-02-01T00:00:00Z',
-    permissions: ['read'],
-    status: 'active'
-  }
-];
+// Mock user database with localStorage persistence
+let mockUsers: User[] = [];
 
-// Mock password storage (in a real app, use proper password hashing)
-const mockPasswords: Record<string, string> = {
-  'admin@prismwriting.com': 'admin123',
-  'member@prismwriting.com': 'member123',
-  'client@example.com': 'client123'
-};
+// Initialize users from localStorage or use defaults
+function initializeUsers(): User[] {
+  if (typeof window !== 'undefined') {
+    const stored = localStorage.getItem('prism-users');
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch (e) {
+        console.error('Failed to parse stored users:', e);
+      }
+    }
+  }
+  
+  // Default users
+  return [
+    {
+      id: '1',
+      email: 'admin@prismwriting.com',
+      name: 'Admin User',
+      role: 'admin',
+      joinedAt: '2024-01-01T00:00:00Z',
+      permissions: ['read', 'write', 'delete', 'admin'],
+      status: 'active'
+    },
+    {
+      id: '2',
+      email: 'member@prismwriting.com',
+      name: 'Cooperative Member',
+      role: 'member',
+      joinedAt: '2024-01-15T00:00:00Z',
+      permissions: ['read', 'write'],
+      status: 'active'
+    },
+    {
+      id: '3',
+      email: 'client@example.com',
+      name: 'Client User',
+      role: 'client',
+      joinedAt: '2024-02-01T00:00:00Z',
+      permissions: ['read'],
+      status: 'active'
+    }
+  ];
+}
+
+// Initialize users
+mockUsers = initializeUsers();
+
+// Mock password storage with localStorage persistence  
+let mockPasswords: Record<string, string> = {};
+
+function initializePasswords(): Record<string, string> {
+  if (typeof window !== 'undefined') {
+    const stored = localStorage.getItem('prism-passwords');
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch (e) {
+        console.error('Failed to parse stored passwords:', e);
+      }
+    }
+  }
+  
+  // Default passwords
+  return {
+    'admin@prismwriting.com': 'admin123',
+    'member@prismwriting.com': 'member123',
+    'client@example.com': 'client123'
+  };
+}
+
+// Initialize passwords
+mockPasswords = initializePasswords();
+
+// Function to persist users to localStorage
+function persistUsers() {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('prism-users', JSON.stringify(mockUsers));
+  }
+}
+
+// Function to persist passwords to localStorage
+function persistPasswords() {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('prism-passwords', JSON.stringify(mockPasswords));
+  }
+}
 
 // Session storage
 const sessions: AuthSession[] = [];
@@ -130,6 +183,7 @@ export async function login(credentials: LoginCredentials): Promise<{ user: User
 
   // Update last login
   user.lastLogin = new Date().toISOString();
+  persistUsers();
 
   return { user, token };
 }
@@ -158,6 +212,10 @@ export async function register(data: RegisterData): Promise<{ user: User; token:
 
   mockUsers.push(user);
   mockPasswords[email] = password;
+
+  // Persist to localStorage
+  persistUsers();
+  persistPasswords();
 
   // Create session
   const token = generateToken();
