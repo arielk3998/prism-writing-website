@@ -567,11 +567,15 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
                 href={item.href}
                 className={`relative font-medium transition-colors duration-200 ${
                   item.isActive
-                    ? 'text-blue-600'
+                    ? 'text-blue-600 dark:text-blue-400'
                     : isScrolled
-                    ? 'text-gray-700 hover:text-blue-600'
+                    ? 'text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400'
                     : 'text-white hover:text-blue-200'
-                }`}
+                } text-lg font-semibold`}
+                style={{
+                  textShadow: !isScrolled ? '2px 2px 8px rgba(0,0,0,0.9), 1px 1px 4px rgba(0,0,0,0.8)' : 'none',
+                  fontWeight: '600'
+                }}
                 whileHover={{ y: -2 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >

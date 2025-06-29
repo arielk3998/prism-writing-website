@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { AnimatedLogo } from '../ui/AnimatedLogo'
 
 interface PasswordProtectionProps {
   children: React.ReactNode
@@ -66,7 +65,9 @@ export function PasswordProtection({ children, password = 'prism2024' }: Passwor
           // Access granted animation
           <div className="text-center">
             <div className="mb-8 flex justify-center">
-              <AnimatedLogo className="w-24 h-24" />
+              <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-4xl">P</span>
+              </div>
             </div>
             <div className="text-white text-xl font-light tracking-wider animate-pulse">
               Access Granted
@@ -80,7 +81,9 @@ export function PasswordProtection({ children, password = 'prism2024' }: Passwor
           <div className="backdrop-blur-lg bg-white/10 p-8 rounded-2xl border border-white/20 shadow-2xl">
             <div className="text-center mb-8">
               <div className="mb-6 flex justify-center">
-                <AnimatedLogo className="w-20 h-20" />
+                <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-3xl">P</span>
+                </div>
               </div>
               <h1 className="text-2xl font-light text-white mb-2 tracking-wide">
                 Prism Writing

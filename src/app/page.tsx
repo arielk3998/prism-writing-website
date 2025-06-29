@@ -140,21 +140,16 @@ export default function Home() {
         }
         navItems={navItems}
         actions={
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             <DarkModeToggle />
             <Link href="/contact">
               <ModernButton variant="outline" size="sm">
                 Get Quote
               </ModernButton>
             </Link>
-            <Link href="/portal">
-              <ModernButton variant="secondary" size="sm">
-                Legacy Portal
-              </ModernButton>
-            </Link>
             <Link href="/portal-enhanced">
               <ModernButton variant="primary" size="sm">
-                Member Portal
+                Login
               </ModernButton>
             </Link>
           </div>
