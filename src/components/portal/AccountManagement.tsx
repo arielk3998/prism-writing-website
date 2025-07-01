@@ -324,16 +324,36 @@ export default function AccountManagement({
                     </h4>
                     <div className="space-y-3">
                       <label className="flex items-center">
-                        <input type="checkbox" defaultChecked className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                        <span className="ml-3 text-gray-700 dark:text-gray-300">Email notifications for new projects</span>
+                        <input 
+                          type="checkbox" 
+                          defaultChecked 
+                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          aria-describedby="project-notifications-desc"
+                        />
+                        <span className="ml-3 text-gray-700 dark:text-gray-300" id="project-notifications-desc">
+                          Email notifications for new projects
+                        </span>
                       </label>
                       <label className="flex items-center">
-                        <input type="checkbox" defaultChecked className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                        <span className="ml-3 text-gray-700 dark:text-gray-300">Push notifications for file uploads</span>
+                        <input 
+                          type="checkbox" 
+                          defaultChecked 
+                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          aria-describedby="upload-notifications-desc"
+                        />
+                        <span className="ml-3 text-gray-700 dark:text-gray-300" id="upload-notifications-desc">
+                          Push notifications for file uploads
+                        </span>
                       </label>
                       <label className="flex items-center">
-                        <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                        <span className="ml-3 text-gray-700 dark:text-gray-300">Weekly digest emails</span>
+                        <input 
+                          type="checkbox" 
+                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          aria-describedby="digest-notifications-desc"
+                        />
+                        <span className="ml-3 text-gray-700 dark:text-gray-300" id="digest-notifications-desc">
+                          Weekly digest emails
+                        </span>
                       </label>
                     </div>
                   </div>
@@ -344,12 +364,25 @@ export default function AccountManagement({
                     </h4>
                     <div className="space-y-3">
                       <label className="flex items-center">
-                        <input type="checkbox" defaultChecked className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                        <span className="ml-3 text-gray-700 dark:text-gray-300">Show my profile to other members</span>
+                        <input 
+                          type="checkbox" 
+                          defaultChecked 
+                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          aria-describedby="profile-visibility-desc"
+                        />
+                        <span className="ml-3 text-gray-700 dark:text-gray-300" id="profile-visibility-desc">
+                          Show my profile to other members
+                        </span>
                       </label>
                       <label className="flex items-center">
-                        <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                        <span className="ml-3 text-gray-700 dark:text-gray-300">Allow analytics tracking</span>
+                        <input 
+                          type="checkbox" 
+                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          aria-describedby="analytics-tracking-desc"
+                        />
+                        <span className="ml-3 text-gray-700 dark:text-gray-300" id="analytics-tracking-desc">
+                          Allow analytics tracking
+                        </span>
                       </label>
                     </div>
                   </div>

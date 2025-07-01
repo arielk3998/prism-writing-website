@@ -617,16 +617,36 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                 <h4 className="text-md font-medium text-gray-900 dark:text-white mb-4">Notification Preferences</h4>
                 <div className="space-y-3">
                   <label className="flex items-center">
-                    <input type="checkbox" defaultChecked className="rounded border-gray-300 mr-3" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">Email notifications for project updates</span>
+                    <input 
+                      type="checkbox" 
+                      defaultChecked 
+                      className="rounded border-gray-300 mr-3 focus:ring-2 focus:ring-blue-500" 
+                      aria-describedby="email-notifications-desc"
+                    />
+                    <span className="text-sm text-gray-700 dark:text-gray-300" id="email-notifications-desc">
+                      Email notifications for project updates
+                    </span>
                   </label>
                   <label className="flex items-center">
-                    <input type="checkbox" defaultChecked className="rounded border-gray-300 mr-3" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">Push notifications for messages</span>
+                    <input 
+                      type="checkbox" 
+                      defaultChecked 
+                      className="rounded border-gray-300 mr-3 focus:ring-2 focus:ring-blue-500"
+                      aria-describedby="push-notifications-desc"
+                    />
+                    <span className="text-sm text-gray-700 dark:text-gray-300" id="push-notifications-desc">
+                      Push notifications for messages
+                    </span>
                   </label>
                   <label className="flex items-center">
-                    <input type="checkbox" className="rounded border-gray-300 mr-3" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">Marketing communications</span>
+                    <input 
+                      type="checkbox" 
+                      className="rounded border-gray-300 mr-3 focus:ring-2 focus:ring-blue-500"
+                      aria-describedby="marketing-notifications-desc"
+                    />
+                    <span className="text-sm text-gray-700 dark:text-gray-300" id="marketing-notifications-desc">
+                      Marketing communications
+                    </span>
                   </label>
                 </div>
               </div>
