@@ -33,7 +33,7 @@ interface ProjectManagementProps {
   user: User;
 }
 
-export default function ProjectManagement({ user }: ProjectManagementProps) {
+export default function ProjectManagement({ }: ProjectManagementProps) {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
@@ -143,18 +143,24 @@ export default function ProjectManagement({ user }: ProjectManagementProps) {
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Projects</h3>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+          <button 
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            aria-label="Create new project"
+          >
             + New Project
           </button>
         </div>
 
         {/* Filters */}
-        <div className="flex space-x-4 mb-6">
+        <div className="flex space-x-4 mb-6" role="tablist" aria-label="Project filters">
           {['all', 'active', 'completed'].map((filterType) => (
             <button
               key={filterType}
-              onClick={() => setFilter(filterType as any)}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              onClick={() => setFilter(filterType as 'all' | 'active' | 'completed')}
+              role="tab"
+              aria-selected={filter === filterType}
+              aria-label={`Show ${filterType} projects`}
+              className={`px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
                 filter === filterType
                   ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
                   : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
@@ -168,13 +174,14 @@ export default function ProjectManagement({ user }: ProjectManagementProps) {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredProjects.map((project, index) => (
-            <motion.div
+            <motion.button
               key={project.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer"
+              className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               onClick={() => setSelectedProject(project)}
+              aria-label={`View project ${project.name}`}
             >
               <div className="flex items-start justify-between mb-3">
                 <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
@@ -256,7 +263,7 @@ export default function ProjectManagement({ user }: ProjectManagementProps) {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.button>
           ))}
         </div>
 

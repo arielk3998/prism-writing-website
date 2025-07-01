@@ -39,12 +39,20 @@ export default function Navigation({ currentPage }: NavigationProps) {
   return (
     // Main navigation container with glass-morphism effect
     // Uses backdrop-blur for modern transparent overlay design
-    <nav className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
+    <nav 
+      className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700"
+      role="navigation"
+      aria-label="Main navigation"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4 relative">
           {/* Brand/Logo Section */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center">
+            <Link 
+              href="/" 
+              className="flex items-center"
+              aria-label="Prism Writing home page"
+            >
               <AnimatedLogo 
                 width={160} 
                 height={40} 
@@ -54,19 +62,21 @@ export default function Navigation({ currentPage }: NavigationProps) {
           </div>
           
           {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8" role="menubar">
             {NAVIGATION_ITEMS.map((item) => (
-              <a 
+              <Link 
                 key={item.name}
-                href={item.href} 
-                className={`transition-colors ${
+                href={item.href}
+                role="menuitem"
+                aria-current={currentPage === item.href ? 'page' : undefined}
+                className={`transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-md px-3 py-2 ${
                   currentPage === item.href
                     ? 'text-indigo-600 dark:text-indigo-400 font-semibold'  // Active state styling
                     : 'text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'  // Default and hover states
                 }`}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
             {/* Dark mode toggle for desktop */}
             <SimpleDarkModeToggle />
