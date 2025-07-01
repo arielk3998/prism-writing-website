@@ -1,3 +1,6 @@
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { 
   FOOTER_NAVIGATION, 
@@ -14,6 +17,57 @@ import {
  * certifications, and social links. Designed for conversion and trust-building.
  */
 export default function EnhancedFooter() {
+  const [email, setEmail] = useState('');
+  const [consent, setConsent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email.trim()) {
+      setMessage({ type: 'error', text: 'Please enter your email address.' });
+      return;
+    }
+
+    if (!consent) {
+      setMessage({ type: 'error', text: 'Please agree to receive emails before subscribing.' });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setMessage(null);
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email.trim(),
+          consent: true,
+          source: 'footer',
+          doubleOptIn: true
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage({ type: 'success', text: data.message });
+        setEmail('');
+        setConsent(false);
+      } else {
+        setMessage({ type: 'error', text: data.error || 'Failed to subscribe. Please try again.' });
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      setMessage({ type: 'error', text: 'Something went wrong. Please try again later.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <footer className="bg-gray-900 text-white">
       {/* Main Footer Content */}
@@ -127,18 +181,55 @@ export default function EnhancedFooter() {
             <p className="text-gray-400 text-sm mb-6">
               Get monthly insights on technical writing best practices and industry trends.
             </p>
-            <form className="flex gap-3">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
-              />
-              <button
-                type="submit"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
-              >
-                Subscribe
-              </button>
+            
+            {/* Message Display */}
+            {message && (
+              <div className={`mb-4 p-3 rounded-lg text-sm ${
+                message.type === 'success' 
+                  ? 'bg-green-900/50 text-green-300 border border-green-800' 
+                  : 'bg-red-900/50 text-red-300 border border-red-800'
+              }`}>
+                {message.text}
+              </div>
+            )}
+            
+            <form onSubmit={handleNewsletterSubmit} className="space-y-4">
+              <div className="flex gap-3">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                  required
+                  disabled={isSubmitting}
+                />
+                <button
+                  type="submit"
+                  disabled={isSubmitting || !consent}
+                  className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-medium transition-colors"
+                >
+                  {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+                </button>
+              </div>
+              
+              {/* GDPR Compliance Checkbox */}
+              <div className="flex items-start gap-3 text-left">
+                <input
+                  type="checkbox"
+                  id="newsletter-consent"
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-1 w-4 h-4 text-indigo-600 border-gray-600 rounded focus:ring-indigo-600 focus:ring-2 bg-gray-800"
+                  required
+                />
+                <label htmlFor="newsletter-consent" className="text-xs text-gray-400 leading-tight">
+                  I agree to receive marketing communications from {BUSINESS_INFO.name}. You can unsubscribe at any time using the link in our emails. 
+                  <Link href="/privacy" className="text-indigo-400 hover:text-indigo-300 underline">
+                    Privacy Policy
+                  </Link>
+                </label>
+              </div>
             </form>
           </div>
         </div>

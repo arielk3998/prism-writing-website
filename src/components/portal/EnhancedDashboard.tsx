@@ -56,21 +56,21 @@ export default function EnhancedDashboard({ user }: DashboardProps) {
     const baseStats: QuickStat[] = [
       {
         label: 'Active Projects',
-        value: hasRole('admin') ? 12 : hasRole('member') ? 8 : 3,
+        value: hasRole('ADMIN') ? 12 : hasRole('MEMBER') ? 8 : 3,
         icon: '🚀',
         color: 'bg-blue-500',
         trend: { value: 15, direction: 'up' as const }
       },
       {
         label: 'Files Uploaded',
-        value: hasRole('admin') ? 156 : hasRole('member') ? 89 : 23,
+        value: hasRole('ADMIN') ? 156 : hasRole('MEMBER') ? 89 : 23,
         icon: '📁',
         color: 'bg-green-500',
         trend: { value: 8, direction: 'up' as const }
       }
     ];
 
-    if (hasRole('admin')) {
+    if (hasRole('ADMIN')) {
       baseStats.push(
         {
           label: 'Total Members',
@@ -87,7 +87,7 @@ export default function EnhancedDashboard({ user }: DashboardProps) {
           trend: { value: 18, direction: 'up' as const }
         }
       );
-    } else if (hasRole('member')) {
+    } else if (hasRole('MEMBER')) {
       baseStats.push(
         {
           label: 'Hours This Month',
@@ -159,10 +159,10 @@ export default function EnhancedDashboard({ user }: DashboardProps) {
   const tabs = [
     { id: 'overview', label: 'Overview', icon: '📊' },
     { id: 'files', label: 'Files', icon: '📁' },
-    { id: 'projects', label: hasRole('client') ? 'My Projects' : 'Projects', icon: '🚀' },
+    { id: 'projects', label: hasRole('CLIENT') ? 'My Projects' : 'Projects', icon: '🚀' },
     { id: 'messages', label: 'Messages', icon: '💬' },
     { id: 'account', label: 'Account', icon: '👤' },
-    ...(hasRole('admin') ? [{ id: 'admin', label: 'Admin', icon: '⚙️' }] : []),
+    ...(hasRole('ADMIN') ? [{ id: 'admin', label: 'Admin', icon: '⚙️' }] : []),
     { id: 'settings', label: 'Settings', icon: '⚙️' }
   ];
 
@@ -256,7 +256,7 @@ export default function EnhancedDashboard({ user }: DashboardProps) {
         return (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              {hasRole('client') ? 'My Projects' : 'Projects'}
+              {hasRole('CLIENT') ? 'My Projects' : 'Projects'}
             </h3>
             <div className="text-center py-12">
               <div className="text-6xl mb-4">🚀</div>
@@ -290,12 +290,29 @@ export default function EnhancedDashboard({ user }: DashboardProps) {
         return <AccountManagement user={user} />;
 
       case 'admin':
-        return hasRole('admin') ? (
+        return hasRole('ADMIN') ? (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Admin Panel</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Administrative Tools</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Link href="/admin-panel" className="block">
+                <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  <div className="flex items-center mb-2">
+                    <span className="text-xl mr-2">⚙️</span>
+                    <h4 className="font-medium text-gray-900 dark:text-white">Control Panel</h4>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                    Access the full administrative control panel with industry-standard settings
+                  </p>
+                  <span className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                    Open Control Panel →
+                  </span>
+                </div>
+              </Link>
               <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                <h4 className="font-medium text-gray-900 dark:text-white mb-2">User Management</h4>
+                <div className="flex items-center mb-2">
+                  <span className="text-xl mr-2">👥</span>
+                  <h4 className="font-medium text-gray-900 dark:text-white">User Management</h4>
+                </div>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                   Manage users, roles, and permissions
                 </p>
@@ -304,18 +321,12 @@ export default function EnhancedDashboard({ user }: DashboardProps) {
                 </button>
               </div>
               <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                <h4 className="font-medium text-gray-900 dark:text-white mb-2">System Settings</h4>
+                <div className="flex items-center mb-2">
+                  <span className="text-xl mr-2">📊</span>
+                  <h4 className="font-medium text-gray-900 dark:text-white">Analytics</h4>
+                </div>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                  Configure system-wide settings
-                </p>
-                <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                  View Settings →
-                </button>
-              </div>
-              <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                <h4 className="font-medium text-gray-900 dark:text-white mb-2">Analytics</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                  View detailed system analytics
+                  View detailed system analytics and reports
                 </p>
                 <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
                   View Analytics →
@@ -372,7 +383,7 @@ export default function EnhancedDashboard({ user }: DashboardProps) {
                       Status
                     </label>
                     <span className={`inline-flex px-2 py-1 text-xs rounded-full ${
-                      user.status === 'active' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                      user.status === 'ACTIVE' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
                       'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
                     }`}>
                       {user.status}

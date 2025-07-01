@@ -20,6 +20,7 @@ import {
   ModernNavigation,
 } from '../../components/ui/ModernComponents';
 import EnhancedFooter from '../../components/layout/EnhancedFooter';
+import { DarkModeToggle } from '../../components/ui/DarkModeToggle';
 
 // Service icons
 const DocumentIcon = () => (
@@ -198,7 +199,7 @@ export default function Services() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* Modern Navigation */}
       <ModernNavigation
         logo={
@@ -214,6 +215,7 @@ export default function Services() {
         navItems={navItems}
         actions={
           <div className="flex items-center space-x-4">
+            <DarkModeToggle />
             <Link href="/contact">
               <ModernButton variant="outline" size="sm">
                 Get Quote
@@ -229,10 +231,10 @@ export default function Services() {
       />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
         <div className="max-w-7xl mx-auto text-center">
           <motion.h1
-            className="text-5xl sm:text-6xl font-bold text-gray-900 mb-6"
+            className="text-5xl sm:text-6xl font-bold text-gray-900 dark:text-white mb-6"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -240,7 +242,7 @@ export default function Services() {
             Our Services
           </motion.h1>
           <motion.p
-            className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -278,27 +280,27 @@ export default function Services() {
                   <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${service.color} text-white mb-6`}>
                     {service.icon}
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                     {service.description}
                   </p>
                   
                   <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
-                    <div className="bg-gray-50 rounded-lg p-3">
-                      <div className="font-semibold text-gray-900">Pricing</div>
-                      <div className="text-blue-600 font-medium">{service.pricing}</div>
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
+                      <div className="font-semibold text-gray-900 dark:text-white">Pricing</div>
+                      <div className="text-blue-600 dark:text-blue-400 font-medium">{service.pricing}</div>
                     </div>
-                    <div className="bg-gray-50 rounded-lg p-3">
-                      <div className="font-semibold text-gray-900">Timeline</div>
-                      <div className="text-green-600 font-medium">{service.timeline}</div>
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
+                      <div className="font-semibold text-gray-900 dark:text-white">Timeline</div>
+                      <div className="text-green-600 dark:text-green-400 font-medium">{service.timeline}</div>
                     </div>
                   </div>
 
                   <ul className="space-y-3 mb-8">
                     {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start text-gray-600">
+                      <li key={featureIndex} className="flex items-start text-gray-600 dark:text-gray-300">
                         <div className="w-5 h-5 text-green-500 mr-3 mt-0.5">
                           <CheckIcon />
                         </div>
@@ -327,7 +329,7 @@ export default function Services() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -336,10 +338,10 @@ export default function Services() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Transparent Pricing
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Choose the package that fits your needs. All projects include expert writing, 
               professional formatting, and dedicated project management.
             </p>

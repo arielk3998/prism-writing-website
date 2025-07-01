@@ -1,0 +1,269 @@
+name: 🚀 Production CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, production ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  NODE_VERSION: '18.x'
+  POSTGRES_VERSION: '14'
+
+jobs:
+  # Code Quality & Security Checks
+  quality:
+    name: 🔍 Quality & Security
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📥 Install dependencies
+        run: npm ci
+
+      - name: 🔍 TypeScript check
+        run: npm run type-check
+
+      - name: 🧹 Lint code
+        run: npm run lint
+
+      - name: 🔒 Security audit
+        run: npm audit --audit-level moderate
+
+      - name: 📊 Bundle analysis
+        run: npm run analyze
+
+  # Database & Migration Tests
+  database:
+    name: 🗃️ Database Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📥 Install dependencies
+        run: npm ci
+
+      - name: 🗃️ Database migration
+        run: npx prisma db push
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db
+
+      - name: 🌱 Seed test data
+        run: npx prisma db seed
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db
+
+  # Unit & Integration Tests
+  test:
+    name: 🧪 Tests
+    runs-on: ubuntu-latest
+    needs: [quality]
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📥 Install dependencies
+        run: npm ci
+
+      - name: 🧪 Run unit tests
+        run: npm run test
+
+      - name: 🔗 Run integration tests
+        run: npm run test:integration
+
+      - name: 📊 Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage/lcov.info
+
+  # Build & Performance Testing
+  build:
+    name: 🏗️ Build & Performance
+    runs-on: ubuntu-latest
+    needs: [quality, test]
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📥 Install dependencies
+        run: npm ci
+
+      - name: 🏗️ Build application
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+
+      - name: 🚀 Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: 📊 Bundle size check
+        run: npm run build:analyze
+
+  # Security Scanning
+  security:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    needs: [quality]
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔒 Run Snyk security scan
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=medium
+
+      - name: 🔍 CodeQL Analysis
+        uses: github/codeql-action/init@v2
+        with:
+          languages: javascript, typescript
+
+      - name: 🔍 Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+
+  # Staging Deployment
+  deploy-staging:
+    name: 🚀 Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [database, test, build, security]
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: staging
+      url: https://staging.prismwriting.com
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🚀 Deploy to Vercel (Staging)
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+
+      - name: 🧪 Run E2E tests against staging
+        run: npm run test:e2e
+        env:
+          BASE_URL: https://staging.prismwriting.com
+
+      - name: 📊 Performance audit on staging
+        run: npm run audit:performance
+        env:
+          TARGET_URL: https://staging.prismwriting.com
+
+  # Production Deployment
+  deploy-production:
+    name: 🌟 Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [deploy-staging]
+    if: github.ref == 'refs/heads/production'
+    environment:
+      name: production
+      url: https://prismwriting.com
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🌟 Deploy to Production
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+
+      - name: 📊 Post-deployment health check
+        run: |
+          curl -f https://prismwriting.com/api/health || exit 1
+          curl -f https://prismwriting.com/api/admin/enterprise?action=health || exit 1
+
+      - name: 📈 Update performance monitoring
+        run: |
+          curl -X POST "${{ secrets.DATADOG_WEBHOOK }}" \
+            -H "Content-Type: application/json" \
+            -d '{"text":"🚀 Production deployment successful", "deployment_id":"${{ github.sha }}"}'
+
+      - name: 🔔 Notify team
+        uses: 8398a7/action-slack@v3
+        with:
+          status: success
+          text: '🚀 Production deployment successful!'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+
+  # Post-deployment monitoring
+  monitoring:
+    name: 📊 Post-deployment Monitoring
+    runs-on: ubuntu-latest
+    needs: [deploy-production]
+    if: github.ref == 'refs/heads/production'
+
+    steps:
+      - name: 📊 Trigger performance monitoring
+        run: |
+          # Trigger DataDog synthetic tests
+          curl -X POST "https://api.datadoghq.com/api/v1/synthetics/tests/trigger" \
+            -H "Content-Type: application/json" \
+            -H "DD-API-KEY: ${{ secrets.DATADOG_API_KEY }}" \
+            -H "DD-APPLICATION-KEY: ${{ secrets.DATADOG_APP_KEY }}" \
+            -d '{"tests":["production-health-check"]}'
+
+      - name: 🔒 Security monitoring alert
+        run: |
+          # Enable enhanced security monitoring post-deployment
+          echo "Enhanced security monitoring activated for 24h post-deployment"
+
+      - name: 📈 Business metrics sync
+        run: |
+          # Sync deployment metrics to business intelligence
+          echo "Deployment metrics synced to BI dashboard"

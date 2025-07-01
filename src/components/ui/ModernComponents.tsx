@@ -541,7 +541,7 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/80 backdrop-blur-lg shadow-lg'
+          ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200/20 dark:bg-gray-900/95 dark:border-gray-700/20'
           : 'bg-transparent'
       } ${className}`}
       initial={{ y: -100 }}
@@ -565,13 +565,15 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
               <motion.a
                 key={index}
                 href={item.href}
-                className={`relative font-medium transition-colors duration-200 ${
+                className={`relative font-semibold transition-colors duration-200 ${
                   item.isActive
-                    ? 'text-blue-600 dark:text-blue-400'
+                    ? isScrolled
+                      ? 'text-blue-600 dark:text-blue-400'
+                      : 'text-blue-200'
                     : isScrolled
-                    ? 'text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400'
+                    ? 'text-gray-800 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400'
                     : 'text-white hover:text-blue-200'
-                } text-lg font-semibold`}
+                } text-lg`}
                 style={{
                   textShadow: !isScrolled ? '2px 2px 8px rgba(0,0,0,0.9), 1px 1px 4px rgba(0,0,0,0.8)' : 'none',
                   fontWeight: '600'
@@ -582,7 +584,9 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
                 {item.label}
                 {item.isActive && (
                   <motion.div
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-600 rounded-full"
+                    className={`absolute -bottom-1 left-0 right-0 h-0.5 rounded-full ${
+                      isScrolled ? 'bg-blue-600' : 'bg-blue-200'
+                    }`}
                     layoutId="activeTab"
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />

@@ -11,7 +11,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { User, login, register, verifyToken, logout, LoginCredentials, RegisterData } from '../lib/auth';
+import { User, login, register, verifyToken, logout, LoginCredentials, RegisterData, UserStatus } from '../lib/auth';
 
 interface AuthContextType {
   user: User | null;
@@ -40,8 +40,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
       try {
         const token = localStorage.getItem('prism-auth-token');
         if (token) {
-          const userData = await verifyToken(token);
-          if (userData) {
+          const tokenData = await verifyToken(token);
+          if (tokenData) {
+            // Convert TokenPayload to User object
+            const userData: User = {
+              id: tokenData.userId,
+              email: tokenData.email,
+              role: tokenData.role,
+              status: 'ACTIVE' as UserStatus // Default status
+            };
             setUser(userData);
           } else {
             localStorage.removeItem('prism-auth-token');
@@ -63,9 +70,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setIsLoading(true);
       const result = await login(credentials);
       
-      if (result) {
+      if (result && 'user' in result) {
         setUser(result.user);
-        localStorage.setItem('prism-auth-token', result.token);
+        localStorage.setItem('prism-auth-token', result.tokens.accessToken);
         return true;
       }
       return false;
@@ -82,9 +89,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setIsLoading(true);
       const result = await register(data);
       
-      if (result) {
+      if (result && 'user' in result) {
         setUser(result.user);
-        localStorage.setItem('prism-auth-token', result.token);
+        localStorage.setItem('prism-auth-token', result.tokens.accessToken);
         return true;
       }
       return false;
@@ -100,7 +107,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       const token = localStorage.getItem('prism-auth-token');
       if (token) {
-        await logout(token);
+        await logout();
       }
     } catch (error) {
       console.error('Logout failed:', error);
@@ -114,8 +121,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       const token = localStorage.getItem('prism-auth-token');
       if (token) {
-        const userData = await verifyToken(token);
-        if (userData) {
+        const tokenData = await verifyToken(token);
+        if (tokenData) {
+          // Convert TokenPayload to User object for refreshUser too
+          const userData: User = {
+            id: tokenData.userId,
+            email: tokenData.email,
+            role: tokenData.role,
+            status: 'ACTIVE' as UserStatus
+          };
           setUser(userData);
         } else {
           await handleLogout();

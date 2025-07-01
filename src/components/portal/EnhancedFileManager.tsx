@@ -176,7 +176,7 @@ export default function EnhancedFileManager() {
         permissions: {
           read: [user.role],
           write: [user.role],
-          delete: user.role === 'admin' ? ['admin'] : [user.role]
+          delete: user.role === 'ADMIN' ? ['ADMIN'] : [user.role]
         }
       };
 

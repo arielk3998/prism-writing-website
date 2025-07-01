@@ -45,34 +45,214 @@ export default function ResourcesPage() {
     { label: 'About', href: '/about' },
   ];
 
-  // Filter industries based on search and active filter
-  const filteredIndustries = industriesData.filter(industry => {
-    if (activeFilter !== 'all' && industry.id !== activeFilter) return false;
-    if (!searchTerm) return true;
-    return industry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-           industry.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-           industry.keyAreas.some(area => area.toLowerCase().includes(searchTerm.toLowerCase()));
+  // Enhanced samples data with new industry standards
+  const professionalSamples = [
+    {
+      id: 'iso-13485-qms-manual-sample',
+      title: 'ISO 13485 Quality Management System Manual',
+      industry: 'Medical Devices',
+      description: 'Complete QMS manual demonstrating ISO 13485:2016 compliance for medical device manufacturers.',
+      tags: ['ISO 13485', 'Quality Management', 'Medical Devices', 'Regulatory'],
+      icon: '🏥',
+      downloadUrl: '/api/download-sample/iso-13485-qms-manual-sample',
+      previewUrl: '/samples/iso-13485-qms-manual-sample.html'
+    },
+    {
+      id: 'gdpr-dpia-sample',
+      title: 'GDPR Data Protection Impact Assessment',
+      industry: 'Data Privacy & Security',
+      description: 'Professional DPIA template compliant with GDPR Article 35 requirements.',
+      tags: ['GDPR', 'Data Privacy', 'Compliance', 'EU Regulation'],
+      icon: '🛡️',
+      downloadUrl: '/api/download-sample/gdpr-dpia-sample',
+      previewUrl: '/samples/gdpr-dpia-sample.html'
+    },
+    {
+      id: 'nasa-software-engineering-sample',
+      title: 'NASA Software Engineering Standards',
+      industry: 'Aerospace & Defense',
+      description: 'NPR 7150.2D compliant software development documentation for mission-critical systems.',
+      tags: ['NASA', 'NPR 7150.2D', 'Aerospace', 'Software Engineering'],
+      icon: '🚀',
+      downloadUrl: '/api/download-sample/nasa-software-engineering-sample',
+      previewUrl: '/samples/nasa-software-engineering-sample.html'
+    },
+    {
+      id: 'sox-compliance-sample',
+      title: 'SOX Section 404 Internal Controls',
+      industry: 'Financial Services',
+      description: 'Sarbanes-Oxley Act compliance documentation for internal controls over financial reporting.',
+      tags: ['SOX', 'Internal Controls', 'Financial Reporting', 'Compliance'],
+      icon: '⚖️',
+      downloadUrl: '/api/download-sample/sox-compliance-sample',
+      previewUrl: '/samples/sox-compliance-sample.html'
+    },
+    {
+      id: 'fda-21cfr11-validation-sample',
+      title: 'FDA 21 CFR Part 11 Validation Protocol',
+      industry: 'Pharmaceutical',
+      description: 'Electronic records and signatures validation documentation for FDA regulated systems.',
+      tags: ['FDA', '21 CFR Part 11', 'Validation', 'Electronic Records'],
+      icon: '💊',
+      downloadUrl: '/api/download-sample/fda-21cfr11-validation-sample',
+      previewUrl: '/samples/fda-21cfr11-validation-sample.html'
+    },
+    {
+      id: 'do-178c-software-development-sample',
+      title: 'DO-178C Software Development Plan',
+      industry: 'Aviation',
+      description: 'RTCA DO-178C compliant software development plan for safety-critical avionics systems.',
+      tags: ['DO-178C', 'Aviation', 'Safety Critical', 'Software Development'],
+      icon: '✈️',
+      downloadUrl: '/api/download-sample/do-178c-software-development-sample',
+      previewUrl: '/samples/do-178c-software-development-sample.html'
+    },
+    {
+      id: 'iso-27001-isms-sample',
+      title: 'ISO 27001 Information Security Management System',
+      industry: 'Information Security',
+      description: 'Comprehensive ISMS documentation demonstrating ISO 27001:2022 compliance and implementation.',
+      tags: ['ISO 27001', 'Information Security', 'ISMS', 'Cybersecurity'],
+      icon: '🔒',
+      downloadUrl: '/api/download-sample/iso-27001-isms-sample',
+      previewUrl: '/samples/iso-27001-isms-sample.html'
+    },
+    {
+      id: 'nist-cybersecurity-framework-sample',
+      title: 'NIST Cybersecurity Framework Implementation Guide',
+      industry: 'Cybersecurity',
+      description: 'NIST CSF 2.0 implementation guide with gap analysis and roadmap planning.',
+      tags: ['NIST', 'Cybersecurity Framework', 'Risk Management', 'CSF 2.0'],
+      icon: '🛡️',
+      downloadUrl: '/api/download-sample/nist-cybersecurity-framework-sample',
+      previewUrl: '/samples/nist-cybersecurity-framework-sample.html'
+    },
+    {
+      id: 'pci-dss-compliance-sample',
+      title: 'PCI DSS 4.0 Compliance Documentation',
+      industry: 'Payment Security',
+      description: 'Payment Card Industry Data Security Standard compliance documentation and assessment guide.',
+      tags: ['PCI DSS', 'Payment Security', 'Compliance', 'Cardholder Data'],
+      icon: '💳',
+      downloadUrl: '/api/download-sample/pci-dss-compliance-sample',
+      previewUrl: '/samples/pci-dss-compliance-sample.html'
+    },
+    {
+      id: 'hipaa-compliance-sample',
+      title: 'HIPAA Privacy and Security Rules Compliance',
+      industry: 'Healthcare Compliance',
+      description: 'Comprehensive HIPAA compliance implementation guide covering Privacy and Security Rules.',
+      tags: ['HIPAA', 'Healthcare', 'Privacy Rules', 'Security Rules', 'PHI'],
+      icon: '🏥',
+      downloadUrl: '/api/download-sample/hipaa-compliance-sample',
+      previewUrl: '/samples/hipaa-compliance-sample.html'
+    },
+    {
+      id: 'iso-9001-qms-manual-sample',
+      title: 'ISO 9001 Quality Management System Manual',
+      industry: 'Quality Management',
+      description: 'Complete QMS manual demonstrating ISO 9001:2015 implementation and process approach.',
+      tags: ['ISO 9001', 'Quality Management', 'Process Approach', 'PDCA'],
+      icon: '📋',
+      downloadUrl: '/api/download-sample/iso-9001-qms-manual-sample',
+      previewUrl: '/samples/iso-9001-qms-manual-sample.html'
+    },
+    {
+      id: 'paymentpro-api-sample',
+      title: 'API Documentation Sample',
+      industry: 'Financial Technology',
+      description: 'Professional API documentation with comprehensive examples and integration guides.',
+      tags: ['API', 'Documentation', 'Integration', 'Development'],
+      icon: '💳',
+      downloadUrl: '/api/download-sample/paymentpro-api-sample',
+      previewUrl: '/samples/paymentpro-api-sample.html'
+    },
+    {
+      id: 'meditech-procedures-sample',
+      title: 'Healthcare SOPs Sample',
+      industry: 'Healthcare',
+      description: 'Standard Operating Procedures for healthcare technology and patient care systems.',
+      tags: ['Healthcare', 'SOPs', 'Patient Care', 'Medical Technology'],
+      icon: '🏥',
+      downloadUrl: '/api/download-sample/meditech-procedures-sample',
+      previewUrl: '/samples/meditech-procedures-sample.html'
+    },
+    {
+      id: 'smartcity-installation-sample',
+      title: 'IoT Installation Manual',
+      industry: 'Smart Technology',
+      description: 'Comprehensive installation and configuration guide for IoT infrastructure systems.',
+      tags: ['IoT', 'Smart City', 'Installation', 'Infrastructure'],
+      icon: '🌆',
+      downloadUrl: '/api/download-sample/smartcity-installation-sample',
+      previewUrl: '/samples/smartcity-installation-sample.html'
+    },
+    {
+      id: 'iso-14001-ems-manual-sample',
+      title: 'ISO 14001 Environmental Management System Manual',
+      industry: 'Environmental Management',
+      description: 'Complete EMS manual demonstrating ISO 14001:2015 environmental management system implementation.',
+      tags: ['ISO 14001', 'Environmental Management', 'EMS', 'Sustainability'],
+      icon: '🌱',
+      downloadUrl: '/api/download-sample/iso-14001-ems-manual-sample',
+      previewUrl: '/samples/iso-14001-ems-manual-sample.html'
+    },
+    {
+      id: 'fedramp-security-assessment-sample',
+      title: 'FedRAMP Security Assessment Plan',
+      industry: 'Government Compliance',
+      description: 'Federal Risk and Authorization Management Program security assessment documentation.',
+      tags: ['FedRAMP', 'Government', 'Security Assessment', 'Cloud Authorization'],
+      icon: '🏛️',
+      downloadUrl: '/api/download-sample/fedramp-security-assessment-sample',
+      previewUrl: '/samples/fedramp-security-assessment-sample.html'
+    }
+  ];
+
+  // Filter samples based on search and filters
+  const filteredSamples = professionalSamples.filter(sample => {
+    if (searchTerm) {
+      const searchLower = searchTerm.toLowerCase();
+      return sample.title.toLowerCase().includes(searchLower) ||
+             sample.industry.toLowerCase().includes(searchLower) ||
+             sample.description.toLowerCase().includes(searchLower) ||
+             sample.tags.some(tag => tag.toLowerCase().includes(searchLower));
+    }
+    return true;
   });
 
-  // Get all resources with filtering
-  const getAllFilteredResources = (): (ComplianceResource & { industryTitle: string; industryId: string })[] => {
-    return industriesData.flatMap(industry => 
-      industry.resources
-        .filter(resource => {
-          if (resourceTypeFilter !== 'all' && resource.type !== resourceTypeFilter) return false;
-          if (criticalityFilter !== 'all' && resource.criticality !== criticalityFilter) return false;
-          if (!searchTerm) return true;
-          return resource.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                 resource.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                 resource.documentTypes.some(type => type.toLowerCase().includes(searchTerm.toLowerCase()));
-        })
-        .map(resource => ({
-          ...resource,
-          industryTitle: industry.title,
-          industryId: industry.id
-        }))
+  const industries = Array.from(new Set(professionalSamples.map(s => s.industry)));
+
+  // Helper functions
+  const getAllFilteredResources = () => {
+    const allResources = industriesData.flatMap(industry => 
+      industry.resources.map(resource => ({ ...resource, industryId: industry.id, industryTitle: industry.title }))
     );
+    
+    return allResources.filter(resource => {
+      const matchesSearch = searchTerm === '' || 
+        resource.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        resource.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        resource.industryTitle.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      const matchesType = resourceTypeFilter === 'all' || resource.type === resourceTypeFilter;
+      const matchesCriticality = criticalityFilter === 'all' || resource.criticality === criticalityFilter;
+      
+      return matchesSearch && matchesType && matchesCriticality;
+    });
   };
+
+  const filteredIndustries = industriesData.filter(industry => {
+    if (activeFilter === 'all') return true;
+    return industry.id === activeFilter;
+  }).filter(industry => {
+    if (searchTerm === '') return true;
+    return industry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           industry.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           industry.resources.some(resource => 
+             resource.name.toLowerCase().includes(searchTerm.toLowerCase())
+           );
+  });
 
   return (
     <div className="min-h-screen bg-white">
@@ -99,12 +279,168 @@ export default function ResourcesPage() {
             </Link>
             <Link href="/portal">
               <ModernButton variant="primary" size="sm">
-                Client Portal
+                Portal
               </ModernButton>
             </Link>
           </div>
         }
       />
+
+      {/* Hero Section */}
+      <div className="relative pt-24 pb-16 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+              Professional Documentation
+              <span className="block text-blue-600">Standards & Samples</span>
+            </h1>
+            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+              Download industry-standard documentation samples demonstrating compliance with ISO, FDA, 
+              NASA, SOX, GDPR, and aviation regulations. See the quality and professionalism we deliver.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Search and Filter Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
+          <div className="flex flex-col lg:flex-row gap-4 items-center">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search samples by industry, standard, or keyword..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              {industries.map(industry => (
+                <button
+                  key={industry}
+                  onClick={() => setSearchTerm(industry)}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                >
+                  {industry}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Samples Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredSamples.map((sample, index) => (
+            <motion.div
+              key={sample.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            >
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-3xl">{sample.icon}</span>
+                  <span className="px-3 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full">
+                    {sample.industry}
+                  </span>
+                </div>
+                
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{sample.title}</h3>
+                <p className="text-gray-600 mb-4 line-clamp-3">{sample.description}</p>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {sample.tags.slice(0, 3).map(tag => (
+                    <span
+                      key={tag}
+                      className="px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                  {sample.tags.length > 3 && (
+                    <span className="px-2 py-1 text-xs font-medium text-gray-500 bg-gray-50 rounded">
+                      +{sample.tags.length - 3} more
+                    </span>
+                  )}
+                </div>
+                
+                <div className="flex gap-3">
+                  <a
+                    href={sample.previewUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+                  >
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    Preview
+                  </a>
+                  <a
+                    href={sample.downloadUrl}
+                    className="flex-1 inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+                  >
+                    <FileText className="w-4 h-4 mr-2" />
+                    Download
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {filteredSamples.length === 0 && (
+          <div className="text-center py-12">
+            <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">No samples found</h3>
+            <p className="text-gray-600">Try adjusting your search terms or filters.</p>
+          </div>
+        )}
+      </div>
+
+      {/* Call to Action Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 py-16">
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              Need Custom Documentation?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8">
+              Our team specializes in creating industry-specific documentation that meets the highest 
+              regulatory and professional standards. Let us help you achieve compliance and excellence.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contact">
+                <ModernButton variant="secondary" size="lg">
+                  Request Custom Documentation
+                </ModernButton>
+              </Link>
+              <Link href="/services">
+                <ModernButton 
+                  variant="outline" 
+                  size="lg"
+                  className="border-white text-white hover:bg-white hover:text-blue-600"
+                >
+                  View All Services
+                </ModernButton>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </div>
 
       {selectedIndustry ? (
         // Detailed Industry View

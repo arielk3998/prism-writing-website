@@ -15,8 +15,35 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ModernNavigation, ModernButton } from '../../components/ui/ModernComponents';
 import { DarkModeToggle } from '../../components/ui/DarkModeToggle';
+import { AuthTester } from '../../components/auth/AuthTester';
 
 export default function AuthDebug() {
+  const [localStorageData, setLocalStorageData] = React.useState<{users: unknown, passwords: unknown, token: string | null}>({
+    users: null,
+    passwords: null,
+    token: null
+  });
+
+  React.useEffect(() => {
+    // Load current localStorage data
+    const users = localStorage.getItem('prism-users');
+    const passwords = localStorage.getItem('prism-passwords');
+    const token = localStorage.getItem('prism-auth-token');
+    
+    setLocalStorageData({
+      users: users ? JSON.parse(users) : null,
+      passwords: passwords ? JSON.parse(passwords) : null,
+      token
+    });
+  }, []);
+
+  const resetLocalStorage = () => {
+    localStorage.removeItem('prism-users');
+    localStorage.removeItem('prism-passwords');
+    localStorage.removeItem('prism-auth-token');
+    window.location.reload();
+  };
+
   const navItems = [
     { label: 'Home', href: '/' },
     { label: 'Services', href: '/services' },
@@ -27,10 +54,17 @@ export default function AuthDebug() {
 
   const testAccounts = [
     {
+      email: 'Ariel.karagodskiy@gmail.com',
+      password: 'Merlak0105!',
+      role: 'admin',
+      description: 'Primary admin account with full system access and management capabilities',
+      features: ['Full System Access', 'User Management', 'System Analytics', 'All Project Access', 'File Management']
+    },
+    {
       email: 'admin@prismwriting.com',
       password: 'admin123',
       role: 'admin',
-      description: 'Full administrative access with user management and system settings',
+      description: 'Test administrative access with user management and system settings',
       features: ['User Management', 'System Analytics', 'All Project Access', 'Full File Management']
     },
     {
@@ -215,28 +249,92 @@ export default function AuthDebug() {
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                 Technical Implementation
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600 dark:text-gray-300">
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Features Implemented:</h4>
-                  <ul className="space-y-1 text-gray-600 dark:text-gray-300">
-                    <li>• React Context-based authentication</li>
+                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Features</h4>
+                  <ul className="space-y-1">
                     <li>• Role-based access control (RBAC)</li>
-                    <li>• Persistent user accounts (localStorage)</li>
-                    <li>• Dark mode support</li>
-                    <li>• Responsive dashboard design</li>
+                    <li>• Persistent localStorage sessions</li>
+                    <li>• JWT-style token authentication</li>
+                    <li>• Automatic session validation</li>
+                    <li>• Password protection for sensitive areas</li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">User Management:</h4>
-                  <ul className="space-y-1 text-gray-600 dark:text-gray-300">
-                    <li>• Account registration and login</li>
-                    <li>• Profile management</li>
-                    <li>• Password changes</li>
-                    <li>• Session management</li>
-                    <li>• Account persistence across sessions</li>
+                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Security</h4>
+                  <ul className="space-y-1">
+                    <li>• Session tokens with expiration</li>
+                    <li>• Permission-based feature access</li>
+                    <li>• Secure logout and session cleanup</li>
+                    <li>• Development-only test accounts</li>
+                    <li>• Client-side state management</li>
                   </ul>
                 </div>
               </div>
+            </motion.div>
+
+            {/* LocalStorage Debug Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="mt-8 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-6"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  🐛 Debug Information
+                </h3>
+                <ModernButton 
+                  variant="outline" 
+                  size="sm"
+                  onClick={resetLocalStorage}
+                >
+                  Reset LocalStorage
+                </ModernButton>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Current Auth Token:</h4>
+                  <code className="block bg-gray-100 dark:bg-gray-800 p-2 rounded text-xs overflow-x-auto">
+                    {localStorageData.token || 'None'}
+                  </code>
+                </div>
+                
+                <div>
+                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Stored Users:</h4>
+                  <code className="block bg-gray-100 dark:bg-gray-800 p-2 rounded text-xs overflow-x-auto max-h-32 overflow-y-auto">
+                    {localStorageData.users ? JSON.stringify(localStorageData.users, null, 2) : 'None (will use defaults)'}
+                  </code>
+                </div>
+                
+                <div>
+                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Stored Passwords:</h4>
+                  <code className="block bg-gray-100 dark:bg-gray-800 p-2 rounded text-xs overflow-x-auto">
+                    {localStorageData.passwords ? JSON.stringify(localStorageData.passwords, null, 2) : 'None (will use defaults)'}
+                  </code>
+                </div>
+                
+                <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded">
+                  <p className="text-sm text-blue-800 dark:text-blue-200">
+                    💡 <strong>Troubleshooting Tips:</strong><br/>
+                    1. If login fails, try clicking &quot;Reset LocalStorage&quot; above<br/>
+                    2. Check browser console for error messages<br/>
+                    3. Ensure exact case-sensitive email and password entry<br/>
+                    4. Try in incognito/private browsing mode
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Direct Authentication Tester */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="mt-8"
+            >
+              <AuthTester />
             </motion.div>
           </div>
         </section>
