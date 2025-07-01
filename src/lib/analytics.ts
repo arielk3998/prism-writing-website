@@ -134,26 +134,28 @@ class AdvancedAnalytics {
           gte: startDate,
           lte: endDate,
         },
-        status: 'succeeded',
+        status: 'COMPLETED',
       },
     });
 
-    const subscriptions = await prisma.subscription.findMany({
-      where: {
-        status: 'active',
-      },
-      include: {
-        payments: true,
-      },
-    });
+    // TODO: Add subscription model to schema if needed
+    // const subscriptions = await prisma.subscription.findMany({
+    //   where: {
+    //     status: 'active',
+    //   },
+    //   include: {
+    //     payments: true,
+    //   },
+    // });
 
-    const total = payments.reduce((sum, payment) => sum + payment.amount, 0) / 100;
-    const recurring = subscriptions.reduce((sum, sub) => {
-      const monthlyRevenue = sub.payments
-        .filter(p => p.createdAt >= startDate && p.createdAt <= endDate)
-        .reduce((pSum, payment) => pSum + payment.amount, 0) / 100;
-      return sum + monthlyRevenue;
-    }, 0);
+    const total = payments.reduce((sum, payment) => sum + Number(payment.amount), 0);
+    // TODO: Enable when subscription model is available
+    const recurring = 0; // subscriptions.reduce((sum, sub) => {
+    //   const monthlyRevenue = sub.payments
+    //     .filter(p => p.createdAt >= startDate && p.createdAt <= endDate)
+    //     .reduce((pSum, payment) => pSum + payment.amount, 0) / 100;
+    //   return sum + monthlyRevenue;
+    // }, 0);
 
     // Calculate growth rate
     const previousPeriod = await this.getPreviousPeriodRevenue(startDate, endDate);
@@ -203,12 +205,12 @@ class AdvancedAnalytics {
     });
 
     const total = projects.length;
-    const completed = projects.filter(p => p.status === 'completed').length;
+    const completed = projects.filter(p => p.status === 'COMPLETED').length;
     
-    const completedProjects = projects.filter(p => p.status === 'completed' && p.completedAt);
+    const completedProjects = projects.filter(p => p.status === 'COMPLETED' && p.updatedAt);
     const averageTime = completedProjects.length > 0 
       ? completedProjects.reduce((sum, p) => {
-          const duration = p.completedAt!.getTime() - p.createdAt.getTime();
+          const duration = p.updatedAt!.getTime() - p.createdAt.getTime();
           return sum + duration;
         }, 0) / completedProjects.length / (1000 * 60 * 60 * 24) // Convert to days
       : 0;
@@ -236,9 +238,12 @@ class AdvancedAnalytics {
     // Calculate session duration (simplified)
     const sessionDuration = events
       .filter(e => e.eventType === 'session_end')
-      .reduce((sum, e) => sum + (e.eventData?.duration as number || 0), 0) / sessions || 0;
+      .reduce((sum, e) => {
+        const data = e.eventData as any;
+        return sum + (data?.duration || 0);
+      }, 0) / sessions || 0;
 
-    const bounceRate = sessions > 0 ? (events.filter(e => e.event === 'bounce').length / sessions) * 100 : 0;
+    const bounceRate = sessions > 0 ? (events.filter(e => e.eventType === 'bounce').length / sessions) * 100 : 0;
     const conversion = pageViews > 0 ? (conversions / pageViews) * 100 : 0;
 
     return { pageViews, sessionDuration, bounceRate, conversion };
@@ -326,11 +331,11 @@ class AdvancedAnalytics {
           gte: prevStartDate,
           lte: prevEndDate,
         },
-        status: 'succeeded',
+        status: 'COMPLETED',
       },
     });
 
-    return payments.reduce((sum, payment) => sum + payment.amount, 0) / 100;
+    return payments.reduce((sum, payment) => sum + Number(payment.amount), 0);
   }
 
   private async getHistoricalData() {
@@ -365,12 +370,10 @@ class AdvancedAnalytics {
   private async identifyChurnRisk(): Promise<{ userId: string; risk: number; factors: string[] }[]> {
     const users = await prisma.user.findMany({
       where: {
-        subscription: {
-          status: 'active',
-        },
+        status: 'ACTIVE',
       },
       include: {
-        subscription: true,
+        // subscription: true, // TODO: Add subscription model if needed
         projects: true,
       },
     });
@@ -395,11 +398,11 @@ class AdvancedAnalytics {
         factors.push('No projects created');
       }
 
-      // Payment issues
-      if (user.subscription?.status !== 'active') {
-        risk += 0.5;
-        factors.push('Payment issues');
-      }
+      // Payment issues - TODO: Add subscription check when model is available
+      // if (user.subscription?.status !== 'active') {
+      //   risk += 0.5;
+      //   factors.push('Payment issues');
+      // }
 
       return {
         userId: user.id,

@@ -131,17 +131,13 @@ export const authOptions: NextAuthOptions = {
           await prisma.user.create({
             data: {
               email,
+              passwordHash: 'SSO_USER_NO_PASSWORD', // SSO users don't have passwords
               firstName: user.name?.split(' ')[0] || '',
               lastName: user.name?.split(' ').slice(1).join(' ') || '',
-              role: 'user', // Default role, can be updated by admin
-              status: 'active',
-              avatar: user.image || undefined,
-              metadata: {
-                ssoProvider: account?.provider,
-                ssoId: account?.providerAccountId,
-                domain,
-                firstLogin: new Date().toISOString()
-              }
+              role: 'MEMBER', // Default role, can be updated by admin
+              status: 'ACTIVE',
+              avatar: user.image || undefined
+              // TODO: SSO metadata not supported in current User schema
             }
           });
 
@@ -151,11 +147,8 @@ export const authOptions: NextAuthOptions = {
           await prisma.user.update({
             where: { id: existingUser.id },
             data: {
-              metadata: {
-                ...existingUser.metadata,
-                lastLogin: new Date().toISOString(),
-                ssoProvider: account?.provider
-              }
+              lastLogin: new Date()
+              // TODO: SSO metadata not supported in current User schema
             }
           });
         }
@@ -266,9 +259,9 @@ async function logSSOEvent(event: string, data: Record<string, any>) {
   try {
     await prisma.auditLog.create({
       data: {
-        event: `sso:${event}`,
+        action: `sso:${event}`,
         userId: data.userId,
-        metadata: data,
+        details: data as any,
         ipAddress: data.ipAddress || 'unknown',
         userAgent: data.userAgent || 'unknown'
       }
@@ -349,7 +342,7 @@ export async function getUserSSOInfo(userId: string) {
         firstName: true,
         lastName: true,
         role: true,
-        metadata: true,
+        lastLogin: true,
         createdAt: true,
         updatedAt: true
       }
@@ -358,18 +351,16 @@ export async function getUserSSOInfo(userId: string) {
     if (!user) {
       return null;
     }
-
-    const metadata = user.metadata as any;
     
     return {
       id: user.id,
       email: user.email,
       name: `${user.firstName} ${user.lastName}`,
       role: user.role,
-      ssoProvider: metadata?.ssoProvider || 'local',
+      ssoProvider: 'local', // Default since no metadata available
       domain: user.email.split('@')[1],
-      firstLogin: metadata?.firstLogin,
-      lastLogin: metadata?.lastLogin,
+      firstLogin: user.createdAt?.toISOString(),
+      lastLogin: user.lastLogin?.toISOString(),
       permissions: getRolePermissions(user.role)
     };
   } catch (error) {

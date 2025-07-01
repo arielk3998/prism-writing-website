@@ -102,6 +102,18 @@ export default function LoginForm({
         throw new Error(data.error || 'Login failed');
       }
 
+      // Store user data in localStorage for compatibility with existing auth system
+      const userData = {
+        id: data.user.id,
+        name: `${data.user.firstName || ''} ${data.user.lastName || ''}`.trim() || data.user.email,
+        email: data.user.email,
+        role: data.user.role.toLowerCase().replace('_', '-') as 'admin' | 'member' | 'client',
+        avatar: data.user.avatar
+      };
+      
+      localStorage.setItem('prism_user', JSON.stringify(userData));
+      localStorage.setItem('prism_token', 'authenticated'); // Simple token for compatibility
+
       // Success - call onSuccess callback or redirect
       if (onSuccess) {
         onSuccess(data.user);

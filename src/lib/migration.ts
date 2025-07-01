@@ -154,7 +154,7 @@ export async function migrateNewsletterSubscriptions(): Promise<{ success: boole
       isActive: true,
       confirmedAt: new Date(),
       source: 'website_signup',
-      tags: ['technical_writing', 'monthly_newsletter']
+      tags: JSON.stringify(['technical_writing', 'monthly_newsletter'])
     },
     {
       email: 'subscriber2@example.com',
@@ -163,7 +163,7 @@ export async function migrateNewsletterSubscriptions(): Promise<{ success: boole
       isActive: true,
       confirmedAt: new Date(),
       source: 'website_signup',
-      tags: ['business_writing', 'weekly_tips']
+      tags: JSON.stringify(['business_writing', 'weekly_tips'])
     }
   ];
 
@@ -241,7 +241,7 @@ export async function createSampleProjects(): Promise<{ success: boolean; count:
       {
         name: 'Technical Blog Series',
         description: 'Monthly technical blog posts for client website',
-        status: 'ACTIVE' as const,
+        status: 'IN_PROGRESS' as const,
         priority: 'LOW' as const,
         startDate: new Date(),
         budget: 5000,
@@ -262,7 +262,7 @@ export async function createSampleProjects(): Promise<{ success: boolean; count:
           data: {
             projectId: project.id,
             userId: adminUser.id,
-            role: 'ADMIN'
+            role: 'OWNER'
           }
         });
 

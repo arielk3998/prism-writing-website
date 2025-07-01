@@ -49,8 +49,8 @@ export interface AuditReport {
   events: AuditEvent[];
   summary: {
     totalEvents: number;
-    byCategory: Record<string, number>;
-    bySeverity: Record<string, number>;
+    byAction: Record<string, number>;
+    byResource: Record<string, number>;
     byOutcome: Record<string, number>;
     timeRange: {
       start: string;
@@ -229,25 +229,24 @@ export async function logAuditEvent(
   try {
     const auditEvent = await prisma.auditLog.create({
       data: {
-        event: eventTemplate.event,
-        category: eventTemplate.category,
-        severity: eventTemplate.severity,
-        action: eventTemplate.action,
-        outcome: details.outcome,
-        userId: details.userId,
-        targetUserId: details.targetUserId,
+        action: eventTemplate.event,
+        resource: details.resourceType,
         resourceId: details.resourceId,
-        resourceType: details.resourceType,
-        ipAddress: details.ipAddress,
-        userAgent: details.userAgent,
-        metadata: {
-          ...details.metadata,
+        details: {
+          category: eventTemplate.category,
+          severity: eventTemplate.severity,
+          outcome: details.outcome,
+          targetUserId: details.targetUserId,
+          metadata: details.metadata,
           compliance: {
             gdpr: true,
             soc2: true,
             retention: getRetentionPeriod(eventTemplate.category, eventTemplate.severity)
           }
-        }
+        } as any,
+        userId: details.userId,
+        ipAddress: details.ipAddress,
+        userAgent: details.userAgent,
       }
     });
 
@@ -278,9 +277,9 @@ export async function getAuditEvents(
     if (filters.resourceType) whereClause.resourceType = filters.resourceType;
 
     if (filters.startDate || filters.endDate) {
-      whereClause.createdAt = {};
-      if (filters.startDate) whereClause.createdAt.gte = new Date(filters.startDate);
-      if (filters.endDate) whereClause.createdAt.lte = new Date(filters.endDate);
+      whereClause.timestamp = {};
+      if (filters.startDate) whereClause.timestamp.gte = new Date(filters.startDate);
+      if (filters.endDate) whereClause.timestamp.lte = new Date(filters.endDate);
     }
 
     const [events, total] = await Promise.all([
@@ -291,7 +290,7 @@ export async function getAuditEvents(
             select: { id: true, email: true, firstName: true, lastName: true }
           }
         },
-        orderBy: { createdAt: 'desc' },
+        orderBy: { timestamp: 'desc' },
         skip: (pagination.page - 1) * pagination.limit,
         take: pagination.limit
       }),
@@ -339,21 +338,24 @@ export async function generateAuditReport(
     // Calculate summary statistics
     const summary = {
       totalEvents: events.length,
-      byCategory: events.reduce((acc, event) => {
-        acc[event.category] = (acc[event.category] || 0) + 1;
+      byAction: events.reduce((acc, event) => {
+        acc[event.action] = (acc[event.action] || 0) + 1;
         return acc;
       }, {} as Record<string, number>),
-      bySeverity: events.reduce((acc, event) => {
-        acc[event.severity] = (acc[event.severity] || 0) + 1;
+      byResource: events.reduce((acc, event) => {
+        const resource = event.resource || 'unknown';
+        acc[resource] = (acc[resource] || 0) + 1;
         return acc;
       }, {} as Record<string, number>),
       byOutcome: events.reduce((acc, event) => {
-        acc[event.outcome] = (acc[event.outcome] || 0) + 1;
+        const details = event.details as any;
+        const outcome = details?.outcome || 'unknown';
+        acc[outcome] = (acc[outcome] || 0) + 1;
         return acc;
       }, {} as Record<string, number>),
       timeRange: {
-        start: filters.startDate || events[events.length - 1]?.createdAt.toISOString() || new Date().toISOString(),
-        end: filters.endDate || events[0]?.createdAt.toISOString() || new Date().toISOString()
+        start: filters.startDate || events[events.length - 1]?.timestamp.toISOString() || new Date().toISOString(),
+        end: filters.endDate || events[0]?.timestamp.toISOString() || new Date().toISOString()
       }
     };
 
@@ -407,7 +409,7 @@ export async function cleanupExpiredAuditLogs() {
 
     const deletedCount = await prisma.auditLog.deleteMany({
       where: {
-        createdAt: {
+        timestamp: {
           lt: cutoffDate
         }
       }
@@ -446,7 +448,7 @@ export async function getAuditDashboard(timeRange: 'day' | 'week' | 'month' | 'y
 
     const events = await prisma.auditLog.findMany({
       where: {
-        createdAt: {
+        timestamp: {
           gte: startDate
         }
       }
@@ -455,24 +457,24 @@ export async function getAuditDashboard(timeRange: 'day' | 'week' | 'month' | 'y
     const dashboard = {
       timeRange,
       totalEvents: events.length,
-      byCategory: events.reduce((acc, event) => {
-        acc[event.category] = (acc[event.category] || 0) + 1;
+      byAction: events.reduce((acc, event) => {
+        acc[event.action] = (acc[event.action] || 0) + 1;
         return acc;
       }, {} as Record<string, number>),
-      bySeverity: events.reduce((acc, event) => {
-        acc[event.severity] = (acc[event.severity] || 0) + 1;
+      byResource: events.reduce((acc, event) => {
+        const resource = event.resource || 'unknown';
+        acc[resource] = (acc[resource] || 0) + 1;
         return acc;
       }, {} as Record<string, number>),
-      securityEvents: events.filter(e => e.category === 'security').length,
-      failedEvents: events.filter(e => e.outcome === 'failure').length,
+      securityEvents: events.filter(e => e.action?.includes('auth') || e.action?.includes('login')).length,
+      recentEvents: events.slice(0, 10),
       topUsers: getTopUsers(events),
-      recentCritical: events
-        .filter(e => e.severity === 'critical')
+      recentActions: events
         .slice(0, 10)
         .map(e => ({
           id: e.id,
-          event: e.event,
-          timestamp: e.createdAt,
+          action: e.action,
+          timestamp: e.timestamp,
           userId: e.userId
         }))
     };
@@ -491,11 +493,11 @@ function getTopUsers(events: any[]): Array<{ userId: string; count: number; last
   const userCounts = events.reduce((acc, event) => {
     if (event.userId) {
       if (!acc[event.userId]) {
-        acc[event.userId] = { count: 0, lastActivity: event.createdAt };
+        acc[event.userId] = { count: 0, lastActivity: event.timestamp };
       }
       acc[event.userId].count++;
-      if (new Date(event.createdAt) > new Date(acc[event.userId].lastActivity)) {
-        acc[event.userId].lastActivity = event.createdAt;
+      if (new Date(event.timestamp) > new Date(acc[event.userId].lastActivity)) {
+        acc[event.userId].lastActivity = event.timestamp;
       }
     }
     return acc;

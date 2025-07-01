@@ -6,24 +6,27 @@ import { prisma } from './database';
 export interface Notification {
   id: string;
   userId: string;
-  type: 'info' | 'success' | 'warning' | 'error';
+  type: 'INFO' | 'SUCCESS' | 'WARNING' | 'ERROR' | 'SYSTEM' | 'PROJECT' | 'TASK' | 'INVOICE' | 'PAYMENT';
   title: string;
   message: string;
-  category: string;
-  isRead: boolean;
+  status: 'UNREAD' | 'READ' | 'ARCHIVED';
   actionUrl?: string;
-  actionLabel?: string;
+  metadata?: Record<string, unknown>;
   createdAt: Date;
-  expiresAt?: Date;
+  readAt?: Date;
 }
 
 export interface NotificationPreferences {
+  id: string;
   userId: string;
-  emailNotifications: boolean;
-  pushNotifications: boolean;
-  categories: {
-    [key: string]: boolean;
-  };
+  emailEnabled: boolean;
+  pushEnabled: boolean;
+  smsEnabled: boolean;
+  projectUpdates: boolean;
+  taskReminders: boolean;
+  invoiceUpdates: boolean;
+  systemAlerts: boolean;
+  marketing: boolean;
 }
 
 class NotificationService {
@@ -33,10 +36,8 @@ class NotificationService {
     type: Notification['type'],
     title: string,
     message: string,
-    category: string,
     actionUrl?: string,
-    actionLabel?: string,
-    expiresAt?: Date
+    metadata?: Record<string, any>
   ): Promise<Notification> {
     try {
       const notification = await prisma.notification.create({
@@ -45,19 +46,16 @@ class NotificationService {
           type,
           title,
           message,
-          category,
           actionUrl,
-          actionLabel,
-          expiresAt,
-          isRead: false,
-        },
+          metadata
+        }
       });
 
       // Send real-time notification via WebSocket/SSE
-      await this.sendRealTimeNotification(userId, notification);
+      await this.sendRealTimeNotification(userId, notification as Notification);
 
       // Send email if user preferences allow
-      await this.sendEmailNotification(userId, notification);
+      await this.sendEmailNotification(userId, notification as Notification);
 
       return notification as Notification;
     } catch (error) {
@@ -76,11 +74,7 @@ class NotificationService {
       const notifications = await prisma.notification.findMany({
         where: {
           userId,
-          ...(unreadOnly ? { isRead: false } : {}),
-          OR: [
-            { expiresAt: null },
-            { expiresAt: { gt: new Date() } },
-          ],
+          ...(unreadOnly ? { status: 'UNREAD' } : {}),
         },
         orderBy: { createdAt: 'desc' },
         take: limit,
@@ -102,7 +96,8 @@ class NotificationService {
           userId,
         },
         data: {
-          isRead: true,
+          status: 'READ',
+          readAt: new Date(),
         },
       });
       return true;
@@ -118,10 +113,11 @@ class NotificationService {
       await prisma.notification.updateMany({
         where: {
           userId,
-          isRead: false,
+          status: 'UNREAD',
         },
         data: {
-          isRead: true,
+          status: 'READ',
+          readAt: new Date(),
         },
       });
       return true;
@@ -147,14 +143,18 @@ class NotificationService {
     }
   }
 
-  // 🧹 Clean Expired Notifications
-  async cleanExpiredNotifications(): Promise<number> {
+  // 🧹 Clean Expired Notifications (based on age)
+  async cleanExpiredNotifications(maxAgeDays: number = 30): Promise<number> {
     try {
+      const cutoffDate = new Date();
+      cutoffDate.setDate(cutoffDate.getDate() - maxAgeDays);
+      
       const result = await prisma.notification.deleteMany({
         where: {
-          expiresAt: {
-            lt: new Date(),
+          createdAt: {
+            lt: cutoffDate,
           },
+          status: 'READ', // Only clean read notifications
         },
       });
       return result.count;
@@ -174,28 +174,28 @@ class NotificationService {
       const unread = await prisma.notification.count({
         where: {
           userId,
-          isRead: false,
+          status: 'UNREAD',
         },
       });
 
-      const byCategory = await prisma.notification.groupBy({
-        by: ['category'],
+      const byType = await prisma.notification.groupBy({
+        by: ['type'],
         where: { userId },
-        _count: { category: true },
+        _count: { type: true },
       });
 
       return {
         total,
         unread,
         read: total - unread,
-        categories: byCategory.reduce((acc, item) => {
-          acc[item.category] = item._count.category;
+        types: byType.reduce((acc, item) => {
+          acc[item.type] = item._count.type;
           return acc;
         }, {} as Record<string, number>),
       };
     } catch (error) {
       console.error('Error getting notification stats:', error);
-      return { total: 0, unread: 0, read: 0, categories: {} };
+      return { total: 0, unread: 0, read: 0, types: {} };
     }
   }
 
@@ -228,9 +228,14 @@ class NotificationService {
         update: preferences,
         create: {
           userId,
-          emailNotifications: true,
-          pushNotifications: true,
-          categories: {},
+          emailEnabled: true,
+          pushEnabled: true,
+          smsEnabled: false,
+          projectUpdates: true,
+          taskReminders: true,
+          invoiceUpdates: true,
+          systemAlerts: true,
+          marketing: false,
           ...preferences,
         },
       });
@@ -247,7 +252,7 @@ class NotificationService {
     type: Notification['type'],
     title: string,
     message: string,
-    category: string
+    metadata?: Record<string, unknown>
   ): Promise<number> {
     try {
       const notifications = userIds.map(userId => ({
@@ -255,8 +260,7 @@ class NotificationService {
         type,
         title,
         message,
-        category,
-        isRead: false,
+        metadata: metadata ? metadata as any : undefined
       }));
 
       const result = await prisma.notification.createMany({
@@ -266,12 +270,13 @@ class NotificationService {
       // Send real-time notifications
       for (const userId of userIds) {
         await this.sendRealTimeNotification(userId, {
+          id: `temp_${Date.now()}_${userId}`,
           userId,
           type,
           title,
           message,
-          category,
-          isRead: false,
+          status: 'UNREAD' as const,
+          metadata,
           createdAt: new Date(),
         } as Notification);
       }
@@ -287,62 +292,59 @@ class NotificationService {
   async notifyPaymentReceived(userId: string, amount: number): Promise<void> {
     await this.sendNotification(
       userId,
-      'success',
+      'SUCCESS',
       'Payment Received',
       `Payment of ${amount / 100} USD has been processed successfully.`,
-      'payment',
       '/dashboard/billing',
-      'View Details'
+      { category: 'payment' }
     );
   }
 
   async notifyProjectCompleted(userId: string, projectName: string): Promise<void> {
     await this.sendNotification(
       userId,
-      'success',
+      'SUCCESS',
       'Project Completed',
       `Your project "${projectName}" has been completed and is ready for review.`,
-      'project',
       '/dashboard/projects',
-      'View Project'
+      { category: 'project', projectName }
     );
   }
 
   async notifySubscriptionExpiring(userId: string, daysUntilExpiry: number): Promise<void> {
     await this.sendNotification(
       userId,
-      'warning',
+      'WARNING',
       'Subscription Expiring',
       `Your subscription will expire in ${daysUntilExpiry} days. Renew to continue access.`,
-      'subscription',
       '/dashboard/billing',
-      'Renew Now'
+      { category: 'subscription', daysUntilExpiry }
     );
   }
 
   async notifySystemMaintenance(userIds: string[], startTime: Date): Promise<void> {
     await this.sendBulkNotification(
       userIds,
-      'info',
+      'INFO',
       'Scheduled Maintenance',
       `System maintenance is scheduled for ${startTime.toLocaleString()}. Expect brief service interruption.`,
-      'system'
+      { category: 'system', startTime: startTime.toISOString() }
     );
   }
 
   // 🔧 Private Methods
   private async createDefaultPreferences(userId: string): Promise<NotificationPreferences> {
     const defaultPrefs: NotificationPreferences = {
+      id: '', // Will be generated by database
       userId,
-      emailNotifications: true,
-      pushNotifications: true,
-      categories: {
-        payment: true,
-        project: true,
-        subscription: true,
-        system: true,
-        marketing: false,
-      },
+      emailEnabled: true,
+      pushEnabled: true,
+      smsEnabled: false,
+      projectUpdates: true,
+      taskReminders: true,
+      invoiceUpdates: true,
+      systemAlerts: true,
+      marketing: false,
     };
 
     await this.updateUserPreferences(userId, defaultPrefs);
@@ -363,7 +365,7 @@ class NotificationService {
     try {
       // Check user preferences
       const prefs = await this.getUserPreferences(userId);
-      if (!prefs?.emailNotifications || !prefs.categories[notification.category]) {
+      if (!prefs?.emailEnabled) {
         return;
       }
 

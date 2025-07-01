@@ -1,6 +1,8 @@
 // 📱 Offline Page Component
 // Phase 4: PWA Implementation
 
+'use client';
+
 import React from 'react';
 
 export default function OfflinePage() {

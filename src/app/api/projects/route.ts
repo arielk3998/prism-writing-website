@@ -55,12 +55,12 @@ export async function POST(request: NextRequest) {
 
     switch (action) {
       case 'create-from-template':
-        const { templateId, customData } = body;
-        if (!templateId || !customData) {
-          return NextResponse.json({ error: 'Template ID and custom data required' }, { status: 400 });
+        const { templateId, customData, creatorId } = body;
+        if (!templateId || !customData || !creatorId) {
+          return NextResponse.json({ error: 'Template ID, custom data, and creator ID required' }, { status: 400 });
         }
         
-        const project = await createProjectFromTemplate(templateId, customData);
+        const project = await createProjectFromTemplate(templateId, customData, creatorId);
         return NextResponse.json(project);
 
       case 'create-document':

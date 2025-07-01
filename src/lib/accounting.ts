@@ -1419,7 +1419,7 @@ class AccountingService {
     const cashAccount = await prisma.account.findFirst({
       where: {
         OR: [
-          { accountName: { contains: 'Cash', mode: 'insensitive' } },
+          { accountName: { contains: 'Cash' } },
           { accountNumber: '1000' }
         ]
       }

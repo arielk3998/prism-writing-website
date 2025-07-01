@@ -95,7 +95,7 @@ export async function seedDatabase(): Promise<void> {
               authorId: admin.id,
               publishedAt: new Date(),
               category: 'Getting Started',
-              tags: ['welcome', 'introduction']
+              tags: JSON.stringify(['welcome', 'introduction'])
             },
             {
               title: 'Our Services',
@@ -107,7 +107,7 @@ export async function seedDatabase(): Promise<void> {
               authorId: admin.id,
               publishedAt: new Date(),
               category: 'Services',
-              tags: ['services', 'writing']
+              tags: JSON.stringify(['services', 'writing'])
             }
           ]
         });

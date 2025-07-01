@@ -13,7 +13,7 @@
 import React from 'react';
 import { AuthProvider, useAuth } from '../../contexts/AuthContext';
 import { AuthForms } from '../../components/auth/AuthForms';
-import EnhancedDashboard from '../../components/portal/EnhancedDashboard';
+import ComprehensiveDashboard from '../../components/portal/ComprehensiveDashboard';
 
 function PortalContent() {
   const { user, isAuthenticated, isLoading } = useAuth();
@@ -33,7 +33,7 @@ function PortalContent() {
     return <AuthForms />;
   }
 
-  return <EnhancedDashboard user={user} />;
+  return <ComprehensiveDashboard user={user} />;
 }
 
 export default function EnhancedPortal() {

@@ -133,9 +133,8 @@ export async function POST(request: NextRequest) {
           type,
           title,
           message,
-          category,
           actionUrl,
-          actionLabel
+          { category, actionLabel }
         );
 
         return NextResponse.json({

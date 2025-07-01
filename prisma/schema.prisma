@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -62,6 +62,9 @@ model User {
   notifications   Notification[]
   notificationPreference NotificationPreference?
   
+  // Audit logs
+  auditLogs       AuditLog[]     @relation("UserAuditLogs")
+  
   // Accounting
   createdJournalEntries JournalEntry[]     @relation("CreatedJournalEntries")
   customerInvoices      Invoice[]          @relation("CustomerInvoices")
@@ -92,7 +95,7 @@ model NewsletterSubscription {
   confirmedAt     DateTime?
   unsubscribedAt  DateTime?
   source          String?
-  tags            String[]
+  tags            String?   // Comma-separated values for SQLite compatibility
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   
@@ -194,7 +197,7 @@ model Content {
   // SEO
   metaTitle       String?
   metaDescription String?
-  keywords        String[]
+  keywords        String?   // Comma-separated keywords for SQLite compatibility
   
   // Publishing
   publishedAt DateTime?
@@ -206,7 +209,7 @@ model Content {
   author      User      @relation(fields: [authorId], references: [id])
   
   // Categories and tags
-  tags        String[]
+  tags        String?   // Comma-separated tags for SQLite compatibility
   category    String?
   
   @@map("content")
@@ -517,6 +520,26 @@ model NotificationPreference {
   user            User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   @@map("notification_preferences")
+}
+
+// Audit Log Model
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String?
+  action      String
+  resource    String?
+  resourceId  String?
+  details     Json?
+  ipAddress   String?
+  userAgent   String?
+  timestamp   DateTime @default(now())
+  
+  user        User?    @relation("UserAuditLogs", fields: [userId], references: [id], onDelete: SetNull)
+  
+  @@index([userId])
+  @@index([action])
+  @@index([timestamp])
+  @@map("audit_logs")
 }
 
 // Enums
