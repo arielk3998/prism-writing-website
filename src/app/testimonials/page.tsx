@@ -3,8 +3,12 @@ import EnhancedFooter from '../../components/layout/EnhancedFooter';
 import { DarkModeToggle } from '@/components/ui/DarkModeToggle';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 import Link from 'next/link';
+import { teamMembers } from '../../data/teamData';
 
 export default function Testimonials() {
+  // Calculate active team members dynamically
+  const activeTeamMembers = teamMembers.filter(member => member.isActive);
+  
   const testimonials = [
     {
       id: 1,
@@ -132,7 +136,7 @@ export default function Testimonials() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">3</div>
+              <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">{activeTeamMembers.length}</div>
               <div className="text-gray-600 dark:text-gray-300">Expert Team Members</div>
             </div>
             <div>

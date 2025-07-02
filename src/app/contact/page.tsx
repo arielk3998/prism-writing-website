@@ -149,9 +149,9 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-contrast-high mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-contrast-high mb-6 leading-tight">
               Let&apos;s Create Something
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 block mt-2">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 block mt-2 pb-2">
                 Amazing Together
               </span>
             </h1>

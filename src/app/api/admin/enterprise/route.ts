@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
  */
 async function getEnterpriseMetrics(): Promise<EnterpriseMetrics> {
   try {
-    const [users, projects, subscriptions, auditEvents] = await Promise.all([
+    const [users, projects, /* subscriptions */, auditEvents] = await Promise.all([
       prisma.user.findMany({
         select: {
           id: true,
@@ -210,7 +210,7 @@ async function testDatabaseHealth(): Promise<'healthy' | 'warning' | 'critical'>
     if (responseTime < 100) return 'healthy';
     if (responseTime < 500) return 'warning';
     return 'critical';
-  } catch (error) {
+  } catch {
     return 'critical';
   }
 }

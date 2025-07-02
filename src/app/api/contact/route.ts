@@ -1,14 +1,15 @@
 /**
  * Contact Form API Route
- * Handles POST requests from the contact form
+ * Handles POST requests from the contact form with automated workflows
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { automateContactFormSubmission } from '../../../lib/automatedWorkflows';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, subject, message, files } = body;
+    const { name, email, company, message, projectType } = body;
 
     // Basic validation
     if (!name || !email || !message) {
@@ -18,25 +19,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Here you would typically:
-    // 1. Send email using a service like SendGrid, Nodemailer, etc.
-    // 2. Save to database
-    // 3. Process file uploads
-    
-    // For now, just log the data (in production, implement proper handling)
-    console.log('Contact form submission:', {
+    // Use automated workflow for comprehensive handling
+    const automationResult = await automateContactFormSubmission({
       name,
       email,
-      subject,
+      company: company || 'Not specified',
       message,
-      filesCount: files?.length || 0
+      projectType
     });
 
-    // Simulate processing delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Log for debugging
+    console.log('Contact form automation result:', automationResult);
 
+    // Always return success to user even if some automations fail
     return NextResponse.json(
-      { message: 'Thank you for your message! We will get back to you soon.' },
+      { 
+        message: 'Thank you for your message! We will get back to you within 24 hours.',
+        automationStatus: {
+          emailsSent: automationResult.clientEmail && automationResult.adminEmail,
+          notificationSent: automationResult.slack
+        }
+      },
       { status: 200 }
     );
 

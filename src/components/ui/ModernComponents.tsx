@@ -567,7 +567,7 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
           </motion.div>
 
           {/* Navigation Items */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
             {navItems.map((item, index) => (
               <motion.a
                 key={index}
@@ -576,7 +576,7 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
                   item.isActive
                     ? 'text-blue-600 dark:text-blue-400'
                     : 'text-gray-800 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400'
-                } text-lg`}
+                } text-sm lg:text-lg px-1`}
                 style={{
                   fontWeight: '600'
                 }}

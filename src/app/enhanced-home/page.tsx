@@ -1,7 +1,15 @@
 /**
  * Enhanced Homepage Component
  * 
- * A modern, conversion-focused homepage that showcases Prism Writing's services
+ * A modern, conversion-focused hexport default function EnhancedHomepage() {
+  // Statistics data - Real team metrics (dynamically calculated)
+  const activeTeamMembers = teamMembers.filter(member => member.isActive);
+  const stats = [
+    { value: activeTeamMembers.length, label: 'Expert Team Members', suffix: '' },
+    { value: 15, label: 'Years Combined Experience', suffix: '+' },
+    { value: 8, label: 'Specialization Areas', suffix: '' },
+    { value: 24, label: 'Hour Response Time', suffix: 'h' },
+  ];that showcases Prism Writing's services
  * using cutting-edge design patterns inspired by top technology websites.
  * 
  * Features:
@@ -22,6 +30,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { teamMembers } from '../../data/teamData';
 import {
   ModernHero,
   ModernButton,
@@ -72,7 +81,7 @@ const CheckIcon = () => (
 export default function EnhancedHomepage() {
   // Statistics data - Real team metrics
   const stats = [
-    { value: 3, label: 'Expert Team Members', suffix: '' },
+    { value: teamMembers.length, label: 'Expert Team Members', suffix: '' },
     { value: 15, label: 'Years Combined Experience', suffix: '+' },
     { value: 8, label: 'Specialization Areas', suffix: '' },
     { value: 24, label: 'Hour Response Time', suffix: 'h' },

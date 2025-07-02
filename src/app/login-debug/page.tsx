@@ -5,10 +5,9 @@ import { useRouter } from 'next/navigation';
 
 export default function LoginDebugPage() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
-  const [response, setResponse] = useState<any>(null);
+  const [response, setResponse] = useState<unknown>(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [localStorageData, setLocalStorageData] = useState({
     prism_user: 'Loading...',
     prism_token: 'Loading...'
@@ -17,7 +16,6 @@ export default function LoginDebugPage() {
 
   // Handle client-side mounting
   useEffect(() => {
-    setMounted(true);
     updateLocalStorageDisplay();
   }, []);
 

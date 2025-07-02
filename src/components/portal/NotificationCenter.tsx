@@ -138,7 +138,7 @@ export default function NotificationCenter({ notifications, onMarkAsRead }: Noti
             <span className="text-6xl mb-4 block">🔔</span>
             <p className="text-gray-600 dark:text-gray-400">No notifications yet</p>
             <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
-              You'll see project updates, messages, and system alerts here
+              You&apos;ll see project updates, messages, and system alerts here
             </p>
           </div>
         )}

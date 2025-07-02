@@ -142,8 +142,8 @@ export default function CustomerSignup() {
                 </h1>
               </div>
               <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-                Join hundreds of companies that trust Prism Writing Cooperative 
-                for their technical documentation needs.
+                Ready to transform your technical documentation? Let our expert cooperative 
+                help you communicate complex ideas with clarity and impact.
               </p>
               <div className="inline-flex items-center space-x-2 bg-blue-500/20 text-blue-100 px-4 py-2 rounded-lg">
                 <span className="text-lg">🚀</span>

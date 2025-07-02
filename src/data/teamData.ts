@@ -15,12 +15,59 @@ export interface TeamMember {
   certifications: string[];
   achievements: string[];
   image?: string;
+  resume?: string; // Path to resume file
   isActive: boolean;
   joinDate: string;
   isFoundingMember?: boolean;
 }
 
 export const teamMembers: TeamMember[] = [
+  {
+    id: "member-1",
+    name: "Ariel",
+    email: "Ariel.pk@outlook.com",
+    role: "Founder & CEO",
+    title: "Founder & Super Administrator",
+    bio: "Visionary founder and leader of Prism Writing Cooperative. Expertise in business strategy, technical writing standards, and cooperative management. Drives innovation in collaborative documentation and technical communication.",
+    specializations: [
+      "Business Strategy",
+      "Technical Writing Standards",
+      "Cooperative Management",
+      "Documentation Strategy",
+      "Team Leadership"
+    ],
+    industries: [
+      "Technology",
+      "Business Management",
+      "Cooperative Development",
+      "Technical Communication"
+    ],
+    skills: [
+      "Strategic Planning", "Team Management", "Technical Writing", "Business Development",
+      "Project Management", "Quality Assurance", "Digital Marketing", "Process Optimization"
+    ],
+    experience: "Founder and strategic leader with expertise in building cooperative businesses and establishing technical writing standards",
+    education: [
+      "Business Leadership Certificate",
+      "Technical Communication Degree",
+      "Cooperative Development Training"
+    ],
+    certifications: [
+      "Certified Cooperative Developer",
+      "Technical Writing Professional",
+      "Business Strategy Certification"
+    ],
+    achievements: [
+      "Founded Prism Writing Cooperative",
+      "Established industry-leading technical writing standards",
+      "Built successful cooperative business model",
+      "Led multiple successful documentation projects"
+    ],
+    resume: "/docs/team/Prism Writing Members/Ariel/Resume Ariel.docx",
+    isActive: true,
+    joinDate: "Founder",
+    isFoundingMember: true
+  },
   {
     id: "member-2",
     name: "Technical Writing Specialist",
