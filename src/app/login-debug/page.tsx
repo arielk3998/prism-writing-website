@@ -135,10 +135,10 @@ export default function LoginDebugPage() {
 
         {/* localStorage display */}
         <div className="mb-4">
-          <h4 className="font-semibold mb-2 text-gray-900">Current localStorage:</h4>
-          <div className="text-sm bg-gray-50 p-2 rounded text-gray-800">
-            <p className="text-gray-800"><strong>prism_user:</strong> {localStorage.getItem('prism_user') || 'Not set'}</p>
-            <p className="text-gray-800"><strong>prism_token:</strong> {localStorage.getItem('prism_token') || 'Not set'}</p>
+          <h4 className="font-semibold mb-2 text-gray-900 dark:text-white">Current localStorage:</h4>
+          <div className="text-sm bg-gray-50 dark:bg-gray-700 p-2 rounded text-gray-800 dark:text-gray-200">
+            <p className="text-gray-800 dark:text-gray-200"><strong>prism_user:</strong> {localStorage.getItem('prism_user') || 'Not set'}</p>
+            <p className="text-gray-800 dark:text-gray-200"><strong>prism_token:</strong> {localStorage.getItem('prism_token') || 'Not set'}</p>
           </div>
         </div>
 
@@ -146,19 +146,22 @@ export default function LoginDebugPage() {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => router.push('/admin')}
-            className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+            className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+            aria-label="Navigate to admin dashboard"
           >
             Go to Admin
           </button>
           <button
             onClick={() => router.push('/portal-enhanced')}
-            className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+            className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            aria-label="Navigate to enhanced portal"
           >
             Go to Portal Enhanced
           </button>
           <button
             onClick={() => router.push('/login')}
-            className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700"
+            className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+            aria-label="Navigate to login page"
           >
             Go to Real Login
           </button>
