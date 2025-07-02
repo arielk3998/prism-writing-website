@@ -11,7 +11,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -24,7 +24,8 @@ import EnhancedFooter from '../../components/layout/EnhancedFooter';
 import SampleViewer from '../../components/portfolio/SampleViewer';
 import { portfolioItems, PortfolioItem } from '../../data/portfolioData';
 
-export default function Portfolio() {
+// Component that uses useSearchParams
+function PortfolioWithParams() {
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
@@ -434,5 +435,14 @@ export default function Portfolio() {
       {/* Enhanced Footer */}
       <EnhancedFooter />
     </div>
+  );
+}
+
+// Main export component with Suspense wrapper
+export default function Portfolio() {
+  return (
+    <Suspense fallback={<div>Loading portfolio...</div>}>
+      <PortfolioWithParams />
+    </Suspense>
   );
 }

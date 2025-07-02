@@ -8,6 +8,8 @@
  * @version 1.0.0
  */
 
+'use client';
+
 import React from 'react';
 import { SimpleHero, HeroPresets } from '../../components/ui/SimpleHero';
 import Link from 'next/link';

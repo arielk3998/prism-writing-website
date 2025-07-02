@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { ModernNavigation, ModernButton } from '../../components/ui/ModernComponents';
 import { DarkModeToggle } from '../../components/ui/DarkModeToggle';
 import { AdminDashboard } from '../../components/admin/AdminDashboard';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function AdminPanel() {
   const { user, isAuthenticated } = useAuth();
@@ -28,8 +28,8 @@ export default function AdminPanel() {
     { label: 'About', href: '/about' },
   ];
 
-  // Redirect if not admin (using correct UserRole enum values)
-  if (!isAuthenticated || (user?.role !== 'ADMIN' && user?.role !== 'SUPER_ADMIN')) {
+  // Redirect if not admin
+  if (!isAuthenticated || user?.role !== 'admin') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
         <div className="text-center">

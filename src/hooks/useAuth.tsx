@@ -15,6 +15,7 @@ interface AuthContextType {
   isAuthenticated: boolean
   isLoading: boolean
   login: (email: string, password: string) => Promise<boolean>
+  register: (name: string, email: string, password: string) => Promise<boolean>
   logout: () => void
   updateUser: (user: User) => void
 }
@@ -32,12 +33,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkExistingSession = async () => {
     try {
-      // Check localStorage for existing session
-      const storedUser = localStorage.getItem('prism_user')
-      const storedToken = localStorage.getItem('prism_token')
-      
-      if (storedUser && storedToken) {
-        setUser(JSON.parse(storedUser))
+      // Only check localStorage on client side
+      if (typeof window !== 'undefined') {
+        const storedUser = localStorage.getItem('prism_user')
+        const storedToken = localStorage.getItem('prism_token')
+        
+        if (storedUser && storedToken) {
+          setUser(JSON.parse(storedUser))
+        }
       }
     } catch (error) {
       console.error('Session check failed:', error)
@@ -89,8 +92,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(userWithoutPassword)
         
         // Store session data
-        localStorage.setItem('prism_user', JSON.stringify(userWithoutPassword))
-        localStorage.setItem('prism_token', 'demo-token-' + foundUser.id)
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('prism_user', JSON.stringify(userWithoutPassword))
+          localStorage.setItem('prism_token', 'demo-token-' + foundUser.id)
+        }
         
         return true
       }
@@ -106,13 +111,51 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setUser(null)
-    localStorage.removeItem('prism_user')
-    localStorage.removeItem('prism_token')
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('prism_user')
+      localStorage.removeItem('prism_token')
+    }
+  }
+
+  const register = async (name: string, email: string, password: string): Promise<boolean> => {
+    try {
+      setIsLoading(true)
+      
+      // Basic validation
+      if (!name || !email || !password) {
+        throw new Error('All fields are required')
+      }
+      
+      // TODO: Implement actual registration API call
+      // For now, simulate successful registration
+      const newUser: User = {
+        id: `user_${Date.now()}`,
+        name,
+        email,
+        role: 'client', // Default role for new registrations
+        avatar: undefined
+      }
+      
+      setUser(newUser)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('prism_user', JSON.stringify(newUser))
+        localStorage.setItem('prism_token', `token_${Date.now()}`)
+      }
+      
+      return true
+    } catch (error) {
+      console.error('Registration failed:', error)
+      return false
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const updateUser = (updatedUser: User) => {
     setUser(updatedUser)
-    localStorage.setItem('prism_user', JSON.stringify(updatedUser))
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('prism_user', JSON.stringify(updatedUser))
+    }
   }
 
   const value = {
@@ -120,6 +163,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     isAuthenticated: !!user,
     isLoading,
     login,
+    register,
     logout,
     updateUser
   }

@@ -15,7 +15,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ModernNavigation, ModernButton } from '../../components/ui/ModernComponents';
 import { DarkModeToggle } from '../../components/ui/DarkModeToggle';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function CustomerSignup() {
   const { register } = useAuth();
@@ -65,12 +65,11 @@ export default function CustomerSignup() {
       }
 
       // Register the client
-      const success = await register({
-        email: formData.email,
-        password: formData.password,
-        firstName: formData.name.split(' ')[0],
-        lastName: formData.name.split(' ').slice(1).join(' ') || '',
-      });
+      const success = await register(
+        formData.name,
+        formData.email,
+        formData.password
+      );
 
       if (success) {
         // Store additional client information
