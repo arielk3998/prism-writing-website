@@ -19,13 +19,13 @@ import {
   ModernHero,
   ModernButton,
   ModernCard,
-  ModernStats,
   ModernFeatureGrid,
   ModernNavigation,
 } from '../components/ui/ModernComponents';
 import { TechIllustration } from '../components/ui/EnhancedGraphics';
 import EnhancedFooter from '../components/layout/EnhancedFooter';
 import { DarkModeToggle } from '../components/ui/DarkModeToggle';
+import TeamSection from '../components/sections/TeamSection';
 
 const CheckIcon = () => (
   <svg 
@@ -65,12 +65,12 @@ export default function Home() {
     { label: 'About', href: '/about' },
   ];
 
-  // Company statistics
-  const stats = [
-    { value: 500, label: 'Projects Completed', suffix: '+' },
-    { value: 150, label: 'Happy Clients', suffix: '+' },
-    { value: 99, label: 'Success Rate', suffix: '%' },
-    { value: 24, label: 'Hour Support', suffix: '/7' },
+  // Team expertise areas (real capabilities instead of false statistics)
+  const expertiseAreas = [
+    { value: 'API', label: 'Documentation Specialists', suffix: '' },
+    { value: 'User', label: 'Experience Writers', suffix: '' },
+    { value: 'SOPs', label: 'Process Experts', suffix: '' },
+    { value: 'Training', label: 'Material Creators', suffix: '' },
   ];
 
   // Core features for the feature grid
@@ -139,7 +139,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* Modern Navigation */}
       <ModernNavigation
         logo={
@@ -188,8 +188,8 @@ export default function Home() {
         </Link>
       </ModernHero>
 
-      {/* Statistics Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-50 to-indigo-50">
+      {/* Our Expertise Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -198,15 +198,34 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Trusted by Companies Worldwide
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Our Core Expertise
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our track record speaks for itself. We&apos;ve helped hundreds of companies 
-              create documentation that drives real business impact.
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              We specialize in transforming complex technical information into clear, 
+              actionable documentation that drives real business results.
             </p>
           </motion.div>
-          <ModernStats stats={stats} />
+          
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {expertiseAreas.map((area, index) => (
+              <motion.div
+                key={index}
+                className="text-center"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <div className="text-3xl lg:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                  {area.value}
+                </div>
+                <div className="text-gray-600 dark:text-gray-300 font-medium">
+                  {area.label}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -278,9 +297,9 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
-                  <Link href="/services">
-                    <ModernButton variant="outline" size="sm" fullWidth>
-                      Learn More
+                  <Link href="/contact">
+                    <ModernButton variant="primary" size="sm" fullWidth>
+                      Start Your Order
                     </ModernButton>
                   </Link>
                 </ModernCard>
@@ -310,6 +329,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Team Section */}
+      <TeamSection limit={3} className="bg-white dark:bg-gray-900" />
+
       {/* Call-to-Action Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-purple-600">
         <div className="max-w-4xl mx-auto text-center">
@@ -326,18 +348,18 @@ export default function Home() {
               Ready to Transform Your Documentation?
             </h2>
             <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-              Join hundreds of companies who&apos;ve revolutionized their user experience 
-              with our expert technical writing services. Start your project today.
+              Ready to transform your documentation with our expert technical writing team? 
+              Let&apos;s discuss how we can help bring clarity to your complex content.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">
                 <ModernButton variant="secondary" size="lg">
-                  Start Your Project
+                  Start Your Order
                 </ModernButton>
               </Link>
-              <Link href="/portfolio">
+              <Link href="/services">
                 <ModernButton variant="outline" size="lg">
-                  See Our Work
+                  View Services & Pricing
                 </ModernButton>
               </Link>
             </div>

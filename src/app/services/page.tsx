@@ -2,7 +2,9 @@
  * Services Page - Modern Refactored Version
  * 
  * A comprehensive services showcase using our modern design system.
- * Features service cards, pricing, interactive elements, and conversion-focused layout.
+      pricing: 'S      pricing: 'Starting at $3,800',
+      timeline: '3-5 weeks',rting at $2,800',
+      timeline: '2-4 weeks', Features service cards, pricing, interactive elements, and conversion-focused layout.
  * 
  * @module ServicesPage
  * @version 3.0.0
@@ -88,8 +90,8 @@ export default function Services() {
         'Postman Collections',
         'Testing & Troubleshooting'
       ],
-      pricing: 'Starting at $2,500',
-      timeline: '2-4 weeks',
+      pricing: 'Starting at $4,500',
+      timeline: '3-6 weeks',
       color: 'from-blue-500 to-blue-600',
     },
     {
@@ -104,8 +106,8 @@ export default function Services() {
         'Audit Documentation',
         'Continuous Improvement'
       ],
-      pricing: 'Starting at $1,800',
-      timeline: '1-3 weeks',
+      pricing: 'Starting at $3,200',
+      timeline: '2-5 weeks',
       color: 'from-green-500 to-green-600',
     },
     {
@@ -147,7 +149,7 @@ export default function Services() {
     {
       name: 'Starter',
       description: 'Perfect for small projects and startups',
-      price: '$1,200',
+      price: '$2,500',
       priceDetail: 'per project',
       features: [
         'Up to 20 pages of documentation',
@@ -155,7 +157,7 @@ export default function Services() {
         'PDF & web delivery',
         '2 rounds of revisions',
         'Email support',
-        '2-week delivery'
+        '3-4 week delivery'
       ],
       color: 'border-gray-200',
       popular: false,
@@ -163,7 +165,7 @@ export default function Services() {
     {
       name: 'Professional',
       description: 'Ideal for growing businesses',
-      price: '$2,500',
+      price: '$5,500',
       priceDetail: 'per project',
       features: [
         'Up to 50 pages of documentation',
@@ -173,7 +175,7 @@ export default function Services() {
         '3 rounds of revisions',
         'Priority support',
         'Custom templates',
-        '3-week delivery'
+        '4-6 week delivery'
       ],
       color: 'border-blue-500 ring-2 ring-blue-500',
       popular: true,
@@ -221,9 +223,9 @@ export default function Services() {
                 Get Quote
               </ModernButton>
             </Link>
-            <Link href="/portal">
+            <Link href="/portal-enhanced">
               <ModernButton variant="primary" size="sm">
-                Client Portal
+                Login
               </ModernButton>
             </Link>
           </div>
@@ -264,75 +266,11 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-8 mb-20">
-            {services.map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <ModernCard variant="elevated" className="h-full">
-                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${service.color} text-white mb-6`}>
-                    {service.icon}
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                    {service.description}
-                  </p>
-                  
-                  <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
-                    <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
-                      <div className="font-semibold text-gray-900 dark:text-white">Pricing</div>
-                      <div className="text-blue-600 dark:text-blue-400 font-medium">{service.pricing}</div>
-                    </div>
-                    <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
-                      <div className="font-semibold text-gray-900 dark:text-white">Timeline</div>
-                      <div className="text-green-600 dark:text-green-400 font-medium">{service.timeline}</div>
-                    </div>
-                  </div>
-
-                  <ul className="space-y-3 mb-8">
-                    {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start text-gray-600 dark:text-gray-300">
-                        <div className="w-5 h-5 text-green-500 mr-3 mt-0.5">
-                          <CheckIcon />
-                        </div>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  <div className="flex gap-3">
-                    <Link href="/contact" className="flex-1">
-                      <ModernButton variant="primary" size="sm" fullWidth>
-                        Get Quote
-                      </ModernButton>
-                    </Link>
-                    <Link href="/portfolio" className="flex-1">
-                      <ModernButton variant="outline" size="sm" fullWidth>
-                        View Samples
-                      </ModernButton>
-                    </Link>
-                  </div>
-                </ModernCard>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
+      {/* Pricing Section - Moved to top for transparency */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
         <div className="max-w-7xl mx-auto">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -370,15 +308,15 @@ export default function Services() {
                   className={`h-full border-2 ${tier.color} ${tier.popular ? 'shadow-xl' : ''}`}
                 >
                   <div className="text-center mb-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{tier.name}</h3>
-                    <p className="text-gray-600 mb-4">{tier.description}</p>
-                    <div className="text-4xl font-bold text-gray-900 mb-2">{tier.price}</div>
-                    <div className="text-gray-500">{tier.priceDetail}</div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{tier.name}</h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">{tier.description}</p>
+                    <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2">{tier.price}</div>
+                    <div className="text-gray-500 dark:text-gray-400">{tier.priceDetail}</div>
                   </div>
 
                   <ul className="space-y-4 mb-8">
                     {tier.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start text-gray-600">
+                      <li key={featureIndex} className="flex items-start text-gray-600 dark:text-gray-300">
                         <div className="w-5 h-5 text-green-500 mr-3 mt-0.5">
                           <CheckIcon />
                         </div>
@@ -403,8 +341,105 @@ export default function Services() {
         </div>
       </section>
 
+      {/* Services Grid */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Our Services
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Specialized technical writing services designed to meet your specific needs and industry requirements.
+            </p>
+          </motion.div>
+          
+          <div className="grid lg:grid-cols-2 gap-8 mb-16">
+            {services.map((service, index) => {
+              // Create specific portfolio links based on service type
+              const getPortfolioLink = (title: string) => {
+                switch(title) {
+                  case 'API Documentation':
+                    return '/portfolio?category=API%20Documentation#api-docs';
+                  case 'Standard Operating Procedures':
+                    return '/portfolio?category=Process%20Documentation#process-docs';
+                  case 'User Manuals & Guides':
+                    return '/portfolio?category=User%20Guide#user-guides';
+                  case 'Training Materials':
+                    return '/portfolio?category=Training%20Materials#training';
+                  default:
+                    return '/portfolio';
+                }
+              };
+
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <ModernCard variant="elevated" className="h-full">
+                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${service.color} text-white mb-6`}>
+                      {service.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                      {service.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                      {service.description}
+                    </p>
+                    
+                    <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
+                      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
+                        <div className="font-semibold text-gray-900 dark:text-white">Pricing</div>
+                        <div className="text-blue-600 dark:text-blue-400 font-medium">{service.pricing}</div>
+                      </div>
+                      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
+                        <div className="font-semibold text-gray-900 dark:text-white">Timeline</div>
+                        <div className="text-green-600 dark:text-green-400 font-medium">{service.timeline}</div>
+                      </div>
+                    </div>
+
+                    <ul className="space-y-3 mb-8">
+                      {service.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-start text-gray-600 dark:text-gray-300">
+                          <div className="w-5 h-5 text-green-500 mr-3 mt-0.5">
+                            <CheckIcon />
+                          </div>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <div className="flex gap-3">
+                      <Link href="/contact" className="flex-1">
+                        <ModernButton variant="primary" size="sm" fullWidth>
+                          Get Quote
+                        </ModernButton>
+                      </Link>
+                      <Link href={getPortfolioLink(service.title)} className="flex-1">
+                        <ModernButton variant="outline" size="sm" fullWidth>
+                          View Samples
+                        </ModernButton>
+                      </Link>
+                    </div>
+                  </ModernCard>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Call-to-Action Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-purple-600">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-purple-600">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

@@ -132,20 +132,20 @@ export default function Testimonials() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">50+</div>
-              <div className="text-gray-600 dark:text-gray-300">Projects Completed</div>
+              <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">3</div>
+              <div className="text-gray-600 dark:text-gray-300">Expert Team Members</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">95%</div>
-              <div className="text-gray-600 dark:text-gray-300">Client Satisfaction</div>
+              <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">15+</div>
+              <div className="text-gray-600 dark:text-gray-300">Years Combined Experience</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">40%</div>
-              <div className="text-gray-600 dark:text-gray-300">Avg. Support Reduction</div>
+              <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">8</div>
+              <div className="text-gray-600 dark:text-gray-300">Specialization Areas</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">100%</div>
-              <div className="text-gray-600 dark:text-gray-300">Compliance Success</div>
+              <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">24h</div>
+              <div className="text-gray-600 dark:text-gray-300">Response Time</div>
             </div>
           </div>
         </div>

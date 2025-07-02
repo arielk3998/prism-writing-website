@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import NewsletterAdmin from '@/components/admin/NewsletterAdmin';
 import UserManagement from '@/components/admin/UserManagement';
+import TeamManagement from '@/components/admin/TeamManagement';
 import PaymentManagement from '@/components/admin/PaymentManagement';
 import DatabaseManagement from '@/components/admin/DatabaseManagement';
 import EnterpriseManagement from '@/components/admin/EnterpriseManagement';
@@ -27,6 +28,7 @@ export default function AdminDashboard() {
   const tabs = [
     { id: 'newsletter', label: 'Newsletter', icon: Mail },
     { id: 'users', label: 'Users', icon: Users },
+    { id: 'team', label: 'Team', icon: Users },
     { id: 'payments', label: 'Payments', icon: CreditCard },
     { id: 'database', label: 'Database', icon: FileText },
     { id: 'enterprise', label: 'Enterprise', icon: Shield },
@@ -100,6 +102,8 @@ export default function AdminDashboard() {
           {activeTab === 'newsletter' && <NewsletterAdmin />}
           
           {activeTab === 'users' && <UserManagement />}
+          
+          {activeTab === 'team' && <TeamManagement />}
           
           {activeTab === 'payments' && <PaymentManagement />}
           

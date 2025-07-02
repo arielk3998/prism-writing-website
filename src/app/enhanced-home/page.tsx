@@ -70,12 +70,12 @@ const CheckIcon = () => (
 );
 
 export default function EnhancedHomepage() {
-  // Statistics data
+  // Statistics data - Real team metrics
   const stats = [
-    { value: 500, label: 'Projects Completed', suffix: '+' },
-    { value: 95, label: 'Client Satisfaction', suffix: '%' },
-    { value: 50, label: 'Industries Served', suffix: '+' },
-    { value: 24, label: 'Hour Turnaround', suffix: 'h' },
+    { value: 3, label: 'Expert Team Members', suffix: '' },
+    { value: 15, label: 'Years Combined Experience', suffix: '+' },
+    { value: 8, label: 'Specialization Areas', suffix: '' },
+    { value: 24, label: 'Hour Response Time', suffix: 'h' },
   ];
 
   // Features data

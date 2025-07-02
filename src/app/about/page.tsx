@@ -125,10 +125,10 @@ export default function AboutPage() {
   ];
 
   const companyStats = [
-    { label: "Years of Experience", value: 10, suffix: "+" },
-    { label: "Projects Completed", value: 500, suffix: "+" },
-    { label: "Client Satisfaction", value: 98, suffix: "%" },
-    { label: "Industries Served", value: 25, suffix: "+" }
+    { label: "Founding Members", value: 3, suffix: "" },
+    { label: "Combined Experience", value: 15, suffix: "+ years" },
+    { label: "Specialization Areas", value: 8, suffix: "" },
+    { label: "Industries Covered", value: 12, suffix: "+" }
   ];
 
   return (

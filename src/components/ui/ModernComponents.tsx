@@ -73,18 +73,23 @@ const ModernButton: React.FC<ModernButtonProps> = ({
       focus:ring-blue-500 active:from-blue-700 active:to-blue-800
     `,
     secondary: `
-      bg-gradient-to-r from-gray-100 to-gray-200 text-gray-900 shadow-md
-      hover:from-gray-200 hover:to-gray-300 hover:shadow-lg
-      focus:ring-gray-500 active:from-gray-300 active:to-gray-400
+      bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-600 dark:to-gray-700 
+      text-gray-900 dark:text-white shadow-md
+      hover:from-gray-200 hover:to-gray-300 dark:hover:from-gray-500 dark:hover:to-gray-600 
+      hover:shadow-lg
+      focus:ring-gray-500 dark:focus:ring-gray-400 
+      active:from-gray-300 active:to-gray-400 dark:active:from-gray-700 dark:active:to-gray-800
     `,
     outline: `
-      border-2 border-blue-500 text-blue-500 bg-transparent
-      hover:bg-blue-50 hover:border-blue-600 hover:text-blue-600
-      focus:ring-blue-500 active:bg-blue-100
+      border-2 border-blue-500 dark:border-blue-400 text-blue-500 dark:text-blue-400 bg-transparent
+      hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-600 dark:hover:border-blue-300 
+      hover:text-blue-600 dark:hover:text-blue-300
+      focus:ring-blue-500 dark:focus:ring-blue-400 active:bg-blue-100 dark:active:bg-blue-900/30
     `,
     ghost: `
-      text-gray-600 bg-transparent hover:bg-gray-100 hover:text-gray-900
-      focus:ring-gray-500 active:bg-gray-200
+      text-gray-600 dark:text-gray-300 bg-transparent 
+      hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white
+      focus:ring-gray-500 dark:focus:ring-gray-400 active:bg-gray-200 dark:active:bg-gray-600
     `,
   };
 
@@ -153,18 +158,20 @@ const ModernCard: React.FC<ModernCardProps> = ({
 
   const variantClasses = {
     default: `
-      bg-white border border-gray-200 shadow-sm
+      bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm
       hover:shadow-md
     `,
     elevated: `
-      bg-white shadow-lg hover:shadow-xl
+      bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl
+      border border-gray-100 dark:border-gray-700
     `,
     glass: `
-      bg-white/70 backdrop-blur-lg border border-white/20 shadow-lg
-      hover:bg-white/80 hover:shadow-xl
+      bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg 
+      border border-white/20 dark:border-gray-700/20 shadow-lg
+      hover:bg-white/80 dark:hover:bg-gray-800/80 hover:shadow-xl
     `,
     interactive: `
-      bg-white border border-gray-200 shadow-sm cursor-pointer
+      bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm cursor-pointer
       hover:shadow-lg hover:scale-105 hover:-translate-y-1
       active:scale-100 active:translate-y-0
     `,
@@ -542,7 +549,7 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200/20 dark:bg-gray-900/95 dark:border-gray-700/20'
-          : 'bg-transparent'
+          : 'bg-white/80 backdrop-blur-sm dark:bg-gray-900/80'
       } ${className}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -567,15 +574,10 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
                 href={item.href}
                 className={`relative font-semibold transition-colors duration-200 ${
                   item.isActive
-                    ? isScrolled
-                      ? 'text-blue-600 dark:text-blue-400'
-                      : 'text-blue-200'
-                    : isScrolled
-                    ? 'text-gray-800 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400'
-                    : 'text-white hover:text-blue-200'
+                    ? 'text-blue-600 dark:text-blue-400'
+                    : 'text-gray-800 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400'
                 } text-lg`}
                 style={{
-                  textShadow: !isScrolled ? '2px 2px 8px rgba(0,0,0,0.9), 1px 1px 4px rgba(0,0,0,0.8)' : 'none',
                   fontWeight: '600'
                 }}
                 whileHover={{ y: -2 }}
@@ -584,9 +586,7 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
                 {item.label}
                 {item.isActive && (
                   <motion.div
-                    className={`absolute -bottom-1 left-0 right-0 h-0.5 rounded-full ${
-                      isScrolled ? 'bg-blue-600' : 'bg-blue-200'
-                    }`}
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-blue-600 dark:bg-blue-400"
                     layoutId="activeTab"
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
@@ -700,7 +700,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
     >
       <div className="grid md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
             Full Name *
           </label>
           <input
@@ -710,12 +710,12 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
             required
             value={formData.name}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400"
             placeholder="Enter your full name"
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
             Email Address *
           </label>
           <input
@@ -725,7 +725,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
             required
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400"
             placeholder="your.email@company.com"
           />
         </div>
@@ -733,7 +733,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
 
       <div className="grid md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="company" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
             Company
           </label>
           <input
@@ -742,12 +742,12 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
             name="company"
             value={formData.company}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400"
             placeholder="Your company name"
           />
         </div>
         <div>
-          <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="service" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
             Service of Interest
           </label>
           <select
@@ -755,7 +755,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
             name="service"
             value={formData.service}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
           >
             <option value="">Select a service</option>
             <option value="api-documentation">API Documentation</option>
@@ -769,7 +769,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
           Project Description *
         </label>
         <textarea
@@ -779,7 +779,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
           rows={6}
           value={formData.message}
           onChange={handleChange}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-vertical"
+          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-vertical placeholder-gray-500 dark:placeholder-gray-400"
           placeholder="Tell us about your project, timeline, and any specific requirements..."
         />
       </div>

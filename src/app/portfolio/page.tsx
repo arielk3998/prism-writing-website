@@ -11,9 +11,10 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import {
   ModernButton,
   ModernNavigation,
@@ -27,6 +28,15 @@ export default function Portfolio() {
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
+  const searchParams = useSearchParams();
+
+  // Handle URL parameters for filtering
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam) {
+      setActiveFilter(categoryParam);
+    }
+  }, [searchParams]);
 
   // Navigation items
   const navItems = [
@@ -156,7 +166,7 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* Modern Navigation */}
       <ModernNavigation
         logo={
@@ -322,8 +332,14 @@ export default function Portfolio() {
       </section>
 
       {/* Portfolio Grid */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section id="portfolio-grid" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
+          {/* Anchor sections for specific service types */}
+          <div id="api-docs" className="scroll-mt-32"></div>
+          <div id="process-docs" className="scroll-mt-32"></div>
+          <div id="user-guides" className="scroll-mt-32"></div>
+          <div id="training" className="scroll-mt-32"></div>
+          
           <AnimatePresence mode="wait">
             <motion.div
               key={activeFilter}
