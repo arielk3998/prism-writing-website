@@ -14,7 +14,23 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth, usePermissions } from '../../contexts/AuthContext';
-import { User } from '../../lib/auth';
+                  </button>
+                  {(hasRole('ADMIN') || hasRole('MEMBER')) && (
+                    <button 
+                      onClick={() => setActiveTab('resources')}
+                      className="flex items-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors text-left"
+                    >
+                      <span className="text-2xl mr-3">📚</span>
+                      <div>
+                        <p className="font-medium text-gray-900 dark:text-white">Browse Resources</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Access templates and guides</p>
+                      </div>
+                    </button>
+                  )}
+                  <button 
+                    onClick={() => setActiveTab('files')}
+                    className="flex items-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/40 transition-colors text-left"
+                  >t { User } from '../../lib/auth';
 import { DarkModeToggle } from '../ui/DarkModeToggle';
 
 // Import enhanced components
@@ -24,6 +40,7 @@ import AccountingDashboard from './AccountingDashboard';
 import CRMDashboard from './CRMDashboard';
 import NotificationCenter from './NotificationCenter';
 import EnhancedFileManager from './EnhancedFileManager';
+import MemberResources from './MemberResources';
 import AccountManagement from './AccountManagement';
 
 interface DashboardProps {
@@ -299,6 +316,7 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
     { id: 'overview', label: 'Dashboard', icon: '📊', description: 'Overview and quick stats' },
     { id: 'projects', label: 'Projects', icon: '🚀', description: 'Project management and tracking' },
     { id: 'files', label: 'Files', icon: '📁', description: 'Document and file management' },
+    { id: 'resources', label: 'Resources', icon: '📚', description: 'Member templates and guides', roles: ['ADMIN', 'MEMBER'] as const },
     { id: 'analytics', label: 'Analytics', icon: '📈', description: 'Performance metrics and reports', adminOnly: true },
     { id: 'accounting', label: 'Accounting', icon: '💰', description: 'Financial management', roles: ['ADMIN', 'MEMBER'] as const },
     { id: 'crm', label: 'CRM', icon: '👥', description: 'Client relationship management', roles: ['ADMIN', 'MEMBER'] as const },
@@ -499,6 +517,9 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
 
       case 'files':
         return <EnhancedFileManager />;
+
+      case 'resources':
+        return (hasRole('ADMIN') || hasRole('MEMBER')) ? <MemberResources userRole={user?.role?.toLowerCase() as 'admin' | 'member' | 'client'} /> : null;
 
       case 'analytics':
         return hasRole('ADMIN') ? <AnalyticsDashboard user={user} /> : null;
