@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { FileText, Languages, Clock, BarChart3, Globe2 } from 'lucide-react';
 import LanguageSelector from './LanguageSelector';
-import { Language, getLanguageByCode } from '../lib/languages';
+import { Language, getLanguageByCode, languages } from '../lib/languages';
 import { SampleDocument, sampleDocuments, getDocumentById } from '../lib/sample-documents';
 
 export default function SampleDocumentTranslator() {
@@ -171,10 +171,16 @@ export default function SampleDocumentTranslator() {
               <label className="block text-sm font-medium text-gray-700">
                 Target Language
               </label>
+              <div className="mb-2 text-sm text-blue-600">
+                📍 We support {languages.length} world languages - click below to browse all options
+              </div>
+              <div className="mb-3 text-xs text-gray-600">
+                Popular languages: Spanish, French, German, Chinese, Japanese, Arabic, Russian, Portuguese, Italian, Korean, and {languages.length - 10} more...
+              </div>
               <LanguageSelector
                 selectedLanguage={targetLanguage}
                 onLanguageSelect={setTargetLanguage}
-                placeholder="Choose target language..."
+                placeholder="🌍 Click here to choose from 95 languages..."
                 showNativeName={true}
                 showSpeakers={true}
               />
