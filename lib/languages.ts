@@ -105,6 +105,33 @@ export const languages: Language[] = [
   // Americas
   { code: 'qu', name: 'Quechua', nativeName: 'Runa Simi', direction: 'ltr', family: 'Quechuan', region: 'Americas', speakers: 8 },
   { code: 'gn', name: 'Guarani', nativeName: 'Avañeẽ', direction: 'ltr', family: 'Tupian', region: 'Americas', speakers: 6 },
+  
+  // Additional European Languages
+  { code: 'mk', name: 'Macedonian', nativeName: 'Македонски', direction: 'ltr', family: 'Slavic', region: 'Europe', speakers: 2 },
+  { code: 'sq', name: 'Albanian', nativeName: 'Shqip', direction: 'ltr', family: 'Indo-European', region: 'Europe', speakers: 6 },
+  { code: 'be', name: 'Belarusian', nativeName: 'Беларуская', direction: 'ltr', family: 'Slavic', region: 'Europe', speakers: 3 },
+  { code: 'bs', name: 'Bosnian', nativeName: 'Bosanski', direction: 'ltr', family: 'Slavic', region: 'Europe', speakers: 3 },
+  
+  // Additional Middle Eastern Languages
+  { code: 'ku', name: 'Kurdish', nativeName: 'Kurdî', direction: 'ltr', family: 'Indo-European', region: 'MENA', speakers: 30 },
+  { code: 'ps', name: 'Pashto', nativeName: 'پښتو', direction: 'rtl', family: 'Indo-European', region: 'Asia', speakers: 60 },
+  { code: 'sd', name: 'Sindhi', nativeName: 'سنڌي', direction: 'rtl', family: 'Indo-European', region: 'Asia', speakers: 25 },
+  
+  // Additional African Languages
+  { code: 'rw', name: 'Kinyarwanda', nativeName: 'Ikinyarwanda', direction: 'ltr', family: 'Niger-Congo', region: 'Africa', speakers: 12 },
+  { code: 'lg', name: 'Luganda', nativeName: 'Luganda', direction: 'ltr', family: 'Niger-Congo', region: 'Africa', speakers: 4 },
+  { code: 'sn', name: 'Shona', nativeName: 'chiShona', direction: 'ltr', family: 'Niger-Congo', region: 'Africa', speakers: 15 },
+  { code: 'xh', name: 'Xhosa', nativeName: 'isiXhosa', direction: 'ltr', family: 'Niger-Congo', region: 'Africa', speakers: 8 },
+  { code: 'st', name: 'Sesotho', nativeName: 'Sesotho', direction: 'ltr', family: 'Niger-Congo', region: 'Africa', speakers: 6 },
+  { code: 'tn', name: 'Setswana', nativeName: 'Setswana', direction: 'ltr', family: 'Niger-Congo', region: 'Africa', speakers: 5 },
+  
+  // Additional Asian Languages
+  { code: 'dv', name: 'Dhivehi', nativeName: 'ދިވެހި', direction: 'rtl', family: 'Indo-European', region: 'Asia', speakers: 0.4 },
+  { code: 'bo', name: 'Tibetan', nativeName: 'བོད་ཡིག', direction: 'ltr', family: 'Sino-Tibetan', region: 'Asia', speakers: 6 },
+  { code: 'dz', name: 'Dzongkha', nativeName: 'རྫོང་ཁ', direction: 'ltr', family: 'Sino-Tibetan', region: 'Asia', speakers: 0.2 },
+  { code: 'or', name: 'Odia', nativeName: 'ଓଡ଼ିଆ', direction: 'ltr', family: 'Indo-European', region: 'Asia', speakers: 38 },
+  { code: 'as', name: 'Assamese', nativeName: 'অসমীয়া', direction: 'ltr', family: 'Indo-European', region: 'Asia', speakers: 15 },
+  { code: 'ckb', name: 'Sorani Kurdish', nativeName: 'سۆرانی', direction: 'rtl', family: 'Indo-European', region: 'MENA', speakers: 8 },
 ];
 
 export const getLanguageByCode = (code: string): Language | undefined => {

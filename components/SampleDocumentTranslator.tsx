@@ -63,8 +63,14 @@ export default function SampleDocumentTranslator() {
         </div>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto">
           Explore our professional translation capabilities with real sample documents. 
-          Select any document type and see instant translations to over 100+ languages.
+          Select any document type and see instant translations to <strong className="text-blue-600">80+ languages</strong>.
         </p>
+        <div className="flex justify-center mt-4">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
+            <span className="text-blue-800 font-semibold">🌍 80+ World Languages Available</span>
+            <span className="text-blue-600 text-sm ml-2">Click "All Languages" tab to browse complete list</span>
+          </div>
+        </div>
       </div>
 
       {/* Document Selection */}
@@ -107,10 +113,10 @@ export default function SampleDocumentTranslator() {
               <Languages className="w-5 h-5 text-blue-600" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">👆 See Real Translation Examples</h3>
+              <h3 className="text-lg font-semibold text-gray-900">� Click "Target Language" to See 80+ Languages</h3>
               <p className="text-gray-600">
-                Select a target language below to see professional translations of the {selectedDocument.title.toLowerCase()}. 
-                We have real examples in Spanish, French, Chinese, and more!
+                Select any target language from our complete list of 80+ world languages to see professional translations of the {selectedDocument.title.toLowerCase()}. 
+                <strong className="text-blue-600 ml-1">Try Spanish, French, Chinese, Arabic, or browse all 80+ languages!</strong>
               </p>
             </div>
           </div>

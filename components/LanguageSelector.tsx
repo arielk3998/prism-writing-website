@@ -23,7 +23,7 @@ export default function LanguageSelector({
 }: LanguageSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState<'all' | 'popular' | 'regions'>('popular');
+  const [activeTab, setActiveTab] = useState<'all' | 'popular' | 'regions'>('all');
 
   const filteredLanguages = useMemo(() => {
     if (activeTab === 'popular') {
@@ -121,7 +121,7 @@ export default function LanguageSelector({
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              All Languages
+              All Languages ({languages.length})
             </button>
             <button
               onClick={() => setActiveTab('regions')}
