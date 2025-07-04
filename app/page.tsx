@@ -109,6 +109,39 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Translation Services Highlight Banner */}
+        <section className="py-12 bg-gradient-to-r from-emerald-500 to-blue-600">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center text-white">
+              <div className="inline-flex items-center space-x-2 bg-white bg-opacity-20 rounded-full px-6 py-2 mb-4">
+                <Globe2 className="w-5 h-5" />
+                <span className="font-semibold">🌟 Featured Service</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                🌍 Professional Translation Services
+              </h2>
+              <p className="text-xl mb-6 opacity-90">
+                <strong>95 World Languages Available</strong> - From Spanish to Mandarin, Arabic to Hindi
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link 
+                  href="/translation-services"
+                  className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center space-x-2"
+                >
+                  <span>👀 See All 95 Languages</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link 
+                  href="/translation-quote"
+                  className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors inline-flex items-center justify-center space-x-2"
+                >
+                  <span>📝 Get Instant Quote</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Stats Section */}
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -139,14 +172,29 @@ export default function HomePage() {
                 <Link 
                   key={index}
                   href={service.href}
-                  className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow group"
+                  className={`rounded-xl p-8 shadow-lg hover:shadow-xl transition-all group ${
+                    service.title === 'Translation Services' 
+                      ? 'bg-gradient-to-br from-blue-600 to-purple-600 text-white border-4 border-yellow-400 transform hover:scale-105' 
+                      : 'bg-white hover:shadow-xl'
+                  }`}
                 >
                   <div className="text-4xl mb-4">{service.icon}</div>
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
+                  {service.title === 'Translation Services' && (
+                    <div className="bg-yellow-400 text-black px-3 py-1 rounded-full text-sm font-bold mb-3 inline-block">
+                      🌟 FEATURED - 95 LANGUAGES
+                    </div>
+                  )}
+                  <h3 className={`text-2xl font-semibold mb-4 group-hover:text-blue-600 transition-colors ${
+                    service.title === 'Translation Services' ? 'text-white' : 'text-gray-900'
+                  }`}>
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 mb-6">{service.description}</p>
-                  <div className="flex items-center text-blue-600 font-medium group-hover:translate-x-1 transition-transform">
+                  <p className={`mb-6 ${
+                    service.title === 'Translation Services' ? 'text-white opacity-90' : 'text-gray-600'
+                  }`}>{service.description}</p>
+                  <div className={`flex items-center font-medium group-hover:translate-x-1 transition-transform ${
+                    service.title === 'Translation Services' ? 'text-yellow-300' : 'text-blue-600'
+                  }`}>
                     <span>Learn more</span>
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </div>
