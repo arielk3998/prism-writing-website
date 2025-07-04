@@ -1,5 +1,5 @@
 import React from 'react';
-import { DocumentTranslator } from '../../components/DocumentTranslator';
+import SampleDocumentTranslator from '../../components/SampleDocumentTranslator';
 import Layout from '../../components/Layout';
 
 const portfolioSamples = [
@@ -46,11 +46,7 @@ export default function PortfolioPage() {
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
             🔍 Try Our Translation Service
           </h2>
-          <DocumentTranslator 
-            mode="portfolio"
-            initialText="Enter any text from our portfolio samples below to see our translation capabilities in action."
-            className="mb-8"
-          />
+          <SampleDocumentTranslator />
         </div>
 
         {/* Portfolio Samples */}
@@ -88,13 +84,19 @@ export default function PortfolioPage() {
                   </div>
                 </div>
 
-                {/* Sample Text Demo */}
+                {/* Sample Text Display */}
                 <div className="lg:w-2/3">
-                  <DocumentTranslator
-                    mode="portfolio"
-                    initialText={sample.originalText}
-                    className="h-full"
-                  />
+                  <div className="bg-gray-50 rounded-lg p-6">
+                    <h4 className="font-semibold text-gray-900 mb-3">Original Text:</h4>
+                    <p className="text-gray-700 leading-relaxed">{sample.originalText}</p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {sample.languages.map((lang, i) => (
+                        <span key={i} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                          {lang}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

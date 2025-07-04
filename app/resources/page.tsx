@@ -1,5 +1,5 @@
 import React from 'react';
-import { DocumentTranslator } from '../../components/DocumentTranslator';
+import SampleDocumentTranslator from '../../components/SampleDocumentTranslator';
 import Layout from '../../components/Layout';
 
 const resourceSamples = [
@@ -80,11 +80,7 @@ export default function ResourcesPage() {
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
             🛠️ Resource Translation Demo
           </h2>
-          <DocumentTranslator 
-            mode="resources"
-            initialText="Paste your technical documentation, user manuals, or resource content here to see how our translation service handles specialized content."
-            className="mb-8"
-          />
+          <SampleDocumentTranslator />
         </div>
 
         {/* Resource Samples */}
@@ -123,10 +119,13 @@ export default function ResourcesPage() {
                 </div>
                 
                 <div className="p-6">
-                  <DocumentTranslator
-                    mode="resources"
-                    initialText={resource.originalText}
-                  />
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-gray-900 mb-3">Sample Text:</h4>
+                    <p className="text-gray-700 leading-relaxed">{resource.originalText}</p>
+                    <div className="mt-4 text-sm text-blue-600">
+                      ✓ Available for translation into 80+ languages
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
