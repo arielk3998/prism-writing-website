@@ -179,7 +179,7 @@ export class IntelligentWorkflowOrchestrator {
       // Create adaptive engagement plan
       const engagementPlan = await this.createAdaptiveEngagementPlan(
         leadData, 
-        leadScore, 
+        leadScore.totalScore, 
         engagementLevel, 
         contentStrategy
       );
