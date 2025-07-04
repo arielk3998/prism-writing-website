@@ -265,6 +265,63 @@ export default function TranslationServicesPage() {
         </div>
       </section>
 
+      {/* Language Showcase */}
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-6">
+            🌍 95 World Languages Available
+          </h2>
+          <p className="text-lg mb-8 opacity-90">
+            Professional translation services for every major language in the world
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 text-sm">
+            <div className="bg-white bg-opacity-20 rounded-lg p-3">
+              <div className="font-semibold">🇪🇸 Spanish</div>
+              <div className="opacity-80">500M speakers</div>
+            </div>
+            <div className="bg-white bg-opacity-20 rounded-lg p-3">
+              <div className="font-semibold">🇫🇷 French</div>
+              <div className="opacity-80">280M speakers</div>
+            </div>
+            <div className="bg-white bg-opacity-20 rounded-lg p-3">
+              <div className="font-semibold">🇩🇪 German</div>
+              <div className="opacity-80">100M speakers</div>
+            </div>
+            <div className="bg-white bg-opacity-20 rounded-lg p-3">
+              <div className="font-semibold">🇨🇳 Chinese</div>
+              <div className="opacity-80">918M speakers</div>
+            </div>
+            <div className="bg-white bg-opacity-20 rounded-lg p-3">
+              <div className="font-semibold">🇯🇵 Japanese</div>
+              <div className="opacity-80">125M speakers</div>
+            </div>
+            <div className="bg-white bg-opacity-20 rounded-lg p-3">
+              <div className="font-semibold">🇸🇦 Arabic</div>
+              <div className="opacity-80">422M speakers</div>
+            </div>
+            <div className="bg-white bg-opacity-20 rounded-lg p-3">
+              <div className="font-semibold">🇷🇺 Russian</div>
+              <div className="opacity-80">258M speakers</div>
+            </div>
+            <div className="bg-white bg-opacity-20 rounded-lg p-3">
+              <div className="font-semibold">🇵🇹 Portuguese</div>
+              <div className="opacity-80">260M speakers</div>
+            </div>
+            <div className="bg-white bg-opacity-20 rounded-lg p-3">
+              <div className="font-semibold">🇮🇹 Italian</div>
+              <div className="opacity-80">65M speakers</div>
+            </div>
+            <div className="bg-white bg-opacity-20 rounded-lg p-3">
+              <div className="font-semibold">...and 85+ more</div>
+              <div className="opacity-80">All major languages</div>
+            </div>
+          </div>
+          <div className="mt-6">
+            <p className="text-lg font-semibold">Try the translation demo below to see our full language list!</p>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
