@@ -142,7 +142,9 @@ async function handleWorkflowOptimization(data: {
   workflowId: string;
 }) {
   try {
-    const result = await intelligentWorkflowOrchestrator.optimizeWorkflowPerformance(data.workflowId);
+    // Note: workflowId is provided but current implementation optimizes generally
+    console.log(`Optimizing workflow: ${data.workflowId}`);
+    const result = await intelligentWorkflowOrchestrator.optimizeWorkflowPerformance();
 
     return NextResponse.json({
       success: true,

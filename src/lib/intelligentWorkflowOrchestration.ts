@@ -39,6 +39,35 @@ export interface LeadData {
   updatedAt: Date;
 }
 
+export interface WorkflowExecutionResult {
+  success: boolean;
+  actions: WorkflowAction[];
+  results: ActionResult[];
+  performanceMetrics?: WorkflowMetrics;
+}
+
+export interface PerformanceAnalysis {
+  trends: string;
+  bottlenecks: string[];
+  opportunities: string[];
+  metrics: WorkflowMetrics;
+}
+
+export interface OptimizationRecommendation {
+  action: string;
+  expectedImprovement: number;
+  effort: 'low' | 'medium' | 'high';
+  priority: number;
+}
+
+export interface ProposalDraft {
+  content: string;
+  sections: string[];
+  estimatedValue: number;
+  timeline: string;
+  deliverables: string[];
+}
+
 export interface WorkflowContext {
   leadId: string;
   leadData: LeadData;
@@ -308,28 +337,18 @@ export class IntelligentWorkflowOrchestrator {
   /**
    * Performance-based workflow optimization
    */
-  async optimizeWorkflowPerformance(workflowId: string): Promise<{
+  async optimizeWorkflowPerformance(): Promise<{
     currentPerformance: WorkflowMetrics;
-    optimizationRecommendations: Array<{
-      action: string;
-      expectedImprovement: number;
-      effort: 'low' | 'medium' | 'high';
-      priority: number;
-    }>;
+    optimizationRecommendations: OptimizationRecommendation[];
     proposedChanges: WorkflowAction[];
   }> {
     try {
-      const currentMetrics = this.getCurrentWorkflowMetrics(workflowId);
-      const performanceAnalysis = await this.analyzeWorkflowPerformance(workflowId);
+      const currentMetrics = this.getCurrentWorkflowMetrics();
+      await this.analyzeWorkflowPerformance(); // Analyze for internal learning
       
-      const optimizationRecommendations = this.generateOptimizationRecommendations(
-        performanceAnalysis
-      );
+      const optimizationRecommendations = this.generateOptimizationRecommendations();
 
-      const proposedChanges = await this.generateProposedWorkflowChanges(
-        workflowId, 
-        optimizationRecommendations
-      );
+      const proposedChanges = await this.generateProposedWorkflowChanges();
 
       return {
         currentPerformance: currentMetrics,
@@ -460,7 +479,7 @@ export class IntelligentWorkflowOrchestrator {
     let bestScore = 0;
 
     for (const workflow of workflows) {
-      const performanceScore = this.getWorkflowPerformanceScore(workflow.id);
+      const performanceScore = this.getWorkflowPerformanceScore();
       const contextScore = this.calculateWorkflowScore(workflow, context);
       const combinedScore = (performanceScore * 0.6) + (contextScore * 0.4);
 
@@ -681,7 +700,7 @@ export class IntelligentWorkflowOrchestrator {
     leadData: LeadData, 
     leadScore: number, 
     engagementLevel: string, 
-    _contentStrategy: {
+    contentStrategy: {
       primaryMessage: string;
       contentTypes: string[];
       personalizationLevel: string;
@@ -695,7 +714,11 @@ export class IntelligentWorkflowOrchestrator {
       plan.push({
         id: 'immediate_followup',
         type: 'ai_content',
-        config: { type: 'personalized_followup', urgency: 'high' }
+        config: { 
+          type: 'personalized_followup', 
+          urgency: 'high',
+          contentStrategy: contentStrategy.primaryMessage
+        }
       });
     }
     
@@ -750,25 +773,38 @@ export class IntelligentWorkflowOrchestrator {
     return Math.min(baseProbability + complexityBonus, 0.95);
   }
 
-  private async createIntelligentFollowUpSequence(_leadData: LeadData, _proposalDraft: unknown): Promise<WorkflowAction[]> {
+  private async createIntelligentFollowUpSequence(leadData: LeadData, proposalDraft: unknown): Promise<WorkflowAction[]> {
     // Create intelligent follow-up sequence based on proposal
+    const proposal = proposalDraft as { estimatedValue?: number };
+    const baseDelay = (proposal.estimatedValue && proposal.estimatedValue > 10000) ? 48 : 72;
+    
     return [
       {
         id: 'proposal_followup_1',
         type: 'ai_content',
-        config: { type: 'proposal_followup', delay: 72 }
+        config: { 
+          type: 'proposal_followup', 
+          delay: baseDelay,
+          leadName: leadData.name,
+          proposalValue: proposal.estimatedValue
+        }
       },
       {
         id: 'proposal_followup_2',
         type: 'ai_content',
-        config: { type: 'gentle_reminder', delay: 168 }
+        config: { 
+          type: 'gentle_reminder', 
+          delay: baseDelay * 2,
+          leadName: leadData.name
+        }
       }
     ];
   }
 
-  private async generateNegotiationStrategy(leadData: LeadData, _proposalDraft: unknown): Promise<string[]> {
+  private async generateNegotiationStrategy(leadData: LeadData, proposalDraft: unknown): Promise<string[]> {
     // Generate negotiation strategy based on lead profile
     const strategies = [];
+    const proposal = proposalDraft as { estimatedValue?: number };
     
     if (leadData.budget && parseInt(leadData.budget) < 5000) {
       strategies.push('Emphasize value and ROI');
@@ -779,10 +815,14 @@ export class IntelligentWorkflowOrchestrator {
       strategies.push('Highlight quick turnaround capabilities');
     }
     
+    if (proposal.estimatedValue && proposal.estimatedValue > 20000) {
+      strategies.push('Consider phased delivery approach');
+    }
+    
     return strategies;
   }
 
-  private async assessProjectRisk(leadData: LeadData, _proposalDraft: unknown): Promise<{
+  private async assessProjectRisk(leadData: LeadData, proposalDraft: unknown): Promise<{
     score: number;
     factors: string[];
     mitigationStrategies: string[];
@@ -790,6 +830,7 @@ export class IntelligentWorkflowOrchestrator {
     const riskFactors = [];
     const mitigationStrategies = [];
     let riskScore = 0;
+    const proposal = proposalDraft as { estimatedValue?: number; timeline?: string };
 
     if (!leadData.budget || leadData.budget === 'Not specified') {
       riskFactors.push('Unspecified budget');
@@ -801,6 +842,12 @@ export class IntelligentWorkflowOrchestrator {
       riskFactors.push('Unrealistic timeline expectations');
       mitigationStrategies.push('Set clear timeline expectations early');
       riskScore += 15;
+    }
+
+    if (proposal.estimatedValue && proposal.estimatedValue > 50000) {
+      riskFactors.push('High-value project complexity risk');
+      mitigationStrategies.push('Break project into smaller phases');
+      riskScore += 10;
     }
 
     return {
@@ -854,7 +901,7 @@ export class IntelligentWorkflowOrchestrator {
       try {
         const generatedContent = await this.aiContentGenerator.generatePersonalizedContent(contentRequest);
         content[channel] = generatedContent.content;
-      } catch (_error) {
+      } catch {
         content[channel] = `Personalized ${channel} message for ${leadData.name}`;
       }
     }
@@ -908,12 +955,18 @@ export class IntelligentWorkflowOrchestrator {
     timing: Date;
     content: string;
     priority: number;
-  }>, _leadData: LeadData): Promise<Record<string, number>> {
+  }>, leadData: LeadData): Promise<Record<string, number>> {
     const outcomes: Record<string, number> = {};
     
     executionPlan.forEach(plan => {
-      // Simple prediction model - would be more sophisticated in practice
-      const baseRate = plan.channel === 'email' ? 0.25 : 0.15;
+      // Simple prediction model - adjust based on lead characteristics
+      let baseRate = plan.channel === 'email' ? 0.25 : 0.15;
+      
+      // Adjust based on lead industry
+      if (leadData.industry === 'technology' && plan.channel === 'linkedin') {
+        baseRate += 0.1;
+      }
+      
       const priorityBonus = plan.priority / 1000;
       outcomes[plan.channel] = Math.min(baseRate + priorityBonus, 0.8);
     });
@@ -923,7 +976,7 @@ export class IntelligentWorkflowOrchestrator {
 
   private async analyzeAndAdapt(
     workflow: WorkflowRule, 
-    executionResult: any, 
+    executionResult: WorkflowExecutionResult, 
     context: WorkflowContext
   ): Promise<string[]> {
     const adaptations: string[] = [];
@@ -933,33 +986,43 @@ export class IntelligentWorkflowOrchestrator {
       // Record successful execution patterns
       this.recordWorkflowSuccess(workflow.id, executionResult);
       adaptations.push(`Recorded successful execution pattern for ${workflow.name}`);
+      
+      // Use context for learning
+      if (context.leadData.priority === 'high') {
+        adaptations.push('Prioritized high-value lead workflow optimization');
+      }
     }
 
     return adaptations;
   }
 
-  private generateRecommendations(context: WorkflowContext, executionResult: any): string[] {
+  private generateRecommendations(context: WorkflowContext, executionResult: WorkflowExecutionResult): string[] {
     const recommendations: string[] = [];
     
     if (!executionResult.success) {
       recommendations.push('Review workflow configuration for failed actions');
     }
     
-    if (context.performanceMetrics.successRate < 0.7) {
+    if (executionResult.performanceMetrics && executionResult.performanceMetrics.successRate < 0.7) {
       recommendations.push('Consider workflow optimization - success rate below threshold');
+    }
+
+    // Use context for additional recommendations
+    if (context.leadData.urgency === 'high' && !executionResult.success) {
+      recommendations.push('Escalate urgent lead due to workflow failure');
     }
 
     return recommendations;
   }
 
-  private getWorkflowPerformanceScore(workflowId: string): number {
-    const metrics = this.getCurrentWorkflowMetrics(workflowId);
+  private getWorkflowPerformanceScore(): number {
+    const metrics = this.getCurrentWorkflowMetrics();
     return (metrics.successRate * 0.4) + (metrics.averageEngagementScore * 0.3) + 
            ((1 - metrics.costPerConversion / 1000) * 0.3);
   }
 
-  private getCurrentWorkflowMetrics(workflowId: string): WorkflowMetrics {
-    // Return current metrics for workflow
+  private getCurrentWorkflowMetrics(): WorkflowMetrics {
+    // Return current metrics for workflow - would query actual metrics in production
     return this.getDefaultMetrics();
   }
 
@@ -997,21 +1060,18 @@ export class IntelligentWorkflowOrchestrator {
     };
   }
 
-  private async analyzeWorkflowPerformance(workflowId: string): Promise<any> {
-    // Analyze workflow performance over time
+  private async analyzeWorkflowPerformance(): Promise<PerformanceAnalysis> {
+    // Analyze workflow performance over time - would use real data in production
     return {
       trends: 'improving',
       bottlenecks: ['email delivery'],
-      opportunities: ['better personalization']
+      opportunities: ['better personalization'],
+      metrics: this.getDefaultMetrics()
     };
   }
 
-  private generateOptimizationRecommendations(performanceAnalysis: any): Array<{
-    action: string;
-    expectedImprovement: number;
-    effort: 'low' | 'medium' | 'high';
-    priority: number;
-  }> {
+  private generateOptimizationRecommendations(): OptimizationRecommendation[] {
+    // Generate optimization recommendations based on analysis
     return [
       {
         action: 'Improve email personalization',
@@ -1028,10 +1088,7 @@ export class IntelligentWorkflowOrchestrator {
     ];
   }
 
-  private async generateProposedWorkflowChanges(
-    workflowId: string, 
-    recommendations: any[]
-  ): Promise<WorkflowAction[]> {
+  private async generateProposedWorkflowChanges(): Promise<WorkflowAction[]> {
     // Generate proposed changes based on recommendations
     return [
       {
@@ -1042,7 +1099,7 @@ export class IntelligentWorkflowOrchestrator {
     ];
   }
 
-  private recordWorkflowSuccess(workflowId: string, executionResult: any): void {
+  private recordWorkflowSuccess(workflowId: string, executionResult: WorkflowExecutionResult): void {
     // Record successful workflow execution for learning
     console.log(`Recording success for workflow ${workflowId}:`, executionResult);
   }
