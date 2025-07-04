@@ -63,7 +63,7 @@ export function AdminDashboard() {
       ]);
 
       setOverview(overviewData);
-      setMembers(usersData.filter(u => u.role === 'member'));
+      setMembers(usersData.filter(u => u.role === 'MEMBER'));
       setProjects(projectsData);
       setClients(clientsData);
     } catch (error) {
@@ -77,7 +77,7 @@ export function AdminDashboard() {
     if (!user) return;
     
     try {
-      const result = await impersonateUser();
+      const result = await impersonateUser(targetUserId);
       if (result) {
         // Store impersonation token
         localStorage.setItem('prism-impersonation-token', result.token);

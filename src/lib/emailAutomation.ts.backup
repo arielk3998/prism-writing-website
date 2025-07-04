@@ -1,0 +1,694 @@
+/**
+ * Email Integration Service
+ * Handles automated follow-ups and lead nurturing emails
+ */
+
+import { Resend } from 'resend';
+import { prisma } from '@/lib/leads';
+import type { User } from '@/lib/auth';
+
+// Initialize Resend client conditionally
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+
+// Using ContactInquiry type from our leads module
+interface ContactInquiry {
+  id: string;
+  name: string;
+  email: string;
+  company: string;
+  phone?: string;
+  message: string;
+  projectType?: string;
+  budget?: string;
+  timeline?: string;
+  industry?: string;
+  addedToNewsletter: boolean;
+  allowFollowUp: boolean;
+  status?: string;
+  priority?: string;
+  leadScore?: number;
+  lastContactDate?: Date;
+  nextFollowUpDate?: Date;
+  source?: string;
+}
+
+// Initialize Resend client conditionally
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+
+export interface EmailTemplate {
+  id: string;
+  name: string;
+  subject: string;
+  content: string;
+  type: 'WELCOME' | 'FOLLOW_UP' | 'PROPOSAL' | 'NURTURE' | 'CLOSING';
+  delay?: number; // Hours to wait before sending
+}
+
+export interface EmailScheduleData {
+  leadId: string;
+  templateId: string;
+  scheduledFor: Date;
+  sent: boolean;
+  emailId?: string;
+}
+
+export interface EmailStats {
+  totalSent: number;
+  totalScheduled: number;
+  openedEmails: number;
+  clickedEmails: number;
+  bouncedEmails: number;
+  openRate: number;
+  clickRate: number;
+  bounceRate: number;
+}
+
+export interface AutomationSetupResult {
+  welcomeEmailSent: boolean;
+  followUpScheduled: boolean;
+}
+
+type LeadWithUser = ContactInquiry & {
+  assignedUser?: Pick<User, 'firstName' | 'lastName' | 'email'> | null;
+};
+
+type ScheduledEmailWithLead = PrismaEmailSchedule & {
+  lead: LeadWithUser;
+};
+
+// Pre-defined email templates
+export const EMAIL_TEMPLATES: EmailTemplate[] = [
+  {
+    id: 'welcome',
+    name: 'Welcome & Confirmation',
+    subject: 'Thank you for your inquiry - Prism Writing',
+    type: 'WELCOME',
+    delay: 0,
+    content: `
+Hi {{name}},
+
+Thank you for reaching out to Prism Writing! We've received your inquiry about {{projectType}} and are excited to help bring your project to life.
+
+Here's what happens next:
+• Our team will review your requirements within 24 hours
+• We'll prepare a customized proposal based on your needs
+• You'll receive a detailed timeline and pricing breakdown
+
+In the meantime, feel free to browse our portfolio at {{websiteUrl}} to see examples of our work.
+
+If you have any urgent questions, please don't hesitate to reply to this email or call us at {{phone}}.
+
+Best regards,
+The Prism Writing Team
+
+---
+Prism Writing
+{{address}}
+{{phone}} | {{email}}
+{{websiteUrl}}
+`
+  },
+  {
+    id: 'follow_up_24h',
+    name: '24-Hour Follow-up',
+    subject: 'Quick follow-up on your {{projectType}} inquiry',
+    type: 'FOLLOW_UP',
+    delay: 24,
+    content: `
+Hi {{name}},
+
+I wanted to personally follow up on your inquiry about {{projectType}} that you submitted yesterday.
+
+I've had a chance to review your requirements:
+{{#if company}}• Company: {{company}}{{/if}}
+{{#if budget}}• Budget Range: {{budget}}{{/if}}
+{{#if timeline}}• Timeline: {{timeline}}{{/if}}
+
+Based on your needs, I believe we can create something exceptional for you. I'd love to schedule a brief 15-minute call to discuss your vision and answer any questions you might have.
+
+You can book a convenient time here: {{calendarLink}}
+
+Or simply reply to this email with your preferred time, and I'll send you a calendar invite.
+
+Looking forward to chatting soon!
+
+Best regards,
+{{assignedUserName}}
+Prism Writing
+
+P.S. - Here are a few recent examples of similar projects we've completed: {{portfolioLinks}}
+`
+  },
+  {
+    id: 'proposal_ready',
+    name: 'Proposal Ready',
+    subject: 'Your custom proposal is ready - {{projectType}}',
+    type: 'PROPOSAL',
+    content: `
+Hi {{name}},
+
+Great news! Your custom proposal for {{projectType}} is ready for review.
+
+I've put together a comprehensive plan that includes:
+✓ Detailed project scope and deliverables
+✓ Timeline with key milestones
+✓ Transparent pricing breakdown
+✓ Next steps to get started
+
+You can view your proposal here: {{proposalLink}}
+
+I'm confident this approach will deliver exactly what you're looking for. I've included some options to ensure we find the perfect fit for your budget and timeline.
+
+I'll follow up in a couple of days, but feel free to reach out if you have any questions or would like to discuss anything in detail.
+
+Excited to potentially work together!
+
+Best regards,
+{{assignedUserName}}
+Prism Writing
+`
+  },
+  {
+    id: 'nurture_week1',
+    name: 'Week 1 Nurture - Value Content',
+    subject: 'Quick tip: How to improve your content ROI',
+    type: 'NURTURE',
+    delay: 168, // 1 week
+    content: `
+Hi {{name}},
+
+I hope you're doing well! While you're considering your {{projectType}} options, I wanted to share a quick tip that many of our clients find valuable.
+
+**The #1 mistake most businesses make with content:**
+They focus too much on features and not enough on benefits. Your customers don't care about what you do - they care about what you can do for THEM.
+
+Here's a simple exercise:
+1. List your top 3 product/service features
+2. For each feature, ask "So what? Why should my customer care?"
+3. Rewrite focusing on the customer benefit
+
+Example:
+❌ "We use advanced analytics"
+✅ "You'll know exactly which marketing campaigns are making you money"
+
+This small shift can dramatically improve your conversion rates.
+
+Speaking of which, our {{projectType}} approach focuses heavily on customer-centric messaging. If you'd like to see some examples of how we've helped similar businesses, just reply and I'll send over a few case studies.
+
+Have a great week!
+
+{{assignedUserName}}
+Prism Writing
+`
+  },
+  {
+    id: 'closing_final',
+    name: 'Final Follow-up',
+    subject: 'Last chance - Your {{projectType}} proposal expires soon',
+    type: 'CLOSING',
+    content: `
+Hi {{name}},
+
+I wanted to reach out one final time regarding your {{projectType}} project.
+
+I know how busy things can get, and I don't want you to miss out on the proposal I prepared specifically for your needs. The pricing and timeline I quoted are valid until {{expirationDate}}.
+
+Here's what you get if we start within the next week:
+• Priority placement in our project queue
+• 15% discount on the total project cost
+• Free rush delivery if needed
+• Complimentary strategy consultation
+
+If the timing isn't right or if your priorities have changed, I completely understand. Just let me know, and I'll remove you from our follow-up sequence.
+
+If you're ready to move forward or have any questions, simply reply to this email or book a quick call here: {{calendarLink}}
+
+Thanks for considering Prism Writing for your project!
+
+Best regards,
+{{assignedUserName}}
+Prism Writing
+
+P.S. - If budget is a concern, I'm happy to discuss payment plan options that might work better for your situation.
+`
+  }
+];
+
+// Email service class
+export class EmailAutomationService {
+  
+  // Send immediate welcome email
+  async sendWelcomeEmail(leadId: string): Promise<boolean> {
+    try {
+      const lead = await prisma.contactInquiry.findUnique({
+        where: { id: leadId },
+        include: {
+          assignedUser: {
+            select: {
+              firstName: true,
+              lastName: true,
+              email: true
+            }
+          }
+        }
+      });
+
+      if (!lead) {
+        throw new Error('Lead not found');
+      }
+
+      const template = EMAIL_TEMPLATES.find(t => t.id === 'welcome');
+      if (!template) {
+        throw new Error('Welcome template not found');
+      }
+
+      const emailContent = this.processTemplate(template.content, lead);
+      const emailSubject = this.processTemplate(template.subject, lead);
+
+      const { data, error } = await resend.emails.send({
+        from: process.env.FROM_EMAIL || 'hello@prismwriting.com',
+        to: [lead.email],
+        subject: emailSubject,
+        html: this.convertToHtml(emailContent),
+        text: emailContent,
+        reply_to: lead.assignedUser?.email || process.env.REPLY_TO_EMAIL || 'hello@prismwriting.com'
+      });
+
+      if (error) {
+        console.error('Email send error:', error);
+        return false;
+      }
+
+      // Log email in database
+      await this.logEmailSent(leadId, 'welcome', data?.id || '');
+      
+      return true;
+    } catch (error) {
+      console.error('Welcome email error:', error);
+      return false;
+    }
+  }
+
+  // Schedule follow-up emails
+  async scheduleFollowUpSequence(leadId: string): Promise<void> {
+    try {
+      const followUpTemplates = EMAIL_TEMPLATES.filter(t => 
+        t.type === 'FOLLOW_UP' || t.type === 'NURTURE'
+      );
+
+      for (const template of followUpTemplates) {
+        if (template.delay) {
+          const scheduledFor = new Date();
+          scheduledFor.setHours(scheduledFor.getHours() + template.delay);
+
+          await prisma.emailSchedule.create({
+            data: {
+              leadId,
+              templateId: template.id,
+              scheduledFor,
+              sent: false
+            }
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error scheduling follow-up sequence:', error);
+    }
+  }
+
+  // Process scheduled emails
+  async processScheduledEmails(): Promise<void> {
+    try {
+      const now = new Date();
+      const scheduledEmails = await prisma.emailSchedule.findMany({
+        where: {
+          scheduledFor: {
+            lte: now
+          },
+          sent: false
+        },
+        include: {
+          lead: {
+            include: {
+              assignedUser: {
+                select: {
+                  firstName: true,
+                  lastName: true,
+                  email: true
+                }
+              }
+            }
+          }
+        }
+      });
+
+      for (const scheduledEmail of scheduledEmails) {
+        await this.sendScheduledEmail(scheduledEmail);
+      }
+    } catch (error) {
+      console.error('Error processing scheduled emails:', error);
+    }
+  }
+
+  // Send a scheduled email
+  private async sendScheduledEmail(scheduledEmail: any): Promise<void> {
+    try {
+      const template = EMAIL_TEMPLATES.find(t => t.id === scheduledEmail.templateId);
+      if (!template) {
+        console.error(`Template ${scheduledEmail.templateId} not found`);
+        return;
+      }
+
+      // Skip if lead is already converted or closed
+      if (['CONVERTED', 'CLOSED_LOST'].includes(scheduledEmail.lead.status)) {
+        await prisma.emailSchedule.update({
+          where: { id: scheduledEmail.id },
+          data: { sent: true, skipped: true }
+        });
+        return;
+      }
+
+      const emailContent = this.processTemplate(template.content, scheduledEmail.lead);
+      const emailSubject = this.processTemplate(template.subject, scheduledEmail.lead);
+
+      const { data, error } = await resend.emails.send({
+        from: process.env.FROM_EMAIL || 'hello@prismwriting.com',
+        to: [scheduledEmail.lead.email],
+        subject: emailSubject,
+        html: this.convertToHtml(emailContent),
+        text: emailContent,
+        reply_to: scheduledEmail.lead.assignedUser?.email || process.env.REPLY_TO_EMAIL || 'hello@prismwriting.com'
+      });
+
+      if (error) {
+        console.error('Scheduled email send error:', error);
+        return;
+      }
+
+      // Mark as sent
+      await prisma.emailSchedule.update({
+        where: { id: scheduledEmail.id },
+        data: { 
+          sent: true,
+          emailId: data?.id || '',
+          sentAt: new Date()
+        }
+      });
+
+      // Log email
+      await this.logEmailSent(scheduledEmail.leadId, scheduledEmail.templateId, data?.id || '');
+
+    } catch (error) {
+      console.error('Error sending scheduled email:', error);
+    }
+  }
+
+  // Process template variables
+  private processTemplate(template: string, lead: any): string {
+    let processed = template;
+    
+    // Basic replacements
+    const replacements: Record<string, string> = {
+      '{{name}}': lead.name || 'there',
+      '{{email}}': lead.email || '',
+      '{{company}}': lead.company || '',
+      '{{projectType}}': lead.projectType || 'project',
+      '{{budget}}': lead.budget || '',
+      '{{timeline}}': lead.timeline || '',
+      '{{assignedUserName}}': lead.assignedUser ? 
+        `${lead.assignedUser.firstName} ${lead.assignedUser.lastName}`.trim() : 
+        'The Prism Writing Team',
+      '{{phone}}': process.env.BUSINESS_PHONE || '+1 (555) 123-4567',
+      '{{websiteUrl}}': process.env.WEBSITE_URL || 'https://prismwriting.com',
+      '{{address}}': process.env.BUSINESS_ADDRESS || '123 Business St, Suite 100, City, ST 12345',
+      '{{calendarLink}}': process.env.CALENDAR_LINK || 'https://calendly.com/prismwriting',
+      '{{proposalLink}}': `${process.env.WEBSITE_URL}/proposals/${lead.id}`,
+      '{{portfolioLinks}}': process.env.PORTFOLIO_URL || 'https://prismwriting.com/portfolio',
+      '{{expirationDate}}': this.getExpirationDate()
+    };
+
+    // Replace all variables
+    for (const [key, value] of Object.entries(replacements)) {
+      processed = processed.replace(new RegExp(key, 'g'), value);
+    }
+
+    // Handle conditional blocks (simple implementation)
+    processed = this.processConditionals(processed, {
+      company: !!lead.company,
+      budget: !!lead.budget,
+      timeline: !!lead.timeline
+    });
+
+    return processed;
+  }
+
+  // Process conditional blocks in templates
+  private processConditionals(template: string, conditions: Record<string, boolean>): string {
+    let processed = template;
+    
+    // Simple conditional processing for {{#if variable}}content{{/if}}
+    for (const [key, value] of Object.entries(conditions)) {
+      const ifRegex = new RegExp(`{{#if ${key}}}([\\s\\S]*?){{/if}}`, 'g');
+      if (value) {
+        processed = processed.replace(ifRegex, '$1');
+      } else {
+        processed = processed.replace(ifRegex, '');
+      }
+    }
+    
+    return processed;
+  }
+
+  // Convert plain text to HTML
+  private convertToHtml(text: string): string {
+    return text
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/\n/g, '<br>')
+      .replace(/^/, '<p>')
+      .replace(/$/, '</p>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/✓/g, '✓')
+      .replace(/❌/g, '❌')
+      .replace(/✅/g, '✅');
+  }
+
+  // Get expiration date (2 weeks from now)
+  private getExpirationDate(): string {
+    const date = new Date();
+    date.setDate(date.getDate() + 14);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  }
+
+  // Log sent email
+  private async logEmailSent(leadId: string, templateId: string, emailId: string): Promise<void> {
+    try {
+      await prisma.emailLog.create({
+        data: {
+          leadId,
+          templateId,
+          emailId,
+          sentAt: new Date(),
+          status: 'SENT'
+        }
+      });
+    } catch (error) {
+      console.error('Error logging email:', error);
+    }
+  }
+
+  // Send custom email
+  async sendCustomEmail(
+    leadId: string, 
+    subject: string, 
+    content: string, 
+    fromUserId?: string
+  ): Promise<boolean> {
+    try {
+      const lead = await prisma.contactInquiry.findUnique({
+        where: { id: leadId }
+      });
+
+      if (!lead) {
+        throw new Error('Lead not found');
+      }
+
+      let fromEmail = process.env.FROM_EMAIL || 'hello@prismwriting.com';
+      
+      if (fromUserId) {
+        const user = await prisma.user.findUnique({
+          where: { id: fromUserId }
+        });
+        if (user?.email) {
+          fromEmail = user.email;
+        }
+      }
+
+      const { data, error } = await resend.emails.send({
+        from: fromEmail,
+        to: [lead.email],
+        subject,
+        html: this.convertToHtml(content),
+        text: content
+      });
+
+      if (error) {
+        console.error('Custom email send error:', error);
+        return false;
+      }
+
+      // Log custom email
+      await this.logEmailSent(leadId, 'custom', data?.id || '');
+      
+      return true;
+    } catch (error) {
+      console.error('Custom email error:', error);
+      return false;
+    }
+  }
+
+  // Schedule a specific email
+  async scheduleEmail(leadId: string, templateId: string, scheduleDate?: Date): Promise<any> {
+    try {
+      const scheduledFor = scheduleDate || new Date();
+      
+      const scheduled = await prisma.emailSchedule.create({
+        data: {
+          leadId,
+          templateId,
+          scheduledFor,
+          sent: false
+        }
+      });
+
+      return scheduled;
+    } catch (error) {
+      console.error('Error scheduling email:', error);
+      throw error;
+    }
+  }
+
+  // Send email immediately
+  async sendEmail(leadId: string, templateId: string): Promise<boolean> {
+    try {
+      const lead = await prisma.contactInquiry.findUnique({
+        where: { id: leadId },
+        include: {
+          assignedUser: {
+            select: {
+              firstName: true,
+              lastName: true,
+              email: true
+            }
+          }
+        }
+      });
+
+      if (!lead) {
+        throw new Error('Lead not found');
+      }
+
+      const template = EMAIL_TEMPLATES.find(t => t.id === templateId);
+      if (!template) {
+        throw new Error('Template not found');
+      }
+
+      const emailContent = this.processTemplate(template.content, lead);
+      const emailSubject = this.processTemplate(template.subject, lead);
+
+      const { data, error } = await resend.emails.send({
+        from: process.env.FROM_EMAIL || 'hello@prismwriting.com',
+        to: [lead.email],
+        subject: emailSubject,
+        html: this.convertToHtml(emailContent),
+        text: emailContent,
+        reply_to: lead.assignedUser?.email || process.env.REPLY_TO_EMAIL || 'hello@prismwriting.com'
+      });
+
+      if (error) {
+        console.error('Email send error:', error);
+        return false;
+      }
+
+      // Log email in database
+      await this.logEmailSent(leadId, templateId, data?.id || '');
+      
+      return true;
+    } catch (error) {
+      console.error('Send email error:', error);
+      return false;
+    }
+  }
+
+  // Setup automated email sequence for new leads
+  async setupAutomatedSequence(leadId: string): Promise<any> {
+    try {
+      // Send welcome email immediately
+      await this.sendWelcomeEmail(leadId);
+      
+      // Schedule follow-up sequence
+      await this.scheduleFollowUpSequence(leadId);
+
+      return {
+        welcomeEmailSent: true,
+        followUpScheduled: true
+      };
+    } catch (error) {
+      console.error('Error setting up automated sequence:', error);
+      throw error;
+    }
+  }
+
+  // Get email statistics
+  async getEmailStats(): Promise<any> {
+    try {
+      const totalSent = await prisma.emailLog.count();
+      const totalScheduled = await prisma.emailSchedule.count({
+        where: { sent: false }
+      });
+      const openedEmails = await prisma.emailLog.count({
+        where: { openedAt: { not: null } }
+      });
+      const clickedEmails = await prisma.emailLog.count({
+        where: { clickedAt: { not: null } }
+      });
+      const bouncedEmails = await prisma.emailLog.count({
+        where: { bouncedAt: { not: null } }
+      });
+
+      const openRate = totalSent > 0 ? (openedEmails / totalSent) * 100 : 0;
+      const clickRate = totalSent > 0 ? (clickedEmails / totalSent) * 100 : 0;
+      const bounceRate = totalSent > 0 ? (bouncedEmails / totalSent) * 100 : 0;
+
+      return {
+        totalSent,
+        totalScheduled,
+        openedEmails,
+        clickedEmails,
+        bouncedEmails,
+        openRate: Math.round(openRate * 100) / 100,
+        clickRate: Math.round(clickRate * 100) / 100,
+        bounceRate: Math.round(bounceRate * 100) / 100
+      };
+    } catch (error) {
+      console.error('Error getting email stats:', error);
+      return {
+        totalSent: 0,
+        totalScheduled: 0,
+        openedEmails: 0,
+        clickedEmails: 0,
+        bouncedEmails: 0,
+        openRate: 0,
+        clickRate: 0,
+        bounceRate: 0
+      };
+    }
+  }
+}
+
+// Singleton instance
+export const emailAutomationService = new EmailAutomationService();

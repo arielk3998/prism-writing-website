@@ -851,29 +851,20 @@ export async function getAdminOverview() {
   const projects = await getAllProjects();
   const clients = await getAllClients();
   
+  const activeProjects = projects.filter(p => p.status === 'active').length;
+  const completedProjects = projects.filter(p => p.status === 'completed').length;
+  const overdueProjects = projects.filter(p => p.status === 'overdue' || (p.deadline && new Date(p.deadline) < new Date())).length;
+  const avgCompletionRate = projects.length > 0 ? projects.reduce((sum, p) => sum + (p.completionPercentage || 0), 0) / projects.length : 0;
+  
   return {
-    totalUsers: users.length,
+    totalMembers: users.filter(u => u.role === 'MEMBER').length,
     totalProjects: projects.length,
     totalClients: clients.length,
-    activeProjects: projects.filter(p => p.status === 'active').length,
-    completedProjects: projects.filter(p => p.status === 'completed').length,
+    activeProjects,
+    completedProjects,
+    overdueProjects,
     totalRevenue: projects.reduce((sum, p) => sum + (p.completionPercentage || 0) * 100, 0),
-    recentActivity: [
-      {
-        id: '1',
-        type: 'project',
-        description: 'New project created: Technical Documentation',
-        timestamp: new Date(),
-        user: 'System Admin'
-      },
-      {
-        id: '2',
-        type: 'user',
-        description: 'New user registered: john@example.com',
-        timestamp: new Date(Date.now() - 3600000),
-        user: 'System'
-      }
-    ]
+    avgCompletionRate
   };
 }
 
