@@ -132,19 +132,19 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
   const [activeTab, setActiveTab] = useState<'translation' | 'writing'>('translation')
 
   return (
-    <section className={`py-24 bg-background ${className}`}>
-      <div className="container mx-auto px-4">
+    <section className={`py-20 md:py-24 lg:py-28 bg-background ${className}`}>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
+        <div className="text-center mb-16 space-y-6">
+          <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 hover:bg-primary/20 transition-colors">
             <Star className="w-4 h-4 mr-2" />
             <span>Premium Services</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground">
             Professional Services That
-            <span className="block gradient-text">Drive Global Success</span>
+            <span className="block gradient-text bg-gradient-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent">Drive Global Success</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             From translation to content creation, we provide comprehensive language services 
             that help businesses communicate effectively across cultures and markets.
           </p>
@@ -152,13 +152,13 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
 
         {/* Service Tabs */}
         <div className="flex justify-center mb-12">
-          <div className="bg-muted rounded-lg p-1 flex">
+          <div className="bg-muted/70 backdrop-blur-sm rounded-xl p-1 flex border border-border/50 shadow-lg">
             <button
               onClick={() => setActiveTab('translation')}
-              className={`px-6 py-3 rounded-md text-sm font-medium transition-all ${
+              className={`px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
                 activeTab === 'translation'
-                  ? 'bg-background text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
+                  ? 'bg-background text-foreground shadow-md border border-border/20'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
               }`}
             >
               <Globe className="w-4 h-4 mr-2 inline" />
@@ -166,10 +166,10 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
             </button>
             <button
               onClick={() => setActiveTab('writing')}
-              className={`px-6 py-3 rounded-md text-sm font-medium transition-all ${
+              className={`px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
                 activeTab === 'writing'
-                  ? 'bg-background text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
+                  ? 'bg-background text-foreground shadow-md border border-border/20'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
               }`}
             >
               <FileText className="w-4 h-4 mr-2 inline" />
@@ -181,19 +181,19 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {(activeTab === 'translation' ? translationServices : writingServices).map((service) => (
-            <Card key={service.id} className="relative overflow-hidden hover:shadow-lg transition-all duration-300 group hover:-translate-y-1">
+            <Card key={service.id} className="relative overflow-hidden hover:shadow-xl transition-all duration-300 group hover:-translate-y-2 hover:scale-[1.02] border border-border/50 bg-white/80 backdrop-blur-sm">
               {service.popular && (
-                <div className="absolute top-4 right-4 bg-primary text-primary-foreground text-xs px-2 py-1 rounded-full font-medium">
+                <div className="absolute top-4 right-4 bg-gradient-to-r from-primary to-blue-600 text-white text-xs px-3 py-1 rounded-full font-medium shadow-lg">
                   Popular
                 </div>
               )}
               
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <service.icon className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110">
+                  <service.icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
                 </div>
-                <CardTitle className="text-xl font-semibold">{service.title}</CardTitle>
-                <p className="text-sm text-muted-foreground">{service.description}</p>
+                <CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors">{service.title}</CardTitle>
+                <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
               </CardHeader>
 
               <CardContent className="pt-0">

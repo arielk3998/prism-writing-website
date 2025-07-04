@@ -92,61 +92,61 @@ export function Navigation({ className }: NavigationProps) {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled 
-          ? "bg-background/95 backdrop-blur-lg border-b border-border shadow-sm" 
+          ? "bg-background/95 backdrop-blur-lg border-b border-border shadow-lg" 
           : "bg-transparent",
         className
       )}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-18">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 group">
+          <Link href="/" className="flex items-center space-x-2 group transition-all duration-300">
             <div className="relative">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary to-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">P</span>
+              <div className="w-8 h-8 md:w-9 md:h-9 bg-gradient-to-r from-primary to-blue-600 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300">
+                <span className="text-white font-bold text-sm md:text-base">P</span>
               </div>
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse-glow"></div>
             </div>
-            <span className="text-xl font-bold gradient-text">Prism Writing</span>
+            <span className="text-xl md:text-2xl font-bold gradient-text">Prism Writing</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
             {navigationItems.map((item) => (
               <div key={item.name} className="relative group">
                 <Link
                   href={item.href}
                   className={cn(
-                    "flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary",
-                    pathname.startsWith(item.href) ? "text-primary" : "text-foreground"
+                    "flex items-center space-x-1 text-sm font-medium transition-all duration-300 hover:text-primary px-3 py-2 rounded-md hover:bg-accent/50",
+                    pathname.startsWith(item.href) ? "text-primary bg-primary/10" : "text-foreground"
                   )}
                   onMouseEnter={() => item.submenu && setActiveSubmenu(item.name)}
                   onMouseLeave={() => setActiveSubmenu(null)}
                 >
                   <item.icon className="w-4 h-4" />
                   <span>{item.name}</span>
-                  {item.submenu && <ChevronDown className="w-3 h-3" />}
+                  {item.submenu && <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />}
                 </Link>
 
                 {/* Desktop Submenu */}
                 {item.submenu && activeSubmenu === item.name && (
                   <div 
-                    className="absolute top-full left-0 mt-2 w-64 bg-background border border-border rounded-lg shadow-lg py-2 animate-in fade-in slide-in-from-top-2 duration-200"
+                    className="absolute top-full left-0 mt-2 w-72 bg-background/95 backdrop-blur-lg border border-border rounded-xl shadow-xl py-2 animate-in fade-in slide-in-from-top-2 duration-200"
                     onMouseEnter={() => setActiveSubmenu(item.name)}
                     onMouseLeave={() => setActiveSubmenu(null)}
                   >
-                    <div className="px-4 py-2 border-b border-border">
-                      <h4 className="font-medium text-sm">{item.name}</h4>
+                    <div className="px-4 py-3 border-b border-border">
+                      <h4 className="font-semibold text-sm">{item.name}</h4>
                       <p className="text-xs text-muted-foreground mt-1">{item.description}</p>
                     </div>
                     {item.submenu.map((subItem) => (
                       <Link
                         key={subItem.name}
                         href={subItem.href}
-                        className="flex items-center space-x-3 px-4 py-2 text-sm hover:bg-accent transition-colors"
+                        className="flex items-center space-x-3 px-4 py-3 text-sm hover:bg-accent transition-colors group"
                       >
-                        <subItem.icon className="w-4 h-4 text-muted-foreground" />
-                        <span>{subItem.name}</span>
+                        <subItem.icon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                        <span className="group-hover:text-foreground">{subItem.name}</span>
                       </Link>
                     ))}
                   </div>
@@ -156,15 +156,15 @@ export function Navigation({ className }: NavigationProps) {
           </div>
 
           {/* CTA Buttons */}
-          <div className="hidden lg:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-3 xl:space-x-4">
             <Link href="/translation-quote">
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="hover:shadow-md transition-all duration-300">
                 <Zap className="w-4 h-4 mr-2" />
                 Get Quote
               </Button>
             </Link>
             <Link href="/contact">
-              <Button size="sm">
+              <Button size="sm" className="hover:shadow-lg transition-all duration-300">
                 <Phone className="w-4 h-4 mr-2" />
                 Contact Us
               </Button>
