@@ -223,19 +223,19 @@ export default function EnhancedHomepage() {
               {
                 title: 'API Documentation',
                 description: 'Developer-friendly docs that increase API adoption by 40% and reduce support tickets.',
-                href: '/services/api-documentation',
+                href: '/services#api-documentation',
                 gradient: 'from-blue-500 to-blue-600',
               },
               {
                 title: 'Standard Operating Procedures',
                 description: 'Compliance-ready SOPs that reduce training time and ensure regulatory adherence.',
-                href: '/services/sops',
+                href: '/services#compliance-documentation',
                 gradient: 'from-green-500 to-green-600',
               },
               {
                 title: 'User Manuals & Guides',
                 description: 'Clear, actionable guides that improve user satisfaction and reduce churn.',
-                href: '/services/user-manuals',
+                href: '/services#user-guides',
                 gradient: 'from-purple-500 to-purple-600',
               },
             ].map((service, index) => (
@@ -246,26 +246,25 @@ export default function EnhancedHomepage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <ModernCard variant="interactive" className="h-full group">
-                  <div className={`w-12 h-12 bg-gradient-to-r ${service.gradient} rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                    <DocumentIcon />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                    {service.description}
-                  </p>
-                  <Link
-                    href={service.href}
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold group-hover:translate-x-2 transition-transform duration-300"
-                  >
-                    Learn More
-                    <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                </ModernCard>
+                <Link href={service.href} className="block h-full">
+                  <ModernCard variant="interactive" className="h-full group cursor-pointer hover:shadow-xl transition-shadow duration-300">
+                    <div className={`w-12 h-12 bg-gradient-to-r ${service.gradient} rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                      <DocumentIcon />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                      {service.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                      {service.description}
+                    </p>
+                    <div className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold group-hover:translate-x-2 transition-transform duration-300">
+                      Learn More
+                      <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </div>
+                  </ModernCard>
+                </Link>
               </motion.div>
             ))}
           </div>

@@ -34,15 +34,15 @@ export function useContactInfo() {
     if (superAdmin) {
       setContactInfo({
         name: superAdmin.name,
-        email: superAdmin.email || 'Ariel.pk@outlook.com',
+        email: superAdmin.email || 'ariel.pk@outlook.com',
         title: superAdmin.title,
         bio: superAdmin.bio,
       });
     } else {
       // Fallback contact info
       setContactInfo({
-        name: 'Ariel',
-        email: 'Ariel.pk@outlook.com',
+        name: 'Ariel Karagodskiy',
+        email: 'ariel.pk@outlook.com',
         title: 'Founder & CEO',
         bio: 'Founder and leader of Prism Writing Cooperative',
       });
@@ -72,15 +72,15 @@ export function getStaticContactInfo(): ContactInfo {
   if (superAdmin) {
     return {
       name: superAdmin.name,
-      email: superAdmin.email || 'Ariel.pk@outlook.com',
+      email: superAdmin.email || 'ariel.pk@outlook.com',
       title: superAdmin.title,
       bio: superAdmin.bio,
     };
   }
 
   return {
-    name: 'Ariel',
-    email: 'Ariel.pk@outlook.com',
+    name: 'Ariel Karagodskiy',
+    email: 'ariel.pk@outlook.com',
     title: 'Founder & CEO',
     bio: 'Founder and leader of Prism Writing Cooperative',
   };

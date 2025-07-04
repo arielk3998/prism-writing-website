@@ -62,6 +62,7 @@ export default function Home() {
     { label: 'Services', href: '/services' },
     { label: 'Portfolio', href: '/portfolio' },
     { label: 'Resources', href: '/resources' },
+    { label: 'Blog', href: '/blog' },
     { label: 'About', href: '/about' },
   ];
 
@@ -80,36 +81,42 @@ export default function Home() {
       title: 'Technical Documentation',
       description: 'Comprehensive technical writing services including API docs, user manuals, and SOPs that drive user engagement and reduce support tickets.',
       color: 'bg-blue-100 text-blue-600',
+      href: '/services#technical-documentation',
     },
     {
       icon: <TechIllustration type="api" size="small" />,
       title: 'API Documentation',
       description: 'Developer-focused documentation that makes complex APIs accessible, with interactive examples and clear implementation guides.',
       color: 'bg-green-100 text-green-600',
+      href: '/services#api-documentation',
     },
     {
       icon: <TechIllustration type="security" size="small" />,
       title: 'Compliance Documentation',
       description: 'Regulatory compliance documentation for HIPAA, SOX, ISO standards, and industry-specific requirements that keep you audit-ready.',
       color: 'bg-purple-100 text-purple-600',
+      href: '/services#compliance-documentation',
     },
     {
       icon: <TechIllustration type="training" size="small" />,
       title: 'User Experience Design',
       description: 'User-centered documentation design that improves product adoption and reduces training costs through intuitive information architecture.',
       color: 'bg-orange-100 text-orange-600',
+      href: '/services#user-experience',
     },
     {
       icon: <TechIllustration type="analytics" size="small" />,
       title: 'Analytics & Optimization',
       description: 'Data-driven documentation strategies with performance tracking, user analytics, and continuous optimization for maximum impact.',
       color: 'bg-pink-100 text-pink-600',
+      href: '/services#analytics-optimization',
     },
     {
       icon: <TechIllustration type="research" size="small" />,
       title: 'Quality Assurance',
       description: 'Rigorous quality control processes ensuring accuracy, consistency, and brand alignment across all documentation deliverables.',
       color: 'bg-cyan-100 text-cyan-600',
+      href: '/services#quality-assurance',
     },
   ];
 

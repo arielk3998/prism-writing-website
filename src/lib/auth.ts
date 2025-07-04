@@ -13,6 +13,41 @@ import { NextRequest } from 'next/server';
 export type UserRole = 'SUPER_ADMIN' | 'ADMIN' | 'EDITOR' | 'MEMBER' | 'CLIENT' | 'VIEWER';
 export type UserStatus = 'ACTIVE' | 'INACTIVE' | 'SUSPENDED' | 'PENDING_VERIFICATION';
 
+export interface User {
+  id: string;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  name?: string; // Added for compatibility
+  role: UserRole;
+  status: UserStatus;
+  joinedAt?: Date; // Added for compatibility
+  lastLogin?: Date; // Added for compatibility
+  permissions?: string[]; // Added for compatibility
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  status: string;
+  createdAt: Date;
+  clientId?: string; // Added for compatibility
+  assignedMemberId?: string; // Added for compatibility
+  deadline?: Date; // Added for compatibility
+  priority?: string; // Added for compatibility
+  type?: string; // Added for compatibility
+  completionPercentage?: number; // Added for compatibility
+}
+
+export interface Client {
+  id: string;
+  name: string;
+  email: string;
+  company?: string;
+  totalBudget?: number; // Added for compatibility
+  status?: string; // Added for compatibility
+}
+
 export interface AuthUser {
   id: string;
   email: string;
@@ -182,7 +217,7 @@ function generateSessionToken(): string {
 /**
  * User login with database fallback
  */
-export async function loginUser(credentials: LoginCredentials): Promise<{ user: AuthUser; tokens: { accessToken: string; refreshToken: string } } | { error: string }> {
+export async function loginUser(credentials: LoginCredentials): Promise<{ user: User; tokens: { accessToken: string; refreshToken: string } } | { error: string }> {
   try {
     const dbAvailable = await isDatabaseAvailable();
     
@@ -202,7 +237,7 @@ export async function loginUser(credentials: LoginCredentials): Promise<{ user: 
 /**
  * Database-based login
  */
-async function loginUserDatabase(credentials: LoginCredentials): Promise<{ user: AuthUser; tokens: { accessToken: string; refreshToken: string } } | { error: string }> {
+async function loginUserDatabase(credentials: LoginCredentials): Promise<{ user: User; tokens: { accessToken: string; refreshToken: string } } | { error: string }> {
   const { prisma } = await import('./database');
   
   // Find user
@@ -271,7 +306,7 @@ async function loginUserDatabase(credentials: LoginCredentials): Promise<{ user:
 /**
  * In-memory login fallback
  */
-async function loginUserMemory(credentials: LoginCredentials): Promise<{ user: AuthUser; tokens: { accessToken: string; refreshToken: string } } | { error: string }> {
+async function loginUserMemory(credentials: LoginCredentials): Promise<{ user: User; tokens: { accessToken: string; refreshToken: string } } | { error: string }> {
   // Find user in memory
   const user = inMemoryUsers.find(u => u.email === credentials.email);
 
@@ -339,7 +374,10 @@ async function loginUserMemory(credentials: LoginCredentials): Promise<{ user: A
     status: user.status,
   };
 
-  return { user: authUser, tokens };
+  // Convert to User with permissions
+  const userWithPermissions = addPermissionsToUser(authUser);
+
+  return { user: userWithPermissions, tokens };
 }
 
 /**
@@ -595,7 +633,9 @@ export function hasPermission(userRole: UserRole, requiredPermission: string): b
       'newsletter:read'
     ],
     MEMBER: [
-      'content:read', 'project:read'
+      'content:read', 'content:create', 'content:update',
+      'project:read', 'project:update',
+      'newsletter:read'
     ],
     CLIENT: [
       'content:read', 'project:read'
@@ -646,6 +686,44 @@ export async function requirePermission(request: NextRequest, permission: string
   return authResult;
 }
 
+/**
+ * Logout user and invalidate session
+ */
+export async function logout(token?: string): Promise<{ success: boolean }> {
+  try {
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, JWT_SECRET) as TokenPayload;
+        // Remove session from memory
+        const sessionIndex = inMemorySessions.findIndex(s => s.id === decoded.sessionId);
+        if (sessionIndex !== -1) {
+          inMemorySessions.splice(sessionIndex, 1);
+        }
+        
+        // Try to remove from database if available
+        try {
+          const dbAvailable = await isDatabaseAvailable();
+          if (dbAvailable) {
+            const { prisma } = await import('./database');
+            await prisma.session.delete({
+              where: { id: decoded.sessionId },
+            });
+          }
+        } catch (error) {
+          console.warn('Failed to remove session from database:', error);
+        }
+      } catch (error) {
+        console.warn('Invalid token during logout:', error);
+      }
+    }
+    
+    return { success: true };
+  } catch (error) {
+    console.error('Logout error:', error);
+    return { success: false };
+  }
+}
+
 // Legacy support for existing demo authentication
 export function isAuthenticated(request: NextRequest): boolean {
   const authHeader = request.headers.get('authorization');
@@ -653,77 +731,199 @@ export function isAuthenticated(request: NextRequest): boolean {
   return authHeader === `Bearer ${adminKey}`;
 }
 
-// Backward compatibility exports
+// Compatibility exports for AuthContext
 export const login = loginUser;
 export const register = registerUser;
-export const logout = async () => ({ success: true }); // Simplified logout
 
-// Admin function stubs (for deployment compatibility)
+/**
+ * Admin functions for managing users, projects, and clients
+ */
+
+export async function getAllUsers(): Promise<User[]> {
+  try {
+    const dbAvailable = await isDatabaseAvailable();
+    if (dbAvailable) {
+      const { prisma } = await import('./database');
+      const users = await prisma.user.findMany({
+        orderBy: { createdAt: 'desc' }
+      });
+      return users.map(user => addPermissionsToUser({
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role as UserRole,
+        status: user.status as UserStatus,
+      }));
+    } else {
+      // Return in-memory users
+      return inMemoryUsers.map(user => addPermissionsToUser({
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+        status: user.status,
+      }));
+    }
+  } catch (error) {
+    console.error('Error getting all users:', error);
+    return [];
+  }
+}
+
+export async function getAllProjects(): Promise<Project[]> {
+  // Mock data for demo purposes
+  return [
+    {
+      id: 'proj_001',
+      title: 'Technical Documentation Project',
+      status: 'active',
+      createdAt: new Date('2024-01-15'),
+      clientId: 'client_001',
+      assignedMemberId: 'user_member_001',
+      deadline: new Date('2024-02-15'),
+      priority: 'high',
+      type: 'technical-writing',
+      completionPercentage: 75
+    },
+    {
+      id: 'proj_002',
+      title: 'Marketing Content Creation',
+      status: 'completed',
+      createdAt: new Date('2024-01-10'),
+      clientId: 'client_002',
+      assignedMemberId: 'user_member_001',
+      deadline: new Date('2024-01-25'),
+      priority: 'medium',
+      type: 'marketing-content',
+      completionPercentage: 100
+    },
+    {
+      id: 'proj_003',
+      title: 'User Manual Development',
+      status: 'planning',
+      createdAt: new Date('2024-01-20'),
+      clientId: 'client_003',
+      assignedMemberId: 'user_admin_001',
+      deadline: new Date('2024-03-01'),
+      priority: 'low',
+      type: 'documentation',
+      completionPercentage: 15
+    }
+  ];
+}
+
+export async function getAllClients(): Promise<Client[]> {
+  // Mock data for demo purposes
+  return [
+    {
+      id: 'client_001',
+      name: 'Tech Corp',
+      email: 'contact@techcorp.com',
+      company: 'Tech Corp',
+      totalBudget: 15000,
+      status: 'active'
+    },
+    {
+      id: 'client_002',
+      name: 'Marketing Plus',
+      email: 'hello@marketingplus.com',
+      company: 'Marketing Plus',
+      totalBudget: 8500,
+      status: 'active'
+    },
+    {
+      id: 'client_003',
+      name: 'StartUp Inc',
+      email: 'info@startupinc.com',
+      company: 'StartUp Inc',
+      totalBudget: 5000,
+      status: 'pending'
+    }
+  ];
+}
+
 export async function getAdminOverview() {
+  const users = await getAllUsers();
+  const projects = await getAllProjects();
+  const clients = await getAllClients();
+  
   return {
-    totalMembers: 0,
-    totalClients: 0,
-    totalProjects: 0,
-    activeProjects: 0,
-    completedProjects: 0,
-    overdueProjects: 0,
-    totalRevenue: 0,
-    avgCompletionRate: 0
+    totalUsers: users.length,
+    totalProjects: projects.length,
+    totalClients: clients.length,
+    activeProjects: projects.filter(p => p.status === 'active').length,
+    completedProjects: projects.filter(p => p.status === 'completed').length,
+    totalRevenue: projects.reduce((sum, p) => sum + (p.completionPercentage || 0) * 100, 0),
+    recentActivity: [
+      {
+        id: '1',
+        type: 'project',
+        description: 'New project created: Technical Documentation',
+        timestamp: new Date(),
+        user: 'System Admin'
+      },
+      {
+        id: '2',
+        type: 'user',
+        description: 'New user registered: john@example.com',
+        timestamp: new Date(Date.now() - 3600000),
+        user: 'System'
+      }
+    ]
   };
 }
 
-export async function getAllUsers() {
-  return [];
-}
-
-export async function getAllProjects() {
-  return [];
-}
-
-export async function getAllClients() {
-  return [];
-}
-
-export async function updateProject(id: string, data: Record<string, unknown>) {
+export async function updateProject(id: string, data: Partial<Project>) {
+  // Mock implementation
   return { success: true, project: { id, ...data } };
 }
 
-export async function impersonateUser() {
-  return { success: true, token: 'demo-token' };
+export async function impersonateUser(userId: string) {
+  // Mock implementation for demo
+  console.log('Impersonating user:', userId);
+  return { success: true, token: 'demo-impersonation-token' };
 }
 
-// Type exports for compatibility
-export interface User {
-  id: string;
-  email: string;
-  firstName?: string;
-  lastName?: string;
-  name?: string; // Added for compatibility
-  role: UserRole;
-  status: UserStatus;
-  joinedAt?: Date; // Added for compatibility
-  lastLogin?: Date; // Added for compatibility
-  permissions?: string[]; // Added for compatibility
-}
+function addPermissionsToUser(authUser: AuthUser): User {
+  const ROLE_PERMISSIONS = {
+    SUPER_ADMIN: ['*'], // All permissions
+    ADMIN: [
+      'user:create', 'user:read', 'user:update', 'user:delete',
+      'content:create', 'content:read', 'content:update', 'content:delete',
+      'project:create', 'project:read', 'project:update', 'project:delete',
+      'newsletter:read', 'newsletter:manage', 'newsletter:export',
+      'analytics:read', 'settings:update'
+    ],
+    EDITOR: [
+      'content:create', 'content:read', 'content:update',
+      'project:read', 'project:update',
+      'newsletter:read'
+    ],
+    MEMBER: [
+      'content:read', 'content:create', 'content:update',
+      'project:read', 'project:update',
+      'newsletter:read'
+    ],
+    CLIENT: [
+      'content:read', 'project:read'
+    ],
+    VIEWER: [
+      'content:read'
+    ]
+  };
 
-export interface Project {
-  id: string;
-  title: string;
-  status: string;
-  createdAt: Date;
-  clientId?: string; // Added for compatibility
-  assignedMemberId?: string; // Added for compatibility
-  deadline?: Date; // Added for compatibility
-  priority?: string; // Added for compatibility
-  type?: string; // Added for compatibility
-  completionPercentage?: number; // Added for compatibility
-}
-
-export interface Client {
-  id: string;
-  name: string;
-  email: string;
-  company?: string;
-  totalBudget?: number; // Added for compatibility
-  status?: string; // Added for compatibility
+  return {
+    id: authUser.id,
+    email: authUser.email,
+    firstName: authUser.firstName,
+    lastName: authUser.lastName,
+    name: `${authUser.firstName || ''} ${authUser.lastName || ''}`.trim() || authUser.email,
+    role: authUser.role,
+    status: authUser.status,
+    permissions: ROLE_PERMISSIONS[authUser.role] || []
+  };
 }

@@ -11,7 +11,9 @@ import {
   Settings, 
   ArrowLeft,
   Mail,
-  CreditCard
+  CreditCard,
+  Contact,
+  Bot
 } from 'lucide-react';
 import NewsletterAdmin from '@/components/admin/NewsletterAdmin';
 import UserManagement from '@/components/admin/UserManagement';
@@ -20,6 +22,10 @@ import PaymentManagement from '@/components/admin/PaymentManagement';
 import DatabaseManagement from '@/components/admin/DatabaseManagement';
 import EnterpriseManagement from '@/components/admin/EnterpriseManagement';
 import AdvancedAnalytics from '@/components/admin/AdvancedAnalytics';
+import LeadManagement from '@/components/admin/LeadManagement';
+import AdvancedLeadDashboard from '@/components/admin/AdvancedLeadDashboard';
+import AIContentGenerationDashboard from '@/components/admin/AIContentGenerationDashboard';
+import AdminSettings from '@/components/admin/AdminSettings';
 import { DarkModeToggle } from '@/components/ui/DarkModeToggle';
 
 export default function AdminDashboard() {
@@ -27,6 +33,9 @@ export default function AdminDashboard() {
 
   const tabs = [
     { id: 'newsletter', label: 'Newsletter', icon: Mail },
+    { id: 'leads', label: 'Leads', icon: Contact },
+    { id: 'advanced-leads', label: 'Advanced Leads', icon: TrendingUp },
+    { id: 'ai-content', label: 'AI Content', icon: Bot },
     { id: 'users', label: 'Users', icon: Users },
     { id: 'team', label: 'Team', icon: Users },
     { id: 'payments', label: 'Payments', icon: CreditCard },
@@ -101,6 +110,10 @@ export default function AdminDashboard() {
         >
           {activeTab === 'newsletter' && <NewsletterAdmin />}
           
+          {activeTab === 'leads' && <LeadManagement />}
+          
+          {activeTab === 'advanced-leads' && <AdvancedLeadDashboard />}
+          
           {activeTab === 'users' && <UserManagement />}
           
           {activeTab === 'team' && <TeamManagement />}
@@ -113,17 +126,7 @@ export default function AdminDashboard() {
           
           {activeTab === 'analytics' && <AdvancedAnalytics />}
           
-          {activeTab === 'settings' && (
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center">
-              <Settings className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Settings
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Enterprise system settings and configuration management.
-              </p>
-            </div>
-          )}
+          {activeTab === 'settings' && <AdminSettings />}
         </motion.div>
       </main>
     </div>

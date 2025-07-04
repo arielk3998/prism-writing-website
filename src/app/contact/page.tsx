@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { 
   ModernContactForm, 
@@ -11,9 +11,11 @@ import {
 import EnhancedFooter from '@/components/layout/EnhancedFooter';
 import { DarkModeToggle } from '@/components/ui/DarkModeToggle';
 import ScrollToTop from '@/components/ui/ScrollToTop';
-import { MapPin, Phone, Mail, Clock, MessageCircle, Zap, Globe, Users } from 'lucide-react';
+import { MapPin, Mail, Clock, MessageCircle, Zap, Globe, Users } from 'lucide-react';
 
 export default function ContactPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  
   // Navigation items
   const navItems = [
     { label: 'Home', href: '/' },
@@ -23,16 +25,42 @@ export default function ContactPage() {
     { label: 'Blog', href: '/blog' },
     { label: 'About', href: '/about' },
   ];
-  const handleContactSubmit = (data: {
+  const handleContactSubmit = async (data: {
     name: string;
     email: string;
     company: string;
     service: string;
     message: string;
   }) => {
-    // Handle form submission here
-    console.log('Contact form submitted:', data);
-    // In a real implementation, you would send this to your backend
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          company: data.company,
+          message: data.message,
+          projectType: data.service,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert('Thank you for your message! We will get back to you within 24 hours.');
+      } else {
+        alert(result.error || 'Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      console.error('Contact form error:', error);
+      alert('Something went wrong. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const processSteps = [
@@ -62,18 +90,10 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: "Email Us",
-      value: "hello@prismwriting.com",
+      value: "ariel.pk@outlook.com",
       subtitle: "We respond within 24 hours",
       iconBg: "bg-blue-50 dark:bg-blue-900/30",
       iconColor: "text-blue-600 dark:text-blue-400"
-    },
-    {
-      icon: Phone,
-      title: "Call Us",
-      value: "+1 (555) 123-4567",
-      subtitle: "Mon-Fri 9AM-6PM EST",
-      iconBg: "bg-purple-50 dark:bg-purple-900/30",
-      iconColor: "text-purple-600 dark:text-purple-400"
     },
     {
       icon: MapPin,
@@ -207,7 +227,10 @@ export default function ContactPage() {
                     Tell us about your project and we&apos;ll get back to you within 24 hours with a personalized proposal.
                   </p>
                 </div>
-                <ModernContactForm onSubmit={handleContactSubmit} />
+                <ModernContactForm 
+                  onSubmit={handleContactSubmit} 
+                  isLoading={isLoading}
+                />
               </div>
             </div>
 

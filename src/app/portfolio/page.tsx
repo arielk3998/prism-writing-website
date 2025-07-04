@@ -45,6 +45,7 @@ function PortfolioWithParams() {
     { label: 'Services', href: '/services' },
     { label: 'Portfolio', href: '/portfolio', isActive: true },
     { label: 'Resources', href: '/resources' },
+    { label: 'Blog', href: '/blog' },
     { label: 'About', href: '/about' },
   ];
 

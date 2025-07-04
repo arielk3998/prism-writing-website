@@ -197,8 +197,8 @@ export default function AccessibilityStatement() {
               </p>
               <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
                 <div className="space-y-2 text-gray-700 dark:text-gray-300">
-                  <p><strong>Email:</strong> accessibility@prismwriting.com</p>
-                  <p><strong>Phone:</strong> (555) 123-4567</p>
+                  <p><strong>Email:</strong> ariel.pk@outlook.com</p>
+                  <p><strong>Email:</strong> ariel.pk@outlook.com</p>
                   <p><strong>Mail:</strong> Prism Writing Cooperative, Accessibility Team, [Address]</p>
                 </div>
               </div>

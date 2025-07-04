@@ -5,7 +5,7 @@
 
 const testCredentials = [
   {
-    email: 'Ariel.karagodskiy@gmail.com',
+    email: 'ariel.pk@outlook.com',
     password: 'Merlak0105!',
     role: 'admin'
   },
@@ -57,7 +57,7 @@ const defaultUsers = [
   },
   {
     id: '4',
-    email: 'Ariel.karagodskiy@gmail.com',
+    email: 'ariel.pk@outlook.com',
     name: 'Ariel Karagodskiy',
     role: 'admin',
     joinedAt: '2024-01-01T00:00:00Z',
@@ -70,7 +70,7 @@ const defaultPasswords = {
   'admin@prismwriting.com': 'admin123',
   'member@prismwriting.com': 'member123',
   'client@example.com': 'client123',
-  'Ariel.karagodskiy@gmail.com': 'Merlak0105!'
+  'ariel.pk@outlook.com': 'Merlak0105!'
 };
 
 console.log('🔐 Authentication Test Results');

@@ -199,7 +199,7 @@ export default function Privacy() {
                 <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
                   <p className="text-gray-600 dark:text-gray-300">
                     <strong>Prism Writing Cooperative</strong><br />
-                    Email: privacy@prismwriting.com<br />
+                    Email: ariel.pk@outlook.com<br />
                     Website: prismwriting.com<br />
                     Portal: prismwriting.com/portal
                   </p>

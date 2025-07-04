@@ -295,7 +295,7 @@ export default function CookiePolicy() {
               </p>
               <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
                 <div className="space-y-2 text-gray-700 dark:text-gray-300">
-                  <p><strong>Email:</strong> privacy@prismwriting.com</p>
+                  <p><strong>Email:</strong> ariel.pk@outlook.com</p>
                   <p><strong>Phone:</strong> (555) 123-4567</p>
                   <p><strong>Mail:</strong> Prism Writing Cooperative, Privacy Team, [Address]</p>
                 </div>

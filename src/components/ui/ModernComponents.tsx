@@ -20,8 +20,9 @@
 'use client';
 
 import React, { useState, useEffect, ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 
 /**
  * Modern Button Component
@@ -446,6 +447,7 @@ interface FeatureItem {
   title: string;
   description: string;
   color?: string;
+  href?: string;
 }
 
 interface ModernFeatureGridProps {
@@ -467,19 +469,13 @@ const ModernFeatureGrid: React.FC<ModernFeatureGridProps> = ({
 
   return (
     <div className={`grid ${gridClasses[columns]} gap-8 ${className}`}>
-      {features.map((feature, index) => (
-        <motion.div
-          key={index}
-          className="group relative"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-          whileHover={{ y: -5 }}
-        >
+      {features.map((feature, index) => {
+        const cardContent = (
           <ModernCard
             variant="interactive"
-            className="h-full text-center group-hover:shadow-lg transition-all duration-300"
+            className={`h-full text-center transition-all duration-300 ${
+              feature.href ? 'cursor-pointer hover:shadow-lg' : ''
+            }`}
           >
             <motion.div
               className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 ${
@@ -490,15 +486,43 @@ const ModernFeatureGrid: React.FC<ModernFeatureGridProps> = ({
             >
               {feature.icon}
             </motion.div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-3">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
               {feature.title}
             </h3>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
               {feature.description}
             </p>
+            {feature.href && (
+              <div className="mt-4 inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm">
+                Learn More
+                <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            )}
           </ModernCard>
-        </motion.div>
-      ))}
+        );
+
+        return (
+          <motion.div
+            key={index}
+            className="group relative"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileHover={{ y: -5 }}
+          >
+            {feature.href ? (
+              <Link href={feature.href} className="block h-full">
+                {cardContent}
+              </Link>
+            ) : (
+              cardContent
+            )}
+          </motion.div>
+        );
+      })}
     </div>
   );
 };
@@ -534,6 +558,7 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
   className = '',
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -543,6 +568,18 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <motion.nav
@@ -566,7 +603,7 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
             {logo}
           </motion.div>
 
-          {/* Navigation Items */}
+          {/* Desktop Navigation Items */}
           <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
             {navItems.map((item, index) => (
               <motion.a
@@ -595,14 +632,76 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
             ))}
           </div>
 
-          {/* Actions */}
+          {/* Desktop Actions */}
           {actions && (
-            <div className="flex items-center space-x-4">
+            <div className="hidden md:flex items-center space-x-4">
               {actions}
             </div>
           )}
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center space-x-2">
+            {/* Mobile Actions (simplified) */}
+            <div className="flex items-center space-x-2">
+              {actions}
+            </div>
+            
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-md text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
+              aria-label="Toggle mobile menu"
+            >
+              <motion.div
+                animate={isMobileMenuOpen ? { rotate: 90 } : { rotate: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {isMobileMenuOpen ? (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </motion.div>
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-white/95 backdrop-blur-lg border-t border-gray-200/20 dark:bg-gray-900/95 dark:border-gray-700/20"
+          >
+            <div className="px-4 py-6 space-y-4">
+              {navItems.map((item, index) => (
+                <motion.a
+                  key={index}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                    item.isActive
+                      ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
+                      : 'text-gray-800 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-gray-700/50'
+                  }`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  {item.label}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };
@@ -657,9 +756,14 @@ interface ModernContactFormProps {
   onSubmit: (data: {
     name: string;
     email: string;
-    company: string;
-    service: string;
+    company?: string;
+    phone?: string;
+    projectType?: string;
+    budget?: string;
+    timeline?: string;
     message: string;
+    subscribeToNewsletter?: boolean;
+    allowFollowUp?: boolean;
   }) => void;
   isLoading?: boolean;
   className?: string;
@@ -674,8 +778,13 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
     name: '',
     email: '',
     company: '',
-    service: '',
+    phone: '',
+    projectType: '',
+    budget: '',
+    timeline: '',
     message: '',
+    subscribeToNewsletter: false,
+    allowFollowUp: true,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -747,13 +856,30 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
           />
         </div>
         <div>
-          <label htmlFor="service" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-            Service of Interest
+          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400"
+            placeholder="(555) 123-4567"
+          />
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        <div>
+          <label htmlFor="projectType" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+            Project Type
           </label>
           <select
-            id="service"
-            name="service"
-            value={formData.service}
+            id="projectType"
+            name="projectType"
+            value={formData.projectType}
             onChange={handleChange}
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
           >
@@ -763,9 +889,51 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
             <option value="sops">Standard Operating Procedures</option>
             <option value="training-materials">Training Materials</option>
             <option value="compliance-docs">Compliance Documentation</option>
+            <option value="technical-writing">Technical Writing</option>
+            <option value="content-strategy">Content Strategy</option>
             <option value="other">Other / Custom Project</option>
           </select>
         </div>
+        <div>
+          <label htmlFor="budget" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+            Budget Range
+          </label>
+          <select
+            id="budget"
+            name="budget"
+            value={formData.budget}
+            onChange={handleChange}
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+          >
+            <option value="">Select budget range</option>
+            <option value="under-5k">Under $5,000</option>
+            <option value="5k-15k">$5,000 - $15,000</option>
+            <option value="15k-50k">$15,000 - $50,000</option>
+            <option value="50k-plus">$50,000+</option>
+            <option value="discuss">Prefer to discuss</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="timeline" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+          Preferred Timeline
+        </label>
+        <select
+          id="timeline"
+          name="timeline"
+          value={formData.timeline}
+          onChange={handleChange}
+          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+        >
+          <option value="">Select timeline</option>
+          <option value="asap">ASAP (Rush - additional fees apply)</option>
+          <option value="1-2-weeks">1-2 weeks</option>
+          <option value="3-4-weeks">3-4 weeks</option>
+          <option value="1-2-months">1-2 months</option>
+          <option value="3-months-plus">3+ months</option>
+          <option value="flexible">Flexible</option>
+        </select>
       </div>
 
       <div>
@@ -780,8 +948,39 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
           value={formData.message}
           onChange={handleChange}
           className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-vertical placeholder-gray-500 dark:placeholder-gray-400"
-          placeholder="Tell us about your project, timeline, and any specific requirements..."
+          placeholder="Tell us about your project, goals, and any specific requirements..."
         />
+      </div>
+
+      {/* Marketing Preferences */}
+      <div className="space-y-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+        <h4 className="text-sm font-medium text-gray-900 dark:text-white">Communication Preferences</h4>
+        
+        <label className="flex items-start space-x-3 cursor-pointer">
+          <input
+            type="checkbox"
+            name="subscribeToNewsletter"
+            checked={formData.subscribeToNewsletter}
+            onChange={(e) => setFormData(prev => ({ ...prev, subscribeToNewsletter: e.target.checked }))}
+            className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <span className="text-sm text-gray-700 dark:text-gray-300">
+            Subscribe to our newsletter for writing tips, industry insights, and company updates
+          </span>
+        </label>
+
+        <label className="flex items-start space-x-3 cursor-pointer">
+          <input
+            type="checkbox"
+            name="allowFollowUp"
+            checked={formData.allowFollowUp}
+            onChange={(e) => setFormData(prev => ({ ...prev, allowFollowUp: e.target.checked }))}
+            className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <span className="text-sm text-gray-700 dark:text-gray-300">
+            I agree to be contacted about my inquiry and future services (you can opt out anytime)
+          </span>
+        </label>
       </div>
 
       <ModernButton
@@ -791,7 +990,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
         isLoading={isLoading}
         onClick={() => {}}
       >
-        {isLoading ? 'Sending...' : 'Send Message'}
+        {isLoading ? 'Sending Message...' : 'Send Message & Get Free Quote'}
       </ModernButton>
     </motion.form>
   );

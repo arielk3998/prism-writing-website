@@ -14,23 +14,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth, usePermissions } from '../../contexts/AuthContext';
-                  </button>
-                  {(hasRole('ADMIN') || hasRole('MEMBER')) && (
-                    <button 
-                      onClick={() => setActiveTab('resources')}
-                      className="flex items-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors text-left"
-                    >
-                      <span className="text-2xl mr-3">📚</span>
-                      <div>
-                        <p className="font-medium text-gray-900 dark:text-white">Browse Resources</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Access templates and guides</p>
-                      </div>
-                    </button>
-                  )}
-                  <button 
-                    onClick={() => setActiveTab('files')}
-                    className="flex items-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/40 transition-colors text-left"
-                  >t { User } from '../../lib/auth';
+import { User } from '../../lib/auth';
 import { DarkModeToggle } from '../ui/DarkModeToggle';
 
 // Import enhanced components

@@ -47,6 +47,7 @@ model User {
   sessions      Session[]
   newsletters   NewsletterSubscription[]
   payments      Payment[]
+  assignedContacts ContactInquiry[] @relation("AssignedContacts")
   
   // Content creation
   createdProjects Project[] @relation("ProjectCreator")
@@ -542,7 +543,97 @@ model AuditLog {
   @@map("audit_logs")
 }
 
-// Enums
+// Contact & Lead Management System
+model ContactInquiry {
+  id              String         @id @default(cuid())
+  name            String
+  email           String
+  company         String?
+  phone           String?
+  projectType     String?
+  message         String
+  budget          String?
+  timeline        String?
+  
+  // Lead tracking
+  status          ContactStatus  @default(NEW)
+  priority        Priority       @default(MEDIUM)
+  source          String?        @default("contact-form")
+  
+  // Follow-up tracking
+  lastContactedAt DateTime?
+  nextFollowUpAt  DateTime?
+  assignedTo      String?        // User ID of team member
+  assignedUser    User?          @relation("AssignedContacts", fields: [assignedTo], references: [id])
+  notes           String?
+  
+  // Automation flags
+  autoResponded     Boolean      @default(false)
+  addedToNewsletter Boolean      @default(false)
+  allowFollowUp     Boolean      @default(true)
+  
+  // Compliance tracking
+  ipAddress       String?
+  userAgent       String?
+  
+  // Email automation relations
+  emailSchedules  EmailSchedule[]
+  emailLogs       EmailLog[]
+  
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  
+  @@map("contact_inquiries")
+}
+
+// Email Automation & Follow-up System
+model EmailSchedule {
+  id           String    @id @default(cuid())
+  leadId       String
+  templateId   String
+  scheduledFor DateTime
+  sent         Boolean   @default(false)
+  skipped      Boolean   @default(false)
+  emailId      String?
+  sentAt       DateTime?
+  createdAt    DateTime  @default(now())
+  
+  lead         ContactInquiry @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  
+  @@map("email_schedules")
+}
+
+model EmailLog {
+  id         String      @id @default(cuid())
+  leadId     String
+  templateId String
+  emailId    String?
+  subject    String?
+  status     EmailStatus @default(SENT)
+  sentAt     DateTime    @default(now())
+  openedAt   DateTime?
+  clickedAt  DateTime?
+  bouncedAt  DateTime?
+  
+  lead       ContactInquiry @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  
+  @@map("email_logs")
+}
+
+model EmailTemplate {
+  id          String        @id @default(cuid())
+  name        String
+  subject     String
+  content     String
+  type        EmailType     @default(FOLLOW_UP)
+  active      Boolean       @default(true)
+  delay       Int?          // Hours to wait before sending
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  
+  @@map("email_templates")
+}
+
 enum UserRole {
   SUPER_ADMIN
   ADMIN
@@ -685,4 +776,34 @@ enum NotificationStatus {
   UNREAD
   READ
   ARCHIVED
+}
+
+enum ContactStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  PROPOSAL_SENT
+  CONVERTED
+  CLOSED_LOST
+  FOLLOW_UP_SCHEDULED
+}
+
+enum EmailStatus {
+  SENT
+  DELIVERED
+  OPENED
+  CLICKED
+  BOUNCED
+  FAILED
+}
+
+enum EmailType {
+  WELCOME
+  FOLLOW_UP
+  PROPOSAL
+  NURTURE
+  CLOSING
+  NEWSLETTER
+  PROMOTIONAL
+  TRANSACTIONAL
 }

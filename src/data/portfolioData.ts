@@ -22,7 +22,7 @@ export interface PortfolioItem {
       value: string;
     }[];
   };
-  downloadable?: {
+  downloadable: { // Made required instead of optional
     sampleId: string;
     filename: string;
     description: string;
@@ -83,6 +83,11 @@ export const portfolioItems: PortfolioItem[] = [
       accent: "green"
     },
     icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
+    downloadable: {
+      sampleId: "iso-9001-qms-manual-sample",
+      filename: "ProjectFlow_User_Guide_Sample.pdf",
+      description: "15-page watermarked sample showcasing our user guide design and tutorial methodology"
+    },
     sampleContent: {
       excerpt: "ProjectFlow transforms how teams collaborate. This comprehensive guide walks users through every feature, from basic project setup to advanced automation workflows, ensuring maximum productivity from day one.",
       highlights: [
@@ -116,6 +121,11 @@ export const portfolioItems: PortfolioItem[] = [
       accent: "purple"
     },
     icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z",
+    downloadable: {
+      sampleId: "hipaa-compliance-sample",
+      filename: "CloudTech_DevOps_Runbook_Sample.pdf",
+      description: "20-page watermarked sample demonstrating our process documentation and technical writing approach"
+    },
     sampleContent: {
       excerpt: "This runbook provides CloudTech's engineering team with standardized procedures for deployment, monitoring, and incident response. Built for reliability and rapid problem resolution in production environments.",
       highlights: [
@@ -149,6 +159,11 @@ export const portfolioItems: PortfolioItem[] = [
       accent: "orange"
     },
     icon: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z",
+    downloadable: {
+      sampleId: "iso-27001-isms-sample",
+      filename: "MicroCommerce_Architecture_Sample.pdf",
+      description: "19-page watermarked sample of our technical architecture documentation and system design principles"
+    },
     sampleContent: {
       excerpt: "MicroCommerce represents a modern approach to e-commerce architecture. This specification details a scalable, secure microservices platform designed to handle millions of transactions while maintaining flexibility and reliability.",
       highlights: [
@@ -182,6 +197,11 @@ export const portfolioItems: PortfolioItem[] = [
       accent: "amber"
     },
     icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
+    downloadable: {
+      sampleId: "sox-compliance-sample",
+      filename: "SecureBank_Compliance_Training_Sample.pdf",
+      description: "17-page watermarked sample of our interactive training materials and compliance documentation"
+    },
     sampleContent: {
       excerpt: "SecureBank's compliance training ensures all staff understand and follow critical financial regulations. The interactive format combines theoretical knowledge with practical scenarios for effective learning and retention.",
       highlights: [
@@ -215,6 +235,11 @@ export const portfolioItems: PortfolioItem[] = [
       accent: "cyan"
     },
     icon: "M13 10V3L4 14h7v7l9-11h-7z",
+    downloadable: {
+      sampleId: "nist-cybersecurity-framework-sample",
+      filename: "DataStream_Analytics_SDK_Sample.pdf",
+      description: "21-page watermarked sample of our SDK documentation and developer integration strategies"
+    },
     sampleContent: {
       excerpt: "The DataStream SDK empowers developers to integrate powerful real-time analytics into any application. This comprehensive guide covers everything from basic setup to advanced customization and optimization.",
       highlights: [
@@ -324,6 +349,11 @@ export const portfolioItems: PortfolioItem[] = [
       accent: "rose"
     },
     icon: "M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 14.5M14.25 3.104c.251.023.501.05.75.082M19.8 14.5l-2.436 2.436a2.25 2.25 0 01-1.591.659h-3.546a2.25 2.25 0 01-1.591-.659L8.2 14.5m11.6 0V16.5a2.25 2.25 0 01-2.25 2.25h-6a2.25 2.25 0 01-2.25-2.25V14.5",
+    downloadable: {
+      sampleId: "gdpr-dpia-sample",
+      filename: "QuantumLab_Research_Protocols_Sample.pdf",
+      description: "30-page watermarked sample of our scientific documentation and research protocol standards"
+    },
     sampleContent: {
       excerpt: "QuantumLab's research protocols establish rigorous standards for quantum computing experimentation. These procedures ensure reproducible results, maintain safety standards, and facilitate peer review in cutting-edge quantum research.",
       highlights: [
@@ -357,6 +387,11 @@ export const portfolioItems: PortfolioItem[] = [
       accent: "indigo"
     },
     icon: "M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z",
+    downloadable: {
+      sampleId: "pci-dss-compliance-sample",
+      filename: "RetailMax_System_Migration_Sample.pdf",
+      description: "18-page watermarked sample of our change management documentation and migration strategy"
+    },
     sampleContent: {
       excerpt: "RetailMax's system migration represents a transformational shift to modern retail technology. This comprehensive guide ensures smooth transition with minimal business disruption while maximizing the benefits of cloud-native architecture.",
       highlights: [

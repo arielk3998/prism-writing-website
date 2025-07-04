@@ -1,0 +1,27 @@
+-- CreateTable
+CREATE TABLE "contact_inquiries" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "company" TEXT,
+    "phone" TEXT,
+    "projectType" TEXT,
+    "message" TEXT NOT NULL,
+    "budget" TEXT,
+    "timeline" TEXT,
+    "status" TEXT NOT NULL DEFAULT 'NEW',
+    "priority" TEXT NOT NULL DEFAULT 'MEDIUM',
+    "source" TEXT DEFAULT 'contact-form',
+    "lastContactedAt" DATETIME,
+    "nextFollowUpAt" DATETIME,
+    "assignedTo" TEXT,
+    "notes" TEXT,
+    "autoResponded" BOOLEAN NOT NULL DEFAULT false,
+    "addedToNewsletter" BOOLEAN NOT NULL DEFAULT false,
+    "allowFollowUp" BOOLEAN NOT NULL DEFAULT true,
+    "ipAddress" TEXT,
+    "userAgent" TEXT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    CONSTRAINT "contact_inquiries_assignedTo_fkey" FOREIGN KEY ("assignedTo") REFERENCES "users" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+);

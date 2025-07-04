@@ -2,9 +2,7 @@
  * Services Page - Modern Refactored Version
  * 
  * A comprehensive services showcase using our modern design system.
-      pricing: 'S      pricing: 'Starting at $3,800',
-      timeline: '3-5 weeks',rting at $2,800',
-      timeline: '2-4 weeks', Features service cards, pricing, interactive elements, and conversion-focused layout.
+ * Features service cards, pricing, interactive elements, and conversion-focused layout.
  * 
  * @module ServicesPage
  * @version 3.0.0
@@ -73,6 +71,7 @@ export default function Services() {
     { label: 'Services', href: '/services', isActive: true },
     { label: 'Portfolio', href: '/portfolio' },
     { label: 'Resources', href: '/resources' },
+    { label: 'Blog', href: '/blog' },
     { label: 'About', href: '/about' },
   ];
 

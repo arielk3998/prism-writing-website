@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { ModernNavigation } from '@/components/ui/ModernComponents';
 import EnhancedFooter from '@/components/layout/EnhancedFooter';
@@ -14,32 +13,33 @@ import Link from 'next/link';
 
 export default function PricingPage() {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   // Navigation items
   const navItems = [
+    { label: 'Home', href: '/' },
     { label: 'Services', href: '/services' },
     { label: 'Portfolio', href: '/portfolio' },
     { label: 'Resources', href: '/resources' },
     { label: 'Blog', href: '/blog' },
     { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' }
   ];
 
   const handleSelectPlan = async (planType: PlanType, billingInterval: BillingInterval) => {
     setLoading(true);
     
     try {
-      // Get auth token from localStorage or context
+      // Check if user is authenticated
       const token = localStorage.getItem('auth_token');
       
       if (!token) {
-        toast.error('Please log in to subscribe to a plan');
-        router.push('/login');
+        // Provide better UX for non-authenticated users
+        toast.error('Please log in to start a subscription, or contact us for assistance');
+        // Don't force redirect - let users continue exploring
+        setLoading(false);
         return;
       }
 
-      // Create checkout session
+      // Create checkout session for authenticated users
       const response = await fetch('/api/subscriptions', {
         method: 'POST',
         headers: {
@@ -226,7 +226,7 @@ export default function PricingPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="mailto:support@prismwriting.com"
+              href="mailto:ariel.pk@outlook.com"
               className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               Contact Sales

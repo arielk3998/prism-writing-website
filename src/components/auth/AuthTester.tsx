@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 import { login } from '../../lib/auth';
 
 export function AuthTester() {
-  const [email, setEmail] = useState('Ariel.karagodskiy@gmail.com');
+  const [email, setEmail] = useState('ariel.pk@outlook.com');
   const [password, setPassword] = useState('Merlak0105!');
   const [result, setResult] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);

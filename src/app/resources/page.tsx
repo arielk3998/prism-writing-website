@@ -42,6 +42,7 @@ export default function ResourcesPage() {
     { label: 'Services', href: '/services' },
     { label: 'Portfolio', href: '/portfolio' },
     { label: 'Resources', href: '/resources', isActive: true },
+    { label: 'Blog', href: '/blog' },
     { label: 'About', href: '/about' },
   ];
 

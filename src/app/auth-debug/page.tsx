@@ -54,7 +54,7 @@ export default function AuthDebug() {
 
   const testAccounts = [
     {
-      email: 'Ariel.karagodskiy@gmail.com',
+      email: 'ariel.pk@outlook.com',
       password: 'Merlak0105!',
       role: 'admin',
       description: 'Primary admin account with full system access and management capabilities',
