@@ -142,6 +142,38 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Emergency Translation Access Banner */}
+        <section className="py-8 bg-red-600 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h3 className="text-2xl font-bold mb-4">🚨 LOOKING FOR TRANSLATION SERVICES? 🚨</h3>
+              <p className="text-lg mb-4">
+                Click any of these links to access our 95-language translation service:
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a 
+                  href="/translation-services"
+                  className="bg-yellow-400 text-black px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors"
+                >
+                  🌍 TRANSLATION SERVICES PAGE
+                </a>
+                <a 
+                  href="/portfolio"
+                  className="bg-white text-red-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
+                >
+                  📁 PORTFOLIO WITH TRANSLATIONS
+                </a>
+                <a 
+                  href="/resources"
+                  className="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors"
+                >
+                  📚 RESOURCES WITH TRANSLATIONS
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Stats Section */}
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
