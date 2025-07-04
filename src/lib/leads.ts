@@ -113,9 +113,7 @@ export async function getLeads(filters: LeadFilters) {
   const limit = filters.limit || 25;
 
   const [totalCount, leads] = await Promise.all([
-    // @ts-expect-error - Prisma client model will be available at runtime
     prisma.contactInquiry.count({ where }),
-    // @ts-expect-error - Prisma client model will be available at runtime
     prisma.contactInquiry.findMany({
       where,
       include: {
@@ -151,7 +149,6 @@ export async function getLeads(filters: LeadFilters) {
 export async function updateLead(updateData: LeadUpdate) {
   const { id, ...data } = updateData;
   
-  // @ts-expect-error - Prisma client model will be available at runtime
   return await prisma.contactInquiry.update({
     where: { id },
     data,
@@ -169,14 +166,12 @@ export async function updateLead(updateData: LeadUpdate) {
 }
 
 export async function deleteLead(id: string) {
-  // @ts-expect-error - Prisma client model will be available at runtime
   return await prisma.contactInquiry.delete({
     where: { id }
   });
 }
 
 export async function getLeadById(id: string) {
-  // @ts-expect-error - Prisma client model will be available at runtime
   return await prisma.contactInquiry.findUnique({
     where: { id },
     include: {

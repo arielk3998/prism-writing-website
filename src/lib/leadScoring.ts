@@ -50,7 +50,6 @@ export class LeadScoringService {
   // Main scoring function
   async scoreAllLeads(): Promise<LeadScore[]> {
     try {
-      // @ts-expect-error - Prisma client model will be available at runtime
       const leads = await prisma.contactInquiry.findMany({
         where: {
           status: {
@@ -426,10 +425,9 @@ export class LeadScoringService {
 
   private async updateLeadPriority(leadId: string, priority: string): Promise<void> {
     try {
-      // @ts-expect-error - Prisma client model will be available at runtime
       await prisma.contactInquiry.update({
         where: { id: leadId },
-        data: { priority }
+        data: { priority: priority as any } // Type assertion for enum compatibility
       });
     } catch (error) {
       console.error('Error updating lead priority:', error);
