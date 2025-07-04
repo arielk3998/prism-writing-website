@@ -584,7 +584,7 @@ export class IntelligentWorkflowOrchestrator {
   private async executeAIContentAction(action: WorkflowAction, context: WorkflowContext): Promise<ActionResult> {
     // Implementation for AI content generation
     const contentRequest = {
-      type: (action.config.type as string) || 'email_template',
+      type: 'email_template' as const,
       clientData: {
         name: context.leadData.name,
         company: context.leadData.company,
@@ -595,8 +595,8 @@ export class IntelligentWorkflowOrchestrator {
         urgency: context.leadData.urgency || 'Medium'
       },
       context: `Workflow: ${(action.config.workflowContext as string) || 'Standard engagement'}`,
-      tone: (action.config.tone as string) || 'professional',
-      length: (action.config.length as string) || 'medium'
+      tone: (action.config.tone as 'professional' | 'friendly' | 'technical' | 'persuasive' | 'consultative') || 'professional',
+      length: (action.config.length as 'short' | 'medium' | 'long') || 'medium'
     };
 
     const result = await this.aiContentGenerator.generatePersonalizedContent(contentRequest);
@@ -847,8 +847,8 @@ export class IntelligentWorkflowOrchestrator {
           urgency: leadData.urgency || 'Medium'
         },
         context: `Channel-specific content for ${channel}`,
-        tone: channel === 'linkedin' ? 'professional' : 'friendly',
-        length: channel === 'sms' ? 'short' : 'medium'
+        tone: (channel === 'linkedin' ? 'professional' : 'friendly') as 'professional' | 'friendly' | 'technical' | 'persuasive' | 'consultative',
+        length: (channel === 'sms' ? 'short' : 'medium') as 'short' | 'medium' | 'long'
       };
 
       try {
