@@ -16,21 +16,35 @@
 ✅ **Mobile Responsive** - Perfect on all devices
 ✅ **SEO Optimized** - Ready for search engines
 
-## 🌐 Domain Configuration for prismwriting.com
+## 🌐 LIVE ON PRISMWRITING.COM - Setup Steps
 
-**Ready to connect your custom domain!**
+**Follow these exact steps to get your site live on prismwriting.com:**
 
-### DNS Configuration Options:
+### Step 1: Add Domain in Vercel Dashboard
+1. Go to https://vercel.com/dashboard
+2. Click on your "prism-writing-website" project
+3. Go to "Settings" → "Domains"
+4. Click "Add" and enter: `prismwriting.com`
+5. Also add: `www.prismwriting.com`
 
-**Option 1 (Recommended)**: CNAME Record
-- Type: CNAME
-- Name: @
-- Value: `cname.vercel-dns.com`
+### Step 2: Configure DNS at Your Domain Registrar
+Go to your domain registrar (GoDaddy, Namecheap, etc.) and add these DNS records:
 
-**Option 2**: A Record  
+**For Root Domain (prismwriting.com):**
 - Type: A
-- Name: @
+- Name: @ (or leave blank)
 - Value: `76.76.19.61`
+- TTL: 3600
+
+**For WWW Subdomain:**
+- Type: CNAME  
+- Name: www
+- Value: `cname.vercel-dns.com`
+- TTL: 3600
+
+### Step 3: SSL Certificate (Automatic)
+- Vercel will automatically provision SSL certificate
+- Site will be available at https://prismwriting.com within 24-48 hours
 
 ## 🎯 Business Value NOW LIVE
 
