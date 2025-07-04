@@ -239,7 +239,7 @@ export class LeadNurturingService {
         case 'SEND_EMAIL':
           if (action.delay && action.delay > 0) {
             // Schedule email for later
-            await this.emailService.scheduleFollowUpSequence(leadId);
+            await this.emailService.scheduleFollowUp(leadId, action.delay);
           } else {
             // Send email immediately
             await this.emailService.sendWelcomeEmail(leadId);
