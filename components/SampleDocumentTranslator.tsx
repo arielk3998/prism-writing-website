@@ -99,6 +99,24 @@ export default function SampleDocumentTranslator() {
         </div>
       </div>
 
+      {/* Instruction Banner */}
+      {!targetLanguage && (
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-6">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+              <Languages className="w-5 h-5 text-blue-600" />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">👆 See Real Translation Examples</h3>
+              <p className="text-gray-600">
+                Select a target language below to see professional translations of the {selectedDocument.title.toLowerCase()}. 
+                We have real examples in Spanish, French, Chinese, and more!
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Translation Interface */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Source Document */}
@@ -196,6 +214,20 @@ export default function SampleDocumentTranslator() {
             {/* Translation Result */}
             {targetLanguage && getTranslation() && !isTranslating && (
               <div className="mt-6">
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <span className="text-green-600 text-lg">✓</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-green-800">Professional Translation Complete!</h4>
+                      <p className="text-sm text-green-700">
+                        This is a real example translated by our professional team
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-md font-semibold text-gray-900">Translation Result</h4>
                   <div className="flex items-center space-x-2">
