@@ -1,5 +1,6 @@
+'use client';
+
 import React from 'react';
-import { Metadata } from 'next';
 import { 
   Globe, 
   Users, 
@@ -18,12 +19,6 @@ import {
 import Layout from '../../components/Layout';
 import SampleDocumentTranslator from '../../components/SampleDocumentTranslator';
 import { getMostSpokenLanguages } from '../../lib/languages';
-
-export const metadata: Metadata = {
-  title: 'Professional Translation Services - Every Language in the World | Prism Writing',
-  description: 'Expert translation services for 100+ languages. Business, legal, medical, technical, and academic translations by certified professionals. Get instant quotes and sample translations.',
-  keywords: 'translation services, professional translation, language translation, document translation, certified translation, multilingual services'
-};
 
 export default function TranslationServicesPage() {
   const popularLanguages = getMostSpokenLanguages(12);

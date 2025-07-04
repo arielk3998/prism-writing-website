@@ -1,14 +1,9 @@
+'use client';
+
 import React from 'react';
-import { Metadata } from 'next';
 import Layout from '../../components/Layout';
 import TranslationQuoteForm from '../../components/TranslationQuoteForm';
 import TranslationPricingCalculator from '../../components/TranslationPricingCalculator';
-
-export const metadata: Metadata = {
-  title: 'Get Translation Quote - Professional Translation Services | Prism Writing',
-  description: 'Get instant quotes for professional translation services. Upload your documents and receive accurate pricing for 100+ languages with fast turnaround times.',
-  keywords: 'translation quote, translation pricing, document translation cost, professional translation estimate'
-};
 
 export default function TranslationQuotePage() {
   return (

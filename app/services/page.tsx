@@ -13,6 +13,9 @@ import {
 } from 'lucide-react';
 import Layout from '../../components/Layout';
 
+// Force dynamic rendering to avoid SSG issues with client components
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Professional Writing, Editing & Translation Services | Prism Writing',
   description: 'Expert writing, editing, and translation services for businesses and individuals. Professional content creation, proofreading, and translation in 80+ languages.',

@@ -1,6 +1,10 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
+
+// Force dynamic rendering to avoid SSG issues with client components
+export const dynamic = 'force-dynamic';
+
 import { 
   Globe2, 
   Users, 
