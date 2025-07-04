@@ -193,7 +193,7 @@ export class IntelligentWorkflowOrchestrator {
       // Estimate conversion probability
       const conversionProbability = await this.estimateConversionProbability(
         leadData, 
-        leadScore, 
+        leadScore.totalScore, 
         engagementPlan
       );
 
@@ -383,7 +383,7 @@ export class IntelligentWorkflowOrchestrator {
   private findApplicableWorkflows(context: WorkflowContext): WorkflowRule[] {
     const applicable: WorkflowRule[] = [];
     
-    for (const workflow of this.workflowRules.values()) {
+    for (const workflow of Array.from(this.workflowRules.values())) {
       if (!workflow.isActive) continue;
       
       const score = this.calculateWorkflowScore(workflow, context);
@@ -1050,11 +1050,3 @@ export class IntelligentWorkflowOrchestrator {
 
 // Export the orchestrator instance
 export const intelligentWorkflowOrchestrator = new IntelligentWorkflowOrchestrator();
-
-// Export utility functions
-export {
-  WorkflowContext,
-  WorkflowAction,
-  WorkflowRule,
-  WorkflowMetrics
-};
