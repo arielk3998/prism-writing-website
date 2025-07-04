@@ -171,7 +171,7 @@ export class IntelligentWorkflowOrchestrator {
     try {
       // Calculate current lead score and engagement level
       const leadScore = await calculateLeadScore(leadData);
-      const engagementLevel = this.assessEngagementLevel(leadData, leadScore);
+      const engagementLevel = this.assessEngagementLevel(leadData, leadScore.totalScore);
       
       // Generate contextual content strategy
       const contentStrategy = await this.generateContextualContentStrategy(leadData, engagementLevel);
