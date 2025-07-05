@@ -33,7 +33,7 @@ export default function SampleDocumentTranslator() {
       case 'intermediate': return 'text-yellow-600 bg-yellow-100';
       case 'advanced': return 'text-orange-600 bg-orange-100';
       case 'expert': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      default: return 'text-muted-foreground bg-muted';
     }
   };
 
@@ -61,7 +61,7 @@ export default function SampleDocumentTranslator() {
           <Languages className="w-8 h-8 text-blue-600" />
           <h1 className="text-3xl font-bold text-gray-900">Translation Services Demo</h1>
         </div>
-        <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+        <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
           Explore our professional translation capabilities with real sample documents. 
           Select any document type and see instant translations to <strong className="text-blue-600">80+ languages</strong>.
         </p>
@@ -114,7 +114,7 @@ export default function SampleDocumentTranslator() {
             </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-900">� Click "Target Language" to See 80+ Languages</h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Select any target language from our complete list of 80+ world languages to see professional translations of the {selectedDocument.title.toLowerCase()}. 
                 <strong className="text-blue-600 ml-1">Try Spanish, French, Chinese, Arabic, or browse all 80+ languages!</strong>
               </p>
@@ -174,7 +174,7 @@ export default function SampleDocumentTranslator() {
               <div className="mb-2 text-sm text-blue-600">
                 📍 We support {languages.length} world languages - click below to browse all options
               </div>
-              <div className="mb-3 text-xs text-gray-600">
+              <div className="mb-3 text-xs text-muted-foreground">
                 Popular languages: Spanish, French, German, Chinese, Japanese, Arabic, Russian, Portuguese, Italian, Korean, and {languages.length - 10} more...
               </div>
               <LanguageSelector

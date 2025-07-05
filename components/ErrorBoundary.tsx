@@ -59,7 +59,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <h2 className="text-2xl font-semibold text-gray-900">
                 Something went wrong
               </h2>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 We're sorry, but something unexpected happened. Please try again.
               </p>
             </div>

@@ -51,24 +51,24 @@ export const TranslationServiceCard = () => (
       </div>
       <h3 className="text-xl font-semibold text-gray-900">Translation Services</h3>
     </div>
-    <p className="text-gray-600 mb-4">
+    <p className="text-muted-foreground mb-4">
       Professional translation for every language in the world. From business documents 
       to technical manuals, we deliver precise, culturally-aware translations.
     </p>
     <div className="space-y-2 mb-4">
-      <div className="flex items-center space-x-2 text-sm text-gray-600">
+      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
         <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
         <span>80+ languages supported</span>
       </div>
-      <div className="flex items-center space-x-2 text-sm text-gray-600">
+      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
         <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
         <span>24-48 hour turnaround available</span>
       </div>
-      <div className="flex items-center space-x-2 text-sm text-gray-600">
+      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
         <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
         <span>Certified professional translators</span>
       </div>
-      <div className="flex items-center space-x-2 text-sm text-gray-600">
+      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
         <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
         <span>Try sample translations instantly</span>
       </div>

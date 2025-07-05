@@ -209,7 +209,7 @@ export function EnhancedDarkModeToggle({
                 <p className="text-sm text-gray-900 dark:text-gray-100 font-medium">
                   Dark mode detected
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   Your system prefers dark mode. Click to switch themes.
                 </p>
                 <button

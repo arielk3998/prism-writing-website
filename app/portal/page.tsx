@@ -184,17 +184,17 @@ const FileManager = ({ user }: { user: any }) => (
       <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded">
         <FileText className="w-5 h-5 text-blue-600" />
         <span>Project_Brief_2025.pdf</span>
-        <span className="text-sm text-gray-500">2.3 MB</span>
+        <span className="text-sm text-muted-foreground">2.3 MB</span>
       </div>
       <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded">
         <FileText className="w-5 h-5 text-green-600" />
         <span>Translation_Draft_v2.docx</span>
-        <span className="text-sm text-gray-500">1.8 MB</span>
+        <span className="text-sm text-muted-foreground">1.8 MB</span>
       </div>
       <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded">
         <FileText className="w-5 h-5 text-purple-600" />
         <span>Quality_Review_Notes.txt</span>
-        <span className="text-sm text-gray-500">45 KB</span>
+        <span className="text-sm text-muted-foreground">45 KB</span>
       </div>
     </div>
   </div>
