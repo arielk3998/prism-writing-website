@@ -438,35 +438,35 @@ export default function PortalPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span>Dashboard System</span>
+                    <span className="text-foreground">Dashboard System</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span>Project Management</span>
+                    <span className="text-foreground">Project Management</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span>File Management</span>
+                    <span className="text-foreground">File Management</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span>Analytics Dashboard</span>
+                    <span className="text-foreground">Analytics Dashboard</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span>Account Management</span>
+                    <span className="text-foreground">Account Management</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span>User Statistics</span>
+                    <span className="text-foreground">User Statistics</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span>Notification Center</span>
+                    <span className="text-foreground">Notification Center</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span>Role-Based Access</span>
+                    <span className="text-foreground">Role-Based Access</span>
                   </div>
                 </div>
               </div>

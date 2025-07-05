@@ -279,7 +279,7 @@ export default function TranslationPricingCalculator() {
                     {tier.features.map((feature, index) => (
                       <li key={index} className="flex items-center space-x-2">
                         <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                        <span className="text-gray-600">{feature}</span>
+                        <span className="text-foreground">{feature}</span>
                       </li>
                     ))}
                   </ul>
