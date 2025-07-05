@@ -25,6 +25,7 @@ const footerLinks = {
     { name: 'Document Translation', href: '/translation-services/document' },
     { name: 'Website Localization', href: '/translation-services/website' },
     { name: 'Certified Translation', href: '/translation-services/certified' },
+    { name: 'Business Translation', href: '/translation-services/business' },
     { name: 'Business Writing', href: '/services/business-writing' },
     { name: 'Academic Writing', href: '/services/academic-writing' },
     { name: 'Content Creation', href: '/services/content-writing' },

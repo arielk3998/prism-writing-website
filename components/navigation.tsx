@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { DarkModeToggle } from '@/src/components/ui/DarkModeToggle'
 import { 
   Menu, 
   X, 
@@ -17,7 +18,8 @@ import {
   Mail,
   Shield,
   Zap,
-  Award
+  Award,
+  Briefcase
 } from 'lucide-react'
 
 const navigationItems = [
@@ -42,7 +44,7 @@ const navigationItems = [
       { name: 'Document Translation', href: '/translation-services/document', icon: FileText },
       { name: 'Website Translation', href: '/translation-services/website', icon: Globe },
       { name: 'Certified Translation', href: '/translation-services/certified', icon: Award },
-      { name: 'Interpretation', href: '/translation-services/interpretation', icon: Users },
+      { name: 'Business Translation', href: '/translation-services/business', icon: Briefcase },
     ]
   },
   {
@@ -157,6 +159,7 @@ export function Navigation({ className }: NavigationProps) {
 
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-3 xl:space-x-4">
+            <DarkModeToggle />
             <Link href="/translation-quote">
               <Button variant="outline" size="sm" className="hover:shadow-md transition-all duration-300">
                 <Zap className="w-4 h-4 mr-2" />
@@ -234,6 +237,10 @@ export function Navigation({ className }: NavigationProps) {
               ))}
               
               <div className="pt-4 border-t border-border space-y-2">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-medium text-muted-foreground">Theme</span>
+                  <DarkModeToggle />
+                </div>
                 <Link href="/translation-quote">
                   <Button variant="outline" size="sm" className="w-full">
                     <Zap className="w-4 h-4 mr-2" />

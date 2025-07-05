@@ -19,8 +19,7 @@ import {
   Zap,
   Award,
   BarChart3,
-  Languages,
-  Headphones
+  Languages
 } from 'lucide-react'
 
 const translationServices = [
@@ -58,14 +57,14 @@ const translationServices = [
     popular: false,
   },
   {
-    id: 'interpretation',
-    icon: Headphones,
-    title: 'Interpretation Services',
-    description: 'Live interpretation for meetings, conferences, and events.',
-    features: ['Simultaneous', 'Consecutive', 'Remote', 'On-site'],
-    price: 'From $150/hour',
-    turnaround: 'Real-time',
-    accuracy: '99.5%',
+    id: 'business',
+    icon: Briefcase,
+    title: 'Business Translation',
+    description: 'Professional translation of business documents and communications.',
+    features: ['Contracts & Agreements', 'Marketing Materials', 'Email Communications', 'Presentations'],
+    price: 'From $0.18/word',
+    turnaround: '2-4 days',
+    accuracy: '99.7%',
     popular: false,
   },
 ]

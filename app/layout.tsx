@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
+import { ThemeProvider } from '@/src/components/providers/ThemeProvider'
 import './globals.css'
 
 const inter = Inter({ 
@@ -117,7 +118,12 @@ export default function RootLayout({
         <meta name="color-scheme" content="light dark" />
       </head>
       <body className={`${inter.variable} ${jetBrainsMono.variable} font-sans antialiased`}>
-        {children}
+        <ThemeProvider
+          defaultTheme="system"
+          storageKey="prism-writing-theme"
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
