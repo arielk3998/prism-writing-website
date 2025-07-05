@@ -169,7 +169,7 @@ export default function ServicesPage() {
               <Globe className="w-16 h-16 text-primary mx-auto mb-6" />
               <h2 className="heading-2 text-foreground mb-4">Need Translation Services?</h2>
               <p className="body-large text-muted max-w-2xl mx-auto mb-8">
-                Professional translation in 95+ languages with certified native speakers
+                Professional translation in 80+ languages with certified native speakers
               </p>
               <Link href="/translation-services">
                 <Button size="lg" className="hover:shadow-lg transition-all duration-300">

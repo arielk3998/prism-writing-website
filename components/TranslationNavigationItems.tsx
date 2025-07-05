@@ -5,7 +5,7 @@ const navigationItems = [
   {
     name: 'Translation Services',
     href: '/translation-services',
-    description: 'Professional translation for 100+ languages',
+    description: 'Professional translation for 80+ languages',
     subItems: [
       {
         name: 'All Translation Services',
@@ -58,7 +58,7 @@ export const TranslationServiceCard = () => (
     <div className="space-y-2 mb-4">
       <div className="flex items-center space-x-2 text-sm text-gray-600">
         <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-        <span>100+ languages supported</span>
+        <span>80+ languages supported</span>
       </div>
       <div className="flex items-center space-x-2 text-sm text-gray-600">
         <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>

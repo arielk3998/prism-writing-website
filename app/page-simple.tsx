@@ -106,7 +106,7 @@ export default function HomePage() {
           maxWidth: '800px',
           margin: '0 auto 30px'
         }}>
-          Expert translation services in 95+ languages. Fast, accurate, and professional translations for businesses and individuals worldwide.
+          Expert translation services in 80+ languages. Fast, accurate, and professional translations for businesses and individuals worldwide.
         </p>
         <div style={{
           display: 'flex',
@@ -155,7 +155,7 @@ export default function HomePage() {
           textAlign: 'center'
         }}>
           <h3 style={{ color: '#1F2937', fontSize: '1.3rem', marginBottom: '15px' }}>
-            95+ Languages
+            80+ Languages
           </h3>
           <p style={{ color: '#6B7280' }}>
             Professional translations in all major world languages with native speakers

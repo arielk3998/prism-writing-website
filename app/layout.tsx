@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     default: 'Prism Writing - Professional Translation & Writing Services',
     template: '%s | Prism Writing'
   },
-  description: 'Professional translation services in 95+ languages and expert writing services for global businesses. Fast, accurate, and culturally adapted content with 99.8% satisfaction rate.',
+  description: 'Professional translation services in 80+ languages and expert writing services for global businesses. Fast, accurate, and culturally adapted content with 99.8% satisfaction rate.',
   keywords: [
     'translation services',
     'professional translation',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://prismwriting.com',
     title: 'Prism Writing - Professional Translation & Writing Services',
-    description: 'Professional translation services in 95+ languages. Fast, accurate, and culturally adapted content for global businesses.',
+    description: 'Professional translation services in 80+ languages. Fast, accurate, and culturally adapted content for global businesses.',
     siteName: 'Prism Writing',
     images: [
       {
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Prism Writing - Professional Translation & Writing Services',
-    description: 'Professional translation services in 95+ languages. Fast, accurate, and culturally adapted content for global businesses.',
+    description: 'Professional translation services in 80+ languages. Fast, accurate, and culturally adapted content for global businesses.',
     images: ['/og-image.jpg'],
     creator: '@prismwriting',
   },

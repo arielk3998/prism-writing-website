@@ -67,7 +67,7 @@ export const CONTACT_INFO = {
   // Legal Information
   legal: {
     businessRegistration: "Prism Writing Cooperative LLC",
-    taxId: "XX-XXXXXXX", // UPDATE WITH YOUR TAX ID IF NEEDED
+    taxId: "Available upon request", // Professional tax information available to clients
     licenses: "Professional Translation Services Licensed",
     privacy: "GDPR & CCPA Compliant",
     terms: "Standard Terms of Service Apply"

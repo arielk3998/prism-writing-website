@@ -285,7 +285,7 @@ export default function SampleDocumentTranslator() {
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-8 text-center">
         <h2 className="text-2xl font-bold mb-4">Ready to Get Your Documents Translated?</h2>
         <p className="text-lg mb-6 opacity-90">
-          Professional translation services for over 100+ languages with expert human translators
+          Professional translation services for over 80+ languages with expert human translators
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="/translation-quote" className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center">
