@@ -30,7 +30,7 @@ const sizeClasses = {
 
 const variantClasses = {
   primary: 'text-blue-600 dark:text-blue-400',
-  secondary: 'text-gray-600 dark:text-gray-400',
+  secondary: 'text-muted-foreground',
   light: 'text-white',
   dark: 'text-gray-900'
 };
@@ -96,7 +96,7 @@ export function PageLoader({ message = 'Loading page...' }: { message?: string }
     >
       <div className="text-center">
         <LoadingSpinner size="xl" showLabel />
-        <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">{message}</p>
+        <p className="mt-4 text-lg text-muted-foreground">{message}</p>
       </div>
     </div>
   );
@@ -135,7 +135,7 @@ export function SectionLoader({
     >
       <div className="text-center">
         <LoadingSpinner size="lg" showLabel />
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{message}</p>
+        <p className="mt-2 text-sm text-muted-foreground">{message}</p>
       </div>
     </div>
   );

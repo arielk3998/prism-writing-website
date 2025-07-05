@@ -98,7 +98,7 @@ export default function SampleDocumentTranslator() {
                 <div className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${getComplexityColor(doc.complexity)}`}>
                   {doc.complexity}
                 </div>
-                <p className="text-sm text-gray-500">{doc.wordCount} words</p>
+                <p className="text-sm text-muted-foreground">{doc.wordCount} words</p>
               </div>
             </button>
           ))}
@@ -131,15 +131,15 @@ export default function SampleDocumentTranslator() {
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-gray-900">Original Document</h3>
               <div className="flex items-center space-x-2">
-                <Globe2 className="w-4 h-4 text-gray-400" />
-                <span className="text-sm text-gray-500">
+                <Globe2 className="w-4 h-4 text-muted-foreground" />
+                <span className="text-sm text-muted-foreground">
                   {getLanguageByCode(selectedDocument.originalLanguage)?.name}
                 </span>
               </div>
             </div>
             
             <div className="space-y-4 mb-6">
-              <div className="flex items-center space-x-4 text-sm text-gray-500">
+              <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                 <div className="flex items-center space-x-1">
                   <BarChart3 className="w-4 h-4" />
                   <span>{selectedDocument.complexity}</span>
@@ -243,8 +243,8 @@ export default function SampleDocumentTranslator() {
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-md font-semibold text-gray-900">Translation Result</h4>
                   <div className="flex items-center space-x-2">
-                    <Globe2 className="w-4 h-4 text-gray-400" />
-                    <span className="text-sm text-gray-500">
+                    <Globe2 className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">
                       {targetLanguage.name} ({targetLanguage.nativeName})
                     </span>
                   </div>
