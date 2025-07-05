@@ -67,7 +67,7 @@ export default function TranslationServicesPage() {
   const features = [
     {
       icon: Globe,
-      title: '100+ Languages',
+      title: '80+ Languages',
       description: 'Professional translation services for every major language and many regional dialects'
     },
     {
@@ -98,12 +98,12 @@ export default function TranslationServicesPage() {
   ];
 
   const stats = [
-    { number: '100+', label: 'Languages Supported' },
-    { number: '500+', label: 'Expert Translators' },
-    { number: '10,000+', label: 'Projects Completed' },
+    { number: '80+', label: 'Languages Supported' },
+    { number: '120+', label: 'Expert Translators' },
+    { number: '2,500+', label: 'Projects Completed' },
     { number: '99.8%', label: 'Accuracy Rate' },
-    { number: '24h', label: 'Average Turnaround' },
-    { number: '50+', label: 'Industries Served' }
+    { number: '48h', label: 'Average Turnaround' },
+    { number: '25+', label: 'Industries Served' }
   ];
 
   return (
@@ -267,7 +267,7 @@ export default function TranslationServicesPage() {
         <section className="section-padding gradient-primary text-white">
           <div className="container text-center">
             <h2 className="heading-2 mb-6">
-              🌍 95 World Languages Available
+              🌍 80+ World Languages Available
             </h2>
             <p className="body-large mb-8 opacity-90">
               Professional translation services for every major language in the world

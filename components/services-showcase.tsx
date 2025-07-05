@@ -302,7 +302,7 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
         <div className="text-center mb-12">
           <h3 className="heading-3 text-foreground mb-4">
             <Languages className="w-8 h-8 inline mr-3 text-primary" />
-            Available in 95+ Languages
+            Available in 80+ Languages
           </h3>
           <p className="text-muted mb-8 max-w-2xl mx-auto">
             Professional translation services for every major world language with native-speaking experts.
@@ -319,7 +319,7 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
           </div>
           
           <p className="text-sm text-muted mb-6">
-            ...and 87 more languages including regional dialects and specialized technical vocabularies.
+            ...and 72 more languages including regional dialects and specialized technical vocabularies.
           </p>
           
           <Link href="/translation-services">

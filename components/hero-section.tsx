@@ -17,10 +17,10 @@ import {
 } from 'lucide-react'
 
 const stats = [
-  { value: '95+', label: 'Languages', icon: Globe },
-  { value: '10K+', label: 'Projects Completed', icon: FileText },
-  { value: '500+', label: 'Happy Clients', icon: Users },
-  { value: '99.8%', label: 'Satisfaction Rate', icon: Star },
+  { value: '80+', label: 'Languages', icon: Globe },
+  { value: 'AI-Powered', label: 'Translation System', icon: Zap },
+  { value: '712%', label: 'Proven ROI', icon: Award },
+  { value: '95%', label: 'Automation Rate', icon: Star },
 ]
 
 const features = [
@@ -70,7 +70,7 @@ export function HeroSection() {
             {/* Badge */}
             <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
               <Award className="w-4 h-4 mr-2" />
-              <span>Trusted by 500+ Global Companies</span>
+              <span className="Trusted by Growing Businesses Worldwide">Trusted by Growing Businesses Worldwide</span>
             </div>
 
             {/* Main Heading */}
@@ -81,8 +81,8 @@ export function HeroSection() {
                 <span className="block text-foreground">for Global Success</span>
               </h1>
               <p className="body-large text-muted max-w-4xl mx-auto leading-relaxed">
-                Expert translation and localization services in <strong className="text-primary font-semibold">95+ languages</strong>. 
-                Fast, accurate, and culturally adapted content that drives global growth.
+                Expert translation and localization services in <strong className="text-primary font-semibold">80+ languages</strong>. 
+                AI-powered workflow with human expertise for fast, accurate, and culturally adapted content.
               </p>
             </div>
 
@@ -107,15 +107,15 @@ export function HeroSection() {
             <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-muted">
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-500" />
-                <span className="font-medium">99.8% Client Satisfaction</span>
+                <span className="font-medium">Worker Cooperative</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-500" />
-                <span className="font-medium">24/7 Support</span>
+                <span className="font-medium">AI-Enhanced Quality</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-500" />
-                <span className="font-medium">ISO Certified</span>
+                <span className="font-medium">Ethical Business Model</span>
               </div>
             </div>
           </div>
