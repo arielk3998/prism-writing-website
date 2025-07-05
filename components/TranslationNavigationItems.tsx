@@ -1,4 +1,4 @@
-// Leveraging Proven Design Patterns - Standing on Giants' Shoulders
+// Top-Tier Website Design Inspiration: Apple + Stripe + Figma
 const navigationItems = [
   // ...existing navigation items
   {
@@ -41,83 +41,110 @@ const navigationItems = [
   // ...other navigation items
 ];
 
-// Battle-Tested Service Card - Inspired by Stripe, Linear, and Vercel
+// Apple-Inspired Clean Service Card with Stripe's Professional Touch
 export const TranslationServiceCard = () => (
-  <div className="group relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:shadow-lg transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-700">
+  <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden">
     
-    {/* Header - Stripe-inspired clean layout */}
-    <div className="flex items-start justify-between mb-4">
-      <div className="flex items-center space-x-3">
-        {/* Icon - GitHub/Linear style */}
-        <div className="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
-          <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clipRule="evenodd" />
-          </svg>
+    {/* Header with clear hierarchy - Apple style */}
+    <div className="px-8 pt-8 pb-6">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center space-x-4">
+          {/* Clean icon - Apple minimalism */}
+          <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+          </div>
+          
+          <div>
+            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white tracking-tight">
+              Translation Services
+            </h3>
+            <p className="text-lg text-gray-500 dark:text-gray-400 mt-1">
+              Professional. Fast. Accurate.
+            </p>
+          </div>
         </div>
-        <div>
-          <h3 className="font-semibold text-gray-900 dark:text-white">Translation Services</h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400">80+ languages available</p>
+        
+        {/* Status badge - Subtle like Apple */}
+        <div className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 text-sm font-medium rounded-full">
+          Available
         </div>
       </div>
-      
-      {/* Badge - Vercel-style */}
-      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-        Popular
-      </span>
+
+      {/* Clean description - Apple's clarity */}
+      <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl">
+        Connect with the world through expert translation. Our native speakers ensure 
+        your message resonates across cultures with precision and clarity.
+      </p>
     </div>
 
-    {/* Description - Optimized for scanning */}
-    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-4">
-      Professional translation services with native speakers. Fast turnaround, 
-      certified quality, and cultural accuracy guaranteed.
-    </p>
-
-    {/* Features - Simple, scannable list */}
-    <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300 mb-6">
-      <li className="flex items-center">
-        <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-        </svg>
-        Native speaker expertise
-      </li>
-      <li className="flex items-center">
-        <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-        </svg>
-        24-48 hour delivery
-      </li>
-      <li className="flex items-center">
-        <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-        </svg>
-        Quality assurance included
-      </li>
-    </ul>
-
-    {/* CTA Buttons - GitHub/Tailwind UI pattern */}
-    <div className="flex space-x-3">
-      <a
-        href="/translation-services"
-        className="flex-1 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-center py-2 px-4 rounded-md text-sm font-medium hover:bg-gray-700 dark:hover:bg-gray-100 transition-colors"
-      >
-        View all services
-      </a>
-      <a
-        href="/translation-quote"
-        className="flex-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-center py-2 px-4 rounded-md text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-      >
-        Get quote
-      </a>
+    {/* Feature grid - Stripe inspired layout */}
+    <div className="px-8 pb-8">
+      <div className="grid grid-cols-2 gap-6">
+        <div className="space-y-1">
+          <div className="text-3xl font-bold text-gray-900 dark:text-white">80+</div>
+          <div className="text-sm text-gray-500 dark:text-gray-400">Languages supported</div>
+        </div>
+        <div className="space-y-1">
+          <div className="text-3xl font-bold text-gray-900 dark:text-white">24hrs</div>
+          <div className="text-sm text-gray-500 dark:text-gray-400">Average delivery</div>
+        </div>
+        <div className="space-y-1">
+          <div className="text-3xl font-bold text-gray-900 dark:text-white">99.9%</div>
+          <div className="text-sm text-gray-500 dark:text-gray-400">Accuracy rate</div>
+        </div>
+        <div className="space-y-1">
+          <div className="text-3xl font-bold text-gray-900 dark:text-white">ISO</div>
+          <div className="text-sm text-gray-500 dark:text-gray-400">Certified quality</div>
+        </div>
+      </div>
     </div>
 
-    {/* Footer - Subtle trust indicators */}
-    <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-      <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-        <span className="flex items-center">
-          <div className="w-2 h-2 bg-green-400 rounded-full mr-1"></div>
-          Available now
-        </span>
-        <span>ISO certified</span>
+    {/* Key features - Clean list like Figma */}
+    <div className="px-8 pb-8">
+      <div className="space-y-4">
+        {[
+          'Native speaker expertise for authentic translations',
+          'Quality assurance with multiple review stages',
+          'Specialized knowledge across industries',
+          'Secure handling of confidential documents'
+        ].map((feature, index) => (
+          <div key={index} className="flex items-start space-x-3">
+            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5 flex-shrink-0"></div>
+            <span className="text-base text-gray-700 dark:text-gray-300">{feature}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* CTA section - Apple button styling */}
+    <div className="px-8 pb-8">
+      <div className="flex space-x-4">
+        <a
+          href="/translation-services"
+          className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-center py-4 px-6 rounded-xl font-semibold text-lg transition-colors duration-200"
+        >
+          Explore services
+        </a>
+        <a
+          href="/translation-quote"
+          className="flex-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white text-center py-4 px-6 rounded-xl font-semibold text-lg transition-colors duration-200"
+        >
+          Get quote
+        </a>
+      </div>
+    </div>
+
+    {/* Footer with trust signals - Stripe style */}
+    <div className="border-t border-gray-100 dark:border-gray-800 px-8 py-6">
+      <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+        <div className="flex items-center space-x-2">
+          <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+          <span>Active 24/7</span>
+        </div>
+        <span>ISO 17100 Certified</span>
+        <span>GDPR Compliant</span>
       </div>
     </div>
   </div>
