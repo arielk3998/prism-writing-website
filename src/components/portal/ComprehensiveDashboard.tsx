@@ -15,7 +15,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth, usePermissions } from '../../contexts/AuthContext';
 import { User } from '../../lib/auth';
-import { DarkModeToggle } from '../ui/DarkModeToggle';
+import { EnhancedDarkModeToggle } from '../ui/EnhancedDarkModeToggle';
 
 // Import enhanced components
 import ProjectManagement from './ProjectManagement';
@@ -725,7 +725,12 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                   </span>
                 )}
               </button>
-              <DarkModeToggle />
+              <EnhancedDarkModeToggle 
+                variant="prominent" 
+                size="md"
+                showLabel={true}
+                showTooltip={true}
+              />
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
                   <span className="text-blue-600 dark:text-blue-400 font-medium text-sm">

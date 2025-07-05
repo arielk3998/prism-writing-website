@@ -1,258 +1,230 @@
+'use client';
+
 import React from 'react';
-import { Metadata } from 'next';
+import { Navigation } from '@/components/navigation';
+import { Footer } from '@/components/footer';
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import { 
-  PenTool, 
   FileText, 
+  Edit3, 
   Globe, 
-  CheckCircle, 
-  Clock, 
+  BookOpen, 
+  Target, 
   Users,
-  Award,
-  ArrowRight
+  ArrowRight,
+  CheckCircle,
+  Star,
+  Clock,
+  Shield,
+  Award
 } from 'lucide-react';
-import Layout from '../../components/Layout';
 
-// Force dynamic rendering to avoid SSG issues with client components
-export const dynamic = 'force-dynamic';
+const writingServices = [
+  {
+    icon: FileText,
+    title: 'Business Writing',
+    description: 'Professional content for reports, proposals, and corporate communications',
+    features: ['Executive Reports', 'Business Proposals', 'White Papers', 'Case Studies'],
+    startingPrice: '$150'
+  },
+  {
+    icon: BookOpen,
+    title: 'Academic Writing',
+    description: 'Research papers, dissertations, and scholarly content',
+    features: ['Research Papers', 'Dissertations', 'Literature Reviews', 'Academic Articles'],
+    startingPrice: '$200'
+  },
+  {
+    icon: Target,
+    title: 'Content Creation',
+    description: 'Engaging content for websites, blogs, and marketing materials',
+    features: ['Blog Posts', 'Website Copy', 'Marketing Content', 'Social Media'],
+    startingPrice: '$100'
+  },
+  {
+    icon: Edit3,
+    title: 'Editing & Proofreading',
+    description: 'Professional editing and proofreading for all document types',
+    features: ['Copy Editing', 'Proofreading', 'Style Guide Compliance', 'Quality Assurance'],
+    startingPrice: '$75'
+  }
+];
 
-export const metadata: Metadata = {
-  title: 'Professional Writing, Editing & Translation Services | Prism Writing',
-  description: 'Expert writing, editing, and translation services for businesses and individuals. Professional content creation, proofreading, and translation in 80+ languages.',
-  keywords: 'writing services, editing services, translation services, proofreading, content writing, professional writing'
-};
+const benefits = [
+  {
+    icon: Star,
+    title: 'Expert Writers',
+    description: 'Native speakers with industry expertise and advanced degrees'
+  },
+  {
+    icon: Clock,
+    title: 'Fast Turnaround',
+    description: '24-48 hour delivery for most projects with express options available'
+  },
+  {
+    icon: Shield,
+    title: 'Quality Guarantee',
+    description: '100% satisfaction guarantee with unlimited revisions'
+  },
+  {
+    icon: Award,
+    title: 'Professional Standards',
+    description: 'Following industry best practices and style guides'
+  }
+];
 
 export default function ServicesPage() {
-  const services = [
-    {
-      icon: PenTool,
-      title: 'Writing Services',
-      description: 'Professional content creation tailored to your needs',
-      features: [
-        'Blog posts and articles',
-        'Website copy and content',
-        'Marketing materials',
-        'Business communications',
-        'Creative writing',
-        'Technical documentation'
-      ],
-      pricing: 'Starting at $0.10/word',
-      href: '/contact'
-    },
-    {
-      icon: FileText,
-      title: 'Editing & Proofreading',
-      description: 'Expert editing to perfect your documents',
-      features: [
-        'Grammar and spelling correction',
-        'Style and flow improvement',
-        'Structure and organization',
-        'Fact-checking and verification',
-        'Formatting and consistency',
-        'Multiple revision rounds'
-      ],
-      pricing: 'Starting at $0.05/word',
-      href: '/contact'
-    },
-    {
-      icon: Globe,
-      title: 'Translation Services',
-      description: 'Professional translation in 80+ languages',
-      features: [
-        '80+ language pairs',
-        'Native speaker translators',
-        'Industry specialization',
-        'Cultural adaptation',
-        'Certified translations',
-        '24-48 hour turnaround'
-      ],
-      pricing: 'Starting at $0.12/word',
-      href: '/translation-services'
-    }
-  ];
-
-  const features = [
-    {
-      icon: Users,
-      title: 'Expert Team',
-      description: 'Certified professionals with industry expertise'
-    },
-    {
-      icon: Clock,
-      title: 'Fast Turnaround',
-      description: '24-48 hour delivery for most projects'
-    },
-    {
-      icon: Award,
-      title: 'Quality Guarantee',
-      description: '99% accuracy rate with satisfaction guarantee'
-    },
-    {
-      icon: CheckCircle,
-      title: 'Multiple Revisions',
-      description: 'Free revisions until you are completely satisfied'
-    }
-  ];
-
   return (
-    <Layout>
-      <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      <main>
         {/* Hero Section */}
-        <div className="bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="text-center">
-              <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">
+        <div className="bg-gradient-to-br from-slate-50 to-blue-50 section-padding">
+          <div className="container">
+            <div className="text-center section-header">
+              <h1 className="heading-1 text-foreground mb-4">
                 Professional Writing Services
               </h1>
-              <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-                Expert writing, editing, and translation services to help you communicate effectively across languages and cultures.
+              <p className="body-large text-muted max-w-3xl mx-auto">
+                Expert writing and editing services for businesses, academics, and organizations. 
+                Native English writers with industry expertise deliver exceptional content.
               </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                <Link href="/translation-quote">
+                  <Button size="lg" className="hover:shadow-lg transition-all duration-300">
+                    Get Custom Quote
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+                <Link href="/portfolio">
+                  <Button variant="outline" size="lg" className="hover:shadow-md transition-all duration-300">
+                    View Portfolio
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Services Grid */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <div key={index} className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <service.icon className="w-12 h-12 text-blue-600 mb-6" />
-                <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 mb-6">{service.description}</p>
-                
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-gray-600">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="border-t border-gray-200 pt-6">
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-semibold text-blue-600">
-                      {service.pricing}
-                    </span>
-                    <Link 
-                      href={service.href}
-                      className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center"
-                    >
-                      Get Started
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
+        <div className="section-padding">
+          <div className="container">
+            <div className="text-center section-header">
+              <h2 className="heading-2 text-foreground mb-4">Our Writing Services</h2>
+              <p className="body-large text-muted max-w-2xl mx-auto">
+                Choose from our comprehensive range of professional writing and editing services
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {writingServices.map((service, index) => (
+                <Card key={service.title} className="hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                          <service.icon className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-semibold text-foreground">{service.title}</h3>
+                          <p className="text-sm text-muted mt-1">{service.description}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-sm text-muted">Starting at</span>
+                        <div className="text-xl font-bold text-primary">{service.startingPrice}</div>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <h4 className="font-medium text-foreground">Includes:</h4>
+                      <ul className="space-y-2">
+                        {service.features.map((feature, idx) => (
+                          <li key={idx} className="flex items-center text-sm text-muted">
+                            <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                      <Link href="/translation-quote">
+                        <Button variant="outline" className="w-full mt-4 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                          Get Quote for {service.title}
+                        </Button>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Features Section */}
-        <div className="bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Why Choose Prism Writing
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                We combine expertise, technology, and dedication to deliver exceptional results for every project.
+        {/* Translation Services CTA */}
+        <div className="bg-gradient-to-r from-primary/5 to-blue-50 section-padding">
+          <div className="container">
+            <div className="text-center">
+              <Globe className="w-16 h-16 text-primary mx-auto mb-6" />
+              <h2 className="heading-2 text-foreground mb-4">Need Translation Services?</h2>
+              <p className="body-large text-muted max-w-2xl mx-auto mb-8">
+                Professional translation in 95+ languages with certified native speakers
               </p>
+              <Link href="/translation-services">
+                <Button size="lg" className="hover:shadow-lg transition-all duration-300">
+                  Explore Translation Services
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Benefits Section */}
+        <div className="section-padding">
+          <div className="container">
+            <div className="text-center section-header">
+              <h2 className="heading-2 text-foreground mb-4">Why Choose Our Services?</h2>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {features.map((feature, index) => (
-                <div key={index} className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <feature.icon className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600">{feature.description}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {benefits.map((benefit, index) => (
+                <div key={benefit.title} className="text-center card-white hover:shadow-lg transition-all duration-300">
+                  <benefit.icon className="w-8 h-8 text-primary mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-foreground mb-2">{benefit.title}</h3>
+                  <p className="text-sm text-muted leading-relaxed">{benefit.description}</p>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Process Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Our Process
-            </h2>
-            <p className="text-xl text-gray-600">
-              Simple, efficient, and transparent workflow
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              {
-                step: 1,
-                title: 'Project Consultation',
-                description: 'Discuss your requirements and get a detailed quote'
-              },
-              {
-                step: 2,
-                title: 'Expert Assignment',
-                description: 'Matched with the best professional for your project'
-              },
-              {
-                step: 3,
-                title: 'Quality Delivery',
-                description: 'Receive your completed work on time and on budget'
-              },
-              {
-                step: 4,
-                title: 'Satisfaction Guarantee',
-                description: 'Free revisions until you are completely satisfied'
-              }
-            ].map((item, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                  {item.step}
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* CTA Section */}
-        <div className="bg-blue-600">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="bg-foreground text-background section-padding">
+          <div className="container">
             <div className="text-center">
-              <h2 className="text-3xl font-bold text-white mb-4">
-                Ready to Get Started?
-              </h2>
-              <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                Contact us today for a free consultation and quote for your writing, editing, or translation project.
+              <h2 className="heading-2 mb-4">Ready to Get Started?</h2>
+              <p className="body-large mb-8 max-w-2xl mx-auto opacity-90">
+                Get a custom quote for your project and connect with our expert writers today
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
-                  href="/contact"
-                  className="bg-white text-blue-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-medium"
-                >
-                  Get Free Quote
+                <Link href="/translation-quote">
+                  <Button size="lg" variant="secondary" className="hover:shadow-lg transition-all duration-300">
+                    Get Custom Quote
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
                 </Link>
-                <Link 
-                  href="/translation-services"
-                  className="bg-blue-700 text-white px-8 py-3 rounded-lg hover:bg-blue-800 transition-colors font-medium"
-                >
-                  Translation Services
-                </Link>
+                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-foreground transition-all duration-300">
+                  <Users className="w-4 h-4 mr-2" />
+                  Contact Our Team
+                </Button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </Layout>
+      </main>
+      <Footer />
+    </div>
   );
 }

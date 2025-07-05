@@ -1,5 +1,6 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import { spacing, borderRadius, shadows } from "@/lib/design-tokens"
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -10,7 +11,7 @@ export interface ButtonProps
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "default", size = "default", loading = false, disabled, children, ...props }, ref) => {
-    const baseClasses = "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+    const baseClasses = `inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50`
     
     const variants = {
       default: "bg-primary text-primary-foreground hover:bg-primary/90",
@@ -21,16 +22,44 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       link: "text-primary underline-offset-4 hover:underline",
     }
     
-    const sizes = {
-      default: "h-10 px-4 py-2",
-      sm: "h-9 rounded-md px-3",
-      lg: "h-11 rounded-md px-8",
-      icon: "h-10 w-10",
+    const getSizeStyles = (size: string) => {
+      switch (size) {
+        case 'sm':
+          return {
+            height: spacing.scale[9],
+            paddingLeft: spacing.scale[3],
+            paddingRight: spacing.scale[3],
+            borderRadius: borderRadius.md,
+          }
+        case 'lg':
+          return {
+            height: spacing.scale[11],
+            paddingLeft: spacing.scale[8],
+            paddingRight: spacing.scale[8],
+            borderRadius: borderRadius.md,
+          }
+        case 'icon':
+          return {
+            height: spacing.scale[10],
+            width: spacing.scale[10],
+            borderRadius: borderRadius.md,
+          }
+        default:
+          return {
+            height: spacing.scale[10],
+            paddingLeft: spacing.scale[4],
+            paddingRight: spacing.scale[4],
+            paddingTop: spacing.scale[2],
+            paddingBottom: spacing.scale[2],
+            borderRadius: borderRadius.md,
+          }
+      }
     }
 
     return (
       <button
-        className={cn(baseClasses, variants[variant], sizes[size], className)}
+        className={cn(baseClasses, variants[variant], className)}
+        style={getSizeStyles(size)}
         ref={ref}
         disabled={disabled || loading}
         {...props}

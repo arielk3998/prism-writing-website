@@ -22,7 +22,30 @@ import {
   Languages
 } from 'lucide-react'
 
-const translationServices = [
+interface TranslationService {
+  id: string
+  icon: any
+  title: string
+  description: string
+  features: string[]
+  price: string
+  turnaround: string
+  accuracy: string
+  popular: boolean
+}
+
+interface WritingService {
+  id: string
+  icon: any
+  title: string
+  description: string
+  features: string[]
+  price: string
+  turnaround: string
+  popular: boolean
+}
+
+const translationServices: TranslationService[] = [
   {
     id: 'document',
     icon: FileText,
@@ -69,7 +92,7 @@ const translationServices = [
   },
 ]
 
-const writingServices = [
+const writingServices: WritingService[] = [
   {
     id: 'business',
     icon: Briefcase,
@@ -131,19 +154,19 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
   const [activeTab, setActiveTab] = useState<'translation' | 'writing'>('translation')
 
   return (
-    <section className={`py-20 md:py-24 lg:py-28 bg-background ${className}`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-background section-padding">
+      <div className="container">
         {/* Section Header */}
-        <div className="text-center mb-16 space-y-6">
+        <div className="text-center space-y-6 section-header">
           <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 hover:bg-primary/20 transition-colors">
             <Star className="w-4 h-4 mr-2" />
             <span>Premium Services</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground">
+          <h2 className="heading-1">
             Professional Services That
-            <span className="block gradient-text bg-gradient-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent">Drive Global Success</span>
+            <span className="block gradient-text">Drive Global Success</span>
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+          <p className="body-large text-muted max-w-4xl mx-auto leading-relaxed">
             From translation to content creation, we provide comprehensive language services 
             that help businesses communicate effectively across cultures and markets.
           </p>
@@ -151,13 +174,13 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
 
         {/* Service Tabs */}
         <div className="flex justify-center mb-12">
-          <div className="bg-muted/70 backdrop-blur-sm rounded-xl p-1 flex border border-border/50 shadow-lg">
+          <div className="inline-flex bg-surface rounded-lg p-1 border border-border">
             <button
               onClick={() => setActiveTab('translation')}
-              className={`px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+              className={`px-6 py-3 rounded-md text-sm font-medium transition-all duration-200 ${
                 activeTab === 'translation'
-                  ? 'bg-background text-foreground shadow-md border border-border/20'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-muted hover:text-foreground hover:bg-muted/50'
               }`}
             >
               <Globe className="w-4 h-4 mr-2 inline" />
@@ -165,10 +188,10 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
             </button>
             <button
               onClick={() => setActiveTab('writing')}
-              className={`px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+              className={`px-6 py-3 rounded-md text-sm font-medium transition-all duration-200 ${
                 activeTab === 'writing'
-                  ? 'bg-background text-foreground shadow-md border border-border/20'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-muted hover:text-foreground hover:bg-muted/50'
               }`}
             >
               <FileText className="w-4 h-4 mr-2 inline" />
@@ -178,124 +201,156 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {(activeTab === 'translation' ? translationServices : writingServices).map((service) => (
-            <Card key={service.id} className="relative overflow-hidden hover:shadow-xl transition-all duration-300 group hover:-translate-y-2 hover:scale-[1.02] border border-border/50 bg-white/80 backdrop-blur-sm">
-              {service.popular && (
-                <div className="absolute top-4 right-4 bg-gradient-to-r from-primary to-blue-600 text-white text-xs px-3 py-1 rounded-full font-medium shadow-lg">
-                  Popular
-                </div>
-              )}
-              
-              <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110">
-                  <service.icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-                </div>
-                <CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors">{service.title}</CardTitle>
-                <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
-              </CardHeader>
-
-              <CardContent className="pt-0">
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center text-sm">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Price:</span>
-                    <span className="font-medium text-primary">{service.price}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Turnaround:</span>
-                    <span className="font-medium">{service.turnaround}</span>
-                  </div>
-                  {'accuracy' in service && service.accuracy && (
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Accuracy:</span>
-                      <span className="font-medium text-green-600">{service.accuracy}</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-16">
+          {activeTab === 'translation' 
+            ? translationServices.map((service) => (
+                <Card key={service.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden border border-border">
+                  {service.popular && (
+                    <div className="absolute top-4 right-4 bg-gradient-to-r from-primary to-blue-600 text-white text-xs font-medium px-3 py-1 rounded-full shadow-lg">
+                      Popular
                     </div>
                   )}
-                </div>
+                  
+                  <CardHeader className="pb-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110">
+                      <service.icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+                    </div>
+                    <CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors">{service.title}</CardTitle>
+                    <p className="text-sm text-muted leading-relaxed">{service.description}</p>
+                  </CardHeader>
 
-                <Link href={`/${activeTab}-services/${service.id}`}>
-                  <Button variant="outline" className="w-full group">
-                    Learn More
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-          ))}
+                  <CardContent className="pt-0">
+                    <ul className="space-y-2 mb-6">
+                      {service.features.map((feature) => (
+                        <li key={feature} className="flex items-center text-sm">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted">Price:</span>
+                        <span className="font-medium text-primary">{service.price}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted">Turnaround:</span>
+                        <span className="font-medium">{service.turnaround}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted">Accuracy:</span>
+                        <span className="font-medium text-green-600">{service.accuracy}</span>
+                      </div>
+                    </div>
+
+                    <Button className="w-full group-hover:shadow-md transition-all duration-300" variant="outline">
+                      <span>Get Quote</span>
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))
+            : writingServices.map((service) => (
+                <Card key={service.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden border border-border">
+                  {service.popular && (
+                    <div className="absolute top-4 right-4 bg-gradient-to-r from-primary to-blue-600 text-white text-xs font-medium px-3 py-1 rounded-full shadow-lg">
+                      Popular
+                    </div>
+                  )}
+                  
+                  <CardHeader className="pb-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110">
+                      <service.icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+                    </div>
+                    <CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors">{service.title}</CardTitle>
+                    <p className="text-sm text-muted leading-relaxed">{service.description}</p>
+                  </CardHeader>
+
+                  <CardContent className="pt-0">
+                    <ul className="space-y-2 mb-6">
+                      {service.features.map((feature) => (
+                        <li key={feature} className="flex items-center text-sm">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted">Price:</span>
+                        <span className="font-medium text-primary">{service.price}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted">Turnaround:</span>
+                        <span className="font-medium">{service.turnaround}</span>
+                      </div>
+                    </div>
+
+                    <Button className="w-full group-hover:shadow-md transition-all duration-300" variant="outline">
+                      <span>Get Quote</span>
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))
+          }
         </div>
 
-        {/* Language Support Section */}
-        {activeTab === 'translation' && (
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 mb-16">
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-foreground mb-4">
-                <Languages className="w-6 h-6 inline mr-2" />
-                95+ Languages Supported
-              </h3>
-              <p className="text-muted-foreground">
-                Professional translation services in the world's most spoken languages
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-              {languages.map((language) => (
-                <div key={language.name} className="text-center p-4 bg-white rounded-lg border border-white/50 hover:shadow-md transition-all">
-                  <div className="text-2xl mb-2">{language.flag}</div>
-                  <div className="font-medium text-sm">{language.name}</div>
-                  <div className="text-xs text-muted-foreground">{language.speakers}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Quality Guarantees */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="text-center p-6 bg-green-50 rounded-2xl border border-green-100">
-            <Shield className="w-12 h-12 text-green-600 mx-auto mb-4" />
-            <h4 className="text-lg font-semibold text-foreground mb-2">Quality Guarantee</h4>
-            <p className="text-sm text-muted-foreground">
-              99.8% accuracy rate with unlimited revisions until you're satisfied
-            </p>
+        {/* Languages Section */}
+        <div className="text-center mb-12">
+          <h3 className="heading-3 text-foreground mb-4">
+            <Languages className="w-8 h-8 inline mr-3 text-primary" />
+            Available in 95+ Languages
+          </h3>
+          <p className="text-muted mb-8 max-w-2xl mx-auto">
+            Professional translation services for every major world language with native-speaking experts.
+          </p>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-8">
+            {languages.map((language) => (
+              <div key={language.name} className="card text-center hover:bg-surface transition-colors p-4">
+                <div className="text-2xl mb-2">{language.flag}</div>
+                <div className="font-medium text-sm text-foreground">{language.name}</div>
+                <div className="text-xs text-muted">{language.speakers}</div>
+              </div>
+            ))}
           </div>
           
-          <div className="text-center p-6 bg-blue-50 rounded-2xl border border-blue-100">
-            <Clock className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-            <h4 className="text-lg font-semibold text-foreground mb-2">Fast Delivery</h4>
-            <p className="text-sm text-muted-foreground">
-              Rush delivery available with same-day turnaround for urgent projects
-            </p>
-          </div>
+          <p className="text-sm text-muted mb-6">
+            ...and 87 more languages including regional dialects and specialized technical vocabularies.
+          </p>
           
-          <div className="text-center p-6 bg-purple-50 rounded-2xl border border-purple-100">
-            <Users className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-            <h4 className="text-lg font-semibold text-foreground mb-2">Expert Team</h4>
-            <p className="text-sm text-muted-foreground">
-              Native speakers with specialized knowledge in your industry
-            </p>
-          </div>
+          <Link href="/translation-services">
+            <Button size="lg" className="hover:shadow-lg transition-all duration-300">
+              <Globe className="w-5 h-5 mr-2" />
+              View All Languages
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </Link>
         </div>
 
         {/* CTA Section */}
-        <div className="text-center">
-          <Link href="/translation-quote">
-            <Button size="lg" className="text-lg px-8 py-6 h-auto">
-              <Zap className="w-5 h-5 mr-2" />
-              Get Your Free Quote Now
-            </Button>
-          </Link>
-          <p className="text-sm text-muted-foreground mt-4">
-            Get an instant quote in under 30 seconds • No commitment required
+        <div className="text-center gradient-primary rounded-2xl p-12 text-white">
+          <h3 className="heading-3 mb-4">Ready to Get Started?</h3>
+          <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+            Join thousands of businesses that trust us with their global communication needs.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/translation-quote">
+              <Button size="lg" className="btn-white text-center">
+                <Zap className="w-5 h-5 mr-2" />
+                Get Instant Quote
+              </Button>
+            </Link>
+            <Link href="/translation-services">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                <Globe className="w-5 h-5 mr-2" />
+                Explore Services
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

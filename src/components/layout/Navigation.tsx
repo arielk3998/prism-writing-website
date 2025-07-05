@@ -27,8 +27,9 @@
 
 import Link from 'next/link';
 import MobileNav from './MobileNav';
-import { SimpleDarkModeToggle } from '../ui/SimpleDarkModeToggle';
+import { EnhancedDarkModeToggle } from '../ui/EnhancedDarkModeToggle';
 import { AnimatedLogo } from '../ui/AnimatedLogo';
+import { useDeviceDetection } from '../../hooks/useDeviceDetection';
 import { NAVIGATION_ITEMS } from '../../lib/constants';
 
 interface NavigationProps {
@@ -78,14 +79,22 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 {item.name}
               </Link>
             ))}
-            {/* Dark mode toggle for desktop */}
-            <SimpleDarkModeToggle />
+            {/* Enhanced dark mode toggle for desktop with better visibility */}
+            <EnhancedDarkModeToggle 
+              variant="prominent" 
+              size="md"
+              showTooltip={true}
+            />
           </div>
           
           {/* Mobile Navigation Controls */}
           <div className="md:hidden flex items-center space-x-2">
-            {/* Dark mode toggle for mobile */}
-            <SimpleDarkModeToggle />
+            {/* Enhanced dark mode toggle for mobile */}
+            <EnhancedDarkModeToggle 
+              variant="minimal" 
+              size="sm"
+              showTooltip={false}
+            />
             {/* Mobile hamburger menu */}
             <MobileNav currentPage={currentPage} />
           </div>

@@ -17,7 +17,7 @@ import { useAuth, usePermissions } from '../../contexts/AuthContext';
 import { User } from '../../lib/auth';
 import EnhancedFileManager from './EnhancedFileManager';
 import AccountManagement from './AccountManagement';
-import { DarkModeToggle } from '../ui/DarkModeToggle';
+import { EnhancedDarkModeToggle } from '../ui/EnhancedDarkModeToggle';
 
 interface DashboardProps {
   user: User | null;
@@ -440,7 +440,12 @@ export default function EnhancedDashboard({ user }: DashboardProps) {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <DarkModeToggle />
+              <EnhancedDarkModeToggle 
+                variant="prominent" 
+                size="md"
+                showLabel={true}
+                showTooltip={true}
+              />
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
                   <span className="text-blue-600 dark:text-blue-400 font-medium text-sm">

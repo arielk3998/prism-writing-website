@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { enhancedAuthMiddleware } from './src/lib/enhancedAuthMiddleware'
 
 // Security headers
 const securityHeaders = {
@@ -83,7 +84,26 @@ function isBot(userAgent: string): boolean {
   return botPatterns.some(pattern => pattern.test(userAgent))
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
+  // First apply enhanced authentication middleware
+  try {
+    const authResponse = await enhancedAuthMiddleware(request, {
+      enforceCSP: true,
+      auditLogging: true,
+      sessionTimeout: 8 * 60 * 60 * 1000, // 8 hours
+      maxLoginAttempts: 5,
+      workspaceIsolation: true,
+      requireSSL: process.env.NODE_ENV === 'production',
+    })
+    
+    // If auth middleware returns a redirect or error, use that
+    if (authResponse.status !== 200) {
+      return authResponse
+    }
+  } catch (error) {
+    console.error('[Middleware] Auth check failed:', error)
+  }
+  
   const response = NextResponse.next()
   const { pathname } = request.nextUrl
   
@@ -95,6 +115,15 @@ export function middleware(request: NextRequest) {
   
   // Get user agent
   const userAgent = request.headers.get('User-Agent') || ''
+  
+  // Add device detection headers for client-side optimization
+  const isMobile = /Mobile|Android|iPhone|iPad/i.test(userAgent)
+  const isTablet = /iPad|Tablet/i.test(userAgent)
+  const isTouchDevice = isMobile || isTablet
+
+  response.headers.set('X-Device-Type', isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop')
+  response.headers.set('X-Is-Touch-Device', isTouchDevice.toString())
+  response.headers.set('X-Is-Mobile', isMobile.toString())
   
   // Apply security headers
   Object.entries(securityHeaders).forEach(([key, value]) => {

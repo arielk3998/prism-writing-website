@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/src/components/providers/ThemeProvider'
+import { MainLayout } from '@/src/components/layout/MainLayout'
+import AuthGuard from '@/src/components/auth/AuthGuard'
 import './globals.css'
 
 const inter = Inter({ 
@@ -122,7 +124,11 @@ export default function RootLayout({
           defaultTheme="system"
           storageKey="prism-writing-theme"
         >
-          {children}
+          <AuthGuard>
+            <MainLayout>
+              {children}
+            </MainLayout>
+          </AuthGuard>
         </ThemeProvider>
       </body>
     </html>

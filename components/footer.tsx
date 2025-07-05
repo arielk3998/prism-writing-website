@@ -22,13 +22,13 @@ import {
 
 const footerLinks = {
   services: [
-    { name: 'Document Translation', href: '/translation-services/document' },
-    { name: 'Website Localization', href: '/translation-services/website' },
-    { name: 'Certified Translation', href: '/translation-services/certified' },
-    { name: 'Business Translation', href: '/translation-services/business' },
-    { name: 'Business Writing', href: '/services/business-writing' },
-    { name: 'Academic Writing', href: '/services/academic-writing' },
-    { name: 'Content Creation', href: '/services/content-writing' },
+    { name: 'Document Translation', href: '/translation-services' },
+    { name: 'Website Localization', href: '/translation-services' },
+    { name: 'Certified Translation', href: '/translation-services' },
+    { name: 'Business Translation', href: '/translation-services' },
+    { name: 'Business Writing', href: '/services' },
+    { name: 'Academic Writing', href: '/services' },
+    { name: 'Content Creation', href: '/services' },
   ],
   company: [
     { name: 'About Us', href: '/about' },
@@ -72,32 +72,32 @@ const certifications = [
 
 export function Footer() {
   return (
-    <footer className="bg-slate-50/80 backdrop-blur-sm border-t border-border">
+    <footer className="bg-surface border-t border-border">
       {/* Newsletter Section */}
       <div className="border-b border-border/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="container section-padding-sm">
           <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+            <h3 className="heading-3 text-foreground mb-4">
               Stay Updated with Translation Insights
             </h3>
-            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-muted max-w-2xl mx-auto leading-relaxed mb-8">
               Get expert tips, industry news, and exclusive offers delivered to your inbox. 
               Join 10,000+ professionals who trust our insights.
             </p>
-            <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <form className="flex flex-col sm:flex-row max-w-md mx-auto gap-4">
               <Input 
                 type="email" 
                 placeholder="Enter your email address"
-                className="flex-1 h-12 shadow-sm border-border/50 focus:border-primary"
+                className="flex-1 shadow-sm border-border/50 focus:border-primary h-12"
               />
-              <Button type="submit" className="sm:w-auto h-12 px-6 hover:shadow-lg transition-all duration-300">
+              <Button type="submit" className="sm:w-auto hover:shadow-lg transition-all duration-300 h-12 px-6">
                 Subscribe
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </form>
-            <p className="text-xs text-muted-foreground mt-4">
+            <p className="text-xs text-muted mt-4">
               No spam. Unsubscribe at any time. Read our{' '}
-              <Link href="/privacy" className="text-primary hover:underline transition-colors">{' '}
+              <Link href="/privacy" className="text-primary hover:underline transition-colors">
                 Privacy Policy
               </Link>
             </p>
@@ -106,48 +106,50 @@ export function Footer() {
       </div>
 
       {/* Main Footer Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="container section-padding">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-2 space-y-6">
-            <Link href="/" className="flex items-center space-x-2 group">
+            <Link href="/" className="flex items-center group gap-2">
               <div className="w-10 h-10 bg-gradient-to-r from-primary to-blue-600 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300">
                 <span className="text-white font-bold">P</span>
               </div>
-              <span className="text-2xl font-bold gradient-text bg-gradient-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent">Prism Writing</span>
+              <span className="text-2xl font-bold gradient-text">Prism Writing</span>
             </Link>
             
-            <p className="text-muted-foreground leading-relaxed max-w-md">
+            <p className="text-muted leading-relaxed max-w-md">
               Professional translation and writing services trusted by global companies. 
               We bridge language barriers and create compelling content that drives business growth.
             </p>
 
             <div className="space-y-3">
-              <div className="flex items-center space-x-3 text-sm group">
+              <div className="flex items-center text-sm group gap-3">
                 <MapPin className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
                 <span>123 Business Plaza, Global City, GC 12345</span>
               </div>
-              <div className="flex items-center space-x-3 text-sm group">
+              <div className="flex items-center text-sm group gap-3">
                 <Phone className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
                 <span>+1 (555) 123-4567</span>
               </div>
-              <div className="flex items-center space-x-3 text-sm group">
+              <div className="flex items-center text-sm group gap-3">
                 <Mail className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
                 <span>hello@prismwriting.com</span>
               </div>
             </div>
 
+            {/* Social Links */}
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
-                <Link
+                <a
                   key={social.name}
                   href={social.href}
-                  className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110 hover:shadow-lg"
+                  className="w-9 h-9 bg-muted hover:bg-primary rounded-lg flex items-center justify-center transition-all duration-300 group hover:scale-110"
+                  aria-label={social.name}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <social.icon className="w-5 h-5" />
-                </Link>
+                  <social.icon className="w-4 h-4 text-muted-foreground group-hover:text-white transition-colors" />
+                </a>
               ))}
             </div>
           </div>
@@ -160,7 +162,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-muted hover:text-foreground transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -177,7 +179,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-muted hover:text-foreground transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -194,7 +196,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-muted hover:text-foreground transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -210,7 +212,7 @@ export function Footer() {
             {certifications.map((cert) => (
               <div key={cert.name} className="flex items-center space-x-3 text-sm">
                 <cert.icon className="w-5 h-5 text-primary" />
-                <span className="text-muted-foreground">{cert.name}</span>
+                <span className="text-muted">{cert.name}</span>
               </div>
             ))}
           </div>
@@ -219,9 +221,9 @@ export function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-border bg-muted/30">
-        <div className="container mx-auto px-4 py-6">
+        <div className="container py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-sm text-muted-foreground">
+            <div className="text-sm text-muted">
               © 2025 Prism Writing. All rights reserved.
             </div>
             
@@ -230,7 +232,7 @@ export function Footer() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-muted hover:text-foreground transition-colors"
                 >
                   {link.name}
                 </Link>

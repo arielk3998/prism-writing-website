@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { DarkModeToggle } from '@/components/ui/dark-mode-toggle'
+import { EnhancedDarkModeToggle } from '@/src/components/ui/EnhancedDarkModeToggle'
+
 import { 
   Menu, 
   X, 
@@ -30,22 +31,22 @@ const navigationItems = [
     icon: FileText,
     description: 'Professional writing and editing services',
     submenu: [
-      { name: 'Content Writing', href: '/services/content-writing', icon: FileText },
-      { name: 'Academic Writing', href: '/services/academic-writing', icon: FileText },
-      { name: 'Business Writing', href: '/services/business-writing', icon: FileText },
-      { name: 'Creative Writing', href: '/services/creative-writing', icon: FileText },
+      { name: 'Writing Services', href: '/services#writing', icon: FileText },
+      { name: 'Editing Services', href: '/services#editing', icon: FileText },
+      { name: 'All Services', href: '/services', icon: FileText },
+      { name: 'Get Quote', href: '/translation-quote', icon: FileText },
     ]
   },
   {
     name: 'Translation',
     href: '/translation-services',
     icon: Globe,
-    description: 'Expert translation in 95+ languages',
+    description: 'Expert translation in 80+ languages',
     submenu: [
-      { name: 'Document Translation', href: '/translation-services/document', icon: FileText },
-      { name: 'Website Translation', href: '/translation-services/website', icon: Globe },
-      { name: 'Certified Translation', href: '/translation-services/certified', icon: Award },
-      { name: 'Business Translation', href: '/translation-services/business', icon: Briefcase },
+      { name: 'Translation Services', href: '/translation-services', icon: Globe },
+      { name: 'Get Translation Quote', href: '/translation-quote', icon: Award },
+      { name: 'Sample Documents', href: '/portfolio', icon: FileText },
+      { name: 'Languages Supported', href: '/translation-services#languages', icon: Briefcase },
     ]
   },
   {
@@ -93,7 +94,7 @@ export function Navigation({ className }: NavigationProps) {
   return (
     <nav 
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 transition-all duration-300 z-50",
         isScrolled 
           ? "bg-background/95 backdrop-blur-lg border-b border-border shadow-lg" 
           : "bg-transparent",
@@ -160,11 +161,15 @@ export function Navigation({ className }: NavigationProps) {
 
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-3 xl:space-x-4">
-            <DarkModeToggle />
-            <Link href="/auth/signin">
+            <EnhancedDarkModeToggle 
+              variant="prominent" 
+              size="md"
+              showTooltip={true}
+            />
+            <Link href="/portal">
               <Button variant="ghost" size="sm" className="hover:bg-accent transition-all duration-300">
                 <LogIn className="w-4 h-4 mr-2" />
-                Sign In
+                Portal Access
               </Button>
             </Link>
             <Link href="/translation-quote">
@@ -246,12 +251,16 @@ export function Navigation({ className }: NavigationProps) {
               <div className="pt-4 border-t border-border space-y-2">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm font-medium text-muted-foreground">Theme</span>
-                  <DarkModeToggle />
+                  <EnhancedDarkModeToggle 
+                    variant="minimal" 
+                    size="sm"
+                    showTooltip={false}
+                  />
                 </div>
-                <Link href="/auth/signin">
+                <Link href="/portal">
                   <Button variant="ghost" size="sm" className="w-full justify-start">
                     <LogIn className="w-4 h-4 mr-2" />
-                    Sign In
+                    Portal Access
                   </Button>
                 </Link>
                 <Link href="/translation-quote">

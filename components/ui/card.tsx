@@ -1,5 +1,6 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import { spacing, borderRadius, shadows } from "@/lib/design-tokens"
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -8,9 +9,13 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     <div
       ref={ref}
       className={cn(
-        "rounded-lg border bg-card text-card-foreground shadow-sm",
+        "border bg-card text-card-foreground",
         className
       )}
+      style={{
+        borderRadius: borderRadius.lg,
+        boxShadow: shadows.sm
+      }}
       {...props}
     />
   )
@@ -23,7 +28,11 @@ const CardHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    className={cn("flex flex-col", className)}
+    style={{
+      gap: spacing.scale[1.5],
+      padding: spacing.scale[6]
+    }}
     {...props}
   />
 ))
@@ -60,7 +69,15 @@ const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+  <div 
+    ref={ref} 
+    className={cn(className)} 
+    style={{
+      padding: spacing.scale[6],
+      paddingTop: 0
+    }}
+    {...props} 
+  />
 ))
 CardContent.displayName = "CardContent"
 
@@ -70,7 +87,11 @@ const CardFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex items-center p-6 pt-0", className)}
+    className={cn("flex items-center", className)}
+    style={{
+      padding: spacing.scale[6],
+      paddingTop: 0
+    }}
     {...props}
   />
 ))
