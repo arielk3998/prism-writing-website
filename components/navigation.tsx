@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { DarkModeToggle } from '@/src/components/ui/DarkModeToggle'
+import { DarkModeToggle } from '@/components/ui/dark-mode-toggle'
 import { 
   Menu, 
   X, 
@@ -19,7 +19,8 @@ import {
   Shield,
   Zap,
   Award,
-  Briefcase
+  Briefcase,
+  LogIn
 } from 'lucide-react'
 
 const navigationItems = [
@@ -133,7 +134,7 @@ export function Navigation({ className }: NavigationProps) {
                 {/* Desktop Submenu */}
                 {item.submenu && activeSubmenu === item.name && (
                   <div 
-                    className="absolute top-full left-0 mt-2 w-72 bg-background/95 backdrop-blur-lg border border-border rounded-xl shadow-xl py-2 animate-in fade-in slide-in-from-top-2 duration-200"
+                    className="absolute top-full left-0 mt-2 w-72 bg-background/95 backdrop-blur-lg border border-border rounded-xl shadow-xl py-2 animate-in fade-in slide-in-from-top-2 duration-200 z-60"
                     onMouseEnter={() => setActiveSubmenu(item.name)}
                     onMouseLeave={() => setActiveSubmenu(null)}
                   >
@@ -160,6 +161,12 @@ export function Navigation({ className }: NavigationProps) {
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-3 xl:space-x-4">
             <DarkModeToggle />
+            <Link href="/auth/signin">
+              <Button variant="ghost" size="sm" className="hover:bg-accent transition-all duration-300">
+                <LogIn className="w-4 h-4 mr-2" />
+                Sign In
+              </Button>
+            </Link>
             <Link href="/translation-quote">
               <Button variant="outline" size="sm" className="hover:shadow-md transition-all duration-300">
                 <Zap className="w-4 h-4 mr-2" />
@@ -241,6 +248,12 @@ export function Navigation({ className }: NavigationProps) {
                   <span className="text-sm font-medium text-muted-foreground">Theme</span>
                   <DarkModeToggle />
                 </div>
+                <Link href="/auth/signin">
+                  <Button variant="ghost" size="sm" className="w-full justify-start">
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Sign In
+                  </Button>
+                </Link>
                 <Link href="/translation-quote">
                   <Button variant="outline" size="sm" className="w-full">
                     <Zap className="w-4 h-4 mr-2" />

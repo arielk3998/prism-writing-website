@@ -48,27 +48,27 @@ const features = [
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/70">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 pt-16 md:pt-20 lg:pt-24 pb-16 md:pb-20">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-32 w-80 h-80 bg-gradient-to-r from-blue-400/30 to-purple-600/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-32 w-80 h-80 bg-gradient-to-r from-green-400/25 to-blue-600/25 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-purple-400/15 to-pink-600/15 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        <div className="absolute -top-40 -right-32 w-80 h-80 bg-gradient-to-r from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-32 w-80 h-80 bg-gradient-to-r from-green-400/20 to-blue-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-purple-400/10 to-pink-600/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
 
       {/* Floating Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-20 w-4 h-4 bg-blue-500 rounded-full animate-float opacity-60 shadow-lg"></div>
-        <div className="absolute top-40 right-32 w-6 h-6 bg-purple-500 rounded-full animate-float delay-1000 opacity-40 shadow-lg"></div>
-        <div className="absolute bottom-32 left-40 w-3 h-3 bg-green-500 rounded-full animate-float delay-2000 opacity-50 shadow-lg"></div>
-        <div className="absolute bottom-20 right-20 w-5 h-5 bg-yellow-500 rounded-full animate-float delay-3000 opacity-30 shadow-lg"></div>
+        <div className="absolute top-32 left-20 w-4 h-4 bg-blue-500 rounded-full animate-float opacity-60"></div>
+        <div className="absolute top-48 right-32 w-6 h-6 bg-purple-500 rounded-full animate-float delay-1000 opacity-40"></div>
+        <div className="absolute bottom-32 left-40 w-3 h-3 bg-green-500 rounded-full animate-float delay-2000 opacity-50"></div>
+        <div className="absolute bottom-20 right-20 w-5 h-5 bg-yellow-500 rounded-full animate-float delay-3000 opacity-30"></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center space-y-8 mb-16">
             {/* Badge */}
-            <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 animate-in fade-in slide-in-from-top duration-1000 hover:bg-primary/20 transition-colors">
+            <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 animate-in fade-in slide-in-from-top duration-1000">
               <Award className="w-4 h-4 mr-2" />
               <span>Trusted by 500+ Global Companies</span>
             </div>
@@ -147,9 +147,9 @@ export function HeroSection() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-muted-foreground/50 rounded-full mt-2 animate-pulse"></div>
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+        <div className="w-6 h-10 border-2 border-muted-foreground/40 rounded-full flex justify-center bg-white/20 backdrop-blur-sm">
+          <div className="w-1 h-3 bg-muted-foreground/60 rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>

@@ -286,7 +286,11 @@
 
   /* Enhanced Section Spacing */
   .section {
-    @apply py-16 md:py-20 lg:py-24;
+    @apply py-16 md:pt-20 md:pb-16 lg:pt-24 lg:pb-16;
+  }
+
+  .section-with-nav {
+    @apply pt-20 md:pt-24 lg:pt-28;
   }
 
   .section-sm {
@@ -295,6 +299,24 @@
 
   .section-lg {
     @apply py-20 md:py-28 lg:py-32;
+  }
+
+  /* Fix for fixed navigation overlap */
+  .main-content {
+    @apply pt-16 md:pt-18;
+  }
+
+  /* Ensure proper z-index stacking */
+  .nav-fixed {
+    z-index: 50;
+  }
+
+  .modal-overlay {
+    z-index: 100;
+  }
+
+  .dropdown-menu {
+    z-index: 60;
   }
 
   /* Enhanced Text Utilities */
