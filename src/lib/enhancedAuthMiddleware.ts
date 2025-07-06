@@ -341,6 +341,7 @@ function shouldSkipAuth(pathname: string): boolean {
     '/_next/',
     '/api/health',
     '/api/translation-quote',
+    '/api/video/', // Allow video API routes
   ]
   
   return skipPaths.some(path => pathname.startsWith(path))

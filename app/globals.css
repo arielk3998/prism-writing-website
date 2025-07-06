@@ -89,6 +89,26 @@
     --ring: 99 102 241;
 
     /* ============================================================================ */
+    /* VIDEO PROCESSING SYSTEM */
+    /* ============================================================================ */
+
+    /* Video player colors */
+    --video-player-bg: 0 0 0;
+    --video-player-controls: 255 255 255;
+    --video-progress-bg: 255 255 255 / 0.3;
+    --video-progress-fill: var(--primary);
+
+    /* Processing states */
+    --processing-pending: 250 204 21;      /* Yellow */
+    --processing-active: 34 197 94;        /* Green */
+    --processing-error: 239 68 68;         /* Red */
+    --processing-complete: 99 102 241;     /* Primary */
+
+    /* Upload states */
+    --upload-drag-active: var(--primary) / 0.1;
+    --upload-border-active: var(--primary);
+    --upload-border-error: var(--destructive);
+    /* ============================================================================ */
     /* SPACING SYSTEM */
     /* ============================================================================ */
     
@@ -413,6 +433,122 @@
     padding: var(--spacing-3) var(--spacing-6);
     font-size: var(--font-size-base);
   }
+
+  /* ============================================================================ */
+  /* VIDEO PROCESSING COMPONENTS */
+  /* ============================================================================ */
+
+  .video-upload-zone {
+    border: 2px dashed rgb(var(--border));
+    border-radius: var(--radius-lg);
+    background-color: rgb(var(--muted) / 0.5);
+    transition: all var(--animation-duration-normal) var(--animation-easing-ease-out);
+    cursor: pointer;
+  }
+
+  .video-upload-zone.drag-active {
+    border-color: rgb(var(--primary));
+    background-color: rgb(var(--upload-drag-active));
+    transform: scale(1.02);
+  }
+
+  .video-upload-zone.drag-error {
+    border-color: rgb(var(--destructive));
+    background-color: rgb(var(--destructive) / 0.1);
+  }
+
+  .processing-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3) var(--spacing-4);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .processing-pending {
+    background-color: rgb(var(--processing-pending) / 0.1);
+    color: rgb(var(--processing-pending));
+    border: 1px solid rgb(var(--processing-pending) / 0.2);
+  }
+
+  .processing-active {
+    background-color: rgb(var(--processing-active) / 0.1);
+    color: rgb(var(--processing-active));
+    border: 1px solid rgb(var(--processing-active) / 0.2);
+  }
+
+  .processing-complete {
+    background-color: rgb(var(--processing-complete) / 0.1);
+    color: rgb(var(--processing-complete));
+    border: 1px solid rgb(var(--processing-complete) / 0.2);
+  }
+
+  .processing-error {
+    background-color: rgb(var(--processing-error) / 0.1);
+    color: rgb(var(--processing-error));
+    border: 1px solid rgb(var(--processing-error) / 0.2);
+  }
+
+  .video-transcript-viewer {
+    background-color: rgb(var(--card));
+    border: 1px solid rgb(var(--border));
+    border-radius: var(--radius-lg);
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .transcript-segment {
+    padding: var(--spacing-3);
+    border-bottom: 1px solid rgb(var(--border));
+    transition: background-color var(--animation-duration-fast);
+    cursor: pointer;
+  }
+
+  .transcript-segment:hover {
+    background-color: rgb(var(--muted) / 0.5);
+  }
+
+  .transcript-segment.active {
+    background-color: rgb(var(--primary) / 0.1);
+    border-left: 3px solid rgb(var(--primary));
+  }
+
+  .frame-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-4);
+  }
+
+  .frame-card {
+    background-color: rgb(var(--card));
+    border: 1px solid rgb(var(--border));
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--animation-duration-normal);
+    cursor: pointer;
+  }
+
+  .frame-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: var(--spacing-2);
+    background-color: rgb(var(--muted));
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background-color: rgb(var(--primary));
+    border-radius: var(--radius-full);
+    transition: width var(--animation-duration-normal) var(--animation-easing-ease-out);
+  }
 }
 
 @layer utilities {
@@ -509,6 +645,22 @@
     }
   }
 
+  @keyframes processingSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes progressPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  @keyframes uploadBounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+  }
+
   /* ============================================================================ */
   /* ANIMATION UTILITIES */
   /* ============================================================================ */
@@ -519,6 +671,22 @@
 
   .animate-pulse-glow {
     animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  .animate-processing-spin {
+    animation: processingSpin 1s linear infinite;
+  }
+
+  .animate-progress-pulse {
+    animation: progressPulse 2s ease-in-out infinite;
+  }
+
+  .animate-upload-bounce {
+    animation: uploadBounce 1s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideInFromBottom var(--animation-duration-normal) var(--animation-easing-ease-out);
   }
 
   /* ============================================================================ */
