@@ -78,8 +78,8 @@
     --primary-foreground: 255 255 255;
     --secondary: 241 245 249;
     --secondary-foreground: 15 23 42;
-    --muted: 241 245 249;
-    --muted-foreground: 71 85 105;
+    --muted: 248 250 252;
+    --muted-foreground: 51 65 85;
     --accent: 241 245 249;
     --accent-foreground: 15 23 42;
     --destructive: 239 68 68;
@@ -635,18 +635,22 @@
 
   .text-medium-contrast {
     color: rgb(71, 85, 105);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
   }
 
   .dark .text-medium-contrast {
     color: rgb(156, 163, 175);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   }
 
   .text-low-contrast {
     color: rgb(148, 163, 184);
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 2px 6px rgba(255, 255, 255, 0.6);
   }
 
   .dark .text-low-contrast {
     color: rgb(107, 114, 128);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
   }
 
   /* Auto-contrast for highlighted text */
@@ -706,11 +710,13 @@
 
   /* Safe muted text */
   .text-safe-muted {
-    color: rgb(100, 116, 139);
+    color: rgb(51, 65, 85);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
   }
 
   .dark .text-safe-muted {
     color: rgb(148, 163, 184);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   }
 
   /* Safe accent text (blue replacement) */
@@ -751,11 +757,13 @@
 
   /* Icon-specific safe classes */
   .icon-safe {
-    color: rgb(71, 85, 105);
+    color: rgb(51, 65, 85);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
   }
 
   .dark .icon-safe {
     color: rgb(203, 213, 225);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   .icon-safe-accent {
@@ -895,6 +903,44 @@
   .drop-shadow-text-lg {
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
+
+  /* Light mode text shadows for better contrast */
+  .text-shadow-light {
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  }
+
+  .text-shadow-light-md {
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 2px 6px rgba(255, 255, 255, 0.7);
+  }
+
+  /* Dark mode text shadows */
+  .dark .text-shadow-light {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  .dark .text-shadow-light-md {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Subtle glow for very light text */
+  .text-glow-subtle {
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(255, 255, 255, 0.8);
+  }
+
+  .dark .text-glow-subtle {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Enhanced contrast for body text */
+  .text-enhanced-contrast {
+    color: rgb(30, 41, 59);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+  }
+
+  .dark .text-enhanced-contrast {
+    color: rgb(226, 232, 240);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
 }
 
 /* ============================================================================ */
@@ -921,4 +967,66 @@
     border: 1px solid #000;
     box-shadow: none;
   }
+}
+
+/* ============================================================================ */
+/* TAILWIND UTILITY CLASSES WITH PROPER CONTRAST */
+/* ============================================================================ */
+
+.text-foreground {
+  color: rgb(var(--foreground));
+}
+
+.text-muted {
+  color: rgb(var(--muted-foreground));
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.dark .text-muted {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.text-muted-foreground {
+  color: rgb(var(--muted-foreground));
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.dark .text-muted-foreground {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.text-primary {
+  color: rgb(var(--primary));
+}
+
+.text-secondary {
+  color: rgb(var(--secondary-foreground));
+}
+
+.text-accent {
+  color: rgb(var(--accent-foreground));
+}
+
+.bg-background {
+  background-color: rgb(var(--background));
+}
+
+.bg-card {
+  background-color: rgb(var(--card));
+}
+
+.bg-surface {
+  background-color: rgb(var(--card));
+}
+
+.bg-muted {
+  background-color: rgb(var(--muted));
+}
+
+.bg-primary {
+  background-color: rgb(var(--primary));
+}
+
+.border-border {
+  border-color: rgb(var(--border));
 }
