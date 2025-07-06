@@ -48,8 +48,8 @@ export default function SampleViewer({ item, isOpen, onClose }: SampleViewerProp
         <div className="p-6 overflow-y-auto max-h-[calc(90vh-100px)]">
           {/* Overview */}
           <div className="mb-8">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Project Overview</h3>
-            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
+            <h3 className="text-xl font-semibold text-safe mb-4">Project Overview</h3>
+            <p className="text-safe-muted text-lg leading-relaxed mb-6">
               {item.sampleContent.excerpt}
             </p>
             
@@ -61,13 +61,13 @@ export default function SampleViewer({ item, isOpen, onClose }: SampleViewerProp
                   className={`px-3 py-1 text-sm rounded-full ${
                     item.color.accent === 'indigo' ? 'bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200' :
                     item.color.accent === 'purple' ? 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200' :
-                    item.color.accent === 'green' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' :
+                    item.color.accent === 'green' ? 'bg-green-100 dark:bg-green-900 text-safe-success dark:text-green-200' :
                     item.color.accent === 'orange' ? 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200' :
                     item.color.accent === 'teal' ? 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200' :
                     item.color.accent === 'emerald' ? 'bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200' :
                     item.color.accent === 'slate' ? 'bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200' :
-                    item.color.accent === 'red' ? 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200' :
-                    item.color.accent === 'yellow' ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200' :
+                    item.color.accent === 'red' ? 'bg-red-100 dark:bg-red-900 text-safe-error dark:text-red-200' :
+                    item.color.accent === 'yellow' ? 'bg-yellow-100 dark:bg-yellow-900 text-safe-warning dark:text-yellow-200' :
                     'bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200'
                   }`}
                 >
@@ -79,27 +79,27 @@ export default function SampleViewer({ item, isOpen, onClose }: SampleViewerProp
             {/* Project Details */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               <div className="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">{item.pages}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Pages</div>
+                <div className="text-2xl font-bold text-safe">{item.pages}</div>
+                <div className="text-sm text-safe-muted">Pages</div>
               </div>
               <div className="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">{item.year}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Year</div>
+                <div className="text-2xl font-bold text-safe">{item.year}</div>
+                <div className="text-sm text-safe-muted">Year</div>
               </div>
               <div className="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">{item.category}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Type</div>
+                <div className="text-2xl font-bold text-safe">{item.category}</div>
+                <div className="text-sm text-safe-muted">Type</div>
               </div>
               <div className="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">10/10</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Quality</div>
+                <div className="text-2xl font-bold text-safe">10/10</div>
+                <div className="text-sm text-safe-muted">Quality</div>
               </div>
             </div>
           </div>
 
           {/* Key Highlights */}
           <div className="mb-8">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Key Features & Highlights</h3>
+            <h3 className="text-xl font-semibold text-safe mb-4">Key Features & Highlights</h3>
             <div className="grid gap-3">
               {item.sampleContent.highlights.map((highlight, index) => (
                 <div key={index} className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
@@ -108,7 +108,7 @@ export default function SampleViewer({ item, isOpen, onClose }: SampleViewerProp
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <p className="text-gray-700 dark:text-gray-300">{highlight}</p>
+                  <p className="text-safe">{highlight}</p>
                 </div>
               ))}
             </div>
@@ -117,7 +117,7 @@ export default function SampleViewer({ item, isOpen, onClose }: SampleViewerProp
           {/* Metrics */}
           {item.sampleContent.metrics && (
             <div className="mb-8">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Project Impact & Results</h3>
+              <h3 className="text-xl font-semibold text-safe mb-4">Project Impact & Results</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {item.sampleContent.metrics.map((metric, index) => (
                   <div key={index} className={`text-center p-4 bg-gradient-to-br from-${item.color.from} to-${item.color.to} text-white rounded-lg`}>
@@ -131,11 +131,11 @@ export default function SampleViewer({ item, isOpen, onClose }: SampleViewerProp
 
           {/* Sample Content Preview */}
           <div className="mb-8">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Sample Content Preview</h3>
+            <h3 className="text-xl font-semibold text-safe mb-4">Sample Content Preview</h3>
             <div className="border-l-4 border-indigo-500 pl-4 py-2 bg-gray-50 dark:bg-gray-700 rounded-r-lg">
-              <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">Extract from: {item.title}</div>
+              <div className="text-sm text-safe-muted mb-2">Extract from: {item.title}</div>
               <div className="prose dark:prose-invert max-w-none">
-                <p className="text-gray-700 dark:text-gray-300 italic">
+                <p className="text-safe italic">
                   &ldquo;{item.sampleContent.excerpt}&rdquo;
                 </p>
               </div>
@@ -144,10 +144,10 @@ export default function SampleViewer({ item, isOpen, onClose }: SampleViewerProp
 
           {/* Call to Action */}
           <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 text-center">
-            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            <h4 className="text-lg font-semibold text-safe mb-2">
               Interested in Similar Work?
             </h4>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
+            <p className="text-safe-muted mb-4">
               See how we can create exceptional documentation for your project.
             </p>
             <button

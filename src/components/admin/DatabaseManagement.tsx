@@ -99,22 +99,22 @@ export default function DatabaseManagement() {
   };
 
   const getStatusColor = (connected: boolean) => {
-    return connected ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400';
+    return connected ? 'text-safe-success' : 'text-safe-error';
   };
 
   const getStatusIcon = (connected: boolean) => {
     return connected ? (
-      <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+      <CheckCircle className="w-5 h-5 text-safe-success" />
     ) : (
-      <XCircle className="w-5 h-5 text-red-600 dark:text-red-400" />
+      <XCircle className="w-5 h-5 text-safe-error" />
     );
   };
 
   if (loading && !status) {
     return (
       <div className="flex items-center justify-center h-96">
-        <RefreshCw className="w-8 h-8 animate-spin text-blue-600" />
-        <span className="ml-2 text-gray-600 dark:text-gray-400">Loading database status...</span>
+        <RefreshCw className="w-8 h-8 animate-spin text-safe-accent" />
+        <span className="ml-2 text-safe-muted">Loading database status...</span>
       </div>
     );
   }
@@ -129,7 +129,7 @@ export default function DatabaseManagement() {
       >
         <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+            <h3 className="text-lg font-semibold text-safe flex items-center">
               <Database className="w-5 h-5 mr-2" />
               Database Status
             </h3>
@@ -150,7 +150,7 @@ export default function DatabaseManagement() {
               {/* Database Connection */}
               <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Database</p>
+                  <p className="text-sm font-medium text-safe-muted">Database</p>
                   <p className={`text-lg font-semibold ${getStatusColor(status.databaseConnected)}`}>
                     {status.databaseConnected ? 'Connected' : 'Disconnected'}
                   </p>
@@ -161,40 +161,40 @@ export default function DatabaseManagement() {
               {/* Users Count */}
               <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Users</p>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <p className="text-sm font-medium text-safe-muted">Users</p>
+                  <p className="text-lg font-semibold text-safe">
                     {status.userCount}
                   </p>
                 </div>
-                <Users className="w-8 h-8 text-blue-500" />
+                <Users className="w-8 h-8 text-safe-accent" />
               </div>
 
               {/* Newsletter Subscriptions */}
               <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Newsletters</p>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <p className="text-sm font-medium text-safe-muted">Newsletters</p>
+                  <p className="text-lg font-semibold text-safe">
                     {status.newsletterCount}
                   </p>
                 </div>
-                <Mail className="w-8 h-8 text-green-500" />
+                <Mail className="w-8 h-8 text-safe-success" />
               </div>
 
               {/* Projects */}
               <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Projects</p>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <p className="text-sm font-medium text-safe-muted">Projects</p>
+                  <p className="text-lg font-semibold text-safe">
                     {status.projectCount}
                   </p>
                 </div>
-                <FolderOpen className="w-8 h-8 text-purple-500" />
+                <FolderOpen className="w-8 h-8 text-safe-accent" />
               </div>
             </div>
           ) : (
             <div className="text-center py-8">
-              <AlertTriangle className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
-              <p className="text-gray-600 dark:text-gray-400">Unable to load database status</p>
+              <AlertTriangle className="w-12 h-12 text-safe-warning mx-auto mb-4" />
+              <p className="text-safe-muted">Unable to load database status</p>
             </div>
           )}
         </div>
@@ -208,11 +208,11 @@ export default function DatabaseManagement() {
         className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700"
       >
         <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+          <h3 className="text-lg font-semibold text-safe flex items-center">
             <Activity className="w-5 h-5 mr-2" />
             Database Migration
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-sm text-safe-muted mt-1">
             Migrate data from in-memory storage to PostgreSQL database
           </p>
         </div>
@@ -220,10 +220,10 @@ export default function DatabaseManagement() {
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+              <h4 className="text-sm font-medium text-safe">
                 Migrate to PostgreSQL
               </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-safe-muted">
                 This will create users, newsletter subscriptions, and sample projects in the database
               </p>
             </div>
@@ -249,8 +249,8 @@ export default function DatabaseManagement() {
           {!status?.databaseConnected && (
             <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg mb-4">
               <div className="flex items-center">
-                <AlertTriangle className="w-5 h-5 text-yellow-600 dark:text-yellow-400 mr-2" />
-                <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                <AlertTriangle className="w-5 h-5 text-safe-warning dark:text-yellow-400 mr-2" />
+                <p className="text-sm text-safe-warning dark:text-yellow-200">
                   Database connection required before running migration
                 </p>
               </div>
@@ -268,11 +268,11 @@ export default function DatabaseManagement() {
           className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700"
         >
           <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+            <h3 className="text-lg font-semibold text-safe flex items-center">
               {lastMigration.success ? (
-                <CheckCircle className="w-5 h-5 mr-2 text-green-600" />
+                <CheckCircle className="w-5 h-5 mr-2 text-safe-success" />
               ) : (
-                <XCircle className="w-5 h-5 mr-2 text-red-600" />
+                <XCircle className="w-5 h-5 mr-2 text-safe-error" />
               )}
               Migration Results
             </h3>
@@ -286,8 +286,8 @@ export default function DatabaseManagement() {
             }`}>
               <p className={`text-sm font-medium ${
                 lastMigration.success 
-                  ? 'text-green-800 dark:text-green-200'
-                  : 'text-red-800 dark:text-red-200'
+                  ? 'text-safe-success dark:text-green-200'
+                  : 'text-safe-error dark:text-red-200'
               }`}>
                 {lastMigration.message}
               </p>
@@ -296,34 +296,34 @@ export default function DatabaseManagement() {
             {/* Migration Statistics */}
             <div className="grid md:grid-cols-3 gap-4 mb-4">
               <div className="text-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                <p className="text-2xl font-bold text-safe-accent">
                   {lastMigration.data.users}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Users Migrated</p>
+                <p className="text-sm text-safe-muted">Users Migrated</p>
               </div>
               <div className="text-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+                <p className="text-2xl font-bold text-safe-success">
                   {lastMigration.data.newsletters}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Newsletter Subs</p>
+                <p className="text-sm text-safe-muted">Newsletter Subs</p>
               </div>
               <div className="text-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                <p className="text-2xl font-bold text-safe-accent dark:text-purple-400">
                   {lastMigration.data.sessions}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Sessions</p>
+                <p className="text-sm text-safe-muted">Sessions</p>
               </div>
             </div>
 
             {/* Errors */}
             {lastMigration.errors.length > 0 && (
               <div>
-                <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
+                <h4 className="text-sm font-medium text-safe mb-2">
                   Migration Errors:
                 </h4>
                 <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3">
                   {lastMigration.errors.map((error, index) => (
-                    <p key={index} className="text-sm text-red-800 dark:text-red-200 mb-1">
+                    <p key={index} className="text-sm text-safe-error dark:text-red-200 mb-1">
                       • {error}
                     </p>
                   ))}

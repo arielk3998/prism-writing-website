@@ -175,7 +175,7 @@ export function AdminConfiguration() {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-2xl font-bold text-safe">
           Administrative Configuration
         </h2>
         <div className="flex space-x-3">
@@ -206,8 +206,8 @@ export function AdminConfiguration() {
             onClick={() => setActiveTab(tab.id)}
             className={`flex-1 flex items-center justify-center space-x-2 py-2 px-4 rounded-md transition-all ${
               activeTab === tab.id
-                ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
-                : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                ? 'bg-white dark:bg-gray-600 text-safe-accent shadow-sm'
+                : 'text-safe-muted hover:text-safe dark:hover:text-white'
             }`}
           >
             <span>{tab.icon}</span>
@@ -257,7 +257,7 @@ export function AdminConfiguration() {
 
       {hasChanges && (
         <div className="mt-6 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg">
-          <p className="text-sm text-yellow-800 dark:text-yellow-200">
+          <p className="text-sm text-safe-warning dark:text-yellow-200">
             ⚠️ You have unsaved changes. Don&apos;t forget to save your configuration.
           </p>
         </div>
@@ -280,28 +280,28 @@ function SecuritySettings({
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-safe mb-2">
             Session Timeout (minutes)
           </label>
           <input
             type="number"
             value={settings.sessionTimeout}
             onChange={(e) => updateSettings('sessionTimeout', parseInt(e.target.value))}
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
             min="5"
             max="480"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-safe mb-2">
             Max Login Attempts
           </label>
           <input
             type="number"
             value={settings.maxLoginAttempts}
             onChange={(e) => updateSettings('maxLoginAttempts', parseInt(e.target.value))}
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
             min="3"
             max="10"
           />
@@ -309,31 +309,31 @@ function SecuritySettings({
       </div>
 
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Password Policy</h3>
+        <h3 className="text-lg font-semibold text-safe mb-4">Password Policy</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-safe mb-2">
               Minimum Length
             </label>
             <input
               type="number"
               value={settings.passwordPolicy.minLength}
               onChange={(e) => updateNestedSettings('passwordPolicy', 'minLength', parseInt(e.target.value))}
-              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
               min="8"
               max="50"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-safe mb-2">
               Max Age (days)
             </label>
             <input
               type="number"
               value={settings.passwordPolicy.maxAge}
               onChange={(e) => updateNestedSettings('passwordPolicy', 'maxAge', parseInt(e.target.value))}
-              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
               min="30"
               max="365"
             />
@@ -352,9 +352,9 @@ function SecuritySettings({
                 type="checkbox"
                 checked={settings.passwordPolicy[key as keyof typeof settings.passwordPolicy] as boolean}
                 onChange={(e) => updateNestedSettings('passwordPolicy', key, e.target.checked)}
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
               />
-              <span className="text-sm text-gray-700 dark:text-gray-300">{label}</span>
+              <span className="text-sm text-safe">{label}</span>
             </label>
           ))}
         </div>
@@ -370,9 +370,9 @@ function SecuritySettings({
               type="checkbox"
               checked={settings[key as keyof typeof settings] as boolean}
               onChange={(e) => updateSettings(key, e.target.checked)}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
             />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</span>
+            <span className="text-sm font-medium text-safe">{label}</span>
           </label>
         ))}
       </div>
@@ -394,13 +394,13 @@ function SystemSettings({
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-safe mb-2">
             Backup Frequency
           </label>
           <select
             value={settings.backupFrequency}
             onChange={(e) => updateSettings('backupFrequency', e.target.value)}
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
           >
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
@@ -409,28 +409,28 @@ function SystemSettings({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-safe mb-2">
             Log Retention (days)
           </label>
           <input
             type="number"
             value={settings.logRetention}
             onChange={(e) => updateSettings('logRetention', parseInt(e.target.value))}
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
             min="30"
             max="2555"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-safe mb-2">
             Max File Size (MB)
           </label>
           <input
             type="number"
             value={settings.maxFileSize}
             onChange={(e) => updateSettings('maxFileSize', parseInt(e.target.value))}
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
             min="1"
             max="1000"
           />
@@ -438,27 +438,27 @@ function SystemSettings({
       </div>
 
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Rate Limiting</h3>
+        <h3 className="text-lg font-semibold text-safe mb-4">Rate Limiting</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="flex items-center space-x-3">
             <input
               type="checkbox"
               checked={settings.rateLimiting.enabled}
               onChange={(e) => updateNestedSettings('rateLimiting', 'enabled', e.target.checked)}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
             />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Enable Rate Limiting</span>
+            <span className="text-sm font-medium text-safe">Enable Rate Limiting</span>
           </label>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-safe mb-2">
               Requests per Minute
             </label>
             <input
               type="number"
               value={settings.rateLimiting.requestsPerMinute}
               onChange={(e) => updateNestedSettings('rateLimiting', 'requestsPerMinute', parseInt(e.target.value))}
-              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
               min="10"
               max="1000"
               disabled={!settings.rateLimiting.enabled}
@@ -472,14 +472,14 @@ function SystemSettings({
           type="checkbox"
           checked={settings.maintenanceMode}
           onChange={(e) => updateSettings('maintenanceMode', e.target.checked)}
-          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
         />
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Maintenance Mode</span>
+        <span className="text-sm font-medium text-safe">Maintenance Mode</span>
       </label>
 
       {settings.maintenanceMode && (
         <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg">
-          <p className="text-sm text-yellow-800 dark:text-yellow-200">
+          <p className="text-sm text-safe-warning dark:text-yellow-200">
             ⚠️ Maintenance mode is enabled. Only administrators can access the system.
           </p>
         </div>
@@ -499,14 +499,14 @@ function NotificationSettings({
   return (
     <div className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-safe mb-2">
           Admin Email Address
         </label>
         <input
           type="email"
           value={settings.adminEmail}
           onChange={(e) => updateSettings('adminEmail', e.target.value)}
-          className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
           placeholder="admin@prismwriting.com"
         />
       </div>
@@ -523,9 +523,9 @@ function NotificationSettings({
               type="checkbox"
               checked={settings[key as keyof typeof settings] as boolean}
               onChange={(e) => updateSettings(key, e.target.checked)}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
             />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</span>
+            <span className="text-sm font-medium text-safe">{label}</span>
           </label>
         ))}
       </div>
@@ -555,9 +555,9 @@ function ContentSettings({
               type="checkbox"
               checked={settings[key as keyof typeof settings] as boolean}
               onChange={(e) => updateSettings(key, e.target.checked)}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
             />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</span>
+            <span className="text-sm font-medium text-safe">{label}</span>
           </label>
         ))}
       </div>

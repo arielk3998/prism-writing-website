@@ -78,14 +78,14 @@ export default function EnhancedFooter() {
           <div className="lg:col-span-1">
             <div className="mb-6">
               <h3 className="text-xl font-bold mb-2">{BUSINESS_INFO.name}</h3>
-              <p className="text-gray-300 text-sm mb-4">{BUSINESS_INFO.tagline}</p>
-              <p className="text-gray-400 text-sm leading-relaxed">
+              <p className="text-safe-muted text-sm mb-4">{BUSINESS_INFO.tagline}</p>
+              <p className="text-safe-muted text-sm leading-relaxed">
                 {SITE_CONFIG.description}
               </p>
             </div>
             
             {/* Contact Info */}
-            <div className="space-y-2 text-sm text-gray-400">
+            <div className="space-y-2 text-sm text-safe-muted">
               <p>📧 {BUSINESS_INFO.contact.email}</p>
               <p>📞 {BUSINESS_INFO.contact.phone}</p>
               <p>🕐 {BUSINESS_INFO.contact.hours}</p>
@@ -100,7 +100,7 @@ export default function EnhancedFooter() {
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                    className="text-safe-muted hover:text-white transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -117,7 +117,7 @@ export default function EnhancedFooter() {
                 <li key={service.name}>
                   <Link 
                     href={service.href}
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                    className="text-safe-muted hover:text-white transition-colors text-sm"
                   >
                     {service.name}
                   </Link>
@@ -134,7 +134,7 @@ export default function EnhancedFooter() {
                 <li key={resource.name}>
                   <Link 
                     href={resource.href}
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                    className="text-safe-muted hover:text-white transition-colors text-sm"
                   >
                     {resource.name}
                   </Link>
@@ -142,13 +142,13 @@ export default function EnhancedFooter() {
               ))}
             </ul>
             
-            <h5 className="text-sm font-semibold mb-3 text-gray-400">Legal</h5>
+            <h5 className="text-sm font-semibold mb-3 text-safe-muted">Legal</h5>
             <ul className="space-y-2">
               {FOOTER_NAVIGATION.legal.map((legal) => (
                 <li key={legal.name}>
                   <Link 
                     href={legal.href}
-                    className="text-gray-400 hover:text-gray-300 transition-colors text-xs"
+                    className="text-safe-muted hover:text-safe-muted transition-colors text-xs"
                   >
                     {legal.name}
                   </Link>
@@ -168,7 +168,7 @@ export default function EnhancedFooter() {
                   <span className="text-indigo-400 font-bold text-sm">{cert.badge.slice(0, 3)}</span>
                 </div>
                 <h5 className="text-sm font-medium text-white mb-1">{cert.badge}</h5>
-                <p className="text-xs text-gray-400">{cert.name}</p>
+                <p className="text-xs text-safe-muted">{cert.name}</p>
               </div>
             ))}
           </div>
@@ -178,7 +178,7 @@ export default function EnhancedFooter() {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="max-w-md mx-auto text-center">
             <h4 className="text-lg font-semibold mb-4">Stay Updated</h4>
-            <p className="text-gray-400 text-sm mb-6">
+            <p className="text-safe-muted text-sm mb-6">
               Get monthly insights on technical writing best practices and industry trends.
             </p>
             
@@ -220,10 +220,10 @@ export default function EnhancedFooter() {
                   id="newsletter-consent"
                   checked={consent}
                   onChange={(e) => setConsent(e.target.checked)}
-                  className="mt-1 w-4 h-4 text-indigo-600 border-gray-600 rounded focus:ring-indigo-600 focus:ring-2 bg-gray-800"
+                  className="mt-1 w-4 h-4 text-safe-accent border-gray-600 rounded focus:ring-indigo-600 focus:ring-2 bg-gray-800"
                   required
                 />
-                <label htmlFor="newsletter-consent" className="text-xs text-gray-400 leading-tight">
+                <label htmlFor="newsletter-consent" className="text-xs text-safe-muted leading-tight">
                   I agree to receive marketing communications from {BUSINESS_INFO.name}. You can unsubscribe at any time using the link in our emails. 
                   <Link href="/privacy" className="text-indigo-400 hover:text-indigo-300 underline">
                     Privacy Policy
@@ -239,7 +239,7 @@ export default function EnhancedFooter() {
       <div className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">
+            <div className="text-safe-muted text-sm mb-4 md:mb-0">
               © {new Date().getFullYear()} {BUSINESS_INFO.name}. All rights reserved.
             </div>
             
@@ -249,7 +249,7 @@ export default function EnhancedFooter() {
                 href={SOCIAL_LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-safe-muted hover:text-white transition-colors"
               >
                 <span className="sr-only">LinkedIn</span>
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -260,7 +260,7 @@ export default function EnhancedFooter() {
                 href={SOCIAL_LINKS.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-safe-muted hover:text-white transition-colors"
               >
                 <span className="sr-only">Twitter</span>
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -271,7 +271,7 @@ export default function EnhancedFooter() {
                 href={SOCIAL_LINKS.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-safe-muted hover:text-white transition-colors"
               >
                 <span className="sr-only">GitHub</span>
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

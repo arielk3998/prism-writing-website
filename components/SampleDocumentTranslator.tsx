@@ -5,6 +5,7 @@ import { FileText, Languages, Clock, BarChart3, Globe2 } from 'lucide-react';
 import LanguageSelector from './LanguageSelector';
 import { Language, getLanguageByCode, languages } from '../lib/languages';
 import { SampleDocument, sampleDocuments, getDocumentById } from '../lib/sample-documents';
+import { BlueHighlight, SafeText } from './ui/AutoContrastText';
 
 export default function SampleDocumentTranslator() {
   const [selectedDocument, setSelectedDocument] = useState<SampleDocument>(sampleDocuments[0]);
@@ -29,11 +30,11 @@ export default function SampleDocumentTranslator() {
 
   const getComplexityColor = (complexity: string) => {
     switch (complexity) {
-      case 'basic': return 'text-green-600 bg-green-100';
-      case 'intermediate': return 'text-yellow-600 bg-yellow-100';
-      case 'advanced': return 'text-orange-600 bg-orange-100';
-      case 'expert': return 'text-red-600 bg-red-100';
-      default: return 'text-muted-foreground bg-muted';
+      case 'basic': return 'highlight-green';
+      case 'intermediate': return 'highlight-yellow';
+      case 'advanced': return 'highlight-orange';
+      case 'expert': return 'highlight-red';
+      default: return 'highlight-neutral';
     }
   };
 
@@ -58,27 +59,29 @@ export default function SampleDocumentTranslator() {
       {/* Header */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-3">
-          <Languages className="w-8 h-8 text-blue-600" />
-          <h1 className="text-3xl font-bold text-gray-900">Translation Services Demo</h1>
+          <BlueHighlight className="w-8 h-8">
+            <Languages className="w-8 h-8" />
+          </BlueHighlight>
+          <SafeText as="h1" className="text-3xl font-bold">Translation Services Demo</SafeText>
         </div>
-        <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+        <SafeText as="p" className="text-lg max-w-3xl mx-auto">
           Explore our professional translation capabilities with real sample documents. 
-          Select any document type and see instant translations to <strong className="text-blue-600">80+ languages</strong>.
-        </p>
+          Select any document type and see instant translations to <BlueHighlight>80+ languages</BlueHighlight>.
+        </SafeText>
         <div className="flex justify-center mt-4">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
-            <span className="text-blue-800 font-semibold">🌍 80+ World Languages Available</span>
-            <span className="text-blue-600 text-sm ml-2">Click "All Languages" tab to browse complete list</span>
+          <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg px-4 py-2">
+            <SafeText onBackground="light" className="font-semibold">🌍 80+ World Languages Available</SafeText>
+            <SafeText onBackground="light" className="text-sm ml-2">Click "All Languages" tab to browse complete list</SafeText>
           </div>
         </div>
       </div>
 
       {/* Document Selection */}
       <div className="bg-white rounded-xl shadow-lg p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+        <SafeText as="h2" className="text-xl font-semibold mb-4 flex items-center">
           <FileText className="w-5 h-5 mr-2" />
           Sample Documents
-        </h2>
+        </SafeText>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {sampleDocuments.map((doc) => (
             <button
@@ -92,7 +95,7 @@ export default function SampleDocumentTranslator() {
             >
               <div className="flex items-center space-x-2 mb-2">
                 <span className="text-2xl">{getTypeIcon(doc.type)}</span>
-                <span className="font-medium text-gray-900">{doc.title}</span>
+                <SafeText className="font-medium">{doc.title}</SafeText>
               </div>
               <div className="space-y-1">
                 <div className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${getComplexityColor(doc.complexity)}`}>
@@ -110,14 +113,16 @@ export default function SampleDocumentTranslator() {
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-6">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-              <Languages className="w-5 h-5 text-blue-600" />
+              <BlueHighlight className="w-5 h-5">
+                <Languages className="w-5 h-5" />
+              </BlueHighlight>
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">� Click "Target Language" to See 80+ Languages</h3>
-              <p className="text-muted-foreground">
+              <SafeText as="h3" className="text-lg font-semibold">📱 Click "Target Language" to See 80+ Languages</SafeText>
+              <SafeText as="p" className="">
                 Select any target language from our complete list of 80+ world languages to see professional translations of the {selectedDocument.title.toLowerCase()}. 
-                <strong className="text-blue-600 ml-1">Try Spanish, French, Chinese, Arabic, or browse all 80+ languages!</strong>
-              </p>
+                <BlueHighlight className="ml-1">Try Spanish, French, Chinese, Arabic, or browse all 80+ languages!</BlueHighlight>
+              </SafeText>
             </div>
           </div>
         </div>
@@ -129,7 +134,7 @@ export default function SampleDocumentTranslator() {
         <div className="lg:col-span-1">
           <div className="bg-white rounded-xl shadow-lg p-6 h-full">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Original Document</h3>
+              <SafeText as="h3" className="text-lg font-semibold">Original Document</SafeText>
               <div className="flex items-center space-x-2">
                 <Globe2 className="w-4 h-4 text-muted-foreground" />
                 <span className="text-sm text-muted-foreground">
@@ -153,9 +158,9 @@ export default function SampleDocumentTranslator() {
 
             <div className="prose prose-sm max-w-none">
               <div className="bg-gray-50 rounded-lg p-4 max-h-96 overflow-y-auto">
-                <pre className="whitespace-pre-wrap font-sans text-sm text-gray-700 leading-relaxed">
+                <SafeText as="pre" className="whitespace-pre-wrap font-sans text-sm leading-relaxed">
                   {selectedDocument.content}
-                </pre>
+                </SafeText>
               </div>
             </div>
           </div>
@@ -164,16 +169,16 @@ export default function SampleDocumentTranslator() {
         {/* Translation Controls */}
         <div className="lg:col-span-2">
           <div className="bg-white rounded-xl shadow-lg p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Translation Options</h3>
+            <SafeText as="h3" className="text-lg font-semibold mb-6">Translation Options</SafeText>
             
             {/* Language Selection */}
             <div className="space-y-4 mb-6">
-              <label className="block text-sm font-medium text-gray-700">
+              <SafeText as="label" className="block text-sm font-medium">
                 Target Language
-              </label>
-              <div className="mb-2 text-sm text-blue-600">
+              </SafeText>
+              <SafeText className="mb-2 text-sm">
                 📍 We support {languages.length} world languages - click below to browse all options
-              </div>
+              </SafeText>
               <div className="mb-3 text-xs text-muted-foreground">
                 Popular languages: Spanish, French, German, Chinese, Japanese, Arabic, Russian, Portuguese, Italian, Korean, and {languages.length - 10} more...
               </div>
@@ -189,17 +194,17 @@ export default function SampleDocumentTranslator() {
             {/* Translation Stats */}
             {targetLanguage && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <div className="text-2xl font-bold text-blue-600">{estimatedTime}h</div>
-                  <div className="text-sm text-blue-600">Estimated Time</div>
+                <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4">
+                  <div className="text-2xl font-bold text-safe-accent dark:text-blue-100">{estimatedTime}h</div>
+                  <div className="text-sm text-safe-accent">Estimated Time</div>
                 </div>
                 <div className="bg-green-50 rounded-lg p-4">
-                  <div className="text-2xl font-bold text-green-600">${estimatedCost}</div>
-                  <div className="text-sm text-green-600">Estimated Cost</div>
+                  <div className="text-2xl font-bold text-safe-success">${estimatedCost}</div>
+                  <div className="text-sm text-safe-success">Estimated Cost</div>
                 </div>
                 <div className="bg-purple-50 rounded-lg p-4">
-                  <div className="text-2xl font-bold text-purple-600">99%</div>
-                  <div className="text-sm text-purple-600">Accuracy Rate</div>
+                  <div className="text-2xl font-bold text-safe-accent">99%</div>
+                  <div className="text-sm text-safe-accent">Accuracy Rate</div>
                 </div>
               </div>
             )}
@@ -229,11 +234,11 @@ export default function SampleDocumentTranslator() {
                 <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                   <div className="flex items-center space-x-2">
                     <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <span className="text-green-600 text-lg">✓</span>
+                      <span className="text-safe-success text-lg">✓</span>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-green-800">Professional Translation Complete!</h4>
-                      <p className="text-sm text-green-700">
+                      <h4 className="font-semibold text-safe-success">Professional Translation Complete!</h4>
+                      <p className="text-sm text-safe-success">
                         This is a real example translated by our professional team
                       </p>
                     </div>
@@ -241,7 +246,7 @@ export default function SampleDocumentTranslator() {
                 </div>
                 
                 <div className="flex items-center justify-between mb-4">
-                  <h4 className="text-md font-semibold text-gray-900">Translation Result</h4>
+                  <h4 className="text-md font-semibold text-safe">Translation Result</h4>
                   <div className="flex items-center space-x-2">
                     <Globe2 className="w-4 h-4 text-muted-foreground" />
                     <span className="text-sm text-muted-foreground">
@@ -251,7 +256,7 @@ export default function SampleDocumentTranslator() {
                 </div>
                 
                 <div className="bg-gray-50 rounded-lg p-4 max-h-96 overflow-y-auto">
-                  <pre className={`whitespace-pre-wrap font-sans text-sm text-gray-700 leading-relaxed ${
+                  <pre className={`whitespace-pre-wrap font-sans text-sm text-safe leading-relaxed ${
                     targetLanguage.direction === 'rtl' ? 'text-right' : 'text-left'
                   }`} dir={targetLanguage.direction}>
                     {getTranslation()}
@@ -265,11 +270,11 @@ export default function SampleDocumentTranslator() {
               <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <div className="flex items-center space-x-2">
                   <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
-                    <Languages className="w-4 h-4 text-yellow-600" />
+                    <Languages className="w-4 h-4 text-safe-warning" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-yellow-800">Translation Coming Soon</h4>
-                    <p className="text-sm text-yellow-700">
+                    <h4 className="font-medium text-safe-warning">Translation Coming Soon</h4>
+                    <p className="text-sm text-safe-warning">
                       We're preparing translations for {targetLanguage.name}. 
                       Contact us for a custom quote for this language pair.
                     </p>
@@ -283,15 +288,15 @@ export default function SampleDocumentTranslator() {
 
       {/* Call to Action */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-8 text-center">
-        <h2 className="text-2xl font-bold mb-4">Ready to Get Your Documents Translated?</h2>
-        <p className="text-lg mb-6 opacity-90">
+        <h2 className="text-2xl font-bold mb-4 text-white drop-shadow-lg">Ready to Get Your Documents Translated?</h2>
+        <p className="text-lg mb-6 text-white/95 drop-shadow-md">
           Professional translation services for over 80+ languages with expert human translators
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/translation-quote" className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center">
+          <a href="/translation-quote" className="bg-white text-safe-accent px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center">
             Get Free Quote
           </a>
-          <a href="/translation-quote" className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors text-center">
+          <a href="/translation-quote" className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-safe-accent transition-colors text-center">
             Contact Us
           </a>
         </div>

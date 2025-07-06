@@ -180,7 +180,7 @@ export default function AuthPage() {
                     Select your role to preview the functionality available for your user type.
                   </p>
                   <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 max-w-2xl mx-auto">
-                    <p className="text-yellow-800 text-sm">
+                    <p className="text-safe-warning text-sm">
                       <strong>Functional Audit Discovery:</strong> Advanced portal components exist in the codebase 
                       but are not currently accessible to users. This represents significant hidden value.
                     </p>
@@ -198,7 +198,7 @@ export default function AuthPage() {
                       className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
                         activeTab === 'customer'
                           ? 'bg-white text-primary shadow-sm'
-                          : 'text-gray-600 hover:text-gray-900'
+                          : 'text-safe-muted hover:text-safe'
                       }`}
                     >
                       Customer Portals
@@ -211,7 +211,7 @@ export default function AuthPage() {
                       className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
                         activeTab === 'internal'
                           ? 'bg-white text-primary shadow-sm'
-                          : 'text-gray-600 hover:text-gray-900'
+                          : 'text-safe-muted hover:text-safe'
                       }`}
                     >
                       Internal Team
@@ -289,7 +289,7 @@ export default function AuthPage() {
                 <div className="text-center mb-8">
                   {activeTab === 'customer' ? (
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-2xl mx-auto">
-                      <p className="text-blue-800 text-sm">
+                      <p className="text-safe-accent text-sm">
                         <strong>Customer Portals:</strong> External-facing interfaces for clients to manage their projects, 
                         view progress, and communicate with the team. Customers only see their own projects and data.
                       </p>
@@ -399,15 +399,15 @@ export default function AuthPage() {
                     <CardContent>
                       <div className="space-y-2">
                         <div className="flex items-center text-sm">
-                          <User className="w-4 h-4 mr-2 text-green-500" />
+                          <User className="w-4 h-4 mr-2 text-safe-success" />
                           <span>5 Active Members</span>
                         </div>
                         <div className="flex items-center text-sm">
-                          <Mail className="w-4 h-4 mr-2 text-blue-500" />
+                          <Mail className="w-4 h-4 mr-2 text-safe-accent" />
                           <span>12 Notifications</span>
                         </div>
                         <div className="flex items-center text-sm">
-                          <Settings className="w-4 h-4 mr-2 text-gray-500" />
+                          <Settings className="w-4 h-4 mr-2 text-safe-muted" />
                           <span>Role Management</span>
                         </div>
                       </div>
@@ -417,16 +417,16 @@ export default function AuthPage() {
 
                 {/* Feature Availability Notice */}
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                  <h3 className="font-semibold text-blue-900 mb-2">🔧 Implementation Status</h3>
-                  <p className="text-blue-800 text-sm mb-4">
+                  <h3 className="font-semibold text-safe-accent mb-2">🔧 Implementation Status</h3>
+                  <p className="text-safe-accent text-sm mb-4">
                     These features are fully developed and available in the codebase at 
                     <code className="bg-blue-100 px-2 py-1 rounded mx-1">/src/components/portal/</code>
                     but require authentication deployment to be accessible.
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div>
-                      <strong className="text-blue-900">Ready Components:</strong>
-                      <ul className="mt-1 space-y-1 text-blue-700">
+                      <strong className="text-safe-accent">Ready Components:</strong>
+                      <ul className="mt-1 space-y-1 text-safe-accent">
                         <li>• Dashboard.tsx</li>
                         <li>• ProjectManagement.tsx</li>
                         <li>• FileManager.tsx</li>
@@ -434,8 +434,8 @@ export default function AuthPage() {
                       </ul>
                     </div>
                     <div>
-                      <strong className="text-blue-900">Implementation Needed:</strong>
-                      <ul className="mt-1 space-y-1 text-blue-700">
+                      <strong className="text-safe-accent">Implementation Needed:</strong>
+                      <ul className="mt-1 space-y-1 text-safe-accent">
                         <li>• User authentication routes</li>
                         <li>• Portal page deployment</li>
                         <li>• Role-based access control</li>

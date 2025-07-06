@@ -91,10 +91,10 @@ export default function PWAInstallPrompt() {
           </div>
           
           <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-semibold text-gray-900 mb-1">
+            <h3 className="text-sm font-semibold text-safe mb-1">
               Install Prism Writing
             </h3>
-            <p className="text-xs text-gray-600 mb-3">
+            <p className="text-xs text-safe-muted mb-3">
               Get quick access and work offline by installing our app on your device.
             </p>
             
@@ -107,7 +107,7 @@ export default function PWAInstallPrompt() {
               </button>
               <button
                 onClick={handleDismiss}
-                className="bg-gray-100 text-gray-700 px-3 py-1.5 rounded text-xs font-medium hover:bg-gray-200 transition-colors"
+                className="bg-gray-100 text-safe px-3 py-1.5 rounded text-xs font-medium hover:bg-gray-200 transition-colors"
               >
                 Later
               </button>
@@ -116,7 +116,7 @@ export default function PWAInstallPrompt() {
           
           <button
             onClick={handleDismiss}
-            className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+            className="flex-shrink-0 text-safe-muted hover:text-safe-muted transition-colors"
           >
             <span className="sr-only">Close</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

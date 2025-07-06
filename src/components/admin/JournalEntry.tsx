@@ -193,7 +193,7 @@ export default function JournalEntry() {
     <div className="space-y-6">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg">
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold flex items-center gap-2 text-gray-900 dark:text-white">
+          <h2 className="text-2xl font-bold flex items-center gap-2 text-safe">
             <FileText className="h-6 w-6" />
             Journal Entry
           </h2>
@@ -203,19 +203,19 @@ export default function JournalEntry() {
             {/* Header Information */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                <label className="block text-sm font-medium mb-2 text-safe">
                   Entry Number
                 </label>
                 <input
                   type="text"
                   value={journalEntry.entryNumber}
                   onChange={(e) => setJournalEntry(prev => ({ ...prev, entryNumber: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-100 dark:bg-gray-700 text-safe"
                   readOnly
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                <label className="block text-sm font-medium mb-2 text-safe">
                   Date *
                 </label>
                 <input
@@ -223,25 +223,25 @@ export default function JournalEntry() {
                   required
                   value={journalEntry.date}
                   onChange={(e) => setJournalEntry(prev => ({ ...prev, date: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-safe"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                <label className="block text-sm font-medium mb-2 text-safe">
                   Reference
                 </label>
                 <input
                   type="text"
                   value={journalEntry.reference}
                   onChange={(e) => setJournalEntry(prev => ({ ...prev, reference: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-safe"
                   placeholder="Invoice #, Check #, etc."
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+              <label className="block text-sm font-medium mb-2 text-safe">
                 Description *
               </label>
               <textarea
@@ -249,7 +249,7 @@ export default function JournalEntry() {
                 value={journalEntry.description}
                 onChange={(e) => setJournalEntry(prev => ({ ...prev, description: e.target.value }))}
                 rows={2}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-safe"
                 placeholder="Brief description of the transaction"
               />
             </div>
@@ -257,7 +257,7 @@ export default function JournalEntry() {
             {/* Journal Entry Lines */}
             <div>
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">Journal Entry Lines</h3>
+                <h3 className="text-lg font-medium text-safe">Journal Entry Lines</h3>
                 <button
                   type="button"
                   onClick={addLine}
@@ -273,11 +273,11 @@ export default function JournalEntry() {
                   <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead className="bg-gray-50 dark:bg-gray-700">
                       <tr>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Account</th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Description</th>
-                        <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Debit</th>
-                        <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Credit</th>
-                        <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">Account</th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">Description</th>
+                        <th className="px-4 py-3 text-right text-xs font-medium text-safe-muted uppercase tracking-wider">Debit</th>
+                        <th className="px-4 py-3 text-right text-xs font-medium text-safe-muted uppercase tracking-wider">Credit</th>
+                        <th className="px-4 py-3 text-center text-xs font-medium text-safe-muted uppercase tracking-wider">Actions</th>
                       </tr>
                     </thead>
                     <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
@@ -287,7 +287,7 @@ export default function JournalEntry() {
                             <select
                               value={line.accountId}
                               onChange={(e) => updateLine(line.id, 'accountId', e.target.value)}
-                              className="w-full px-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                              className="w-full px-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-safe"
                               required
                             >
                               <option value="">Select account...</option>
@@ -303,7 +303,7 @@ export default function JournalEntry() {
                               type="text"
                               value={line.description}
                               onChange={(e) => updateLine(line.id, 'description', e.target.value)}
-                              className="w-full px-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                              className="w-full px-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-safe"
                               placeholder="Line description..."
                             />
                           </td>
@@ -317,7 +317,7 @@ export default function JournalEntry() {
                                 updateLine(line.id, 'debitAmount', parseFloat(e.target.value) || 0);
                                 updateLine(line.id, 'creditAmount', 0);
                               }}
-                              className="w-full px-2 py-1 text-sm text-right border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                              className="w-full px-2 py-1 text-sm text-right border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-safe"
                               placeholder="0.00"
                             />
                           </td>
@@ -331,7 +331,7 @@ export default function JournalEntry() {
                                 updateLine(line.id, 'creditAmount', parseFloat(e.target.value) || 0);
                                 updateLine(line.id, 'debitAmount', 0);
                               }}
-                              className="w-full px-2 py-1 text-sm text-right border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                              className="w-full px-2 py-1 text-sm text-right border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-safe"
                               placeholder="0.00"
                             />
                           </td>
@@ -340,7 +340,7 @@ export default function JournalEntry() {
                               <button
                                 type="button"
                                 onClick={() => removeLine(line.id)}
-                                className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
+                                className="text-safe-error hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
                               >
                                 <Minus className="h-4 w-4" />
                               </button>
@@ -358,23 +358,23 @@ export default function JournalEntry() {
             <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="text-center">
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Total Debits</div>
-                  <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <div className="text-sm text-safe-muted">Total Debits</div>
+                  <div className="text-lg font-semibold text-safe">
                     {formatCurrency(getTotalDebits())}
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Total Credits</div>
-                  <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <div className="text-sm text-safe-muted">Total Credits</div>
+                  <div className="text-lg font-semibold text-safe">
                     {formatCurrency(getTotalCredits())}
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Balance</div>
+                  <div className="text-sm text-safe-muted">Balance</div>
                   <div className={`text-lg font-semibold ${
                     isBalanced() 
-                      ? 'text-green-600 dark:text-green-400' 
-                      : 'text-red-600 dark:text-red-400'
+                      ? 'text-safe-success' 
+                      : 'text-safe-error'
                   }`}>
                     {formatCurrency(Math.abs(getTotalDebits() - getTotalCredits()))}
                     {isBalanced() && ' ✓'}
@@ -384,7 +384,7 @@ export default function JournalEntry() {
               
               {!isBalanced() && getTotalDebits() > 0 && getTotalCredits() > 0 && (
                 <div className="mt-3 p-3 bg-red-100 dark:bg-red-900 border border-red-200 dark:border-red-800 rounded-md">
-                  <div className="text-sm text-red-800 dark:text-red-200">
+                  <div className="text-sm text-safe-error dark:text-red-200">
                     ⚠️ Journal entry is not balanced. Total debits must equal total credits.
                   </div>
                 </div>
@@ -396,14 +396,14 @@ export default function JournalEntry() {
               <button
                 type="button"
                 onClick={() => window.history.back()}
-                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-safe hover:bg-gray-50 dark:hover:bg-gray-700"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={saving || !isBalanced()}
-                className="flex items-center gap-2 px-4 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 dark:hover:bg-blue-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center gap-2 px-4 py-2 border border-blue-600 text-safe-accent rounded-md hover:bg-blue-50 dark:hover:bg-blue-900 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Save className="h-4 w-4" />
                 {saving ? 'Saving...' : 'Save as Draft'}

@@ -380,7 +380,7 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                         </div>
                         {stat.trend && (
                           <div className={`flex items-center text-sm ${
-                            stat.trend.direction === 'up' ? 'text-green-600' : 'text-red-600'
+                            stat.trend.direction === 'up' ? 'text-safe-success' : 'text-safe-error'
                           }`}>
                             <span className="mr-1">
                               {stat.trend.direction === 'up' ? '↗' : '↘'}
@@ -389,10 +389,10 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                           </div>
                         )}
                       </div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+                      <p className="text-sm font-medium text-safe-muted mb-1">
                         {stat.label}
                       </p>
-                      <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                      <p className="text-2xl font-bold text-safe">
                         {stat.value}
                       </p>
                     </div>
@@ -406,10 +406,10 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
               {/* Recent Activity */}
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Activity</h3>
+                  <h3 className="text-lg font-semibold text-safe">Recent Activity</h3>
                   <button 
                     onClick={() => setActiveTab('notifications')}
-                    className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                    className="text-safe-accent hover:text-safe-accent text-sm font-medium"
                   >
                     View All →
                   </button>
@@ -418,20 +418,20 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                   {getRecentActivity().map((activity) => (
                     <div key={activity.id} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                       <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${
-                        activity.priority === 'high' ? 'bg-red-100 text-red-600' :
-                        activity.priority === 'medium' ? 'bg-yellow-100 text-yellow-600' :
-                        'bg-green-100 text-green-600'
+                        activity.priority === 'high' ? 'bg-red-100 text-safe-error' :
+                        activity.priority === 'medium' ? 'bg-yellow-100 text-safe-warning' :
+                        'bg-green-100 text-safe-success'
                       }`}>
                         <span className="text-lg">{activity.icon}</span>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 dark:text-white">
+                        <p className="text-sm font-medium text-safe">
                           {activity.title}
                         </p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
+                        <p className="text-sm text-safe-muted truncate">
                           {activity.description}
                         </p>
-                        <div className="flex items-center mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        <div className="flex items-center mt-1 text-xs text-safe-muted">
                           <span>{activity.timestamp}</span>
                           <span className="mx-1">•</span>
                           <span>{activity.user}</span>
@@ -444,7 +444,7 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
 
               {/* Quick Actions */}
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Quick Actions</h3>
+                <h3 className="text-lg font-semibold text-safe mb-6">Quick Actions</h3>
                 <div className="grid grid-cols-1 gap-4">
                   {hasRole('ADMIN') && (
                     <>
@@ -454,8 +454,8 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                       >
                         <span className="text-2xl mr-3">➕</span>
                         <div>
-                          <p className="font-medium text-gray-900 dark:text-white">Create New Project</p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">Start a new writing project</p>
+                          <p className="font-medium text-safe">Create New Project</p>
+                          <p className="text-sm text-safe-muted">Start a new writing project</p>
                         </div>
                       </button>
                       <button 
@@ -464,8 +464,8 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                       >
                         <span className="text-2xl mr-3">👥</span>
                         <div>
-                          <p className="font-medium text-gray-900 dark:text-white">Manage Team</p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">Add or manage team members</p>
+                          <p className="font-medium text-safe">Manage Team</p>
+                          <p className="text-sm text-safe-muted">Add or manage team members</p>
                         </div>
                       </button>
                     </>
@@ -476,8 +476,8 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                   >
                     <span className="text-2xl mr-3">📁</span>
                     <div>
-                      <p className="font-medium text-gray-900 dark:text-white">Upload Documents</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Add files to your projects</p>
+                      <p className="font-medium text-safe">Upload Documents</p>
+                      <p className="text-sm text-safe-muted">Add files to your projects</p>
                     </div>
                   </button>
                   <button 
@@ -486,8 +486,8 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                   >
                     <span className="text-2xl mr-3">💬</span>
                     <div>
-                      <p className="font-medium text-gray-900 dark:text-white">Send Message</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Communicate with your team</p>
+                      <p className="font-medium text-safe">Send Message</p>
+                      <p className="text-sm text-safe-muted">Communicate with your team</p>
                     </div>
                   </button>
                 </div>
@@ -520,11 +520,11 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
       case 'messages':
         return (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Messages</h3>
+            <h3 className="text-lg font-semibold text-safe mb-6">Messages</h3>
             <div className="text-center py-12">
               <span className="text-6xl mb-4 block">💬</span>
-              <p className="text-gray-600 dark:text-gray-400">Message center coming soon</p>
-              <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
+              <p className="text-safe-muted">Message center coming soon</p>
+              <p className="text-sm text-safe-muted dark:text-safe-muted mt-2">
                 Direct messaging with team members and clients
               </p>
             </div>
@@ -538,17 +538,17 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
         return hasRole('ADMIN') ? (
           <div className="space-y-6">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Administrative Tools</h3>
+              <h3 className="text-lg font-semibold text-safe mb-6">Administrative Tools</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <Link href="/admin-panel" className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow">
                   <div className="flex items-center mb-2">
                     <span className="text-xl mr-2">⚙️</span>
-                    <h4 className="font-medium text-gray-900 dark:text-white">Control Panel</h4>
+                    <h4 className="font-medium text-safe">Control Panel</h4>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  <p className="text-sm text-safe-muted mb-3">
                     Access the full administrative control panel
                   </p>
-                  <span className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                  <span className="text-safe-accent hover:text-safe-accent text-sm font-medium">
                     Open Control Panel →
                   </span>
                 </Link>
@@ -558,12 +558,12 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                 >
                   <div className="flex items-center mb-2">
                     <span className="text-xl mr-2">👥</span>
-                    <h4 className="font-medium text-gray-900 dark:text-white">User Management</h4>
+                    <h4 className="font-medium text-safe">User Management</h4>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  <p className="text-sm text-safe-muted mb-3">
                     Manage users, roles, and permissions
                   </p>
-                  <span className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                  <span className="text-safe-accent hover:text-safe-accent text-sm font-medium">
                     Manage Users →
                   </span>
                 </button>
@@ -573,12 +573,12 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                 >
                   <div className="flex items-center mb-2">
                     <span className="text-xl mr-2">📊</span>
-                    <h4 className="font-medium text-gray-900 dark:text-white">Analytics</h4>
+                    <h4 className="font-medium text-safe">Analytics</h4>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  <p className="text-sm text-safe-muted mb-3">
                     View detailed system analytics and reports
                   </p>
-                  <span className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                  <span className="text-safe-accent hover:text-safe-accent text-sm font-medium">
                     View Analytics →
                   </span>
                 </button>
@@ -590,14 +590,14 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
       case 'settings':
         return (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Settings</h3>
+            <h3 className="text-lg font-semibold text-safe mb-6">Settings</h3>
             <div className="space-y-6">
               {/* Profile Settings */}
               <div>
-                <h4 className="text-md font-medium text-gray-900 dark:text-white mb-4">Profile Information</h4>
+                <h4 className="text-md font-medium text-safe mb-4">Profile Information</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                    <label className="block text-sm font-medium text-safe mb-1">Name</label>
                     <input
                       type="text"
                       value={user.name}
@@ -606,7 +606,7 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                    <label className="block text-sm font-medium text-safe mb-1">Email</label>
                     <input
                       type="email"
                       value={user.email}
@@ -619,7 +619,7 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
 
               {/* Notifications */}
               <div>
-                <h4 className="text-md font-medium text-gray-900 dark:text-white mb-4">Notification Preferences</h4>
+                <h4 className="text-md font-medium text-safe mb-4">Notification Preferences</h4>
                 <div className="space-y-3">
                   <label className="flex items-center">
                     <input 
@@ -628,7 +628,7 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                       className="rounded border-gray-300 mr-3 focus:ring-2 focus:ring-blue-500" 
                       aria-describedby="email-notifications-desc"
                     />
-                    <span className="text-sm text-gray-700 dark:text-gray-300" id="email-notifications-desc">
+                    <span className="text-sm text-safe" id="email-notifications-desc">
                       Email notifications for project updates
                     </span>
                   </label>
@@ -639,7 +639,7 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                       className="rounded border-gray-300 mr-3 focus:ring-2 focus:ring-blue-500"
                       aria-describedby="push-notifications-desc"
                     />
-                    <span className="text-sm text-gray-700 dark:text-gray-300" id="push-notifications-desc">
+                    <span className="text-sm text-safe" id="push-notifications-desc">
                       Push notifications for messages
                     </span>
                   </label>
@@ -649,7 +649,7 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                       className="rounded border-gray-300 mr-3 focus:ring-2 focus:ring-blue-500"
                       aria-describedby="marketing-notifications-desc"
                     />
-                    <span className="text-sm text-gray-700 dark:text-gray-300" id="marketing-notifications-desc">
+                    <span className="text-sm text-safe" id="marketing-notifications-desc">
                       Marketing communications
                     </span>
                   </label>
@@ -658,7 +658,7 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
 
               {/* Security */}
               <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
-                <h4 className="text-md font-medium text-gray-900 dark:text-white mb-4">Security</h4>
+                <h4 className="text-md font-medium text-safe mb-4">Security</h4>
                 <div className="space-y-3">
                   <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
                     Change Password
@@ -694,7 +694,7 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-              <Link href="/" className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors">
+              <Link href="/" className="flex items-center space-x-2 text-safe-accent hover:text-safe-accent transition-colors">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
@@ -704,8 +704,8 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                 <span className="text-white font-bold text-lg">P</span>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">Member Portal</h1>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <h1 className="text-xl font-bold text-safe">Member Portal</h1>
+                <p className="text-sm text-safe-muted">
                   Welcome back, {user.name} • {user.role}
                 </p>
               </div>
@@ -714,7 +714,7 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
               {/* Notification Bell */}
               <button 
                 onClick={() => setActiveTab('notifications')}
-                className="relative p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
+                className="relative p-2 text-safe-muted hover:text-safe dark:hover:text-gray-200 transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-3.5-3.5c-.5-.5-.5-1.5 0-2l3.5-3.5h-5m-6 9h5l3.5-3.5c.5-.5.5-1.5 0-2L13 7H8m0 10V7" />
@@ -733,11 +733,11 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
               />
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                  <span className="text-blue-600 dark:text-blue-400 font-medium text-sm">
+                  <span className="text-safe-accent font-medium text-sm">
                     {user.name.charAt(0).toUpperCase()}
                   </span>
                 </div>
-                <span className="text-sm text-gray-700 dark:text-gray-300 capitalize">{user.role}</span>
+                <span className="text-sm text-safe capitalize">{user.role}</span>
               </div>
             </div>
           </div>
@@ -757,8 +757,8 @@ export default function ComprehensiveDashboard({ user }: DashboardProps) {
                       onClick={() => setActiveTab(tab.id)}
                       className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors ${
                         activeTab === tab.id
-                          ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
-                          : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-300'
+                          ? 'bg-blue-100 text-safe-accent dark:bg-blue-900 dark:text-blue-300'
+                          : 'text-safe-muted hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-safe dark:hover:text-safe-muted'
                       }`}
                     >
                       <div className="flex items-center space-x-3">

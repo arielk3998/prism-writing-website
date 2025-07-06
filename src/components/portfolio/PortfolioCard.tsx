@@ -33,10 +33,10 @@ export default function PortfolioCard({ item, onViewSample }: PortfolioCardProps
 
       {/* Content */}
       <div className="p-6">
-        <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+        <h4 className="text-xl font-semibold text-safe mb-2">
           {item.title}
         </h4>
-        <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+        <p className="text-safe-muted mb-4 text-sm leading-relaxed">
           {item.description}
         </p>
 
@@ -48,13 +48,13 @@ export default function PortfolioCard({ item, onViewSample }: PortfolioCardProps
               className={`px-3 py-1 text-xs rounded-full ${
                 item.color.accent === 'indigo' ? 'bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200' :
                 item.color.accent === 'purple' ? 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200' :
-                item.color.accent === 'green' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' :
+                item.color.accent === 'green' ? 'bg-green-100 dark:bg-green-900 text-safe-success dark:text-green-200' :
                 item.color.accent === 'orange' ? 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200' :
                 item.color.accent === 'teal' ? 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200' :
                 item.color.accent === 'emerald' ? 'bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200' :
                 item.color.accent === 'slate' ? 'bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200' :
-                item.color.accent === 'red' ? 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200' :
-                item.color.accent === 'yellow' ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200' :
+                item.color.accent === 'red' ? 'bg-red-100 dark:bg-red-900 text-safe-error dark:text-red-200' :
+                item.color.accent === 'yellow' ? 'bg-yellow-100 dark:bg-yellow-900 text-safe-warning dark:text-yellow-200' :
                 'bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200'
               }`}
             >
@@ -62,7 +62,7 @@ export default function PortfolioCard({ item, onViewSample }: PortfolioCardProps
             </span>
           ))}
           {item.tags.length > 3 && (
-            <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded-full">
+            <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-safe-muted text-xs rounded-full">
               +{item.tags.length - 3} more
             </span>
           )}
@@ -70,12 +70,12 @@ export default function PortfolioCard({ item, onViewSample }: PortfolioCardProps
 
         {/* Footer */}
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-500 dark:text-gray-400">
+          <span className="text-sm text-safe-muted">
             {item.pages} pages • {item.year}
           </span>
           <button
             onClick={onViewSample}
-            className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-semibold text-sm transition-colors duration-200 group"
+            className="text-safe-accent hover:text-indigo-800 dark:hover:text-indigo-300 font-semibold text-sm transition-colors duration-200 group"
           >
             View Sample →
             <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">

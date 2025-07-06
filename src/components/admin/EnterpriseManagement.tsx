@@ -90,26 +90,26 @@ export default function EnterpriseManagement() {
   const getHealthIcon = (status: string) => {
     switch (status) {
       case 'healthy':
-        return <CheckCircle className="w-5 h-5 text-green-500" />;
+        return <CheckCircle className="w-5 h-5 text-safe-success" />;
       case 'warning':
-        return <AlertTriangle className="w-5 h-5 text-yellow-500" />;
+        return <AlertTriangle className="w-5 h-5 text-safe-warning" />;
       case 'critical':
-        return <AlertTriangle className="w-5 h-5 text-red-500" />;
+        return <AlertTriangle className="w-5 h-5 text-safe-error" />;
       default:
-        return <Clock className="w-5 h-5 text-gray-500" />;
+        return <Clock className="w-5 h-5 text-safe-muted" />;
     }
   };
 
   const getHealthColor = (status: string) => {
     switch (status) {
       case 'healthy':
-        return 'text-green-600 bg-green-50';
+        return 'text-safe-success bg-green-50';
       case 'warning':
-        return 'text-yellow-600 bg-yellow-50';
+        return 'text-safe-warning bg-yellow-50';
       case 'critical':
-        return 'text-red-600 bg-red-50';
+        return 'text-safe-error bg-red-50';
       default:
-        return 'text-gray-600 bg-gray-50';
+        return 'text-safe-muted bg-gray-50';
     }
   };
 
@@ -131,7 +131,7 @@ export default function EnterpriseManagement() {
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-gray-900">Enterprise Management</h1>
+        <h1 className="text-3xl font-bold text-safe">Enterprise Management</h1>
         <div className="flex space-x-2">
           <button
             onClick={loadDashboard}
@@ -158,8 +158,8 @@ export default function EnterpriseManagement() {
               onClick={() => setActiveTab(tab.id)}
               className={`${
                 activeTab === tab.id
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-blue-500 text-safe-accent'
+                  : 'border-transparent text-safe-muted hover:text-safe hover:border-gray-300'
               } whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm flex items-center space-x-2`}
             >
               <tab.icon className="w-4 h-4" />
@@ -181,13 +181,13 @@ export default function EnterpriseManagement() {
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Users</p>
-                  <p className="text-2xl font-bold text-gray-900">{metrics?.totalUsers || 0}</p>
+                  <p className="text-sm font-medium text-safe-muted">Total Users</p>
+                  <p className="text-2xl font-bold text-safe">{metrics?.totalUsers || 0}</p>
                 </div>
-                <Users className="w-8 h-8 text-blue-500" />
+                <Users className="w-8 h-8 text-safe-accent" />
               </div>
               <div className="mt-2">
-                <span className="text-sm text-green-600">
+                <span className="text-sm text-safe-success">
                   {metrics?.ssoUsers || 0} SSO users
                 </span>
               </div>
@@ -196,13 +196,13 @@ export default function EnterpriseManagement() {
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Active Projects</p>
-                  <p className="text-2xl font-bold text-gray-900">{metrics?.projects?.active || 0}</p>
+                  <p className="text-sm font-medium text-safe-muted">Active Projects</p>
+                  <p className="text-2xl font-bold text-safe">{metrics?.projects?.active || 0}</p>
                 </div>
-                <FileText className="w-8 h-8 text-green-500" />
+                <FileText className="w-8 h-8 text-safe-success" />
               </div>
               <div className="mt-2">
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-safe-muted">
                   {metrics?.projects?.total || 0} total projects
                 </span>
               </div>
@@ -211,15 +211,15 @@ export default function EnterpriseManagement() {
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Monthly Revenue</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-safe-muted">Monthly Revenue</p>
+                  <p className="text-2xl font-bold text-safe">
                     ${metrics?.revenue?.monthly?.toLocaleString() || 0}
                   </p>
                 </div>
-                <DollarSign className="w-8 h-8 text-purple-500" />
+                <DollarSign className="w-8 h-8 text-safe-accent" />
               </div>
               <div className="mt-2">
-                <span className="text-sm text-green-600 flex items-center">
+                <span className="text-sm text-safe-success flex items-center">
                   <TrendingUp className="w-3 h-3 mr-1" />
                   {metrics?.revenue?.growth || 0}% growth
                 </span>
@@ -229,15 +229,15 @@ export default function EnterpriseManagement() {
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">System Uptime</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-safe-muted">System Uptime</p>
+                  <p className="text-2xl font-bold text-safe">
                     {metrics?.performance?.uptime || 99.9}%
                   </p>
                 </div>
-                <Globe className="w-8 h-8 text-indigo-500" />
+                <Globe className="w-8 h-8 text-safe-accent" />
               </div>
               <div className="mt-2">
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-safe-muted">
                   {metrics?.performance?.responseTime || 150}ms avg response
                 </span>
               </div>
@@ -246,7 +246,7 @@ export default function EnterpriseManagement() {
 
           {/* System Health Status */}
           <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">System Health</h3>
+            <h3 className="text-lg font-medium text-safe mb-4">System Health</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {systemHealth && Object.entries(systemHealth).map(([system, status]) => (
                 <div
@@ -267,23 +267,23 @@ export default function EnterpriseManagement() {
 
           {/* Security Overview */}
           <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Security Overview</h3>
+            <h3 className="text-lg font-medium text-safe mb-4">Security Overview</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-safe">
                   {metrics?.security?.auditEvents || 0}
                 </div>
-                <div className="text-sm text-gray-600">Audit Events (24h)</div>
+                <div className="text-sm text-safe-muted">Audit Events (24h)</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-red-600">
+                <div className="text-2xl font-bold text-safe-error">
                   {metrics?.security?.criticalEvents || 0}
                 </div>
-                <div className="text-sm text-gray-600">Critical Events</div>
+                <div className="text-sm text-safe-muted">Critical Events</div>
               </div>
               <div className="text-center">
-                <div className="text-sm font-medium text-gray-900">Last Incident</div>
-                <div className="text-sm text-gray-600">
+                <div className="text-sm font-medium text-safe">Last Incident</div>
+                <div className="text-sm text-safe-muted">
                   {metrics?.security?.lastIncident || 'No incidents'}
                 </div>
               </div>
@@ -300,17 +300,17 @@ export default function EnterpriseManagement() {
           className="bg-white rounded-lg shadow p-6"
         >
           <div className="text-center py-12">
-            <div className="text-gray-400 mb-4">
+            <div className="text-safe-muted mb-4">
               {activeTab === 'users' && <Users className="w-16 h-16 mx-auto" />}
               {activeTab === 'security' && <Shield className="w-16 h-16 mx-auto" />}
               {activeTab === 'audit' && <Activity className="w-16 h-16 mx-auto" />}
               {activeTab === 'projects' && <FileText className="w-16 h-16 mx-auto" />}
               {activeTab === 'settings' && <Settings className="w-16 h-16 mx-auto" />}
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="text-lg font-medium text-safe mb-2">
               {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Management
             </h3>
-            <p className="text-gray-600">
+            <p className="text-safe-muted">
               Advanced {activeTab} management features are available in the full enterprise dashboard.
             </p>
             <div className="mt-6">

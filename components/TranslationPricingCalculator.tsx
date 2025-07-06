@@ -127,10 +127,10 @@ export default function TranslationPricingCalculator() {
       {/* Header */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-3">
-          <Calculator className="w-8 h-8 text-blue-600" />
-          <h2 className="text-3xl font-bold text-gray-900">Translation Pricing Calculator</h2>
+          <Calculator className="w-8 h-8 text-safe-accent" />
+          <h2 className="text-3xl font-bold text-safe">Translation Pricing Calculator</h2>
         </div>
-        <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+        <p className="text-lg text-safe-muted max-w-3xl mx-auto">
           Get instant pricing estimates for your translation project. 
           Our transparent pricing is based on word count, language pair, and complexity.
         </p>
@@ -138,12 +138,12 @@ export default function TranslationPricingCalculator() {
 
       {/* Input Form */}
       <div className="bg-white rounded-xl shadow-lg p-6">
-        <h3 className="text-xl font-semibold text-gray-900 mb-6">Project Details</h3>
+        <h3 className="text-xl font-semibold text-safe mb-6">Project Details</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Word Count */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-safe mb-2">
               Word Count
             </label>
             <input
@@ -159,7 +159,7 @@ export default function TranslationPricingCalculator() {
 
           {/* Document Type */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-safe mb-2">
               Document Type
             </label>
             <select
@@ -178,7 +178,7 @@ export default function TranslationPricingCalculator() {
 
           {/* Source Language */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-safe mb-2">
               Source Language
             </label>
             <LanguageSelector
@@ -190,7 +190,7 @@ export default function TranslationPricingCalculator() {
 
           {/* Target Language */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-safe mb-2">
               Target Language
             </label>
             <LanguageSelector
@@ -202,7 +202,7 @@ export default function TranslationPricingCalculator() {
 
           {/* Complexity */}
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-safe mb-2">
               Content Complexity
             </label>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -212,12 +212,12 @@ export default function TranslationPricingCalculator() {
                   onClick={() => setComplexity(level as keyof typeof complexityMultipliers)}
                   className={`p-3 rounded-lg border-2 transition-all ${
                     complexity === level
-                      ? 'border-blue-500 bg-blue-50 text-blue-700'
+                      ? 'border-blue-500 bg-blue-50 text-safe-accent'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
                   <div className="font-medium capitalize">{level}</div>
-                  <div className="text-sm text-gray-500">+{Math.round((multiplier - 1) * 100)}%</div>
+                  <div className="text-sm text-safe-muted">+{Math.round((multiplier - 1) * 100)}%</div>
                 </button>
               ))}
             </div>
@@ -227,7 +227,7 @@ export default function TranslationPricingCalculator() {
 
       {/* Pricing Tiers */}
       <div className="space-y-6">
-        <h3 className="text-2xl font-semibold text-gray-900 text-center">Choose Your Service Level</h3>
+        <h3 className="text-2xl font-semibold text-safe text-center">Choose Your Service Level</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {pricingTiers.map((tier) => {
@@ -254,22 +254,22 @@ export default function TranslationPricingCalculator() {
                 
                 <div className="text-center space-y-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto">
-                    <tier.icon className="w-6 h-6 text-blue-600" />
+                    <tier.icon className="w-6 h-6 text-safe-accent" />
                   </div>
                   
                   <div>
-                    <h4 className="text-xl font-semibold text-gray-900">{tier.name}</h4>
-                    <p className="text-gray-600 text-sm">{tier.description}</p>
+                    <h4 className="text-xl font-semibold text-safe">{tier.name}</h4>
+                    <p className="text-safe-muted text-sm">{tier.description}</p>
                   </div>
                   
                   <div className="space-y-2">
-                    <div className="text-3xl font-bold text-gray-900">
+                    <div className="text-3xl font-bold text-safe">
                       ${price}
-                      <span className="text-lg font-normal text-gray-500">
+                      <span className="text-lg font-normal text-safe-muted">
                         {wordCount > 0 ? ` (${(price / wordCount).toFixed(3)}/word)` : ''}
                       </span>
                     </div>
-                    <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
+                    <div className="flex items-center justify-center space-x-2 text-sm text-safe-muted">
                       <Clock className="w-4 h-4" />
                       <span>{days} {days === 1 ? 'day' : 'days'}</span>
                     </div>
@@ -293,27 +293,27 @@ export default function TranslationPricingCalculator() {
       {/* Price Breakdown */}
       {targetLanguage && wordCount > 0 && (
         <div className="bg-gray-50 rounded-xl p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Price Breakdown</h3>
+          <h3 className="text-lg font-semibold text-safe mb-4">Price Breakdown</h3>
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
-              <span className="text-gray-600">Base rate ({wordCount} words)</span>
+              <span className="text-safe-muted">Base rate ({wordCount} words)</span>
               <span className="font-medium">${(pricingTiers.find(t => t.id === selectedTier)?.basePrice || 0).toFixed(3)}/word</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Language pair ({sourceLanguage?.name || 'Any'} → {targetLanguage.name})</span>
+              <span className="text-safe-muted">Language pair ({sourceLanguage?.name || 'Any'} → {targetLanguage.name})</span>
               <span className="font-medium">×{languageMultipliers[targetLanguage.code] || 1.5}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Complexity ({complexity})</span>
+              <span className="text-safe-muted">Complexity ({complexity})</span>
               <span className="font-medium">×{complexityMultipliers[complexity]}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Document type ({documentType})</span>
+              <span className="text-safe-muted">Document type ({documentType})</span>
               <span className="font-medium">×{documentType === 'legal' ? '1.8' : documentType === 'medical' ? '2.0' : '1.0'}</span>
             </div>
             <div className="border-t border-gray-300 pt-3 flex justify-between text-lg font-semibold">
               <span>Total Price</span>
-              <span className="text-blue-600">${calculatePrice(pricingTiers.find(t => t.id === selectedTier)!)}</span>
+              <span className="text-safe-accent">${calculatePrice(pricingTiers.find(t => t.id === selectedTier)!)}</span>
             </div>
           </div>
         </div>
@@ -325,7 +325,7 @@ export default function TranslationPricingCalculator() {
           <DollarSign className="w-5 h-5" />
           <span>Get Official Quote</span>
         </a>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-safe-muted">
           This is an estimate. Final pricing may vary based on specific requirements.
         </p>
       </div>

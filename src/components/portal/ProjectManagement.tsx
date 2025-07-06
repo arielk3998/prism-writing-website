@@ -97,22 +97,22 @@ export default function ProjectManagement({ }: ProjectManagementProps) {
 
   const getStatusColor = (status: Project['status']) => {
     switch (status) {
-      case 'PLANNING': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
-      case 'IN_PROGRESS': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
-      case 'ON_HOLD': return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200';
-      case 'COMPLETED': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-      case 'CANCELLED': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'PLANNING': return 'bg-blue-100 text-safe-accent dark:bg-blue-900 dark:text-blue-200';
+      case 'IN_PROGRESS': return 'bg-yellow-100 text-safe-warning dark:bg-yellow-900 dark:text-yellow-200';
+      case 'ON_HOLD': return 'bg-gray-100 text-safe dark:bg-gray-700 dark:text-gray-200';
+      case 'COMPLETED': return 'bg-green-100 text-safe-success dark:bg-green-900 dark:text-green-200';
+      case 'CANCELLED': return 'bg-red-100 text-safe-error dark:bg-red-900 dark:text-red-200';
+      default: return 'bg-gray-100 text-safe';
     }
   };
 
   const getPriorityColor = (priority: Project['priority']) => {
     switch (priority) {
-      case 'LOW': return 'text-green-600';
-      case 'MEDIUM': return 'text-yellow-600';
-      case 'HIGH': return 'text-orange-600';
-      case 'URGENT': return 'text-red-600';
-      default: return 'text-gray-600';
+      case 'LOW': return 'text-safe-success';
+      case 'MEDIUM': return 'text-safe-warning';
+      case 'HIGH': return 'text-safe-warning';
+      case 'URGENT': return 'text-safe-error';
+      default: return 'text-safe-muted';
     }
   };
 
@@ -142,7 +142,7 @@ export default function ProjectManagement({ }: ProjectManagementProps) {
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Projects</h3>
+          <h3 className="text-xl font-semibold text-safe">Projects</h3>
           <button 
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             aria-label="Create new project"
@@ -162,8 +162,8 @@ export default function ProjectManagement({ }: ProjectManagementProps) {
               aria-label={`Show ${filterType} projects`}
               className={`px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
                 filter === filterType
-                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                  ? 'bg-blue-100 text-safe-accent dark:bg-blue-900 dark:text-blue-300'
+                  : 'text-safe-muted hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
               {filterType.charAt(0).toUpperCase() + filterType.slice(1)}
@@ -184,7 +184,7 @@ export default function ProjectManagement({ }: ProjectManagementProps) {
               aria-label={`View project ${project.name}`}
             >
               <div className="flex items-start justify-between mb-3">
-                <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
+                <h4 className="font-semibold text-safe text-sm">
                   {project.name}
                 </h4>
                 <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(project.status)}`}>
@@ -192,13 +192,13 @@ export default function ProjectManagement({ }: ProjectManagementProps) {
                 </span>
               </div>
 
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+              <p className="text-sm text-safe-muted mb-4 line-clamp-2">
                 {project.description}
               </p>
 
               {/* Progress Bar */}
               <div className="mb-4">
-                <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mb-1">
+                <div className="flex justify-between text-xs text-safe-muted mb-1">
                   <span>Progress</span>
                   <span>{project.progress}%</span>
                 </div>
@@ -213,13 +213,13 @@ export default function ProjectManagement({ }: ProjectManagementProps) {
               {/* Project Stats */}
               <div className="grid grid-cols-2 gap-4 text-xs">
                 <div>
-                  <span className="text-gray-500 dark:text-gray-400">Tasks</span>
-                  <p className="font-medium text-gray-900 dark:text-white">
+                  <span className="text-safe-muted">Tasks</span>
+                  <p className="font-medium text-safe">
                     {project.completedTasks}/{project.tasks}
                   </p>
                 </div>
                 <div>
-                  <span className="text-gray-500 dark:text-gray-400">Priority</span>
+                  <span className="text-safe-muted">Priority</span>
                   <p className={`font-medium ${getPriorityColor(project.priority)}`}>
                     {project.priority}
                   </p>
@@ -227,14 +227,14 @@ export default function ProjectManagement({ }: ProjectManagementProps) {
                 {project.budget && (
                   <>
                     <div>
-                      <span className="text-gray-500 dark:text-gray-400">Budget</span>
-                      <p className="font-medium text-gray-900 dark:text-white">
+                      <span className="text-safe-muted">Budget</span>
+                      <p className="font-medium text-safe">
                         ${project.budget.toLocaleString()}
                       </p>
                     </div>
                     <div>
-                      <span className="text-gray-500 dark:text-gray-400">Spent</span>
-                      <p className="font-medium text-gray-900 dark:text-white">
+                      <span className="text-safe-muted">Spent</span>
+                      <p className="font-medium text-safe">
                         ${(project.actualCost || 0).toLocaleString()}
                       </p>
                     </div>
@@ -245,18 +245,18 @@ export default function ProjectManagement({ }: ProjectManagementProps) {
               {/* Team Members */}
               <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
                 <div className="flex items-center space-x-2">
-                  <span className="text-xs text-gray-500 dark:text-gray-400">Team:</span>
+                  <span className="text-xs text-safe-muted">Team:</span>
                   <div className="flex space-x-1">
                     {project.teamMembers.slice(0, 3).map((member, i) => (
                       <div
                         key={i}
-                        className="w-6 h-6 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-xs text-blue-600 dark:text-blue-400"
+                        className="w-6 h-6 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-xs text-safe-accent"
                       >
                         {member.charAt(0)}
                       </div>
                     ))}
                     {project.teamMembers.length > 3 && (
-                      <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xs text-gray-600 dark:text-gray-400">
+                      <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xs text-safe-muted">
                         +{project.teamMembers.length - 3}
                       </div>
                     )}
@@ -270,8 +270,8 @@ export default function ProjectManagement({ }: ProjectManagementProps) {
         {filteredProjects.length === 0 && (
           <div className="text-center py-12">
             <span className="text-6xl mb-4 block">📋</span>
-            <p className="text-gray-600 dark:text-gray-400">No projects found</p>
-            <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
+            <p className="text-safe-muted">No projects found</p>
+            <p className="text-sm text-safe-muted dark:text-safe-muted mt-2">
               {filter === 'all' ? 'Create your first project to get started' : `No ${filter} projects`}
             </p>
           </div>
@@ -284,12 +284,12 @@ export default function ProjectManagement({ }: ProjectManagementProps) {
           <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-xl font-semibold text-safe">
                   {selectedProject.name}
                 </h3>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  className="text-safe-muted hover:text-safe dark:hover:text-gray-200"
                 >
                   ✕
                 </button>
@@ -297,19 +297,19 @@ export default function ProjectManagement({ }: ProjectManagementProps) {
 
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Description</h4>
-                  <p className="text-gray-600 dark:text-gray-400">{selectedProject.description}</p>
+                  <h4 className="font-medium text-safe mb-2">Description</h4>
+                  <p className="text-safe-muted">{selectedProject.description}</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <h4 className="font-medium text-gray-900 dark:text-white mb-2">Status</h4>
+                    <h4 className="font-medium text-safe mb-2">Status</h4>
                     <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(selectedProject.status)}`}>
                       {selectedProject.status.replace('_', ' ')}
                     </span>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 dark:text-white mb-2">Priority</h4>
+                    <h4 className="font-medium text-safe mb-2">Priority</h4>
                     <span className={`font-medium ${getPriorityColor(selectedProject.priority)}`}>
                       {selectedProject.priority}
                     </span>
@@ -317,25 +317,25 @@ export default function ProjectManagement({ }: ProjectManagementProps) {
                 </div>
 
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Progress</h4>
+                  <h4 className="font-medium text-safe mb-2">Progress</h4>
                   <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
                     <div
                       className="bg-blue-600 h-3 rounded-full transition-all duration-300"
                       style={{ width: `${selectedProject.progress}%` }}
                     ></div>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  <p className="text-sm text-safe-muted mt-1">
                     {selectedProject.progress}% complete
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Team Members</h4>
+                  <h4 className="font-medium text-safe mb-2">Team Members</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.teamMembers.map((member, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
+                        className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-safe"
                       >
                         {member}
                       </span>

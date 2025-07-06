@@ -30,7 +30,7 @@ export default function AccountingDashboard({ user }: AccountingDashboardProps) 
   return (
     <div className="space-y-6">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Financial Management</h3>
+        <h3 className="text-xl font-semibold text-safe mb-6">Financial Management</h3>
         
         {/* Navigation */}
         <div className="flex space-x-4 mb-6">
@@ -45,8 +45,8 @@ export default function AccountingDashboard({ user }: AccountingDashboardProps) 
               onClick={() => setActiveView(item.key as typeof activeView)}
               className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
                 activeView === item.key
-                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                  ? 'bg-blue-100 text-safe-accent dark:bg-blue-900 dark:text-blue-300'
+                  : 'text-safe-muted hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
               <span>{item.icon}</span>
@@ -61,31 +61,31 @@ export default function AccountingDashboard({ user }: AccountingDashboardProps) 
             {/* Financial Summary */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-4">
-                <h4 className="font-medium text-green-800 dark:text-green-200 mb-2">Total Revenue</h4>
+                <h4 className="font-medium text-safe-success dark:text-green-200 mb-2">Total Revenue</h4>
                 <p className="text-2xl font-bold text-green-900 dark:text-green-100">
                   ${financialData.revenue.toLocaleString()}
                 </p>
-                <p className="text-sm text-green-600 dark:text-green-400">
+                <p className="text-sm text-safe-success">
                   +{financialData.monthlyGrowth}% this month
                 </p>
               </div>
               
               <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4">
-                <h4 className="font-medium text-red-800 dark:text-red-200 mb-2">Total Expenses</h4>
+                <h4 className="font-medium text-safe-error dark:text-red-200 mb-2">Total Expenses</h4>
                 <p className="text-2xl font-bold text-red-900 dark:text-red-100">
                   ${financialData.expenses.toLocaleString()}
                 </p>
               </div>
               
               <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
-                <h4 className="font-medium text-blue-800 dark:text-blue-200 mb-2">Net Profit</h4>
-                <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+                <h4 className="font-medium text-safe-accent dark:text-blue-200 mb-2">Net Profit</h4>
+                <p className="text-2xl font-bold text-safe-accent dark:text-blue-100">
                   ${financialData.profit.toLocaleString()}
                 </p>
               </div>
               
               <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4">
-                <h4 className="font-medium text-yellow-800 dark:text-yellow-200 mb-2">Outstanding</h4>
+                <h4 className="font-medium text-safe-warning dark:text-yellow-200 mb-2">Outstanding</h4>
                 <p className="text-2xl font-bold text-yellow-900 dark:text-yellow-100">
                   ${financialData.outstandingInvoices.toLocaleString()}
                 </p>
@@ -94,7 +94,7 @@ export default function AccountingDashboard({ user }: AccountingDashboardProps) 
 
             {/* Recent Transactions */}
             <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-              <h4 className="font-medium text-gray-900 dark:text-white mb-4">Recent Transactions</h4>
+              <h4 className="font-medium text-safe mb-4">Recent Transactions</h4>
               <div className="space-y-3">
                 {[
                   { type: 'income', description: 'Payment from Acme Corp', amount: 2500, date: '2 hours ago' },
@@ -104,17 +104,17 @@ export default function AccountingDashboard({ user }: AccountingDashboardProps) 
                   <div key={i} className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg">
                     <div className="flex items-center space-x-3">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                        transaction.type === 'income' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                        transaction.type === 'income' ? 'bg-green-100 text-safe-success' : 'bg-red-100 text-safe-error'
                       }`}>
                         {transaction.type === 'income' ? '↗' : '↙'}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900 dark:text-white">{transaction.description}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{transaction.date}</p>
+                        <p className="font-medium text-safe">{transaction.description}</p>
+                        <p className="text-sm text-safe-muted">{transaction.date}</p>
                       </div>
                     </div>
                     <span className={`font-semibold ${
-                      transaction.amount > 0 ? 'text-green-600' : 'text-red-600'
+                      transaction.amount > 0 ? 'text-safe-success' : 'text-safe-error'
                     }`}>
                       {transaction.amount > 0 ? '+' : ''}${Math.abs(transaction.amount).toLocaleString()}
                     </span>
@@ -128,21 +128,21 @@ export default function AccountingDashboard({ user }: AccountingDashboardProps) 
         {activeView === 'invoices' && (
           <div className="text-center py-12">
             <span className="text-6xl mb-4 block">📄</span>
-            <p className="text-gray-600 dark:text-gray-400">Invoice management coming soon</p>
+            <p className="text-safe-muted">Invoice management coming soon</p>
           </div>
         )}
 
         {activeView === 'expenses' && (
           <div className="text-center py-12">
             <span className="text-6xl mb-4 block">💳</span>
-            <p className="text-gray-600 dark:text-gray-400">Expense tracking coming soon</p>
+            <p className="text-safe-muted">Expense tracking coming soon</p>
           </div>
         )}
 
         {activeView === 'reports' && (
           <div className="text-center py-12">
             <span className="text-6xl mb-4 block">📈</span>
-            <p className="text-gray-600 dark:text-gray-400">Financial reports coming soon</p>
+            <p className="text-safe-muted">Financial reports coming soon</p>
           </div>
         )}
       </div>

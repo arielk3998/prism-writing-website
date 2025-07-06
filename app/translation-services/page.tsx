@@ -14,13 +14,21 @@ import {
   GraduationCap,
   Heart,
   Scale,
-  Zap
+  Zap,
+  Star,
+  CheckCircle,
+  TrendingUp,
+  ArrowRight,
+  Sparkles
 } from 'lucide-react';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
 import SampleDocumentTranslator from '../../components/SampleDocumentTranslator';
 import { getMostSpokenLanguages } from '../../lib/languages';
 import { spacing, borderRadius, shadows, colors, typography } from '@/lib/design-tokens';
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import Link from 'next/link';
 
 export default function TranslationServicesPage() {
   const popularLanguages = getMostSpokenLanguages(12);
@@ -28,72 +36,96 @@ export default function TranslationServicesPage() {
   const serviceTypes = [
     {
       icon: Briefcase,
-      title: 'Business Translation',
-      description: 'Corporate documents, contracts, proposals, and marketing materials',
-      examples: ['Business proposals', 'Marketing content', 'Annual reports', 'Product descriptions']
+      title: 'Enterprise Business Translation',
+      description: 'Transform your global business communications with precision translations that maintain brand voice and cultural relevance',
+      examples: ['Executive presentations', 'Strategic marketing campaigns', 'Annual reports', 'Product documentation'],
+      gradient: 'from-blue-500 to-indigo-600',
+      popular: true
     },
     {
       icon: Scale,
-      title: 'Legal Translation',
-      description: 'Certified legal document translation by qualified legal experts',
-      examples: ['Contracts & agreements', 'Court documents', 'Patents', 'Compliance materials']
+      title: 'Certified Legal Translation',
+      description: 'Expert legal document translation by qualified legal professionals with certified accuracy for international compliance',
+      examples: ['International contracts', 'Court documents', 'Patent applications', 'Regulatory compliance'],
+      gradient: 'from-purple-500 to-pink-600',
+      popular: false
     },
     {
       icon: Heart,
-      title: 'Medical Translation',
-      description: 'Precise medical and pharmaceutical translation services',
-      examples: ['Clinical trials', 'Medical reports', 'Patient records', 'Drug documentation']
+      title: 'Medical & Pharmaceutical',
+      description: 'Specialized medical translation services ensuring accuracy in healthcare communications and pharmaceutical documentation',
+      examples: ['Clinical trial protocols', 'Medical device manuals', 'Patient safety information', 'Regulatory submissions'],
+      gradient: 'from-emerald-500 to-teal-600',
+      popular: false
     },
     {
       icon: BookOpen,
-      title: 'Technical Translation',
-      description: 'Specialized technical documentation and manuals',
-      examples: ['User manuals', 'Technical specs', 'Software documentation', 'Engineering docs']
+      title: 'Technical Documentation',
+      description: 'Comprehensive technical translation for engineering, software, and scientific content with industry-specific expertise',
+      examples: ['API documentation', 'User manuals', 'Technical specifications', 'Software localization'],
+      gradient: 'from-orange-500 to-red-600',
+      popular: false
     },
     {
       icon: GraduationCap,
-      title: 'Academic Translation',
-      description: 'Scholarly articles, research papers, and academic materials',
-      examples: ['Research papers', 'Dissertations', 'Academic journals', 'Educational content']
+      title: 'Academic & Research',
+      description: 'Scholarly translation services for academic institutions, researchers, and educational organizations worldwide',
+      examples: ['Research publications', 'Dissertations', 'Academic journals', 'Educational materials'],
+      gradient: 'from-indigo-500 to-purple-600',
+      popular: false
     },
     {
       icon: FileText,
-      title: 'Document Translation',
-      description: 'Personal and official document translation services',
-      examples: ['Certificates', 'Immigration docs', 'Financial statements', 'Identity documents']
+      title: 'Document Certification',
+      description: 'Official document translation with certified accuracy for legal, immigration, and business purposes',
+      examples: ['Birth certificates', 'Academic transcripts', 'Financial statements', 'Immigration documents'],
+      gradient: 'from-teal-500 to-cyan-600',
+      popular: false
     }
   ];
 
-  const features = [
+  const premiumFeatures = [
     {
       icon: Globe,
-      title: '80+ Languages',
-      description: 'Professional translation services for every major language and many regional dialects'
+      title: '80+ Elite Languages',
+      description: 'Comprehensive coverage including rare languages and specialized dialects with native-speaker excellence',
+      stat: '80+',
+      color: 'from-blue-500 to-indigo-600'
     },
     {
       icon: Users,
-      title: 'Native Experts',
-      description: 'Certified translators who are native speakers with subject matter expertise'
+      title: 'Certified Experts',
+      description: 'Hand-picked native speakers with advanced degrees and 10+ years of specialized industry experience',
+      stat: '500+',
+      color: 'from-purple-500 to-pink-600'
     },
     {
       icon: Clock,
-      title: 'Fast Turnaround',
-      description: 'Quick delivery times without compromising on quality or accuracy'
+      title: 'Lightning Delivery',
+      description: 'Premium 12-24 hour turnaround with real-time project tracking and instant communication',
+      stat: '24hrs',
+      color: 'from-emerald-500 to-teal-600'
     },
     {
       icon: Shield,
-      title: 'Confidential & Secure',
-      description: 'Your documents are protected with enterprise-grade security and NDAs'
+      title: 'Enterprise Security',
+      description: 'Bank-level encryption, comprehensive NDAs, and ISO-certified security protocols for maximum confidentiality',
+      stat: '100%',
+      color: 'from-orange-500 to-red-600'
     },
     {
       icon: Award,
-      title: 'Certified Quality',
-      description: 'ISO-certified translation process with multiple quality checks'
+      title: 'Certified Excellence',
+      description: 'ISO 17100 certified translation process with triple-verification quality assurance standards',
+      stat: '99.9%',
+      color: 'from-teal-500 to-cyan-600'
     },
     {
       icon: Zap,
-      title: 'AI-Enhanced',
-      description: 'Combining human expertise with AI tools for faster, more consistent results'
+      title: 'AI-Enhanced Precision',
+      description: 'Cutting-edge AI tools combined with human expertise for unmatched consistency and accuracy',
+      stat: '3X',
+      color: 'from-indigo-500 to-purple-600'
     }
   ];
 
@@ -110,33 +142,42 @@ export default function TranslationServicesPage() {
     <div className="min-h-screen bg-background">
       <Navigation />
       <main>
-        {/* Hero Section */}
-        <section className="gradient-primary text-white section-padding">
-          <div className="container">
-            <div className="text-center space-y-8">
-              <div className="flex items-center justify-center space-x-4 mb-6">
-                <Globe className="w-12 h-12" />
-                <h1 className="heading-1">
-                  Professional Translation Services
-                </h1>
+        {/* Premium Hero Section - Apple-inspired */}
+        <div className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/20 dark:from-gray-950 dark:via-blue-950/30 dark:to-indigo-950/20">
+          <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-slate-700/25 dark:[mask-image:linear-gradient(0deg,rgba(255,255,255,0.1),rgba(255,255,255,0.5))]"></div>
+          <div className="relative container py-24 lg:py-32">
+            <div className="text-center max-w-4xl mx-auto">
+              <div className="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium bg-blue-50 text-safe-accent ring-1 ring-blue-700/10 dark:bg-blue-950/50 dark:text-blue-300 dark:ring-blue-300/20 mb-8">
+                <Sparkles className="w-4 h-4 mr-2" />
+                World's Premier Translation Platform
               </div>
-              <p className="text-xl max-w-3xl mx-auto leading-relaxed">
-                Break language barriers with expert translation services covering every language in the world. 
-                From business documents to technical manuals, we deliver precise, culturally-aware translations 
-                that preserve meaning and intent.
+              
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-safe mb-8">
+                Connect Globally with 
+                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent"> Perfect Precision</span>
+              </h1>
+              
+              <p className="text-xl md:text-2xl text-safe-muted max-w-3xl mx-auto leading-relaxed mb-12">
+                Enterprise-grade translation services that break language barriers and 
+                unlock global opportunities with unmatched accuracy and cultural intelligence.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-                <a href="/translation-quote" className="btn-primary text-center">
-                  Get Free Quote
-                </a>
-                <a href="/translation-quote" className="btn-secondary text-center">
-                  <MessageSquare className="w-5 h-5 inline mr-2" />
-                  Contact Expert
-                </a>
+              
+              <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
+                <Link href="/translation-quote">
+                  <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
+                    <TrendingUp className="w-5 h-5 mr-2" />
+                    Get Instant Quote
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </Link>
+                <Button variant="outline" size="lg" className="px-8 py-4 text-lg font-semibold rounded-xl border-2 hover:shadow-lg transition-all duration-300">
+                  <MessageSquare className="w-5 h-5 mr-2" />
+                  Speak with Expert
+                </Button>
               </div>
             </div>
           </div>
-        </section>
+        </div>
 
         {/* Stats Section */}
         <section className="section-padding bg-white">
@@ -222,7 +263,7 @@ export default function TranslationServicesPage() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {features.map((feature, index) => (
+              {premiumFeatures.map((feature, index) => (
                 <div key={index} className="card-white hover:shadow-md transition-shadow">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                     <feature.icon className="w-6 h-6 text-primary" />
@@ -266,10 +307,10 @@ export default function TranslationServicesPage() {
         {/* Language Showcase */}
         <section className="section-padding gradient-primary text-white">
           <div className="container text-center">
-            <h2 className="heading-2 mb-6">
+            <h2 className="heading-2 mb-6 text-white drop-shadow-lg">
               🌍 80+ World Languages Available
             </h2>
-            <p className="body-large mb-8 opacity-90">
+            <p className="body-large mb-8 text-white/95 drop-shadow-md">
               Professional translation services for every major language in the world
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 text-sm">

@@ -126,37 +126,37 @@ export default function TranslationQuoteForm() {
       <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg">
         <div className="text-center space-y-6">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-            <CheckCircle className="w-8 h-8 text-green-600" />
+            <CheckCircle className="w-8 h-8 text-safe-success" />
           </div>
           
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Quote Generated Successfully!</h2>
-            <p className="text-gray-600">Your translation quote has been prepared. We'll contact you within 2 hours.</p>
+            <h2 className="text-2xl font-bold text-safe mb-2">Quote Generated Successfully!</h2>
+            <p className="text-safe-muted">Your translation quote has been prepared. We'll contact you within 2 hours.</p>
           </div>
 
           <div className="bg-gray-50 rounded-lg p-6 text-left space-y-4">
             <div className="flex justify-between items-center">
-              <span className="font-medium text-gray-700">Quote ID:</span>
-              <span className="font-mono text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">
+              <span className="font-medium text-safe">Quote ID:</span>
+              <span className="font-mono text-sm bg-blue-100 text-safe-accent px-2 py-1 rounded">
                 {quote.quoteId}
               </span>
             </div>
             
             <div className="flex justify-between items-center">
-              <span className="font-medium text-gray-700">Estimated Price:</span>
-              <span className="text-2xl font-bold text-green-600">${quote.pricing.totalPrice}</span>
+              <span className="font-medium text-safe">Estimated Price:</span>
+              <span className="text-2xl font-bold text-safe-success">${quote.pricing.totalPrice}</span>
             </div>
             
             <div className="flex justify-between items-center">
-              <span className="font-medium text-gray-700">Turnaround Time:</span>
-              <span className="font-semibold text-blue-600">
+              <span className="font-medium text-safe">Turnaround Time:</span>
+              <span className="font-semibold text-safe-accent">
                 {quote.timeline.turnaroundDays} {quote.timeline.turnaroundDays === 1 ? 'day' : 'days'}
               </span>
             </div>
 
             <div className="flex justify-between items-center">
-              <span className="font-medium text-gray-700">Project Details:</span>
-              <span className="text-sm text-gray-600">
+              <span className="font-medium text-safe">Project Details:</span>
+              <span className="text-sm text-safe-muted">
                 {quote.projectDetails.wordCount} words, {quote.projectDetails.tier}
               </span>
             </div>
@@ -189,7 +189,7 @@ export default function TranslationQuoteForm() {
                   files: null
                 });
               }}
-              className="w-full border border-gray-300 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+              className="w-full border border-gray-300 text-safe py-3 px-6 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
             >
               Request Another Quote
             </button>
@@ -203,8 +203,8 @@ export default function TranslationQuoteForm() {
     <div className="max-w-4xl mx-auto p-6">
       <div className="bg-white rounded-xl shadow-lg p-8">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Get Your Translation Quote</h2>
-          <p className="text-gray-600">
+          <h2 className="text-2xl font-bold text-safe mb-2">Get Your Translation Quote</h2>
+          <p className="text-safe-muted">
             Fill out the form below to receive a detailed quote for your translation project.
           </p>
         </div>
@@ -212,10 +212,10 @@ export default function TranslationQuoteForm() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Contact Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Contact Information</h3>
+            <h3 className="text-lg font-semibold text-safe">Contact Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-safe mb-1">
                   Full Name *
                 </label>
                 <input
@@ -229,7 +229,7 @@ export default function TranslationQuoteForm() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-safe mb-1">
                   Email Address *
                 </label>
                 <input
@@ -243,7 +243,7 @@ export default function TranslationQuoteForm() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-safe mb-1">
                   Company/Organization
                 </label>
                 <input
@@ -256,7 +256,7 @@ export default function TranslationQuoteForm() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-safe mb-1">
                   Phone Number
                 </label>
                 <input
@@ -272,11 +272,11 @@ export default function TranslationQuoteForm() {
 
           {/* Project Details */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Project Details</h3>
+            <h3 className="text-lg font-semibold text-safe">Project Details</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-safe mb-1">
                   Source Language
                 </label>
                 <LanguageSelector
@@ -287,7 +287,7 @@ export default function TranslationQuoteForm() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-safe mb-1">
                   Target Language *
                 </label>
                 <LanguageSelector
@@ -300,7 +300,7 @@ export default function TranslationQuoteForm() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-safe mb-1">
                   Word Count *
                 </label>
                 <input
@@ -315,7 +315,7 @@ export default function TranslationQuoteForm() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-safe mb-1">
                   Document Type
                 </label>
                 <select
@@ -333,7 +333,7 @@ export default function TranslationQuoteForm() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-safe mb-1">
                   Complexity Level
                 </label>
                 <select
@@ -351,7 +351,7 @@ export default function TranslationQuoteForm() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-safe mb-1">
                   Service Level
                 </label>
                 <select
@@ -366,7 +366,7 @@ export default function TranslationQuoteForm() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-safe mb-1">
                   Deadline (Optional)
                 </label>
                 <input
@@ -381,14 +381,14 @@ export default function TranslationQuoteForm() {
 
           {/* File Upload */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Document Upload (Optional)</h3>
+            <h3 className="text-lg font-semibold text-safe">Document Upload (Optional)</h3>
             <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
-              <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <Upload className="w-12 h-12 text-safe-muted mx-auto mb-4" />
               <label className="cursor-pointer">
-                <span className="text-blue-600 font-medium hover:text-blue-500">
+                <span className="text-safe-accent font-medium hover:text-safe-accent">
                   Click to upload files
                 </span>
-                <span className="text-gray-600"> or drag and drop</span>
+                <span className="text-safe-muted"> or drag and drop</span>
                 <input
                   type="file"
                   multiple
@@ -397,7 +397,7 @@ export default function TranslationQuoteForm() {
                   className="hidden"
                 />
               </label>
-              <p className="text-sm text-gray-500 mt-2">
+              <p className="text-sm text-safe-muted mt-2">
                 Supported formats: PDF, DOC, DOCX, TXT, RTF (Max 10MB per file)
               </p>
             </div>
@@ -405,7 +405,7 @@ export default function TranslationQuoteForm() {
 
           {/* Additional Requirements */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-safe mb-1">
               Additional Requirements or Notes
             </label>
             <textarea
@@ -420,8 +420,8 @@ export default function TranslationQuoteForm() {
           {/* Error Display */}
           {error && (
             <div className="flex items-center space-x-2 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <AlertCircle className="w-5 h-5 text-red-600" />
-              <span className="text-red-700">{error}</span>
+              <AlertCircle className="w-5 h-5 text-safe-error" />
+              <span className="text-safe-error">{error}</span>
             </div>
           )}
 

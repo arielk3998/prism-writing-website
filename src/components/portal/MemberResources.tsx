@@ -111,23 +111,23 @@ export default function MemberResources({ userRole = 'member' }: MemberResources
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
-              <Icon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              <Icon className="w-5 h-5 text-safe-accent" />
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white line-clamp-1">
+              <h3 className="font-semibold text-safe line-clamp-1">
                 {resource.title}
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 capitalize">
+              <p className="text-sm text-safe-muted capitalize">
                 {resource.category}
               </p>
             </div>
           </div>
           {resource.featured && (
-            <Star className="w-5 h-5 text-yellow-500 fill-current" />
+            <Star className="w-5 h-5 text-safe-warning fill-current" />
           )}
         </div>
 
-        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
+        <p className="text-safe-muted text-sm mb-4 line-clamp-2">
           {resource.description}
         </p>
 
@@ -135,19 +135,19 @@ export default function MemberResources({ userRole = 'member' }: MemberResources
           {resource.tags.slice(0, 3).map((tag, index) => (
             <span
               key={index}
-              className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded-full"
+              className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-safe-muted text-xs rounded-full"
             >
               {tag}
             </span>
           ))}
           {resource.tags.length > 3 && (
-            <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded-full">
+            <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-safe-muted text-xs rounded-full">
               +{resource.tags.length - 3}
             </span>
           )}
         </div>
 
-        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+        <div className="flex items-center justify-between text-sm text-safe-muted">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
               <User className="w-4 h-4" />
@@ -190,23 +190,23 @@ export default function MemberResources({ userRole = 'member' }: MemberResources
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4 flex-1">
             <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
-              <Icon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <Icon className="w-4 h-4 text-safe-accent" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center space-x-2">
-                <h3 className="font-medium text-gray-900 dark:text-white truncate">
+                <h3 className="font-medium text-safe truncate">
                   {resource.title}
                 </h3>
                 {resource.featured && (
-                  <Star className="w-4 h-4 text-yellow-500 fill-current flex-shrink-0" />
+                  <Star className="w-4 h-4 text-safe-warning fill-current flex-shrink-0" />
                 )}
               </div>
-              <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
+              <p className="text-sm text-safe-muted truncate">
                 {resource.description}
               </p>
             </div>
           </div>
-          <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex items-center space-x-4 text-sm text-safe-muted">
             <span className="capitalize">{resource.category}</span>
             <span>{resource.author}</span>
             <span>{new Date(resource.lastUpdated).toLocaleDateString()}</span>
@@ -230,10 +230,10 @@ export default function MemberResources({ userRole = 'member' }: MemberResources
     <div className="max-w-7xl mx-auto p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 className="text-3xl font-bold text-safe mb-2">
           Member Resources
         </h1>
-        <p className="text-gray-600 dark:text-gray-300">
+        <p className="text-safe-muted">
           Access templates, guides, tools, and training materials to enhance your technical writing projects.
         </p>
       </div>
@@ -241,8 +241,8 @@ export default function MemberResources({ userRole = 'member' }: MemberResources
       {/* Featured Resources */}
       {featuredResources.length > 0 && !searchTerm && selectedCategory === 'all' && (
         <div className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-            <Star className="w-5 h-5 text-yellow-500 mr-2" />
+          <h2 className="text-xl font-semibold text-safe mb-4 flex items-center">
+            <Star className="w-5 h-5 text-safe-warning mr-2" />
             Featured Resources
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -258,13 +258,13 @@ export default function MemberResources({ userRole = 'member' }: MemberResources
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           {/* Search */}
           <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-safe-muted w-5 h-5" />
             <input
               type="text"
               placeholder="Search resources..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-safe"
             />
           </div>
 
@@ -274,7 +274,7 @@ export default function MemberResources({ userRole = 'member' }: MemberResources
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-safe"
             >
               <option value="all">All Categories</option>
               {resourceCategories.map(category => (
@@ -290,9 +290,9 @@ export default function MemberResources({ userRole = 'member' }: MemberResources
                 type="checkbox"
                 checked={showFeaturedOnly}
                 onChange={(e) => setShowFeaturedOnly(e.target.checked)}
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
               />
-              <span className="text-sm text-gray-700 dark:text-gray-300">Featured only</span>
+              <span className="text-sm text-safe">Featured only</span>
             </label>
 
             {/* View Mode */}
@@ -301,7 +301,7 @@ export default function MemberResources({ userRole = 'member' }: MemberResources
                 onClick={() => setViewMode('grid')}
                 className={`p-2 rounded ${viewMode === 'grid' 
                   ? 'bg-white dark:bg-gray-600 shadow-sm' 
-                  : 'text-gray-600 dark:text-gray-400'
+                  : 'text-safe-muted'
                 }`}
               >
                 <Grid className="w-4 h-4" />
@@ -310,7 +310,7 @@ export default function MemberResources({ userRole = 'member' }: MemberResources
                 onClick={() => setViewMode('list')}
                 className={`p-2 rounded ${viewMode === 'list' 
                   ? 'bg-white dark:bg-gray-600 shadow-sm' 
-                  : 'text-gray-600 dark:text-gray-400'
+                  : 'text-safe-muted'
                 }`}
               >
                 <List className="w-4 h-4" />
@@ -322,7 +322,7 @@ export default function MemberResources({ userRole = 'member' }: MemberResources
 
       {/* Results */}
       <div className="mb-4">
-        <p className="text-gray-600 dark:text-gray-300">
+        <p className="text-safe-muted">
           {filteredResources.length} resource{filteredResources.length !== 1 ? 's' : ''} found
         </p>
       </div>
@@ -355,11 +355,11 @@ export default function MemberResources({ userRole = 'member' }: MemberResources
             animate={{ opacity: 1 }}
             className="text-center py-12"
           >
-            <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+            <FileText className="w-16 h-16 text-safe-muted mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-safe mb-2">
               No resources found
             </h3>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className="text-safe-muted">
               Try adjusting your search criteria or browse different categories.
             </p>
           </motion.div>

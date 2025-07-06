@@ -75,21 +75,21 @@ const ModernButton: React.FC<ModernButtonProps> = ({
     `,
     secondary: `
       bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-600 dark:to-gray-700 
-      text-gray-900 dark:text-white shadow-md
+      text-safe shadow-md
       hover:from-gray-200 hover:to-gray-300 dark:hover:from-gray-500 dark:hover:to-gray-600 
       hover:shadow-lg
       focus:ring-gray-500 dark:focus:ring-gray-400 
       active:from-gray-300 active:to-gray-400 dark:active:from-gray-700 dark:active:to-gray-800
     `,
     outline: `
-      border-2 border-blue-500 dark:border-blue-400 text-blue-500 dark:text-blue-400 bg-transparent
+      border-2 border-blue-500 dark:border-blue-400 text-safe-accent bg-transparent
       hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-600 dark:hover:border-blue-300 
-      hover:text-blue-600 dark:hover:text-blue-300
+      hover:text-safe-accent dark:hover:text-blue-300
       focus:ring-blue-500 dark:focus:ring-blue-400 active:bg-blue-100 dark:active:bg-blue-900/30
     `,
     ghost: `
-      text-gray-600 dark:text-gray-300 bg-transparent 
-      hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white
+      text-safe-muted bg-transparent 
+      hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-safe dark:hover:text-white
       focus:ring-gray-500 dark:focus:ring-gray-400 active:bg-gray-200 dark:active:bg-gray-600
     `,
   };
@@ -374,7 +374,7 @@ const ModernStats: React.FC<ModernStatsProps> = ({
           transition={{ duration: 0.6, delay: index * 0.1 }}
         >
           <motion.div
-            className="text-4xl lg:text-5xl font-bold text-blue-600 mb-2"
+            className="text-4xl lg:text-5xl font-bold text-safe-accent mb-2"
             initial={{ scale: 0 }}
             animate={isVisible ? { scale: 1 } : {}}
             transition={{ duration: 0.8, delay: index * 0.1, type: 'spring' }}
@@ -393,7 +393,7 @@ const ModernStats: React.FC<ModernStatsProps> = ({
             </motion.span>
             {stat.suffix}
           </motion.div>
-          <div className="text-gray-600 font-medium">{stat.label}</div>
+          <div className="text-safe-muted font-medium">{stat.label}</div>
         </motion.div>
       ))}
     </div>
@@ -479,21 +479,21 @@ const ModernFeatureGrid: React.FC<ModernFeatureGridProps> = ({
           >
             <motion.div
               className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 ${
-                feature.color || 'bg-blue-100 text-blue-600'
+                feature.color || 'bg-blue-100 text-safe-accent'
               }`}
               whileHover={{ scale: 1.1, rotate: 5 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
               {feature.icon}
             </motion.div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+            <h3 className="text-xl font-semibold text-safe mb-3">
               {feature.title}
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+            <p className="text-safe-muted leading-relaxed">
               {feature.description}
             </p>
             {feature.href && (
-              <div className="mt-4 inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm">
+              <div className="mt-4 inline-flex items-center text-safe-accent hover:text-safe-accent font-medium text-sm">
                 Learn More
                 <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -611,8 +611,8 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
                 href={item.href}
                 className={`relative font-semibold transition-colors duration-200 ${
                   item.isActive
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-800 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400'
+                    ? 'text-safe-accent'
+                    : 'text-safe hover:text-safe-accent dark:text-gray-200 dark:hover:text-blue-400'
                 } text-sm lg:text-lg px-1`}
                 style={{
                   fontWeight: '600'
@@ -648,7 +648,7 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
             
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-md text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
+              className="p-2 rounded-md text-safe-muted hover:text-safe dark:hover:text-white transition-colors"
               aria-label="Toggle mobile menu"
             >
               <motion.div
@@ -688,8 +688,8 @@ const ModernNavigation: React.FC<ModernNavigationProps> = ({
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
                     item.isActive
-                      ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                      : 'text-gray-800 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-gray-700/50'
+                      ? 'text-safe-accent bg-blue-50 dark:bg-blue-900/20'
+                      : 'text-safe hover:text-safe-accent hover:bg-gray-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-gray-700/50'
                   }`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -723,7 +723,7 @@ interface ModernLoadingProps {
 
 const ModernLoading: React.FC<ModernLoadingProps> = ({
   size = 'md',
-  color = 'text-blue-600',
+  color = 'text-safe-accent',
   className = '',
 }) => {
   const sizeClasses = {
@@ -809,7 +809,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
     >
       <div className="grid md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+          <label htmlFor="name" className="block text-sm font-medium text-safe dark:text-gray-200 mb-2">
             Full Name *
           </label>
           <input
@@ -819,12 +819,12 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
             required
             value={formData.name}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-safe rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400"
             placeholder="Enter your full name"
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+          <label htmlFor="email" className="block text-sm font-medium text-safe dark:text-gray-200 mb-2">
             Email Address *
           </label>
           <input
@@ -834,7 +834,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
             required
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-safe rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400"
             placeholder="your.email@company.com"
           />
         </div>
@@ -842,7 +842,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
 
       <div className="grid md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="company" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+          <label htmlFor="company" className="block text-sm font-medium text-safe dark:text-gray-200 mb-2">
             Company
           </label>
           <input
@@ -851,12 +851,12 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
             name="company"
             value={formData.company}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-safe rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400"
             placeholder="Your company name"
           />
         </div>
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+          <label htmlFor="phone" className="block text-sm font-medium text-safe dark:text-gray-200 mb-2">
             Phone Number
           </label>
           <input
@@ -865,7 +865,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-safe rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400"
             placeholder="(555) 123-4567"
           />
         </div>
@@ -873,7 +873,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
 
       <div className="grid md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="projectType" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+          <label htmlFor="projectType" className="block text-sm font-medium text-safe dark:text-gray-200 mb-2">
             Project Type
           </label>
           <select
@@ -881,7 +881,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
             name="projectType"
             value={formData.projectType}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-safe rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
           >
             <option value="">Select a service</option>
             <option value="api-documentation">API Documentation</option>
@@ -895,7 +895,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
           </select>
         </div>
         <div>
-          <label htmlFor="budget" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+          <label htmlFor="budget" className="block text-sm font-medium text-safe dark:text-gray-200 mb-2">
             Budget Range
           </label>
           <select
@@ -903,7 +903,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
             name="budget"
             value={formData.budget}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-safe rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
           >
             <option value="">Select budget range</option>
             <option value="under-5k">Under $5,000</option>
@@ -916,7 +916,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
       </div>
 
       <div>
-        <label htmlFor="timeline" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+        <label htmlFor="timeline" className="block text-sm font-medium text-safe dark:text-gray-200 mb-2">
           Preferred Timeline
         </label>
         <select
@@ -924,7 +924,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
           name="timeline"
           value={formData.timeline}
           onChange={handleChange}
-          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-safe rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
         >
           <option value="">Select timeline</option>
           <option value="asap">ASAP (Rush - additional fees apply)</option>
@@ -937,7 +937,7 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+        <label htmlFor="message" className="block text-sm font-medium text-safe dark:text-gray-200 mb-2">
           Project Description *
         </label>
         <textarea
@@ -947,14 +947,14 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
           rows={6}
           value={formData.message}
           onChange={handleChange}
-          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-vertical placeholder-gray-500 dark:placeholder-gray-400"
+          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-safe rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-vertical placeholder-gray-500 dark:placeholder-gray-400"
           placeholder="Tell us about your project, goals, and any specific requirements..."
         />
       </div>
 
       {/* Marketing Preferences */}
       <div className="space-y-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-        <h4 className="text-sm font-medium text-gray-900 dark:text-white">Communication Preferences</h4>
+        <h4 className="text-sm font-medium text-safe">Communication Preferences</h4>
         
         <label className="flex items-start space-x-3 cursor-pointer">
           <input
@@ -962,9 +962,9 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
             name="subscribeToNewsletter"
             checked={formData.subscribeToNewsletter}
             onChange={(e) => setFormData(prev => ({ ...prev, subscribeToNewsletter: e.target.checked }))}
-            className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            className="mt-1 w-4 h-4 text-safe-accent bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           />
-          <span className="text-sm text-gray-700 dark:text-gray-300">
+          <span className="text-sm text-safe">
             Subscribe to our newsletter for writing tips, industry insights, and company updates
           </span>
         </label>
@@ -975,9 +975,9 @@ const ModernContactForm: React.FC<ModernContactFormProps> = ({
             name="allowFollowUp"
             checked={formData.allowFollowUp}
             onChange={(e) => setFormData(prev => ({ ...prev, allowFollowUp: e.target.checked }))}
-            className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            className="mt-1 w-4 h-4 text-safe-accent bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           />
-          <span className="text-sm text-gray-700 dark:text-gray-300">
+          <span className="text-sm text-safe">
             I agree to be contacted about my inquiry and future services (you can opt out anytime)
           </span>
         </label>
@@ -1032,7 +1032,7 @@ const ModernSectionHeader: React.FC<ModernSectionHeaderProps> = ({
     >
       {badge && (
         <motion.div
-          className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 mb-4"
+          className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-safe-accent mb-4"
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -1042,7 +1042,7 @@ const ModernSectionHeader: React.FC<ModernSectionHeaderProps> = ({
         </motion.div>
       )}
       <motion.h2
-        className="text-4xl font-bold text-gray-900 mb-4"
+        className="text-4xl font-bold text-safe mb-4"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -1052,7 +1052,7 @@ const ModernSectionHeader: React.FC<ModernSectionHeaderProps> = ({
       </motion.h2>
       {subtitle && (
         <motion.p
-          className="text-xl text-gray-600 leading-relaxed"
+          className="text-xl text-safe-muted leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -1096,7 +1096,7 @@ const ModernTestimonial: React.FC<ModernTestimonialProps> = ({
     return Array.from({ length: 5 }, (_, i) => (
       <svg
         key={i}
-        className={`w-5 h-5 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+        className={`w-5 h-5 ${i < rating ? 'text-yellow-400' : 'text-safe-muted'}`}
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -1110,7 +1110,7 @@ const ModernTestimonial: React.FC<ModernTestimonialProps> = ({
       <div className="flex items-center mb-4">
         {renderStars(testimonial.rating)}
       </div>
-      <blockquote className="text-gray-600 italic mb-6 leading-relaxed">
+      <blockquote className="text-safe-muted italic mb-6 leading-relaxed">
         &ldquo;{testimonial.quote}&rdquo;
       </blockquote>
       <div className="flex items-center">
@@ -1128,9 +1128,9 @@ const ModernTestimonial: React.FC<ModernTestimonialProps> = ({
           </div>
         )}
         <div>
-          <div className="font-semibold text-gray-900">{testimonial.author}</div>
-          <div className="text-sm text-gray-600">{testimonial.role}</div>
-          <div className="text-sm text-gray-500">{testimonial.company}</div>
+          <div className="font-semibold text-safe">{testimonial.author}</div>
+          <div className="text-sm text-safe-muted">{testimonial.role}</div>
+          <div className="text-sm text-safe-muted">{testimonial.company}</div>
         </div>
       </div>
     </ModernCard>

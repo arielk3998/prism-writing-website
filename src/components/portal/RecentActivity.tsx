@@ -86,8 +86,8 @@ export default function RecentActivity({ user }: RecentActivityProps) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
       <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Activity</h3>
-        <p className="text-sm text-gray-600 dark:text-gray-300">Latest updates and actions</p>
+        <h3 className="text-lg font-semibold text-safe">Recent Activity</h3>
+        <p className="text-sm text-safe-muted">Latest updates and actions</p>
       </div>
       
       <div className="p-6">
@@ -97,17 +97,17 @@ export default function RecentActivity({ user }: RecentActivityProps) {
               <div className="text-xl">{activity.icon}</div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                  <h4 className="text-sm font-medium text-safe">
                     {activity.title}
                   </h4>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                  <span className="text-xs text-safe-muted">
                     {activity.timestamp}
                   </span>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                <p className="text-sm text-safe-muted mt-1">
                   {activity.description}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <p className="text-xs text-safe-muted mt-1">
                   by {activity.user}
                 </p>
               </div>
@@ -118,7 +118,7 @@ export default function RecentActivity({ user }: RecentActivityProps) {
         {activities.length === 0 && (
           <div className="text-center py-8">
             <div className="text-4xl mb-2">📊</div>
-            <p className="text-gray-600 dark:text-gray-300">No recent activity</p>
+            <p className="text-safe-muted">No recent activity</p>
           </div>
         )}
       </div>

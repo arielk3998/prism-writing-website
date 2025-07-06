@@ -108,10 +108,10 @@ export default function AdvancedAnalytics() {
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'high': return 'bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-medium';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-medium';
-      case 'low': return 'bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium';
-      default: return 'bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs font-medium';
+      case 'high': return 'bg-red-100 text-safe-error px-2 py-1 rounded text-xs font-medium';
+      case 'medium': return 'bg-yellow-100 text-safe-warning px-2 py-1 rounded text-xs font-medium';
+      case 'low': return 'bg-green-100 text-safe-success px-2 py-1 rounded text-xs font-medium';
+      default: return 'bg-gray-100 text-safe px-2 py-1 rounded text-xs font-medium';
     }
   };
 
@@ -119,7 +119,7 @@ export default function AdvancedAnalytics() {
     return (
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-bold text-gray-900">📊 Advanced Analytics</h2>
+          <h2 className="text-3xl font-bold text-safe">📊 Advanced Analytics</h2>
           <div className="animate-spin h-6 w-6 border-2 border-blue-600 border-t-transparent rounded-full"></div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -137,9 +137,9 @@ export default function AdvancedAnalytics() {
   if (!data) {
     return (
       <div className="text-center py-12">
-        <div className="text-yellow-500 text-4xl mb-4">⚠️</div>
+        <div className="text-safe-warning text-4xl mb-4">⚠️</div>
         <h3 className="text-lg font-semibold mb-2">No Analytics Data Available</h3>
-        <p className="text-gray-600 mb-4">Unable to load analytics data at this time.</p>
+        <p className="text-safe-muted mb-4">Unable to load analytics data at this time.</p>
         <button 
           onClick={fetchAnalytics}
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
@@ -154,7 +154,7 @@ export default function AdvancedAnalytics() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold text-gray-900">📊 Advanced Analytics</h2>
+        <h2 className="text-3xl font-bold text-safe">📊 Advanced Analytics</h2>
         <div className="flex gap-2">
           <select
             value={timeRange}
@@ -168,7 +168,7 @@ export default function AdvancedAnalytics() {
           </select>
           <button 
             onClick={fetchAnalytics}
-            className="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50 transition-colors"
+            className="bg-white border border-gray-300 text-safe px-4 py-2 rounded-md hover:bg-gray-50 transition-colors"
           >
             🔄 Refresh
           </button>
@@ -180,12 +180,12 @@ export default function AdvancedAnalytics() {
         {/* Revenue */}
         <div className="bg-white p-6 rounded-lg shadow border">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Total Revenue</h3>
-            <span className="text-green-600">💰</span>
+            <h3 className="text-sm font-medium text-safe-muted">Total Revenue</h3>
+            <span className="text-safe-success">💰</span>
           </div>
-          <div className="text-2xl font-bold text-gray-900">{formatCurrency(data.metrics.revenue.total)}</div>
-          <div className="flex items-center text-xs text-gray-500 mt-1">
-            <span className={data.metrics.revenue.growth >= 0 ? 'text-green-600' : 'text-red-600'}>
+          <div className="text-2xl font-bold text-safe">{formatCurrency(data.metrics.revenue.total)}</div>
+          <div className="flex items-center text-xs text-safe-muted mt-1">
+            <span className={data.metrics.revenue.growth >= 0 ? 'text-safe-success' : 'text-safe-error'}>
               {data.metrics.revenue.growth >= 0 ? '📈' : '📉'} {formatPercentage(Math.abs(data.metrics.revenue.growth))}
             </span>
             <span className="ml-1">from previous period</span>
@@ -195,11 +195,11 @@ export default function AdvancedAnalytics() {
         {/* Users */}
         <div className="bg-white p-6 rounded-lg shadow border">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Active Users</h3>
-            <span className="text-blue-600">👥</span>
+            <h3 className="text-sm font-medium text-safe-muted">Active Users</h3>
+            <span className="text-safe-accent">👥</span>
           </div>
-          <div className="text-2xl font-bold text-gray-900">{formatNumber(data.metrics.users.active)}</div>
-          <div className="text-xs text-gray-500 mt-1">
+          <div className="text-2xl font-bold text-safe">{formatNumber(data.metrics.users.active)}</div>
+          <div className="text-xs text-safe-muted mt-1">
             {formatPercentage(data.metrics.users.retention)} retention rate
           </div>
         </div>
@@ -207,11 +207,11 @@ export default function AdvancedAnalytics() {
         {/* Projects */}
         <div className="bg-white p-6 rounded-lg shadow border">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Completed Projects</h3>
-            <span className="text-purple-600">📊</span>
+            <h3 className="text-sm font-medium text-safe-muted">Completed Projects</h3>
+            <span className="text-safe-accent">📊</span>
           </div>
-          <div className="text-2xl font-bold text-gray-900">{formatNumber(data.metrics.projects.completed)}</div>
-          <div className="text-xs text-gray-500 mt-1">
+          <div className="text-2xl font-bold text-safe">{formatNumber(data.metrics.projects.completed)}</div>
+          <div className="text-xs text-safe-muted mt-1">
             {formatPercentage(data.metrics.projects.successRate)} success rate
           </div>
         </div>
@@ -219,11 +219,11 @@ export default function AdvancedAnalytics() {
         {/* Performance */}
         <div className="bg-white p-6 rounded-lg shadow border">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Page Views</h3>
-            <span className="text-orange-600">📈</span>
+            <h3 className="text-sm font-medium text-safe-muted">Page Views</h3>
+            <span className="text-safe-warning">📈</span>
           </div>
-          <div className="text-2xl font-bold text-gray-900">{formatNumber(data.metrics.performance.pageViews)}</div>
-          <div className="text-xs text-gray-500 mt-1">
+          <div className="text-2xl font-bold text-safe">{formatNumber(data.metrics.performance.pageViews)}</div>
+          <div className="text-xs text-safe-muted mt-1">
             {formatPercentage(data.metrics.performance.conversion)} conversion rate
           </div>
         </div>
@@ -236,29 +236,29 @@ export default function AdvancedAnalytics() {
           <div className="bg-white p-6 rounded-lg shadow border">
             <div className="flex items-center mb-4">
               <span className="text-2xl mr-2">🧠</span>
-              <h3 className="text-lg font-semibold text-gray-900">ML-Powered Predictions</h3>
+              <h3 className="text-lg font-semibold text-safe">ML-Powered Predictions</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="text-center p-4 bg-green-50 rounded-lg">
-                <h4 className="font-semibold text-gray-900 mb-2">Revenue Forecast</h4>
-                <p className="text-2xl font-bold text-green-600">
+                <h4 className="font-semibold text-safe mb-2">Revenue Forecast</h4>
+                <p className="text-2xl font-bold text-safe-success">
                   {formatCurrency(data.metrics.revenue.forecast)}
                 </p>
-                <p className="text-sm text-gray-600 mt-1">Next month</p>
+                <p className="text-sm text-safe-muted mt-1">Next month</p>
               </div>
               <div className="text-center p-4 bg-blue-50 rounded-lg">
-                <h4 className="font-semibold text-gray-900 mb-2">User Growth</h4>
-                <p className="text-2xl font-bold text-blue-600">
+                <h4 className="font-semibold text-safe mb-2">User Growth</h4>
+                <p className="text-2xl font-bold text-safe-accent">
                   +{formatNumber(data.insights.predictions.userGrowth[0] || 0)}
                 </p>
-                <p className="text-sm text-gray-600 mt-1">New users predicted</p>
+                <p className="text-sm text-safe-muted mt-1">New users predicted</p>
               </div>
               <div className="text-center p-4 bg-red-50 rounded-lg">
-                <h4 className="font-semibold text-gray-900 mb-2">Churn Risk</h4>
-                <p className="text-2xl font-bold text-red-600">
+                <h4 className="font-semibold text-safe mb-2">Churn Risk</h4>
+                <p className="text-2xl font-bold text-safe-error">
                   {data.insights.predictions.churnRisk.length}
                 </p>
-                <p className="text-sm text-gray-600 mt-1">Users at risk</p>
+                <p className="text-sm text-safe-muted mt-1">Users at risk</p>
               </div>
             </div>
           </div>
@@ -267,7 +267,7 @@ export default function AdvancedAnalytics() {
           <div className="bg-white p-6 rounded-lg shadow border">
             <div className="flex items-center mb-4">
               <span className="text-2xl mr-2">💡</span>
-              <h3 className="text-lg font-semibold text-gray-900">AI Recommendations</h3>
+              <h3 className="text-lg font-semibold text-safe">AI Recommendations</h3>
             </div>
             <div className="space-y-4">
               {data.insights.recommendations.map((rec, index) => (
@@ -276,9 +276,9 @@ export default function AdvancedAnalytics() {
                     {rec.priority.toUpperCase()}
                   </span>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900">{rec.category}</h4>
-                    <p className="text-gray-700 mb-1">{rec.suggestion}</p>
-                    <p className="text-sm text-green-600">💡 {rec.impact}</p>
+                    <h4 className="font-semibold text-safe">{rec.category}</h4>
+                    <p className="text-safe mb-1">{rec.suggestion}</p>
+                    <p className="text-sm text-safe-success">💡 {rec.impact}</p>
                   </div>
                 </div>
               ))}
@@ -290,18 +290,18 @@ export default function AdvancedAnalytics() {
             <div className="bg-white p-6 rounded-lg shadow border">
               <div className="flex items-center mb-4">
                 <span className="text-2xl mr-2">⚠️</span>
-                <h3 className="text-lg font-semibold text-gray-900">Detected Anomalies</h3>
+                <h3 className="text-lg font-semibold text-safe">Detected Anomalies</h3>
               </div>
               <div className="space-y-3">
                 {data.insights.anomalies.map((anomaly, index) => (
                   <div key={index} className="flex items-center justify-between p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
                     <div>
-                      <h4 className="font-semibold text-gray-900">{anomaly.metric}</h4>
-                      <p className="text-sm text-gray-600">
+                      <h4 className="font-semibold text-safe">{anomaly.metric}</h4>
+                      <p className="text-sm text-safe-muted">
                         Current: {formatNumber(anomaly.value)} | Expected: {formatNumber(anomaly.expected)}
                       </p>
                     </div>
-                    <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs font-medium">
+                    <span className="bg-gray-100 text-safe px-2 py-1 rounded text-xs font-medium">
                       {formatPercentage(anomaly.confidence * 100)} confidence
                     </span>
                   </div>
@@ -313,7 +313,7 @@ export default function AdvancedAnalytics() {
       )}
 
       {/* Footer */}
-      <div className="text-center text-sm text-gray-500">
+      <div className="text-center text-sm text-safe-muted">
         Last updated: {new Date(data.lastUpdated).toLocaleString()}
       </div>
     </div>

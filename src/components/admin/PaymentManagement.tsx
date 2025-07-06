@@ -209,28 +209,28 @@ export default function PaymentManagement() {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'succeeded':
-        return <CheckCircle className="w-5 h-5 text-green-500" />;
+        return <CheckCircle className="w-5 h-5 text-safe-success" />;
       case 'pending':
-        return <RefreshCw className="w-5 h-5 text-yellow-500 animate-spin" />;
+        return <RefreshCw className="w-5 h-5 text-safe-warning animate-spin" />;
       case 'failed':
       case 'canceled':
-        return <XCircle className="w-5 h-5 text-red-500" />;
+        return <XCircle className="w-5 h-5 text-safe-error" />;
       default:
-        return <AlertCircle className="w-5 h-5 text-gray-500" />;
+        return <AlertCircle className="w-5 h-5 text-safe-muted" />;
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'succeeded':
-        return 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400';
+        return 'bg-green-100 text-safe-success dark:bg-green-900/20 dark:text-green-400';
       case 'pending':
-        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400';
+        return 'bg-yellow-100 text-safe-warning dark:bg-yellow-900/20 dark:text-yellow-400';
       case 'failed':
       case 'canceled':
-        return 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400';
+        return 'bg-red-100 text-safe-error dark:bg-red-900/20 dark:text-red-400';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400';
+        return 'bg-gray-100 text-safe dark:bg-gray-900/20 dark:text-safe-muted';
     }
   };
 
@@ -261,8 +261,8 @@ export default function PaymentManagement() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-96">
-        <RefreshCw className="w-8 h-8 animate-spin text-blue-600" />
-        <span className="ml-2 text-gray-600 dark:text-gray-400">Loading payment data...</span>
+        <RefreshCw className="w-8 h-8 animate-spin text-safe-accent" />
+        <span className="ml-2 text-safe-muted">Loading payment data...</span>
       </div>
     );
   }
@@ -278,12 +278,12 @@ export default function PaymentManagement() {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Total Revenue</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className="text-sm text-safe-muted">Total Revenue</p>
+              <p className="text-2xl font-bold text-safe">
                 {formatCurrency(stats.totalRevenue * 100)}
               </p>
             </div>
-            <DollarSign className="w-8 h-8 text-green-500" />
+            <DollarSign className="w-8 h-8 text-safe-success" />
           </div>
         </motion.div>
 
@@ -295,12 +295,12 @@ export default function PaymentManagement() {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Monthly Revenue</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className="text-sm text-safe-muted">Monthly Revenue</p>
+              <p className="text-2xl font-bold text-safe">
                 {formatCurrency(stats.monthlyRevenue * 100)}
               </p>
             </div>
-            <TrendingUp className="w-8 h-8 text-blue-500" />
+            <TrendingUp className="w-8 h-8 text-safe-accent" />
           </div>
         </motion.div>
 
@@ -312,12 +312,12 @@ export default function PaymentManagement() {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Active Subscriptions</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className="text-sm text-safe-muted">Active Subscriptions</p>
+              <p className="text-2xl font-bold text-safe">
                 {stats.activeSubscriptions}
               </p>
             </div>
-            <Users className="w-8 h-8 text-purple-500" />
+            <Users className="w-8 h-8 text-safe-accent" />
           </div>
         </motion.div>
 
@@ -329,12 +329,12 @@ export default function PaymentManagement() {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Avg Order Value</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className="text-sm text-safe-muted">Avg Order Value</p>
+              <p className="text-2xl font-bold text-safe">
                 {formatCurrency(stats.averageOrderValue * 100)}
               </p>
             </div>
-            <CreditCard className="w-8 h-8 text-orange-500" />
+            <CreditCard className="w-8 h-8 text-safe-warning" />
           </div>
         </motion.div>
       </div>
@@ -348,7 +348,7 @@ export default function PaymentManagement() {
       >
         <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-safe">
               Recent Payments
             </h3>
             <div className="flex space-x-2">
@@ -374,22 +374,22 @@ export default function PaymentManagement() {
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Payment
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Customer
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Amount
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Date
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -399,25 +399,25 @@ export default function PaymentManagement() {
                 <tr key={payment.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div>
-                      <div className="text-sm font-medium text-gray-900 dark:text-white">
+                      <div className="text-sm font-medium text-safe">
                         {payment.id}
                       </div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                      <div className="text-sm text-safe-muted">
                         {payment.description}
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div>
-                      <div className="text-sm font-medium text-gray-900 dark:text-white">
+                      <div className="text-sm font-medium text-safe">
                         {payment.customerName || 'N/A'}
                       </div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                      <div className="text-sm text-safe-muted">
                         {payment.customerEmail}
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-safe">
                     {formatCurrency(payment.amount, payment.currency)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -428,13 +428,13 @@ export default function PaymentManagement() {
                       </span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-safe-muted">
                     {formatDate(payment.created)}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-safe-muted">
                     <button
                       onClick={() => setSelectedPayment(payment)}
-                      className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
+                      className="text-safe-accent hover:text-safe-accent dark:hover:text-blue-300"
                     >
                       <Eye className="w-4 h-4" />
                     </button>
@@ -447,8 +447,8 @@ export default function PaymentManagement() {
 
         {payments.length === 0 && (
           <div className="text-center py-12">
-            <CreditCard className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500 dark:text-gray-400">No payments found</p>
+            <CreditCard className="w-12 h-12 text-safe-muted mx-auto mb-4" />
+            <p className="text-safe-muted">No payments found</p>
           </div>
         )}
       </motion.div>
@@ -462,12 +462,12 @@ export default function PaymentManagement() {
             className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-6"
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-safe">
                 Payment Details
               </h3>
               <button
                 onClick={() => setSelectedPayment(null)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="text-safe-muted hover:text-safe-muted dark:hover:text-safe-muted"
               >
                 <XCircle className="w-6 h-6" />
               </button>
@@ -475,19 +475,19 @@ export default function PaymentManagement() {
             
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-gray-500 dark:text-gray-400">Payment ID</label>
-                <p className="text-sm text-gray-900 dark:text-white font-mono">{selectedPayment.id}</p>
+                <label className="text-sm font-medium text-safe-muted">Payment ID</label>
+                <p className="text-sm text-safe font-mono">{selectedPayment.id}</p>
               </div>
               
               <div>
-                <label className="text-sm font-medium text-gray-500 dark:text-gray-400">Amount</label>
-                <p className="text-lg font-bold text-gray-900 dark:text-white">
+                <label className="text-sm font-medium text-safe-muted">Amount</label>
+                <p className="text-lg font-bold text-safe">
                   {formatCurrency(selectedPayment.amount, selectedPayment.currency)}
                 </p>
               </div>
               
               <div>
-                <label className="text-sm font-medium text-gray-500 dark:text-gray-400">Status</label>
+                <label className="text-sm font-medium text-safe-muted">Status</label>
                 <div className="flex items-center mt-1">
                   {getStatusIcon(selectedPayment.status)}
                   <span className={`ml-2 px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(selectedPayment.status)}`}>
@@ -497,19 +497,19 @@ export default function PaymentManagement() {
               </div>
               
               <div>
-                <label className="text-sm font-medium text-gray-500 dark:text-gray-400">Customer</label>
-                <p className="text-sm text-gray-900 dark:text-white">{selectedPayment.customerName}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{selectedPayment.customerEmail}</p>
+                <label className="text-sm font-medium text-safe-muted">Customer</label>
+                <p className="text-sm text-safe">{selectedPayment.customerName}</p>
+                <p className="text-sm text-safe-muted">{selectedPayment.customerEmail}</p>
               </div>
               
               <div>
-                <label className="text-sm font-medium text-gray-500 dark:text-gray-400">Description</label>
-                <p className="text-sm text-gray-900 dark:text-white">{selectedPayment.description}</p>
+                <label className="text-sm font-medium text-safe-muted">Description</label>
+                <p className="text-sm text-safe">{selectedPayment.description}</p>
               </div>
               
               <div>
-                <label className="text-sm font-medium text-gray-500 dark:text-gray-400">Created</label>
-                <p className="text-sm text-gray-900 dark:text-white">{formatDate(selectedPayment.created)}</p>
+                <label className="text-sm font-medium text-safe-muted">Created</label>
+                <p className="text-sm text-safe">{formatDate(selectedPayment.created)}</p>
               </div>
             </div>
           </motion.div>

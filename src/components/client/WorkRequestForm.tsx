@@ -109,11 +109,11 @@ export default function WorkRequestForm() {
   if (success) {
     return (
       <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-8 text-center">
-        <div className="text-green-600 dark:text-green-400 text-5xl mb-4">✓</div>
-        <h3 className="text-xl font-semibold text-green-800 dark:text-green-200 mb-2">
+        <div className="text-safe-success text-5xl mb-4">✓</div>
+        <h3 className="text-xl font-semibold text-safe-success dark:text-green-200 mb-2">
           Work Request Submitted!
         </h3>
-        <p className="text-green-700 dark:text-green-300 mb-4">
+        <p className="text-safe-success mb-4">
           Your request has been sent to our cooperative members. You&apos;ll receive updates via email and in your portal dashboard.
         </p>
         <button
@@ -128,13 +128,13 @@ export default function WorkRequestForm() {
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+      <h2 className="text-2xl font-bold text-safe mb-6">
         Submit Work Request
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="title" className="block text-sm font-medium text-safe mb-1">
             Project Title *
           </label>
           <input
@@ -151,7 +151,7 @@ export default function WorkRequestForm() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="type" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="type" className="block text-sm font-medium text-safe mb-1">
               Project Type *
             </label>
             <select
@@ -171,7 +171,7 @@ export default function WorkRequestForm() {
           </div>
 
           <div>
-            <label htmlFor="priority" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="priority" className="block text-sm font-medium text-safe mb-1">
               Priority Level
             </label>
             <select
@@ -191,7 +191,7 @@ export default function WorkRequestForm() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="deadline" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="deadline" className="block text-sm font-medium text-safe mb-1">
               Preferred Deadline
             </label>
             <input
@@ -205,7 +205,7 @@ export default function WorkRequestForm() {
           </div>
 
           <div>
-            <label htmlFor="budget" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="budget" className="block text-sm font-medium text-safe mb-1">
               Budget (USD)
             </label>
             <input
@@ -223,7 +223,7 @@ export default function WorkRequestForm() {
         </div>
 
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="description" className="block text-sm font-medium text-safe mb-1">
             Project Description *
           </label>
           <textarea
@@ -239,7 +239,7 @@ export default function WorkRequestForm() {
         </div>
 
         <div>
-          <label htmlFor="files" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="files" className="block text-sm font-medium text-safe mb-1">
             Attachments
           </label>
           <input
@@ -247,10 +247,10 @@ export default function WorkRequestForm() {
             type="file"
             multiple
             onChange={handleFileChange}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-safe-accent hover:file:bg-blue-100"
             disabled={isLoading}
           />
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-xs text-safe-muted mt-1">
             Upload any relevant files, documents, or reference materials
           </p>
           
@@ -258,13 +258,13 @@ export default function WorkRequestForm() {
             <div className="mt-3 space-y-2">
               {attachments.map((file, index) => (
                 <div key={index} className="flex items-center justify-between bg-gray-50 dark:bg-gray-700 p-2 rounded">
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                  <span className="text-sm text-safe">
                     {file.name} ({(file.size / 1024).toFixed(1)} KB)
                   </span>
                   <button
                     type="button"
                     onClick={() => removeFile(index)}
-                    className="text-red-500 hover:text-red-700 text-sm"
+                    className="text-safe-error hover:text-safe-error text-sm"
                     disabled={isLoading}
                   >
                     Remove

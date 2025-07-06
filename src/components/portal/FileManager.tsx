@@ -128,8 +128,8 @@ export default function FileManager({ user }: FileManagerProps) {
       <div className="p-6 border-b border-gray-200 dark:border-gray-700">
         <div className="flex justify-between items-center">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">File Manager</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
+            <h3 className="text-lg font-semibold text-safe">File Manager</h3>
+            <p className="text-sm text-safe-muted">
               Upload and manage project files
             </p>
           </div>
@@ -160,8 +160,8 @@ export default function FileManager({ user }: FileManagerProps) {
         {files.length === 0 ? (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">📁</div>
-            <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No files yet</h4>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
+            <h4 className="text-lg font-medium text-safe mb-2">No files yet</h4>
+            <p className="text-safe-muted mb-4">
               Upload your first file to get started
             </p>
             <button
@@ -181,10 +181,10 @@ export default function FileManager({ user }: FileManagerProps) {
                 <div className="flex items-center space-x-4">
                   <div className="text-2xl">{getFileIcon(file.type)}</div>
                   <div>
-                    <h4 className="font-medium text-gray-900 dark:text-white">
+                    <h4 className="font-medium text-safe">
                       {file.name}
                     </h4>
-                    <div className="text-sm text-gray-600 dark:text-gray-300">
+                    <div className="text-sm text-safe-muted">
                       {formatFileSize(file.size)} • Uploaded by {file.uploadedBy} • {formatDate(file.uploadedAt)}
                     </div>
                   </div>
@@ -193,7 +193,7 @@ export default function FileManager({ user }: FileManagerProps) {
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={() => handleDownload(file)}
-                    className="text-blue-600 hover:text-blue-800 dark:text-blue-400 p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                    className="text-safe-accent hover:text-safe-accent p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
                     title="Download"
                   >
                     ⬇️
@@ -202,7 +202,7 @@ export default function FileManager({ user }: FileManagerProps) {
                   {(user.role === 'admin' || file.uploadedBy === user.email) && (
                     <button
                       onClick={() => handleDelete(file.id)}
-                      className="text-red-600 hover:text-red-800 dark:text-red-400 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                      className="text-safe-error hover:text-safe-error dark:text-red-400 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                       title="Delete"
                     >
                       🗑️

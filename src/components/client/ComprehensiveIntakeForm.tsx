@@ -505,8 +505,8 @@ export default function ComprehensiveIntakeForm({ onSubmit, onValidationUpdate }
             <div>
               <label className="block text-sm font-medium mb-2">Upload Assets & Resources</label>
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                <p className="text-gray-600 mb-4">
+                <Upload className="mx-auto h-12 w-12 text-safe-muted mb-4" />
+                <p className="text-safe-muted mb-4">
                   Upload brand assets, existing content, style guides, or any relevant files
                 </p>
                 <input
@@ -532,7 +532,7 @@ export default function ComprehensiveIntakeForm({ onSubmit, onValidationUpdate }
                     {uploadedFiles.map((file, index) => (
                       <li key={index} className="flex items-center justify-between bg-gray-50 p-2 rounded">
                         <span className="text-sm">{file.name}</span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-safe-muted">
                           {(file.size / 1024 / 1024).toFixed(2)} MB
                         </span>
                       </li>
@@ -547,7 +547,7 @@ export default function ComprehensiveIntakeForm({ onSubmit, onValidationUpdate }
       default:
         return (
           <div className="space-y-6">
-            <p className="text-gray-600">
+            <p className="text-safe-muted">
               This section is under development. Additional form fields will be added here.
             </p>
           </div>
@@ -561,7 +561,7 @@ export default function ComprehensiveIntakeForm({ onSubmit, onValidationUpdate }
       <div className="mb-8">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">Comprehensive Project Intake</h1>
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-safe-muted">
             {completionPercentage}% Complete
           </div>
         </div>
@@ -588,8 +588,8 @@ export default function ComprehensiveIntakeForm({ onSubmit, onValidationUpdate }
                 isActive
                   ? 'bg-blue-500 text-white'
                   : isCompleted
-                  ? 'bg-green-100 text-green-700'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-green-100 text-safe-success'
+                  : 'bg-gray-100 text-safe-muted hover:bg-gray-200'
               }`}
             >
               <StepIcon className="w-4 h-4" />
@@ -603,10 +603,10 @@ export default function ComprehensiveIntakeForm({ onSubmit, onValidationUpdate }
       <Card className="mb-8">
         <CardHeader>
           <div className="flex items-center space-x-3">
-            {React.createElement(steps[currentStep].icon, { className: "w-6 h-6 text-blue-500" })}
+            {React.createElement(steps[currentStep].icon, { className: "w-6 h-6 text-safe-accent" })}
             <div>
               <h2 className="text-xl font-semibold">{steps[currentStep].title}</h2>
-              <p className="text-gray-600">{steps[currentStep].description}</p>
+              <p className="text-safe-muted">{steps[currentStep].description}</p>
             </div>
           </div>
         </CardHeader>
@@ -621,10 +621,10 @@ export default function ComprehensiveIntakeForm({ onSubmit, onValidationUpdate }
                   key={index}
                   className={`flex items-start space-x-2 p-3 rounded-lg ${
                     result.status === 'valid'
-                      ? 'bg-green-50 text-green-700'
+                      ? 'bg-green-50 text-safe-success'
                       : result.status === 'invalid'
-                      ? 'bg-red-50 text-red-700'
-                      : 'bg-yellow-50 text-yellow-700'
+                      ? 'bg-red-50 text-safe-error'
+                      : 'bg-yellow-50 text-safe-warning'
                   }`}
                 >
                   {result.status === 'valid' ? (
@@ -734,7 +734,7 @@ function ArrayInput({ label, value, placeholder, onAdd, onRemove }: ArrayInputPr
               <span className="text-sm">{item}</span>
               <button
                 onClick={() => onRemove(index)}
-                className="text-red-500 hover:text-red-700 text-sm"
+                className="text-safe-error hover:text-safe-error text-sm"
               >
                 Remove
               </button>

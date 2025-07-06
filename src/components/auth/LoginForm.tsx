@@ -148,26 +148,26 @@ export default function LoginForm({
         <div className="p-8 pb-6">
           <div className="flex items-center justify-center mb-6">
             <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-full">
-              <Shield className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+              <Shield className="h-8 w-8 text-safe-accent" />
             </div>
           </div>
-          <h1 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-2">{title}</h1>
-          <p className="text-center text-gray-600 dark:text-gray-400 text-sm">{description}</p>
+          <h1 className="text-2xl font-bold text-center text-safe mb-2">{title}</h1>
+          <p className="text-center text-safe-muted text-sm">{description}</p>
         </div>
 
         {/* Content */}
         <div className="px-8 pb-8">
           {submitError && (
             <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-start space-x-2">
-              <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
-              <span className="text-sm text-red-700 dark:text-red-300">{submitError}</span>
+              <AlertCircle className="h-5 w-5 text-safe-error flex-shrink-0 mt-0.5" />
+              <span className="text-sm text-safe-error dark:text-red-300">{submitError}</span>
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-safe mb-2">
                 Email Address
               </label>
               <input
@@ -182,17 +182,17 @@ export default function LoginForm({
                     ? 'border-red-500 bg-red-50 dark:bg-red-900/20' 
                     : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700'
                   } 
-                  text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
+                  text-safe placeholder-gray-500 dark:placeholder-gray-400
                   disabled:opacity-50 disabled:cursor-not-allowed`}
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>
+                <p className="mt-1 text-sm text-safe-error">{errors.email}</p>
               )}
             </div>
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-safe mb-2">
                 Password
               </label>
               <div className="relative">
@@ -208,20 +208,20 @@ export default function LoginForm({
                       ? 'border-red-500 bg-red-50 dark:bg-red-900/20' 
                       : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700'
                     } 
-                    text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
+                    text-safe placeholder-gray-500 dark:placeholder-gray-400
                     disabled:opacity-50 disabled:cursor-not-allowed`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-safe-muted hover:text-safe dark:hover:text-gray-200 transition-colors"
                   disabled={isLoading}
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
               {errors.password && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password}</p>
+                <p className="mt-1 text-sm text-safe-error">{errors.password}</p>
               )}
             </div>
 
@@ -233,9 +233,9 @@ export default function LoginForm({
                 checked={formData.rememberMe}
                 onChange={handleInputChange('rememberMe')}
                 disabled={isLoading}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded disabled:opacity-50"
+                className="h-4 w-4 text-safe-accent focus:ring-blue-500 border-gray-300 rounded disabled:opacity-50"
               />
-              <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+              <label htmlFor="rememberMe" className="ml-2 block text-sm text-safe">
                 Remember me for 30 days
               </label>
             </div>
@@ -263,7 +263,7 @@ export default function LoginForm({
           {/* Demo Credentials */}
           {showDemoAccounts && (
             <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-600">
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center font-medium">
+              <p className="text-sm text-safe-muted mb-4 text-center font-medium">
                 Demo Accounts (Click to auto-fill):
               </p>
               <div className="space-y-2">
@@ -277,10 +277,10 @@ export default function LoginForm({
                   >
                     <div className="flex justify-between items-center">
                       <div>
-                        <div className="font-medium text-gray-900 dark:text-white text-sm">{cred.label}</div>
-                        <div className="text-gray-500 dark:text-gray-400 text-xs">{cred.email}</div>
+                        <div className="font-medium text-safe text-sm">{cred.label}</div>
+                        <div className="text-safe-muted text-xs">{cred.email}</div>
                       </div>
-                      <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">
+                      <span className="text-xs bg-blue-100 dark:bg-blue-900 text-safe-accent dark:text-blue-200 px-2 py-1 rounded">
                         {cred.role}
                       </span>
                     </div>

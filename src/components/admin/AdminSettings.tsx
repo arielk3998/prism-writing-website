@@ -177,8 +177,8 @@ export default function AdminSettings() {
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Admin Settings</h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-1">
+            <h2 className="text-2xl font-bold text-safe">Admin Settings</h2>
+            <p className="text-safe-muted mt-1">
               Configure system-wide settings and security policies
             </p>
           </div>
@@ -200,7 +200,7 @@ export default function AdminSettings() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="mt-4 p-3 bg-green-100 border border-green-300 text-green-700 rounded-lg flex items-center gap-2"
+              className="mt-4 p-3 bg-green-100 border border-green-300 text-safe-success rounded-lg flex items-center gap-2"
             >
               <CheckCircle className="w-4 h-4" />
               Settings saved successfully!
@@ -212,7 +212,7 @@ export default function AdminSettings() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="mt-4 p-3 bg-red-100 border border-red-300 text-red-700 rounded-lg flex items-center gap-2"
+              className="mt-4 p-3 bg-red-100 border border-red-300 text-safe-error rounded-lg flex items-center gap-2"
             >
               <AlertTriangle className="w-4 h-4" />
               {error}
@@ -233,8 +233,8 @@ export default function AdminSettings() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                     activeTab === tab.id
-                      ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                      : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300'
+                      ? 'border-blue-500 text-safe-accent'
+                      : 'border-transparent text-safe-muted hover:text-safe dark:hover:text-safe-muted hover:border-gray-300'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -256,11 +256,11 @@ export default function AdminSettings() {
             {/* General Settings */}
             {activeTab === 'general' && (
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">General Settings</h3>
+                <h3 className="text-lg font-semibold text-safe">General Settings</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Site Name
                     </label>
                     <input
@@ -272,7 +272,7 @@ export default function AdminSettings() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Admin Email
                     </label>
                     <input
@@ -284,7 +284,7 @@ export default function AdminSettings() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Timezone
                     </label>
                     <select
@@ -304,10 +304,10 @@ export default function AdminSettings() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <label className="text-sm font-medium text-safe">
                         Maintenance Mode
                       </label>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-safe-muted">
                         Temporarily disable the site for maintenance
                       </p>
                     </div>
@@ -324,10 +324,10 @@ export default function AdminSettings() {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <label className="text-sm font-medium text-safe">
                         User Registration
                       </label>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-safe-muted">
                         Allow new users to register accounts
                       </p>
                     </div>
@@ -348,14 +348,14 @@ export default function AdminSettings() {
             {/* Security Settings */}
             {activeTab === 'security' && (
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Security Settings</h3>
+                <h3 className="text-lg font-semibold text-safe">Security Settings</h3>
                 
                 <div className="space-y-6">
                   <div>
-                    <h4 className="text-md font-medium text-gray-900 dark:text-white mb-4">Password Policy</h4>
+                    <h4 className="text-md font-medium text-safe mb-4">Password Policy</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label className="block text-sm font-medium text-safe mb-2">
                           Minimum Length
                         </label>
                         <input
@@ -372,7 +372,7 @@ export default function AdminSettings() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label className="block text-sm font-medium text-safe mb-2">
                           Session Timeout (minutes)
                         </label>
                         <input
@@ -394,7 +394,7 @@ export default function AdminSettings() {
                         { key: 'requireSymbols', label: 'Require Symbols' },
                       ].map((item) => (
                         <div key={item.key} className="flex items-center justify-between">
-                          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                          <label className="text-sm font-medium text-safe">
                             {item.label}
                           </label>
                           <label className="relative inline-flex items-center cursor-pointer">
@@ -416,10 +416,10 @@ export default function AdminSettings() {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <label className="text-sm font-medium text-safe">
                         Two-Factor Authentication
                       </label>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-safe-muted">
                         Require 2FA for all admin accounts
                       </p>
                     </div>
@@ -440,7 +440,7 @@ export default function AdminSettings() {
             {/* Privilege Settings */}
             {activeTab === 'privileges' && (
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Privilege Management</h3>
+                <h3 className="text-lg font-semibold text-safe">Privilege Management</h3>
                 
                 <div className="space-y-6">
                   <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
@@ -458,10 +458,10 @@ export default function AdminSettings() {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label className="text-sm font-medium text-safe">
                           Restrict Super Admin Assignment
                         </label>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                        <p className="text-sm text-safe-muted">
                           Only allow whitelisted emails to be assigned Super Admin role
                         </p>
                       </div>
@@ -478,16 +478,16 @@ export default function AdminSettings() {
 
                     {settings.privileges.restrictSuperAdminAssignment && (
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label className="block text-sm font-medium text-safe mb-2">
                           Allowed Super Admin Emails
                         </label>
                         <div className="space-y-2">
                           {settings.privileges.allowedSuperAdminEmails.map((email, index) => (
                             <div key={index} className="flex items-center gap-2 bg-gray-50 dark:bg-gray-700 rounded-lg p-2">
-                              <span className="flex-1 text-sm text-gray-700 dark:text-gray-300">{email}</span>
+                              <span className="flex-1 text-sm text-safe">{email}</span>
                               <button
                                 onClick={() => removeSuperAdminEmail(email)}
-                                className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+                                className="text-safe-error hover:text-safe-error dark:text-red-400 dark:hover:text-red-300"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </button>
@@ -514,10 +514,10 @@ export default function AdminSettings() {
 
                     <div className="flex items-center justify-between">
                       <div>
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label className="text-sm font-medium text-safe">
                           Require Approval for Privilege Escalation
                         </label>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                        <p className="text-sm text-safe-muted">
                           Require approval when elevating user privileges
                         </p>
                       </div>
@@ -534,10 +534,10 @@ export default function AdminSettings() {
 
                     <div className="flex items-center justify-between">
                       <div>
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label className="text-sm font-medium text-safe">
                           Audit Privilege Changes
                         </label>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                        <p className="text-sm text-safe-muted">
                           Log all privilege changes for compliance
                         </p>
                       </div>
@@ -559,7 +559,7 @@ export default function AdminSettings() {
             {/* Notification Settings */}
             {activeTab === 'notifications' && (
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Notification Settings</h3>
+                <h3 className="text-lg font-semibold text-safe">Notification Settings</h3>
                 
                 <div className="space-y-4">
                   {[
@@ -570,10 +570,10 @@ export default function AdminSettings() {
                   ].map((item) => (
                     <div key={item.key} className="flex items-center justify-between">
                       <div>
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label className="text-sm font-medium text-safe">
                           {item.label}
                         </label>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                        <p className="text-sm text-safe-muted">
                           {item.desc}
                         </p>
                       </div>
@@ -595,15 +595,15 @@ export default function AdminSettings() {
             {/* Database Settings */}
             {activeTab === 'database' && (
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Database Settings</h3>
+                <h3 className="text-lg font-semibold text-safe">Database Settings</h3>
                 
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <label className="text-sm font-medium text-safe">
                         Automatic Backups
                       </label>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-safe-muted">
                         Enable automated database backups
                       </p>
                     </div>
@@ -621,7 +621,7 @@ export default function AdminSettings() {
                   {settings.database.autoBackup && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label className="block text-sm font-medium text-safe mb-2">
                           Backup Frequency
                         </label>
                         <select
@@ -637,7 +637,7 @@ export default function AdminSettings() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label className="block text-sm font-medium text-safe mb-2">
                           Retention Period (days)
                         </label>
                         <input
@@ -654,10 +654,10 @@ export default function AdminSettings() {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <label className="text-sm font-medium text-safe">
                         Backup Compression
                       </label>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-safe-muted">
                         Compress backup files to save storage space
                       </p>
                     </div>

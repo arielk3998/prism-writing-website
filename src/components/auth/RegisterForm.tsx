@@ -74,13 +74,13 @@ export default function RegisterForm({ onSuccess, userType }: RegisterFormProps)
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+      <h2 className="text-2xl font-bold text-safe mb-6">
         {userType === 'member' ? 'Join Our Cooperative' : 'Client Registration'}
       </h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="name" className="block text-sm font-medium text-safe mb-1">
             Full Name *
           </label>
           <input
@@ -95,7 +95,7 @@ export default function RegisterForm({ onSuccess, userType }: RegisterFormProps)
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-safe mb-1">
             Email Address *
           </label>
           <input
@@ -111,7 +111,7 @@ export default function RegisterForm({ onSuccess, userType }: RegisterFormProps)
 
         {userType === 'client' && (
           <div>
-            <label htmlFor="organization" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="organization" className="block text-sm font-medium text-safe mb-1">
               Organization
             </label>
             <input
@@ -129,7 +129,7 @@ export default function RegisterForm({ onSuccess, userType }: RegisterFormProps)
         {userType === 'member' && (
           <>
             <div>
-              <label htmlFor="skills" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="skills" className="block text-sm font-medium text-safe mb-1">
                 Skills & Expertise
               </label>
               <textarea
@@ -144,7 +144,7 @@ export default function RegisterForm({ onSuccess, userType }: RegisterFormProps)
             </div>
 
             <div>
-              <label htmlFor="experience" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="experience" className="block text-sm font-medium text-safe mb-1">
                 Experience Level
               </label>
               <select
@@ -165,7 +165,7 @@ export default function RegisterForm({ onSuccess, userType }: RegisterFormProps)
         )}
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="password" className="block text-sm font-medium text-safe mb-1">
             Password *
           </label>
           <input
@@ -180,7 +180,7 @@ export default function RegisterForm({ onSuccess, userType }: RegisterFormProps)
         </div>
 
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="confirmPassword" className="block text-sm font-medium text-safe mb-1">
             Confirm Password *
           </label>
           <input
@@ -195,7 +195,7 @@ export default function RegisterForm({ onSuccess, userType }: RegisterFormProps)
         </div>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm">
+          <div className="bg-red-50 dark:bg-red-900/20 text-safe-error p-3 rounded-lg text-sm">
             {error}
           </div>
         )}
@@ -209,7 +209,7 @@ export default function RegisterForm({ onSuccess, userType }: RegisterFormProps)
         </button>
       </form>
 
-      <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+      <div className="mt-4 text-sm text-safe-muted">
         {userType === 'member' 
           ? 'Your application will be reviewed by our cooperative members.'
           : 'Once registered, you can start submitting work requests immediately.'

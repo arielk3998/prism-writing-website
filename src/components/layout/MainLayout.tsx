@@ -12,7 +12,6 @@
 
 import React, { ReactNode } from 'react'
 import { ResponsiveLayout } from './ResponsiveLayout'
-import Navigation from './Navigation'
 import { usePathname } from 'next/navigation'
 import { ThemeProvider } from '../providers/ThemeProvider'
 import { useDeviceDetection } from '../../hooks/useDeviceDetection'
@@ -25,7 +24,7 @@ interface MainLayoutProps {
 
 export function MainLayout({
   children,
-  showNavigation = true,
+  showNavigation = false, // Disabled by default since pages handle their own navigation
   className = '',
 }: MainLayoutProps) {
   const pathname = usePathname()
@@ -39,16 +38,12 @@ export function MainLayout({
         showDeviceInfo={process.env.NODE_ENV === 'development'}
         className={className}
       >
-        {/* Navigation */}
-        {showNavigation && <Navigation currentPage={pathname} />}
-        
-        {/* Main Content */}
+        {/* Main Content - No navigation here, pages handle their own */}
         <main 
           className={`
             min-h-screen
-            ${showNavigation ? 'pt-16' : ''}
             bg-white dark:bg-gray-900
-            text-gray-900 dark:text-gray-100
+            text-safe
             transition-colors duration-300
           `}
           role="main"

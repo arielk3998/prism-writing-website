@@ -221,15 +221,15 @@ export default function EnhancedFileManager() {
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">File Manager</h2>
-            <p className="text-gray-600 dark:text-gray-400">
+            <h2 className="text-2xl font-bold text-safe">File Manager</h2>
+            <p className="text-safe-muted">
               Upload, organize, and share your project files
             </p>
           </div>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
-              className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              className="p-2 text-safe-muted hover:text-safe-muted dark:hover:text-safe-muted transition-colors"
             >
               {viewMode === 'grid' ? '📋' : '⚏'}
             </button>
@@ -251,7 +251,7 @@ export default function EnhancedFileManager() {
         <div className="flex flex-col lg:flex-row gap-4">
           {/* Category Filter */}
           <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-safe mb-2">
               Category
             </label>
             <div className="flex flex-wrap gap-2">
@@ -259,8 +259,8 @@ export default function EnhancedFileManager() {
                 onClick={() => setSelectedCategory('all')}
                 className={`px-3 py-1 rounded-full text-sm transition-colors ${
                   selectedCategory === 'all'
-                    ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300'
+                    ? 'bg-blue-100 text-safe-accent dark:bg-blue-900 dark:text-blue-200'
+                    : 'bg-gray-100 text-safe-muted hover:bg-gray-200 dark:bg-gray-700 dark:text-safe-muted'
                 }`}
               >
                 All Files
@@ -271,8 +271,8 @@ export default function EnhancedFileManager() {
                   onClick={() => setSelectedCategory(category.id)}
                   className={`px-3 py-1 rounded-full text-sm transition-colors flex items-center gap-1 ${
                     selectedCategory === category.id
-                      ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300'
+                      ? 'bg-blue-100 text-safe-accent dark:bg-blue-900 dark:text-blue-200'
+                      : 'bg-gray-100 text-safe-muted hover:bg-gray-200 dark:bg-gray-700 dark:text-safe-muted'
                   }`}
                 >
                   <span>{category.icon}</span>
@@ -284,7 +284,7 @@ export default function EnhancedFileManager() {
 
           {/* Search */}
           <div className="lg:w-64">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-safe mb-2">
               Search Files
             </label>
             <input
@@ -300,7 +300,7 @@ export default function EnhancedFileManager() {
         {/* Selection Actions */}
         {selectedFiles.length > 0 && (
           <div className="mt-4 flex items-center gap-3">
-            <span className="text-sm text-gray-600 dark:text-gray-400">
+            <span className="text-sm text-safe-muted">
               {selectedFiles.length} file(s) selected
             </span>
             {hasPermission('delete') && (
@@ -313,7 +313,7 @@ export default function EnhancedFileManager() {
             )}
             <button
               onClick={() => setSelectedFiles([])}
-              className="text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 text-sm"
+              className="text-safe-muted hover:text-safe dark:hover:text-gray-200 text-sm"
             >
               Clear Selection
             </button>
@@ -326,10 +326,10 @@ export default function EnhancedFileManager() {
         {filteredFiles.length === 0 ? (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">📁</div>
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+            <h3 className="text-lg font-medium text-safe mb-2">
               No files found
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+            <p className="text-safe-muted mb-4">
               {searchTerm ? 'Try adjusting your search criteria' : 'Upload your first file to get started'}
             </p>
             {hasPermission('write') && (
@@ -361,24 +361,24 @@ export default function EnhancedFileManager() {
                       {getFileIcon(file.type)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className={`font-medium text-gray-900 dark:text-white ${viewMode === 'grid' ? 'text-sm' : ''} truncate`}>
+                      <h4 className={`font-medium text-safe ${viewMode === 'grid' ? 'text-sm' : ''} truncate`}>
                         {file.name}
                       </h4>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-safe-muted">
                         {formatFileSize(file.size)}
                       </p>
                       {viewMode === 'list' && (
-                        <p className="text-xs text-gray-400 dark:text-gray-500">
+                        <p className="text-xs text-safe-muted dark:text-safe-muted">
                           Uploaded {new Date(file.uploadedAt).toLocaleDateString()}
                         </p>
                       )}
                     </div>
                     {selectedFiles.includes(file.id) && (
-                      <div className="text-blue-600 text-xl">✓</div>
+                      <div className="text-safe-accent text-xl">✓</div>
                     )}
                   </div>
                   {viewMode === 'grid' && (
-                    <div className="mt-2 text-xs text-gray-400 dark:text-gray-500">
+                    <div className="mt-2 text-xs text-safe-muted dark:text-safe-muted">
                       {new Date(file.uploadedAt).toLocaleDateString()}
                     </div>
                   )}
@@ -406,13 +406,13 @@ export default function EnhancedFileManager() {
               onClick={(e) => e.stopPropagation()}
               className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full"
             >
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-lg font-semibold text-safe mb-4">
                 Upload Files
               </h3>
               
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-safe mb-2">
                     Select Files
                   </label>
                   <input
@@ -427,7 +427,7 @@ export default function EnhancedFileManager() {
                 {isUploading && (
                   <div className="text-center">
                     <div className="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                    <p className="text-sm text-safe-muted mt-2">
                       Uploading files...
                     </p>
                   </div>
@@ -437,7 +437,7 @@ export default function EnhancedFileManager() {
                   <button
                     onClick={() => setShowUploadModal(false)}
                     disabled={isUploading}
-                    className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+                    className="px-4 py-2 text-safe-muted hover:text-safe dark:hover:text-gray-200 transition-colors"
                   >
                     Cancel
                   </button>

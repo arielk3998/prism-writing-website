@@ -223,7 +223,7 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
                     <ul className="space-y-2 mb-6">
                       {service.features.map((feature) => (
                         <li key={feature} className="flex items-center text-sm">
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                          <CheckCircle className="w-4 h-4 text-safe-success mr-2 flex-shrink-0" />
                           <span>{feature}</span>
                         </li>
                       ))}
@@ -240,7 +240,7 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
                       </div>
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-muted">Accuracy:</span>
-                        <span className="font-medium text-green-600">{service.accuracy}</span>
+                        <span className="font-medium text-safe-success">{service.accuracy}</span>
                       </div>
                     </div>
 
@@ -271,7 +271,7 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
                     <ul className="space-y-2 mb-6">
                       {service.features.map((feature) => (
                         <li key={feature} className="flex items-center text-sm">
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                          <CheckCircle className="w-4 h-4 text-safe-success mr-2 flex-shrink-0" />
                           <span>{feature}</span>
                         </li>
                       ))}
@@ -333,8 +333,8 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
 
         {/* CTA Section */}
         <div className="text-center gradient-primary rounded-2xl p-12 text-white">
-          <h3 className="heading-3 mb-4">Ready to Get Started?</h3>
-          <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+          <h3 className="heading-3 mb-4 text-white drop-shadow-lg">Ready to Get Started?</h3>
+          <p className="text-xl mb-8 text-white/95 max-w-2xl mx-auto drop-shadow-md">
             Join thousands of businesses that trust us with their global communication needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

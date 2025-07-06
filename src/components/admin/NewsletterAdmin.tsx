@@ -143,8 +143,8 @@ export default function NewsletterAdmin({ className = '' }: NewsletterAdminProps
     return (
       <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 ${className}`}>
         <div className="flex items-center justify-center">
-          <RefreshCw className="w-8 h-8 animate-spin text-blue-600" />
-          <span className="ml-3 text-gray-600 dark:text-gray-300">Loading subscriber data...</span>
+          <RefreshCw className="w-8 h-8 animate-spin text-safe-accent" />
+          <span className="ml-3 text-safe-muted">Loading subscriber data...</span>
         </div>
       </div>
     );
@@ -154,9 +154,9 @@ export default function NewsletterAdmin({ className = '' }: NewsletterAdminProps
     return (
       <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 ${className}`}>
         <div className="text-center">
-          <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Error Loading Data</h3>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">{error}</p>
+          <AlertCircle className="w-12 h-12 text-safe-error mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-safe mb-2">Error Loading Data</h3>
+          <p className="text-safe-muted mb-4">{error}</p>
           <button
             onClick={fetchStats}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
@@ -178,8 +178,8 @@ export default function NewsletterAdmin({ className = '' }: NewsletterAdminProps
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Newsletter Subscriptions</h2>
-            <p className="text-gray-600 dark:text-gray-300">Manage and track your email subscribers</p>
+            <h2 className="text-2xl font-bold text-safe">Newsletter Subscriptions</h2>
+            <p className="text-safe-muted">Manage and track your email subscribers</p>
           </div>
           <button
             onClick={fetchStats}
@@ -201,11 +201,11 @@ export default function NewsletterAdmin({ className = '' }: NewsletterAdminProps
         >
           <div className="flex items-center">
             <div className="p-3 bg-green-100 dark:bg-green-900 rounded-lg">
-              <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+              <CheckCircle className="w-6 h-6 text-safe-success" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Confirmed</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.total.confirmed}</p>
+              <p className="text-sm font-medium text-safe-muted">Confirmed</p>
+              <p className="text-2xl font-bold text-safe">{stats.total.confirmed}</p>
             </div>
           </div>
         </motion.div>
@@ -218,11 +218,11 @@ export default function NewsletterAdmin({ className = '' }: NewsletterAdminProps
         >
           <div className="flex items-center">
             <div className="p-3 bg-yellow-100 dark:bg-yellow-900 rounded-lg">
-              <Clock className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
+              <Clock className="w-6 h-6 text-safe-warning dark:text-yellow-400" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Pending</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.total.pending}</p>
+              <p className="text-sm font-medium text-safe-muted">Pending</p>
+              <p className="text-2xl font-bold text-safe">{stats.total.pending}</p>
             </div>
           </div>
         </motion.div>
@@ -235,11 +235,11 @@ export default function NewsletterAdmin({ className = '' }: NewsletterAdminProps
         >
           <div className="flex items-center">
             <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
-              <TrendingUp className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <TrendingUp className="w-6 h-6 text-safe-accent" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Last 30 Days</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.growth.last30Days}</p>
+              <p className="text-sm font-medium text-safe-muted">Last 30 Days</p>
+              <p className="text-2xl font-bold text-safe">{stats.growth.last30Days}</p>
             </div>
           </div>
         </motion.div>
@@ -252,11 +252,11 @@ export default function NewsletterAdmin({ className = '' }: NewsletterAdminProps
         >
           <div className="flex items-center">
             <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-lg">
-              <Users className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+              <Users className="w-6 h-6 text-safe-accent dark:text-purple-400" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Conversion Rate</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.growth.conversionRate}%</p>
+              <p className="text-sm font-medium text-safe-muted">Conversion Rate</p>
+              <p className="text-2xl font-bold text-safe">{stats.growth.conversionRate}%</p>
             </div>
           </div>
         </motion.div>
@@ -264,14 +264,14 @@ export default function NewsletterAdmin({ className = '' }: NewsletterAdminProps
 
       {/* Export Section */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Export Subscribers</h3>
+        <h3 className="text-lg font-semibold text-safe mb-4">Export Subscribers</h3>
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Format:</label>
+            <label className="text-sm font-medium text-safe">Format:</label>
             <select
               value={exportFormat}
               onChange={(e) => setExportFormat(e.target.value as 'json' | 'csv')}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
             >
               <option value="csv">CSV</option>
               <option value="json">JSON</option>
@@ -284,9 +284,9 @@ export default function NewsletterAdmin({ className = '' }: NewsletterAdminProps
               id="include-unsubscribed"
               checked={includeUnsubscribed}
               onChange={(e) => setIncludeUnsubscribed(e.target.checked)}
-              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              className="w-4 h-4 text-safe-accent border-gray-300 rounded focus:ring-blue-500"
             />
-            <label htmlFor="include-unsubscribed" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label htmlFor="include-unsubscribed" className="text-sm font-medium text-safe">
               Include unsubscribed users
             </label>
           </div>
@@ -303,31 +303,31 @@ export default function NewsletterAdmin({ className = '' }: NewsletterAdminProps
 
       {/* Recent Subscribers */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Recent Subscribers</h3>
+        <h3 className="text-lg font-semibold text-safe mb-4">Recent Subscribers</h3>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-200 dark:border-gray-700">
-                <th className="text-left py-3 px-4 font-medium text-gray-700 dark:text-gray-300">Email</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-700 dark:text-gray-300">Source</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-700 dark:text-gray-300">Date</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-700 dark:text-gray-300">Status</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-700 dark:text-gray-300">Actions</th>
+                <th className="text-left py-3 px-4 font-medium text-safe">Email</th>
+                <th className="text-left py-3 px-4 font-medium text-safe">Source</th>
+                <th className="text-left py-3 px-4 font-medium text-safe">Date</th>
+                <th className="text-left py-3 px-4 font-medium text-safe">Status</th>
+                <th className="text-left py-3 px-4 font-medium text-safe">Actions</th>
               </tr>
             </thead>
             <tbody>
               {stats.recent.map((subscriber) => (
                 <tr key={subscriber.id} className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="py-3 px-4 text-gray-900 dark:text-white">{subscriber.email}</td>
-                  <td className="py-3 px-4 text-gray-600 dark:text-gray-300 capitalize">{subscriber.source}</td>
-                  <td className="py-3 px-4 text-gray-600 dark:text-gray-300">
+                  <td className="py-3 px-4 text-safe">{subscriber.email}</td>
+                  <td className="py-3 px-4 text-safe-muted capitalize">{subscriber.source}</td>
+                  <td className="py-3 px-4 text-safe-muted">
                     {new Date(subscriber.subscribedAt).toLocaleDateString()}
                   </td>
                   <td className="py-3 px-4">
                     <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
                       subscriber.confirmed 
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                        : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                        ? 'bg-green-100 text-safe-success dark:bg-green-900 dark:text-green-200'
+                        : 'bg-yellow-100 text-safe-warning dark:bg-yellow-900 dark:text-yellow-200'
                     }`}>
                       {subscriber.confirmed ? 'Confirmed' : 'Pending'}
                     </span>
@@ -335,7 +335,7 @@ export default function NewsletterAdmin({ className = '' }: NewsletterAdminProps
                   <td className="py-3 px-4">
                     <button
                       onClick={() => handleRemoveSubscriber(subscriber.id)}
-                      className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+                      className="text-safe-error hover:text-safe-error dark:text-red-400 dark:hover:text-red-300"
                       title="Remove subscriber"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -350,11 +350,11 @@ export default function NewsletterAdmin({ className = '' }: NewsletterAdminProps
 
       {/* Source Breakdown */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Subscription Sources</h3>
+        <h3 className="text-lg font-semibold text-safe mb-4">Subscription Sources</h3>
         <div className="space-y-3">
           {Object.entries(stats.sources).map(([source, count]) => (
             <div key={source} className="flex items-center justify-between">
-              <span className="text-gray-700 dark:text-gray-300 capitalize">{source}</span>
+              <span className="text-safe capitalize">{source}</span>
               <div className="flex items-center gap-2">
                 <div className="w-24 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                   <div 
@@ -362,7 +362,7 @@ export default function NewsletterAdmin({ className = '' }: NewsletterAdminProps
                     style={{ width: `${(count / stats.total.confirmed) * 100}%` }}
                   ></div>
                 </div>
-                <span className="text-sm font-medium text-gray-900 dark:text-white w-8 text-right">{count}</span>
+                <span className="text-sm font-medium text-safe w-8 text-right">{count}</span>
               </div>
             </div>
           ))}

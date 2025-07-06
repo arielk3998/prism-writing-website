@@ -100,30 +100,30 @@ export default function UltimateAutomationDashboard() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'operational':
-        return 'text-green-600 bg-green-100';
+        return 'text-safe-success bg-green-100';
       case 'degraded':
-        return 'text-yellow-600 bg-yellow-100';
+        return 'text-safe-warning bg-yellow-100';
       case 'failed':
-        return 'text-red-600 bg-red-100';
+        return 'text-safe-error bg-red-100';
       case 'maintenance':
-        return 'text-blue-600 bg-blue-100';
+        return 'text-safe-accent bg-blue-100';
       default:
-        return 'text-gray-600 bg-gray-100';
+        return 'text-safe-muted bg-gray-100';
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'operational':
-        return <CheckCircle className="h-4 w-4 text-green-500" />;
+        return <CheckCircle className="h-4 w-4 text-safe-success" />;
       case 'degraded':
-        return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
+        return <AlertTriangle className="h-4 w-4 text-safe-warning" />;
       case 'failed':
-        return <AlertTriangle className="h-4 w-4 text-red-500" />;
+        return <AlertTriangle className="h-4 w-4 text-safe-error" />;
       case 'maintenance':
-        return <Settings className="h-4 w-4 text-blue-500" />;
+        return <Settings className="h-4 w-4 text-safe-accent" />;
       default:
-        return <Activity className="h-4 w-4 text-gray-500" />;
+        return <Activity className="h-4 w-4 text-safe-muted" />;
     }
   };
 
@@ -153,7 +153,7 @@ export default function UltimateAutomationDashboard() {
     className?: string 
   }) => {
     const baseClass = "px-2 py-1 text-xs rounded-full font-medium";
-    const variantClass = variant === "secondary" ? "bg-gray-100 text-gray-800" : "bg-blue-100 text-blue-800";
+    const variantClass = variant === "secondary" ? "bg-gray-100 text-safe" : "bg-blue-100 text-safe-accent";
     return <span className={`${baseClass} ${variantClass} ${className}`}>{children}</span>;
   };
 
@@ -163,7 +163,7 @@ export default function UltimateAutomationDashboard() {
       className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
         active 
           ? 'bg-blue-600 text-white' 
-          : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+          : 'text-safe-muted hover:text-safe-accent hover:bg-blue-50'
       }`}
     >
       {children}
@@ -175,8 +175,8 @@ export default function UltimateAutomationDashboard() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">🤖 Ultimate Automation Dashboard</h1>
-          <p className="text-gray-600">Enterprise-grade autonomous business management</p>
+          <h1 className="text-3xl font-bold text-safe">🤖 Ultimate Automation Dashboard</h1>
+          <p className="text-safe-muted">Enterprise-grade autonomous business management</p>
         </div>
         <div className="flex gap-3">
           <Button
@@ -200,8 +200,8 @@ export default function UltimateAutomationDashboard() {
       {/* Status Alert */}
       <div className={`border rounded-lg p-4 ${isAutomationActive ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'}`}>
         <div className="flex items-center gap-2">
-          <Activity className={`h-4 w-4 ${isAutomationActive ? 'text-green-600' : 'text-red-600'}`} />
-          <span className={isAutomationActive ? 'text-green-800' : 'text-red-800'}>
+          <Activity className={`h-4 w-4 ${isAutomationActive ? 'text-safe-success' : 'text-safe-error'}`} />
+          <span className={isAutomationActive ? 'text-safe-success' : 'text-safe-error'}>
             {isAutomationActive 
               ? `🚀 Autonomous systems are operational. Running at Level ${automationLevel} automation with ${metrics.activeAutomations} active processes.`
               : '⏸️ Autonomous systems are paused. Click "Start Automation" to resume operations.'
@@ -218,7 +218,7 @@ export default function UltimateAutomationDashboard() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-safe-success">
               ${metrics.costSavings.toLocaleString()}
             </div>
             <p className="text-xs text-muted-foreground">+22% from last month</p>
@@ -231,7 +231,7 @@ export default function UltimateAutomationDashboard() {
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-safe-accent">
               ${metrics.revenueGenerated.toLocaleString()}
             </div>
             <p className="text-xs text-muted-foreground">+15% from automated decisions</p>
@@ -244,7 +244,7 @@ export default function UltimateAutomationDashboard() {
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-safe-success">
               {metrics.automationUptime}%
             </div>
             <p className="text-xs text-muted-foreground">99.9% target achieved</p>
@@ -257,7 +257,7 @@ export default function UltimateAutomationDashboard() {
             <Brain className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-purple-600">
+            <div className="text-2xl font-bold text-safe-accent">
               {metrics.decisionsPerDay}
             </div>
             <p className="text-xs text-muted-foreground">85% auto-approved</p>
@@ -300,14 +300,14 @@ export default function UltimateAutomationDashboard() {
                       className={`p-2 rounded transition-colors ${
                         automationLevel >= level 
                           ? 'bg-blue-500 text-white' 
-                          : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                          : 'bg-gray-200 text-safe-muted hover:bg-gray-300'
                       }`}
                     >
                       L{level}
                     </button>
                   ))}
                 </div>
-                <p className="text-xs text-gray-600">
+                <p className="text-xs text-safe-muted">
                   Level 5: Full autonomy with minimal human oversight
                 </p>
               </CardContent>
@@ -369,16 +369,16 @@ export default function UltimateAutomationDashboard() {
                 <CardContent>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">Uptime:</span>
+                      <span className="text-sm text-safe-muted">Uptime:</span>
                       <span className="font-medium">{component.uptime}%</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">Last Check:</span>
+                      <span className="text-sm text-safe-muted">Last Check:</span>
                       <span className="text-sm">{component.lastCheck.toLocaleTimeString()}</span>
                     </div>
                     {Object.entries(component.metrics).map(([key, value]) => (
                       <div key={key} className="flex justify-between">
-                        <span className="text-sm text-gray-600 capitalize">
+                        <span className="text-sm text-safe-muted capitalize">
                           {key.replace(/([A-Z])/g, ' $1').trim()}:
                         </span>
                         <span className="font-medium">{value}</span>
@@ -411,20 +411,20 @@ export default function UltimateAutomationDashboard() {
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
                         <h4 className="font-medium">{decision.description}</h4>
-                        <p className="text-sm text-gray-600 mt-1">{decision.impact}</p>
+                        <p className="text-sm text-safe-muted mt-1">{decision.impact}</p>
                       </div>
                       <div className="flex items-center gap-2 ml-4">
                         <Badge variant={decision.status === 'implemented' ? 'secondary' : 'default'}>
                           {decision.status}
                         </Badge>
                         {decision.autoApproved && (
-                          <Badge className="bg-blue-100 text-blue-800">
+                          <Badge className="bg-blue-100 text-safe-accent">
                             Auto-approved
                           </Badge>
                         )}
                       </div>
                     </div>
-                    <div className="flex justify-between items-center text-sm text-gray-500">
+                    <div className="flex justify-between items-center text-sm text-safe-muted">
                       <span>Confidence: {decision.confidence}%</span>
                       <span>{decision.timestamp.toLocaleString()}</span>
                     </div>
@@ -488,17 +488,17 @@ export default function UltimateAutomationDashboard() {
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div className="p-3 bg-green-50 rounded">
-                      <div className="text-2xl font-bold text-green-600">$125K</div>
-                      <div className="text-xs text-green-700">Costs Saved</div>
+                      <div className="text-2xl font-bold text-safe-success">$125K</div>
+                      <div className="text-xs text-safe-success">Costs Saved</div>
                     </div>
                     <div className="p-3 bg-blue-50 rounded">
-                      <div className="text-2xl font-bold text-blue-600">$890K</div>
-                      <div className="text-xs text-blue-700">Revenue Added</div>
+                      <div className="text-2xl font-bold text-safe-accent">$890K</div>
+                      <div className="text-xs text-safe-accent">Revenue Added</div>
                     </div>
                   </div>
                   <div className="text-center p-4 bg-purple-50 rounded">
-                    <div className="text-3xl font-bold text-purple-600">712%</div>
-                    <div className="text-sm text-purple-700">Total ROI</div>
+                    <div className="text-3xl font-bold text-safe-accent">712%</div>
+                    <div className="text-sm text-safe-accent">Total ROI</div>
                   </div>
                 </div>
               </CardContent>
@@ -575,8 +575,8 @@ export default function UltimateAutomationDashboard() {
               </div>
 
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <h4 className="font-medium text-blue-900 mb-2">🎯 System Status: FULLY OPERATIONAL</h4>
-                <p className="text-sm text-blue-800">
+                <h4 className="font-medium text-safe-accent mb-2">🎯 System Status: FULLY OPERATIONAL</h4>
+                <p className="text-sm text-safe-accent">
                   All automation systems are running optimally. Your business is operating with Level {automationLevel} autonomy, 
                   generating significant cost savings and revenue while maintaining high quality and customer satisfaction.
                 </p>

@@ -45,13 +45,13 @@ const TEAM_ROLES = {
 
 const ROLE_COLORS = {
   [TEAM_ROLES.FOUNDER]: 'bg-purple-100 text-purple-800 border-purple-200',
-  [TEAM_ROLES.SENIOR_WRITER]: 'bg-blue-100 text-blue-800 border-blue-200',
-  [TEAM_ROLES.TECHNICAL_WRITER]: 'bg-green-100 text-green-800 border-green-200',
+  [TEAM_ROLES.SENIOR_WRITER]: 'bg-blue-100 text-safe-accent border-blue-200',
+  [TEAM_ROLES.TECHNICAL_WRITER]: 'bg-green-100 text-safe-success border-green-200',
   [TEAM_ROLES.CONTENT_STRATEGIST]: 'bg-orange-100 text-orange-800 border-orange-200',
   [TEAM_ROLES.UX_WRITER]: 'bg-pink-100 text-pink-800 border-pink-200',
   [TEAM_ROLES.EDITOR]: 'bg-cyan-100 text-cyan-800 border-cyan-200',
   [TEAM_ROLES.PROJECT_MANAGER]: 'bg-indigo-100 text-indigo-800 border-indigo-200',
-  [TEAM_ROLES.ADMIN]: 'bg-red-100 text-red-800 border-red-200'
+  [TEAM_ROLES.ADMIN]: 'bg-red-100 text-safe-error border-red-200'
 };
 
 export default function TeamManagement({ className = '' }: TeamManagementProps) {
@@ -243,8 +243,8 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
   if (loading) {
     return (
       <div className={`flex items-center justify-center py-12 ${className}`}>
-        <RefreshCw className="w-8 h-8 animate-spin text-blue-500" />
-        <span className="ml-2 text-gray-600 dark:text-gray-300">Loading team members...</span>
+        <RefreshCw className="w-8 h-8 animate-spin text-safe-accent" />
+        <span className="ml-2 text-safe-muted">Loading team members...</span>
       </div>
     );
   }
@@ -270,11 +270,11 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
       {error && (
         <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
           <div className="flex items-center">
-            <XCircle className="w-5 h-5 text-red-500 mr-2" />
-            <span className="text-red-700 dark:text-red-300">{error}</span>
+            <XCircle className="w-5 h-5 text-safe-error mr-2" />
+            <span className="text-safe-error dark:text-red-300">{error}</span>
             <button
               onClick={() => setError(null)}
-              className="ml-auto text-red-500 hover:text-red-700"
+              className="ml-auto text-safe-error hover:text-safe-error"
             >
               <XCircle className="w-4 h-4" />
             </button>
@@ -285,11 +285,11 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
-            <Users className="w-6 h-6 mr-2 text-blue-500" />
+          <h2 className="text-2xl font-bold text-safe flex items-center">
+            <Users className="w-6 h-6 mr-2 text-safe-accent" />
             Team Management
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 mt-1">
+          <p className="text-safe-muted mt-1">
             Manage team members, roles, and permissions
           </p>
         </div>
@@ -297,7 +297,7 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
         <div className="flex gap-2">
           <button
             onClick={loadMembers}
-            className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center"
+            className="px-4 py-2 text-safe-muted hover:text-safe dark:hover:text-white border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center"
           >
             <RefreshCw className="w-4 h-4 mr-2" />
             Refresh
@@ -319,20 +319,20 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
       {/* Filters */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-safe-muted w-4 h-4" />
           <input
             type="text"
             placeholder="Search members..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
         
         <select
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
           <option value="">All Roles</option>
           {Object.values(TEAM_ROLES).map(role => (
@@ -343,14 +343,14 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
           <option value="">All Status</option>
           <option value="active">Active</option>
           <option value="inactive">Inactive</option>
         </select>
         
-        <div className="text-sm text-gray-600 dark:text-gray-300 flex items-center">
+        <div className="text-sm text-safe-muted flex items-center">
           <Users className="w-4 h-4 mr-1" />
           {filteredMembers.length} member(s) found
         </div>
@@ -370,12 +370,12 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
               <div className="flex-1">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    <h3 className="text-xl font-semibold text-safe">
                       {member.name}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300">{member.title}</p>
+                    <p className="text-safe-muted">{member.title}</p>
                     {member.email && (
-                      <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center mt-1">
+                      <p className="text-sm text-safe-muted flex items-center mt-1">
                         <Mail className="w-3 h-3 mr-1" />
                         {member.email}
                       </p>
@@ -384,7 +384,7 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
                   
                   <div className="flex items-center gap-2">
                     <span className={`px-2 py-1 text-xs rounded-full border ${
-                      ROLE_COLORS[member.role as keyof typeof ROLE_COLORS] || 'bg-gray-100 text-gray-800 border-gray-200'
+                      ROLE_COLORS[member.role as keyof typeof ROLE_COLORS] || 'bg-gray-100 text-safe border-gray-200'
                     }`}>
                       {member.role}
                     </span>
@@ -397,31 +397,31 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
                     
                     <span className={`px-2 py-1 text-xs rounded-full ${
                       member.isActive 
-                        ? 'bg-green-100 text-green-800 border border-green-200' 
-                        : 'bg-red-100 text-red-800 border border-red-200'
+                        ? 'bg-green-100 text-safe-success border border-green-200' 
+                        : 'bg-red-100 text-safe-error border border-red-200'
                     }`}>
                       {member.isActive ? 'Active' : 'Inactive'}
                     </span>
                   </div>
                 </div>
                 
-                <p className="text-gray-600 dark:text-gray-300 mb-4">{member.bio}</p>
+                <p className="text-safe-muted mb-4">{member.bio}</p>
                 
                 {/* Specializations */}
                 {member.specializations.length > 0 && (
                   <div className="mb-4">
-                    <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2 flex items-center">
+                    <h4 className="text-sm font-medium text-safe mb-2 flex items-center">
                       <Briefcase className="w-4 h-4 mr-1" />
                       Specializations
                     </h4>
                     <div className="flex flex-wrap gap-1">
                       {member.specializations.slice(0, 5).map((spec, index) => (
-                        <span key={index} className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded">
+                        <span key={index} className="px-2 py-1 text-xs bg-blue-100 text-safe-accent rounded">
                           {spec}
                         </span>
                       ))}
                       {member.specializations.length > 5 && (
-                        <span className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded">
+                        <span className="px-2 py-1 text-xs bg-gray-100 text-safe-muted rounded">
                           +{member.specializations.length - 5} more
                         </span>
                       )}
@@ -432,11 +432,11 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
                 {/* Recent Achievement */}
                 {member.achievements.length > 0 && (
                   <div className="mb-4">
-                    <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2 flex items-center">
+                    <h4 className="text-sm font-medium text-safe mb-2 flex items-center">
                       <Award className="w-4 h-4 mr-1" />
                       Recent Achievement
                     </h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                    <p className="text-sm text-safe-muted">
                       {member.achievements[0]}
                     </p>
                   </div>
@@ -447,7 +447,7 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
               <div className="flex lg:flex-col gap-2">
                 <button
                   onClick={() => openEditModal(member)}
-                  className="px-3 py-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors flex items-center"
+                  className="px-3 py-2 text-safe-accent hover:text-safe-accent hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors flex items-center"
                 >
                   <Edit3 className="w-4 h-4 mr-1" />
                   Edit
@@ -458,7 +458,7 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
                     setDeletingMember(member);
                     setShowDeleteModal(true);
                   }}
-                  className="px-3 py-2 text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors flex items-center"
+                  className="px-3 py-2 text-safe-error hover:text-safe-error hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors flex items-center"
                 >
                   <Trash2 className="w-4 h-4 mr-1" />
                   Remove
@@ -472,8 +472,8 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
                   }}
                   className={`px-3 py-2 rounded-lg transition-colors flex items-center ${
                     member.isActive
-                      ? 'text-orange-600 hover:text-orange-800 hover:bg-orange-50 dark:hover:bg-orange-900/20'
-                      : 'text-green-600 hover:text-green-800 hover:bg-green-50 dark:hover:bg-green-900/20'
+                      ? 'text-safe-warning hover:text-orange-800 hover:bg-orange-50 dark:hover:bg-orange-900/20'
+                      : 'text-safe-success hover:text-safe-success hover:bg-green-50 dark:hover:bg-green-900/20'
                   }`}
                 >
                   {member.isActive ? (
@@ -497,11 +497,11 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
       {/* Empty State */}
       {filteredMembers.length === 0 && !loading && (
         <div className="text-center py-12">
-          <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+          <Users className="w-12 h-12 text-safe-muted mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-safe mb-2">
             No team members found
           </h3>
-          <p className="text-gray-600 dark:text-gray-300 mb-6">
+          <p className="text-safe-muted mb-6">
             {searchTerm || roleFilter || statusFilter 
               ? 'Try adjusting your filters to see more results.'
               : 'Get started by adding your first team member.'
@@ -544,14 +544,14 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
               className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             >
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                <h3 className="text-xl font-semibold text-safe mb-6">
                   {editingMember ? 'Edit Team Member' : 'Add New Team Member'}
                 </h3>
                 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-safe mb-1">
                         Full Name *
                       </label>
                       <input
@@ -559,33 +559,33 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
                         required
                         value={formData.name}
                         onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-safe mb-1">
                         Email Address
                       </label>
                       <input
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                     </div>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-safe mb-1">
                         Role *
                       </label>
                       <select
                         required
                         value={formData.role}
                         onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       >
                         <option value="">Select Role</option>
                         {Object.values(TEAM_ROLES).map(role => (
@@ -595,39 +595,39 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-safe mb-1">
                         Title
                       </label>
                       <input
                         type="text"
                         value={formData.title}
                         onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                     </div>
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-safe mb-1">
                       Bio
                     </label>
                     <textarea
                       rows={3}
                       value={formData.bio}
                       onChange={(e) => setFormData(prev => ({ ...prev, bio: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-safe mb-1">
                       Experience Summary
                     </label>
                     <textarea
                       rows={2}
                       value={formData.experience}
                       onChange={(e) => setFormData(prev => ({ ...prev, experience: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
                   
@@ -637,9 +637,9 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
                         type="checkbox"
                         checked={formData.isActive}
                         onChange={(e) => setFormData(prev => ({ ...prev, isActive: e.target.checked }))}
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
                       />
-                      <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Active Member</span>
+                      <span className="ml-2 text-sm text-safe">Active Member</span>
                     </label>
                     
                     <label className="flex items-center">
@@ -647,9 +647,9 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
                         type="checkbox"
                         checked={formData.isFoundingMember}
                         onChange={(e) => setFormData(prev => ({ ...prev, isFoundingMember: e.target.checked }))}
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
                       />
-                      <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Founding Member</span>
+                      <span className="ml-2 text-sm text-safe">Founding Member</span>
                     </label>
                   </div>
                   
@@ -661,7 +661,7 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
                         setShowEditModal(false);
                         resetForm();
                       }}
-                      className="px-4 py-2 text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                      className="px-4 py-2 text-safe-muted border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     >
                       Cancel
                     </button>
@@ -699,10 +699,10 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
               onClick={(e) => e.stopPropagation()}
               className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-6"
             >
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-lg font-semibold text-safe mb-4">
                 Remove Team Member
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
+              <p className="text-safe-muted mb-6">
                 Are you sure you want to remove <strong>{deletingMember.name}</strong> from the team? 
                 This action cannot be undone.
               </p>
@@ -712,7 +712,7 @@ export default function TeamManagement({ className = '' }: TeamManagementProps) 
                     setShowDeleteModal(false);
                     setDeletingMember(null);
                   }}
-                  className="px-4 py-2 text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="px-4 py-2 text-safe-muted border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                 >
                   Cancel
                 </button>

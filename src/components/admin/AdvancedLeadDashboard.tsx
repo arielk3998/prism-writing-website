@@ -188,10 +188,10 @@ const AdvancedLeadDashboard: React.FC = () => {
       >
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-safe mb-2">
             Advanced Lead Management Dashboard
           </h1>
-          <p className="text-gray-600">
+          <p className="text-safe-muted">
             Comprehensive lead analytics, email automation, and CRM integration
           </p>
         </div>
@@ -211,8 +211,8 @@ const AdvancedLeadDashboard: React.FC = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${
                   activeTab === tab.id
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'text-gray-500 hover:text-gray-700'
+                    ? 'bg-blue-100 text-safe-accent'
+                    : 'text-safe-muted hover:text-safe'
                 }`}
               >
                 <tab.icon className="w-4 h-4 mr-2" />
@@ -229,40 +229,40 @@ const AdvancedLeadDashboard: React.FC = () => {
             <div className="bg-white p-6 rounded-lg shadow-sm border">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Leads</p>
-                  <p className="text-2xl font-bold text-gray-900">{analytics.totalLeads}</p>
+                  <p className="text-sm font-medium text-safe-muted">Total Leads</p>
+                  <p className="text-2xl font-bold text-safe">{analytics.totalLeads}</p>
                 </div>
-                <Users className="w-8 h-8 text-blue-600" />
+                <Users className="w-8 h-8 text-safe-accent" />
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm border">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">New This Week</p>
-                  <p className="text-2xl font-bold text-green-600">{analytics.newLeads}</p>
+                  <p className="text-sm font-medium text-safe-muted">New This Week</p>
+                  <p className="text-2xl font-bold text-safe-success">{analytics.newLeads}</p>
                 </div>
-                <TrendingUp className="w-8 h-8 text-green-600" />
+                <TrendingUp className="w-8 h-8 text-safe-success" />
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm border">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Conversion Rate</p>
-                  <p className="text-2xl font-bold text-purple-600">{analytics.conversionRate}%</p>
+                  <p className="text-sm font-medium text-safe-muted">Conversion Rate</p>
+                  <p className="text-2xl font-bold text-safe-accent">{analytics.conversionRate}%</p>
                 </div>
-                <Target className="w-8 h-8 text-purple-600" />
+                <Target className="w-8 h-8 text-safe-accent" />
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm border">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Avg Response Time</p>
-                  <p className="text-2xl font-bold text-orange-600">{analytics.averageResponseTime}</p>
+                  <p className="text-sm font-medium text-safe-muted">Avg Response Time</p>
+                  <p className="text-2xl font-bold text-safe-warning">{analytics.averageResponseTime}</p>
                 </div>
-                <Clock className="w-8 h-8 text-orange-600" />
+                <Clock className="w-8 h-8 text-safe-warning" />
               </div>
             </div>
           </div>
@@ -318,7 +318,7 @@ const AdvancedLeadDashboard: React.FC = () => {
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Email Automation Controls</h3>
                 <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  emailAutomationStatus === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                  emailAutomationStatus === 'Active' ? 'bg-green-100 text-safe-success' : 'bg-gray-100 text-safe'
                 }`}>
                   {emailAutomationStatus}
                 </span>
@@ -329,24 +329,24 @@ const AdvancedLeadDashboard: React.FC = () => {
                   onClick={() => handleEmailAutomation('process-queue')}
                   className="flex items-center justify-center p-4 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors"
                 >
-                  <RefreshCw className="w-5 h-5 mr-2 text-blue-600" />
-                  <span className="text-blue-700 font-medium">Process Email Queue</span>
+                  <RefreshCw className="w-5 h-5 mr-2 text-safe-accent" />
+                  <span className="text-safe-accent font-medium">Process Email Queue</span>
                 </button>
                 
                 <button
                   onClick={() => handleEmailAutomation('setup-automation', 'sample-lead-id')}
                   className="flex items-center justify-center p-4 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 transition-colors"
                 >
-                  <Mail className="w-5 h-5 mr-2 text-green-600" />
-                  <span className="text-green-700 font-medium">Test Automation</span>
+                  <Mail className="w-5 h-5 mr-2 text-safe-success" />
+                  <span className="text-safe-success font-medium">Test Automation</span>
                 </button>
                 
                 <button
                   onClick={() => loadDashboardData()}
                   className="flex items-center justify-center p-4 bg-gray-50 border border-gray-200 rounded-lg hover:bg-gray-100 transition-colors"
                 >
-                  <Calendar className="w-5 h-5 mr-2 text-gray-600" />
-                  <span className="text-gray-700 font-medium">Refresh Status</span>
+                  <Calendar className="w-5 h-5 mr-2 text-safe-muted" />
+                  <span className="text-safe font-medium">Refresh Status</span>
                 </button>
               </div>
 
@@ -380,23 +380,23 @@ const AdvancedLeadDashboard: React.FC = () => {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
                     <span className="text-sm">Contact Information</span>
-                    <span className="text-sm font-medium text-blue-600">Max 20 points</span>
+                    <span className="text-sm font-medium text-safe-accent">Max 20 points</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
                     <span className="text-sm">Project Value</span>
-                    <span className="text-sm font-medium text-green-600">Max 30 points</span>
+                    <span className="text-sm font-medium text-safe-success">Max 30 points</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-lg">
                     <span className="text-sm">Urgency Indicators</span>
-                    <span className="text-sm font-medium text-yellow-600">Max 25 points</span>
+                    <span className="text-sm font-medium text-safe-warning">Max 25 points</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
                     <span className="text-sm">Engagement Level</span>
-                    <span className="text-sm font-medium text-purple-600">Max 15 points</span>
+                    <span className="text-sm font-medium text-safe-accent">Max 15 points</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                     <span className="text-sm">Company Size</span>
-                    <span className="text-sm font-medium text-gray-600">Max 10 points</span>
+                    <span className="text-sm font-medium text-safe-muted">Max 10 points</span>
                   </div>
                 </div>
               </div>
@@ -405,31 +405,31 @@ const AdvancedLeadDashboard: React.FC = () => {
                 <h4 className="font-medium mb-3">Lead Grades</h4>
                 <div className="space-y-3">
                   <div className="flex items-center p-3 bg-green-50 rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                    <CheckCircle className="w-5 h-5 text-safe-success mr-3" />
                     <div>
-                      <span className="font-medium text-green-700">Grade A (90-100)</span>
-                      <p className="text-sm text-green-600">High-priority, immediate follow-up</p>
+                      <span className="font-medium text-safe-success">Grade A (90-100)</span>
+                      <p className="text-sm text-safe-success">High-priority, immediate follow-up</p>
                     </div>
                   </div>
                   <div className="flex items-center p-3 bg-blue-50 rounded-lg">
-                    <AlertCircle className="w-5 h-5 text-blue-500 mr-3" />
+                    <AlertCircle className="w-5 h-5 text-safe-accent mr-3" />
                     <div>
-                      <span className="font-medium text-blue-700">Grade B (75-89)</span>
-                      <p className="text-sm text-blue-600">Good potential, follow-up within 4 hours</p>
+                      <span className="font-medium text-safe-accent">Grade B (75-89)</span>
+                      <p className="text-sm text-safe-accent">Good potential, follow-up within 4 hours</p>
                     </div>
                   </div>
                   <div className="flex items-center p-3 bg-yellow-50 rounded-lg">
-                    <Clock className="w-5 h-5 text-yellow-500 mr-3" />
+                    <Clock className="w-5 h-5 text-safe-warning mr-3" />
                     <div>
-                      <span className="font-medium text-yellow-700">Grade C (60-74)</span>
-                      <p className="text-sm text-yellow-600">Moderate potential, follow-up within 24 hours</p>
+                      <span className="font-medium text-safe-warning">Grade C (60-74)</span>
+                      <p className="text-sm text-safe-warning">Moderate potential, follow-up within 24 hours</p>
                     </div>
                   </div>
                   <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                    <AlertCircle className="w-5 h-5 text-gray-500 mr-3" />
+                    <AlertCircle className="w-5 h-5 text-safe-muted mr-3" />
                     <div>
-                      <span className="font-medium text-gray-700">Grade D (0-59)</span>
-                      <p className="text-sm text-gray-600">Low priority, nurture with automated sequences</p>
+                      <span className="font-medium text-safe">Grade D (0-59)</span>
+                      <p className="text-sm text-safe-muted">Low priority, nurture with automated sequences</p>
                     </div>
                   </div>
                 </div>
@@ -450,15 +450,15 @@ const AdvancedLeadDashboard: React.FC = () => {
                   onClick={() => handleCrmExport(crm.toLowerCase().replace(' ', '-'))}
                   className="flex items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
                 >
-                  <Download className="w-5 h-5 mr-2 text-gray-600" />
+                  <Download className="w-5 h-5 mr-2 text-safe-muted" />
                   <span className="font-medium">Export to {crm}</span>
                 </button>
               ))}
             </div>
             
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <h4 className="font-medium text-blue-800 mb-2">Integration Features</h4>
-              <ul className="text-sm text-blue-700 space-y-1">
+              <h4 className="font-medium text-safe-accent mb-2">Integration Features</h4>
+              <ul className="text-sm text-safe-accent space-y-1">
                 <li>• Automated lead synchronization</li>
                 <li>• Bi-directional contact updates</li>
                 <li>• Deal/opportunity creation</li>

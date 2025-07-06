@@ -200,13 +200,13 @@ export function EnhancedDarkModeToggle({
             `}
           >
             <div className="flex items-start space-x-2">
-              <div className="text-blue-500 mt-0.5">
+              <div className="text-safe-accent mt-0.5">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                 </svg>
               </div>
               <div>
-                <p className="text-sm text-gray-900 dark:text-gray-100 font-medium">
+                <p className="text-sm text-safe font-medium">
                   Dark mode detected
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
@@ -214,7 +214,7 @@ export function EnhancedDarkModeToggle({
                 </p>
                 <button
                   onClick={() => setShowNotification(false)}
-                  className="text-xs text-blue-600 dark:text-blue-400 hover:underline mt-1"
+                  className="text-xs text-safe-accent hover:underline mt-1"
                 >
                   Got it
                 </button>
@@ -265,21 +265,21 @@ function getVariantClasses(variant: 'minimal' | 'prominent' | 'floating') {
       return `${baseClasses} 
         bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20
         border-blue-200 dark:border-blue-700
-        text-blue-700 dark:text-blue-300
+        text-safe-accent
         shadow-md hover:shadow-lg
         hover:from-blue-100 hover:to-purple-100 dark:hover:from-blue-900/30 dark:hover:to-purple-900/30`
     case 'floating':
       return `${baseClasses}
         bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm
         border-gray-200/50 dark:border-gray-600/50
-        text-gray-700 dark:text-gray-300
+        text-safe
         shadow-lg hover:shadow-xl
         hover:bg-white/90 dark:hover:bg-gray-800/90`
     default:
       return `${baseClasses}
         bg-transparent
         border-gray-300 dark:border-gray-600
-        text-gray-700 dark:text-gray-300
+        text-safe
         hover:bg-gray-100 dark:hover:bg-gray-800
         hover:border-gray-400 dark:hover:border-gray-500`
   }

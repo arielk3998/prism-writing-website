@@ -52,12 +52,12 @@ export default function NotificationCenter({ notifications, onMarkAsRead }: Noti
     <div className="space-y-6">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Notifications</h3>
+          <h3 className="text-xl font-semibold text-safe">Notifications</h3>
           <div className="flex items-center space-x-2">
-            <span className="text-sm text-gray-500 dark:text-gray-400">
+            <span className="text-sm text-safe-muted">
               {unreadNotifications.length} unread
             </span>
-            <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+            <button className="text-safe-accent hover:text-safe-accent text-sm font-medium">
               Mark all as read
             </button>
           </div>
@@ -66,7 +66,7 @@ export default function NotificationCenter({ notifications, onMarkAsRead }: Noti
         {/* Unread Notifications */}
         {unreadNotifications.length > 0 && (
           <div className="mb-8">
-            <h4 className="text-md font-medium text-gray-900 dark:text-white mb-4">Unread</h4>
+            <h4 className="text-md font-medium text-safe mb-4">Unread</h4>
             <div className="space-y-3">
               {unreadNotifications.map((notification, index) => (
                 <motion.div
@@ -81,14 +81,14 @@ export default function NotificationCenter({ notifications, onMarkAsRead }: Noti
                     <span className="text-2xl">{getNotificationIcon(notification.type)}</span>
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
-                        <h5 className="font-medium text-gray-900 dark:text-white">
+                        <h5 className="font-medium text-safe">
                           {notification.title}
                         </h5>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                        <span className="text-xs text-safe-muted">
                           {notification.timestamp}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                      <p className="text-sm text-safe-muted">
                         {notification.message}
                       </p>
                     </div>
@@ -103,7 +103,7 @@ export default function NotificationCenter({ notifications, onMarkAsRead }: Noti
         {/* Read Notifications */}
         {readNotifications.length > 0 && (
           <div>
-            <h4 className="text-md font-medium text-gray-900 dark:text-white mb-4">Earlier</h4>
+            <h4 className="text-md font-medium text-safe mb-4">Earlier</h4>
             <div className="space-y-3">
               {readNotifications.map((notification) => (
                 <div
@@ -114,14 +114,14 @@ export default function NotificationCenter({ notifications, onMarkAsRead }: Noti
                     <span className="text-2xl opacity-60">{getNotificationIcon(notification.type)}</span>
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
-                        <h5 className="font-medium text-gray-900 dark:text-white">
+                        <h5 className="font-medium text-safe">
                           {notification.title}
                         </h5>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                        <span className="text-xs text-safe-muted">
                           {notification.timestamp}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                      <p className="text-sm text-safe-muted">
                         {notification.message}
                       </p>
                     </div>
@@ -136,8 +136,8 @@ export default function NotificationCenter({ notifications, onMarkAsRead }: Noti
         {notifications.length === 0 && (
           <div className="text-center py-12">
             <span className="text-6xl mb-4 block">🔔</span>
-            <p className="text-gray-600 dark:text-gray-400">No notifications yet</p>
-            <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
+            <p className="text-safe-muted">No notifications yet</p>
+            <p className="text-sm text-safe-muted dark:text-safe-muted mt-2">
               You&apos;ll see project updates, messages, and system alerts here
             </p>
           </div>

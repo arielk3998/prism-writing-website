@@ -29,10 +29,10 @@ const sizeClasses = {
 };
 
 const variantClasses = {
-  primary: 'text-blue-600 dark:text-blue-400',
+  primary: 'text-safe-accent',
   secondary: 'text-muted-foreground',
   light: 'text-white',
-  dark: 'text-gray-900'
+  dark: 'text-safe'
 };
 
 export function LoadingSpinner({ 

@@ -111,12 +111,12 @@ export default function ResourcesPage() {
                         </span>
                         <span className={`px-3 py-1 rounded-full text-sm ${
                           resource.complexity === 'High' 
-                            ? 'bg-red-100 text-red-800'
-                            : 'bg-yellow-100 text-yellow-800'
+                            ? 'bg-red-100 text-safe-error'
+                            : 'bg-yellow-100 text-safe-warning'
                         }`}>
                           {resource.complexity} Complexity
                         </span>
-                        <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                        <span className="px-3 py-1 bg-green-100 text-safe-success rounded-full text-sm">
                           {resource.estimatedTime}
                         </span>
                       </div>
@@ -172,7 +172,7 @@ export default function ResourcesPage() {
                   "Product Specifications", "Safety Instructions", "Compliance Documents", "Research Papers"
                 ].map((docType, index) => (
                   <div key={index} className="flex items-center space-x-2">
-                    <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-safe-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span className="text-muted">{docType}</span>
@@ -197,7 +197,7 @@ export default function ResourcesPage() {
                   {["PDF", "DOCX", "TXT", "RTF", "ODT"].map((format, index) => (
                     <div key={index} className="flex items-center justify-between">
                       <span className="text-muted">{format}</span>
-                      <span className="text-green-500">✓</span>
+                      <span className="text-safe-success">✓</span>
                     </div>
                   ))}
                 </div>
@@ -211,7 +211,7 @@ export default function ResourcesPage() {
                   {["XLSX", "CSV", "ODS", "TSV"].map((format, index) => (
                     <div key={index} className="flex items-center justify-between">
                       <span className="text-muted">{format}</span>
-                      <span className="text-green-500">✓</span>
+                      <span className="text-safe-success">✓</span>
                     </div>
                   ))}
                 </div>
@@ -225,7 +225,7 @@ export default function ResourcesPage() {
                   {["HTML", "XML", "JSON", "YAML", "MD"].map((format, index) => (
                     <div key={index} className="flex items-center justify-between">
                       <span className="text-muted">{format}</span>
-                      <span className="text-green-500">✓</span>
+                      <span className="text-safe-success">✓</span>
                     </div>
                   ))}
                 </div>

@@ -170,11 +170,11 @@ export default function AIContentGenerationDashboard() {
       {/* Content Generation Form */}
       <div className="space-y-6">
         <div className="bg-white p-6 rounded-lg shadow border">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Content Generation</h3>
+          <h3 className="text-lg font-semibold text-safe mb-4">Content Generation</h3>
           
           {/* Content Type */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Content Type</label>
+            <label className="block text-sm font-medium text-safe mb-2">Content Type</label>
             <select
               value={contentRequest.type}
               onChange={(e) => setContentRequest({
@@ -194,7 +194,7 @@ export default function AIContentGenerationDashboard() {
           {/* Client Information */}
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Client Name</label>
+              <label className="block text-sm font-medium text-safe mb-1">Client Name</label>
               <input
                 type="text"
                 value={contentRequest.clientData.name}
@@ -207,7 +207,7 @@ export default function AIContentGenerationDashboard() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Company</label>
+              <label className="block text-sm font-medium text-safe mb-1">Company</label>
               <input
                 type="text"
                 value={contentRequest.clientData.company}
@@ -224,7 +224,7 @@ export default function AIContentGenerationDashboard() {
           {/* Industry and Project Type */}
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Industry</label>
+              <label className="block text-sm font-medium text-safe mb-1">Industry</label>
               <select
                 value={contentRequest.clientData.industry}
                 onChange={(e) => setContentRequest({
@@ -242,7 +242,7 @@ export default function AIContentGenerationDashboard() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Project Type</label>
+              <label className="block text-sm font-medium text-safe mb-1">Project Type</label>
               <select
                 value={contentRequest.clientData.projectType}
                 onChange={(e) => setContentRequest({
@@ -263,7 +263,7 @@ export default function AIContentGenerationDashboard() {
           {/* Tone and Length */}
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Tone</label>
+              <label className="block text-sm font-medium text-safe mb-1">Tone</label>
               <select
                 value={contentRequest.tone}
                 onChange={(e) => setContentRequest({
@@ -280,7 +280,7 @@ export default function AIContentGenerationDashboard() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Length</label>
+              <label className="block text-sm font-medium text-safe mb-1">Length</label>
               <select
                 value={contentRequest.length}
                 onChange={(e) => setContentRequest({
@@ -298,7 +298,7 @@ export default function AIContentGenerationDashboard() {
 
           {/* Context */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Context/Additional Information</label>
+            <label className="block text-sm font-medium text-safe mb-1">Context/Additional Information</label>
             <textarea
               value={contentRequest.context}
               onChange={(e) => setContentRequest({
@@ -332,7 +332,7 @@ export default function AIContentGenerationDashboard() {
 
           {error && (
             <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
-              <p className="text-red-700 text-sm">{error}</p>
+              <p className="text-safe-error text-sm">{error}</p>
             </div>
           )}
         </div>
@@ -343,14 +343,14 @@ export default function AIContentGenerationDashboard() {
         {generatedContent && (
           <div className="bg-white p-6 rounded-lg shadow border">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Generated Content</h3>
+              <h3 className="text-lg font-semibold text-safe">Generated Content</h3>
               <div className="flex items-center space-x-2">
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-safe-muted">
                   Engagement Score: {generatedContent.estimatedEngagementScore}%
                 </span>
                 <button
                   onClick={() => copyToClipboard(generatedContent.content)}
-                  className="text-blue-600 hover:text-blue-800 text-sm"
+                  className="text-safe-accent hover:text-safe-accent text-sm"
                 >
                   Copy
                 </button>
@@ -359,35 +359,35 @@ export default function AIContentGenerationDashboard() {
 
             {generatedContent.subject && (
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Subject Line</label>
+                <label className="block text-sm font-medium text-safe mb-1">Subject Line</label>
                 <div className="p-3 bg-gray-50 rounded-md">
-                  <p className="text-gray-900">{generatedContent.subject}</p>
+                  <p className="text-safe">{generatedContent.subject}</p>
                 </div>
               </div>
             )}
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Content</label>
+              <label className="block text-sm font-medium text-safe mb-1">Content</label>
               <div className="p-4 bg-gray-50 rounded-md max-h-96 overflow-y-auto">
-                <pre className="whitespace-pre-wrap text-gray-900">{generatedContent.content}</pre>
+                <pre className="whitespace-pre-wrap text-safe">{generatedContent.content}</pre>
               </div>
             </div>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Call to Action</label>
+              <label className="block text-sm font-medium text-safe mb-1">Call to Action</label>
               <div className="p-3 bg-blue-50 rounded-md">
-                <p className="text-blue-900 font-medium">{generatedContent.callToAction}</p>
+                <p className="text-safe-accent font-medium">{generatedContent.callToAction}</p>
               </div>
             </div>
 
             {generatedContent.personalizationElements.length > 0 && (
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Personalization Elements</label>
+                <label className="block text-sm font-medium text-safe mb-1">Personalization Elements</label>
                 <div className="flex flex-wrap gap-2">
                   {generatedContent.personalizationElements.map((element, index) => (
                     <span
                       key={index}
-                      className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full"
+                      className="px-2 py-1 bg-green-100 text-safe-success text-xs rounded-full"
                     >
                       {element}
                     </span>
@@ -398,9 +398,9 @@ export default function AIContentGenerationDashboard() {
 
             {generatedContent.recommendedFollowUp && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Recommended Follow-up</label>
+                <label className="block text-sm font-medium text-safe mb-1">Recommended Follow-up</label>
                 <div className="p-3 bg-yellow-50 rounded-md">
-                  <p className="text-yellow-800">{generatedContent.recommendedFollowUp}</p>
+                  <p className="text-safe-warning">{generatedContent.recommendedFollowUp}</p>
                 </div>
               </div>
             )}
@@ -409,7 +409,7 @@ export default function AIContentGenerationDashboard() {
 
         {/* Quick Actions */}
         <div className="bg-white p-6 rounded-lg shadow border">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+          <h3 className="text-lg font-semibold text-safe mb-4">Quick Actions</h3>
           <div className="space-y-3">
             <button
               onClick={() => setContentRequest({
@@ -419,8 +419,8 @@ export default function AIContentGenerationDashboard() {
               })}
               className="w-full text-left p-3 bg-gray-50 hover:bg-gray-100 rounded-md transition-colors"
             >
-              <div className="font-medium text-gray-900">📧 Welcome Email Template</div>
-              <div className="text-sm text-gray-600">Generate a warm welcome email for new leads</div>
+              <div className="font-medium text-safe">📧 Welcome Email Template</div>
+              <div className="text-sm text-safe-muted">Generate a warm welcome email for new leads</div>
             </button>
             
             <button
@@ -431,8 +431,8 @@ export default function AIContentGenerationDashboard() {
               })}
               className="w-full text-left p-3 bg-gray-50 hover:bg-gray-100 rounded-md transition-colors"
             >
-              <div className="font-medium text-gray-900">⏰ 24-Hour Follow-up</div>
-              <div className="text-sm text-gray-600">Create a professional follow-up email</div>
+              <div className="font-medium text-safe">⏰ 24-Hour Follow-up</div>
+              <div className="text-sm text-safe-muted">Create a professional follow-up email</div>
             </button>
 
             <button
@@ -443,8 +443,8 @@ export default function AIContentGenerationDashboard() {
               })}
               className="w-full text-left p-3 bg-gray-50 hover:bg-gray-100 rounded-md transition-colors"
             >
-              <div className="font-medium text-gray-900">📋 Project Proposal</div>
-              <div className="text-sm text-gray-600">Generate a detailed project proposal</div>
+              <div className="font-medium text-safe">📋 Project Proposal</div>
+              <div className="text-sm text-safe-muted">Generate a detailed project proposal</div>
             </button>
           </div>
         </div>
@@ -462,8 +462,8 @@ export default function AIContentGenerationDashboard() {
               <div className="flex items-center">
                 <span className="text-3xl mr-3">📄</span>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Total Content</h3>
-                  <p className="text-3xl font-bold text-blue-600">{performanceMetrics.totalContentGenerated}</p>
+                  <h3 className="text-lg font-semibold text-safe">Total Content</h3>
+                  <p className="text-3xl font-bold text-safe-accent">{performanceMetrics.totalContentGenerated}</p>
                 </div>
               </div>
             </div>
@@ -472,8 +472,8 @@ export default function AIContentGenerationDashboard() {
               <div className="flex items-center">
                 <span className="text-3xl mr-3">📊</span>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Avg. Engagement</h3>
-                  <p className="text-3xl font-bold text-green-600">{performanceMetrics.averageEngagementScore}%</p>
+                  <h3 className="text-lg font-semibold text-safe">Avg. Engagement</h3>
+                  <p className="text-3xl font-bold text-safe-success">{performanceMetrics.averageEngagementScore}%</p>
                 </div>
               </div>
             </div>
@@ -482,8 +482,8 @@ export default function AIContentGenerationDashboard() {
               <div className="flex items-center">
                 <span className="text-3xl mr-3">🎯</span>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Top Performance</h3>
-                  <p className="text-3xl font-bold text-purple-600">
+                  <h3 className="text-lg font-semibold text-safe">Top Performance</h3>
+                  <p className="text-3xl font-bold text-safe-accent">
                     {Math.max(...Object.values(performanceMetrics.performanceByType).map((p: PerformanceData) => p.averageEngagementScore))}%
                   </p>
                 </div>
@@ -493,11 +493,11 @@ export default function AIContentGenerationDashboard() {
 
           {/* Content Types Breakdown */}
           <div className="bg-white p-6 rounded-lg shadow border">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Content Types Generated</h3>
+            <h3 className="text-lg font-semibold text-safe mb-4">Content Types Generated</h3>
             <div className="space-y-4">
               {Object.entries(performanceMetrics.contentTypes).map(([type, count]) => (
                 <div key={type} className="flex items-center justify-between">
-                  <span className="text-gray-700 capitalize">{type.replace('_', ' ')}</span>
+                  <span className="text-safe capitalize">{type.replace('_', ' ')}</span>
                   <div className="flex items-center">
                     <div className="w-32 bg-gray-200 rounded-full h-2 mr-4">
                       <div
@@ -507,7 +507,7 @@ export default function AIContentGenerationDashboard() {
                         }}
                       ></div>
                     </div>
-                    <span className="text-gray-900 font-medium">{count}</span>
+                    <span className="text-safe font-medium">{count}</span>
                   </div>
                 </div>
               ))}
@@ -516,27 +516,27 @@ export default function AIContentGenerationDashboard() {
 
           {/* Performance by Type */}
           <div className="bg-white p-6 rounded-lg shadow border">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Performance by Content Type</h3>
+            <h3 className="text-lg font-semibold text-safe mb-4">Performance by Content Type</h3>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-gray-200">
-                    <th className="text-left py-2 font-medium text-gray-700">Content Type</th>
-                    <th className="text-center py-2 font-medium text-gray-700">Engagement Score</th>
-                    <th className="text-center py-2 font-medium text-gray-700">Success Rate</th>
+                    <th className="text-left py-2 font-medium text-safe">Content Type</th>
+                    <th className="text-center py-2 font-medium text-safe">Engagement Score</th>
+                    <th className="text-center py-2 font-medium text-safe">Success Rate</th>
                   </tr>
                 </thead>
                 <tbody>
                   {Object.entries(performanceMetrics.performanceByType).map(([type, data]: [string, PerformanceData]) => (
                     <tr key={type} className="border-b border-gray-100">
-                      <td className="py-3 text-gray-900 capitalize">{type.replace('_', ' ')}</td>
+                      <td className="py-3 text-safe capitalize">{type.replace('_', ' ')}</td>
                       <td className="py-3 text-center">
-                        <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                        <span className="px-2 py-1 bg-blue-100 text-safe-accent rounded-full text-sm">
                           {data.averageEngagementScore}%
                         </span>
                       </td>
                       <td className="py-3 text-center">
-                        <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                        <span className="px-2 py-1 bg-green-100 text-safe-success rounded-full text-sm">
                           {data.openRate || data.viewRate || data.responseRate || 'N/A'}%
                         </span>
                       </td>
@@ -554,8 +554,8 @@ export default function AIContentGenerationDashboard() {
   return (
     <div className="max-w-7xl mx-auto p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">AI Content Generation</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-safe mb-2">AI Content Generation</h1>
+        <p className="text-safe-muted">
           Leverage AI to create personalized, high-engaging content for leads and clients
         </p>
       </div>
@@ -574,8 +574,8 @@ export default function AIContentGenerationDashboard() {
               onClick={() => setActiveTab(tab.id as TabType)}
               className={`flex items-center py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === tab.id
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-blue-500 text-safe-accent'
+                  : 'border-transparent text-safe-muted hover:text-safe hover:border-gray-300'
               }`}
             >
               <span className="mr-2">{tab.icon}</span>
@@ -591,15 +591,15 @@ export default function AIContentGenerationDashboard() {
       {activeTab === 'proposals' && (
         <div className="text-center py-12">
           <span className="text-6xl mb-4 block">🚧</span>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Proposal Generation</h3>
-          <p className="text-gray-600">Coming soon - AI-powered proposal generation</p>
+          <h3 className="text-lg font-medium text-safe mb-2">Proposal Generation</h3>
+          <p className="text-safe-muted">Coming soon - AI-powered proposal generation</p>
         </div>
       )}
       {activeTab === 'sequences' && (
         <div className="text-center py-12">
           <span className="text-6xl mb-4 block">🚧</span>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Email Sequences</h3>
-          <p className="text-gray-600">Coming soon - Automated email sequence generation</p>
+          <h3 className="text-lg font-medium text-safe mb-2">Email Sequences</h3>
+          <p className="text-safe-muted">Coming soon - Automated email sequence generation</p>
         </div>
       )}
     </div>

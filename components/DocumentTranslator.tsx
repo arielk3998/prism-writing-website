@@ -88,20 +88,20 @@ export const DocumentTranslator: React.FC<DocumentTranslatorProps> = ({
   return (
     <div className={`bg-white rounded-lg shadow-lg p-6 ${className}`}>
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-semibold text-gray-800">
+        <h3 className="text-xl font-semibold text-safe">
           {mode === 'portfolio' && '📁 Portfolio Translation Demo'}
           {mode === 'resources' && '📚 Resource Translation Demo'}
           {mode === 'demo' && '🌍 Live Translation Demo'}
         </h3>
         <div className="flex items-center space-x-2">
-          <span className="text-sm text-gray-500">Powered by Prism Translation</span>
+          <span className="text-sm text-safe-muted">Powered by Prism Translation</span>
         </div>
       </div>
 
       {/* Language Selection */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">From</label>
+          <label className="block text-sm font-medium text-safe mb-2">From</label>
           <button
             onClick={() => openLanguageSelector('source')}
             className="w-full p-3 border border-gray-300 rounded-md text-left hover:border-blue-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
@@ -109,9 +109,9 @@ export const DocumentTranslator: React.FC<DocumentTranslatorProps> = ({
             <div className="flex items-center justify-between">
               <div>
                 <span className="font-medium">{sourceLang.name}</span>
-                <span className="text-gray-500 ml-2">{sourceLang.nativeName}</span>
+                <span className="text-safe-muted ml-2">{sourceLang.nativeName}</span>
               </div>
-              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-safe-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </div>
@@ -119,7 +119,7 @@ export const DocumentTranslator: React.FC<DocumentTranslatorProps> = ({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">To</label>
+          <label className="block text-sm font-medium text-safe mb-2">To</label>
           <button
             onClick={() => openLanguageSelector('target')}
             className="w-full p-3 border border-gray-300 rounded-md text-left hover:border-blue-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
@@ -127,9 +127,9 @@ export const DocumentTranslator: React.FC<DocumentTranslatorProps> = ({
             <div className="flex items-center justify-between">
               <div>
                 <span className="font-medium">{targetLang.name}</span>
-                <span className="text-gray-500 ml-2">{targetLang.nativeName}</span>
+                <span className="text-safe-muted ml-2">{targetLang.nativeName}</span>
               </div>
-              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-safe-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </div>
@@ -140,7 +140,7 @@ export const DocumentTranslator: React.FC<DocumentTranslatorProps> = ({
       {/* Text Areas */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-safe mb-2">
             Source Text ({sourceLang.name})
           </label>
           <textarea
@@ -151,7 +151,7 @@ export const DocumentTranslator: React.FC<DocumentTranslatorProps> = ({
             dir={sourceLang.direction}
           />
           <div className="flex justify-between items-center mt-2">
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-safe-muted">
               {sourceText.length} characters
             </span>
             <button
@@ -175,7 +175,7 @@ export const DocumentTranslator: React.FC<DocumentTranslatorProps> = ({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-safe mb-2">
             Translation ({targetLang.name})
           </label>
           <textarea
@@ -186,13 +186,13 @@ export const DocumentTranslator: React.FC<DocumentTranslatorProps> = ({
             dir={targetLang.direction}
           />
           <div className="flex justify-between items-center mt-2">
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-safe-muted">
               {translatedText.length} characters
             </span>
             {translatedText && (
               <button
                 onClick={() => navigator.clipboard.writeText(translatedText)}
-                className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
+                className="px-3 py-1 text-sm bg-gray-100 text-safe rounded hover:bg-gray-200 transition-colors"
               >
                 Copy
               </button>
@@ -212,7 +212,7 @@ export const DocumentTranslator: React.FC<DocumentTranslatorProps> = ({
                 </h4>
                 <button
                   onClick={() => setShowLanguageSelector(false)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-safe-muted hover:text-safe-muted"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -236,7 +236,7 @@ export const DocumentTranslator: React.FC<DocumentTranslatorProps> = ({
                   className="w-full p-3 text-left hover:bg-gray-50 border-b border-gray-100"
                 >
                   <div className="font-medium">{language.name}</div>
-                  <div className="text-sm text-gray-500">{language.nativeName} • {language.region}</div>
+                  <div className="text-sm text-safe-muted">{language.nativeName} • {language.region}</div>
                 </button>
               ))}
             </div>
@@ -246,7 +246,7 @@ export const DocumentTranslator: React.FC<DocumentTranslatorProps> = ({
 
       {/* Demo Note */}
       <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
-        <p className="text-sm text-blue-800">
+        <p className="text-sm text-safe-accent">
           <strong>Demo Mode:</strong> This is a demonstration of our translation interface. 
           In production, this would connect to professional translation APIs for real-time translation.
           {mode === 'portfolio' && ' Perfect for showcasing multilingual project capabilities.'}

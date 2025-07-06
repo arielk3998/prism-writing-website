@@ -17,10 +17,10 @@ export default function HomePage() {
         {/* Featured Translation Service Card */}
         <section className="py-16 px-4 max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-3xl font-bold text-safe mb-4">
               Featured Service
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
+            <p className="text-xl text-safe-muted">
               Professional translation solutions for global communication
             </p>
           </div>

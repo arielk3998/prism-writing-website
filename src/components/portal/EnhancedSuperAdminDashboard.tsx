@@ -138,12 +138,12 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Total Clients</p>
-              <p className="text-2xl font-bold text-gray-900">{systemMetrics.totalClients}</p>
+              <p className="text-sm font-medium text-safe-muted">Total Clients</p>
+              <p className="text-2xl font-bold text-safe">{systemMetrics.totalClients}</p>
             </div>
-            <Users className="h-8 w-8 text-blue-500" />
+            <Users className="h-8 w-8 text-safe-accent" />
           </div>
-          <p className="text-xs text-gray-500 mt-1">+12% from last month</p>
+          <p className="text-xs text-safe-muted mt-1">+12% from last month</p>
         </CardContent>
       </Card>
 
@@ -151,12 +151,12 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Active Projects</p>
-              <p className="text-2xl font-bold text-gray-900">{systemMetrics.activeProjects}</p>
+              <p className="text-sm font-medium text-safe-muted">Active Projects</p>
+              <p className="text-2xl font-bold text-safe">{systemMetrics.activeProjects}</p>
             </div>
-            <FileText className="h-8 w-8 text-green-500" />
+            <FileText className="h-8 w-8 text-safe-success" />
           </div>
-          <p className="text-xs text-gray-500 mt-1">+8% from last month</p>
+          <p className="text-xs text-safe-muted mt-1">+8% from last month</p>
         </CardContent>
       </Card>
 
@@ -164,12 +164,12 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Data Completeness</p>
-              <p className="text-2xl font-bold text-gray-900">{systemMetrics.dataCompleteness}%</p>
+              <p className="text-sm font-medium text-safe-muted">Data Completeness</p>
+              <p className="text-2xl font-bold text-safe">{systemMetrics.dataCompleteness}%</p>
             </div>
-            <BarChart3 className="h-8 w-8 text-yellow-500" />
+            <BarChart3 className="h-8 w-8 text-safe-warning" />
           </div>
-          <p className="text-xs text-gray-500 mt-1">Target: 95%</p>
+          <p className="text-xs text-safe-muted mt-1">Target: 95%</p>
         </CardContent>
       </Card>
 
@@ -177,12 +177,12 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Document Accuracy</p>
-              <p className="text-2xl font-bold text-gray-900">{systemMetrics.documentAccuracy}%</p>
+              <p className="text-sm font-medium text-safe-muted">Document Accuracy</p>
+              <p className="text-2xl font-bold text-safe">{systemMetrics.documentAccuracy}%</p>
             </div>
-            <CheckCircle2 className="h-8 w-8 text-purple-500" />
+            <CheckCircle2 className="h-8 w-8 text-safe-accent" />
           </div>
-          <p className="text-xs text-gray-500 mt-1">Target: 95%</p>
+          <p className="text-xs text-safe-muted mt-1">Target: 95%</p>
         </CardContent>
       </Card>
 
@@ -200,7 +200,7 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
               <div key={collection.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                 <div className="flex-1">
                   <p className="font-medium">Client {collection.clientId}</p>
-                  <p className="text-sm text-gray-600">{collection.collectionType}</p>
+                  <p className="text-sm text-safe-muted">{collection.collectionType}</p>
                   <div className="flex items-center mt-2">
                     <div className="w-24 bg-gray-200 rounded-full h-2 mr-2">
                       <div
@@ -208,18 +208,18 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
                         style={{ width: `${collection.completionPercentage}%` }}
                       />
                     </div>
-                    <span className="text-xs text-gray-500">{collection.completionPercentage}%</span>
+                    <span className="text-xs text-safe-muted">{collection.completionPercentage}%</span>
                   </div>
                 </div>
                 <div className="text-right">
                   <div className={`px-2 py-1 rounded-full text-xs ${
-                    collection.status === 'completed' ? 'bg-green-100 text-green-800' :
-                    collection.status === 'in_progress' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-gray-100 text-gray-800'
+                    collection.status === 'completed' ? 'bg-green-100 text-safe-success' :
+                    collection.status === 'in_progress' ? 'bg-yellow-100 text-safe-warning' :
+                    'bg-gray-100 text-safe'
                   }`}>
                     {collection.status.replace('_', ' ')}
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-safe-muted mt-1">
                     Accuracy: {collection.accuracy}%
                   </p>
                 </div>
@@ -240,12 +240,12 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
             <div className="text-center p-4 bg-green-50 rounded-lg">
-              <p className="text-2xl font-bold text-green-600">{systemMetrics.automationSuccess}%</p>
-              <p className="text-sm text-green-700">Success Rate</p>
+              <p className="text-2xl font-bold text-safe-success">{systemMetrics.automationSuccess}%</p>
+              <p className="text-sm text-safe-success">Success Rate</p>
             </div>
             <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <p className="text-2xl font-bold text-blue-600">{systemMetrics.clientSatisfaction}</p>
-              <p className="text-sm text-blue-700">Client Rating</p>
+              <p className="text-2xl font-bold text-safe-accent">{systemMetrics.clientSatisfaction}</p>
+              <p className="text-sm text-safe-accent">Client Rating</p>
             </div>
           </div>
           <div className="mt-4 space-y-2">
@@ -301,12 +301,12 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="font-semibold">Client {collection.clientId}</h3>
-                    <p className="text-sm text-gray-600">{collection.collectionType}</p>
+                    <p className="text-sm text-safe-muted">{collection.collectionType}</p>
                   </div>
                   <div className={`px-2 py-1 rounded-full text-xs ${
-                    collection.status === 'completed' ? 'bg-green-100 text-green-800' :
-                    collection.status === 'in_progress' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-gray-100 text-gray-800'
+                    collection.status === 'completed' ? 'bg-green-100 text-safe-success' :
+                    collection.status === 'in_progress' ? 'bg-yellow-100 text-safe-warning' :
+                    'bg-gray-100 text-safe'
                   }`}>
                     {collection.status.replace('_', ' ')}
                   </div>
@@ -344,7 +344,7 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
                   </div>
 
                   <div className="flex justify-between items-center pt-2">
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-safe-muted">
                       Updated {collection.lastUpdated.toLocaleDateString()}
                     </span>
                     <div className="flex space-x-2">
@@ -384,8 +384,8 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
         {/* Sidebar */}
         <div className="w-64 bg-white shadow-lg h-screen sticky top-0">
           <div className="p-6">
-            <h1 className="text-xl font-bold text-gray-900">Super Admin</h1>
-            <p className="text-sm text-gray-600">{user.name}</p>
+            <h1 className="text-xl font-bold text-safe">Super Admin</h1>
+            <p className="text-sm text-safe-muted">{user.name}</p>
           </div>
           
           <nav className="mt-6">
@@ -397,8 +397,8 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
                   onClick={() => setActiveSection(item.id)}
                   className={`w-full flex items-center px-6 py-3 text-left transition-colors ${
                     activeSection === item.id
-                      ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-500'
-                      : 'text-gray-600 hover:bg-gray-50'
+                      ? 'bg-blue-50 text-safe-accent border-r-2 border-blue-500'
+                      : 'text-safe-muted hover:bg-gray-50'
                   }`}
                 >
                   <Icon className="w-5 h-5 mr-3" />
@@ -412,10 +412,10 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
         {/* Main Content */}
         <div className="flex-1 p-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-3xl font-bold text-safe">
               {navigationItems.find(item => item.id === activeSection)?.label || 'Dashboard'}
             </h1>
-            <p className="text-gray-600 mt-2">
+            <p className="text-safe-muted mt-2">
               Comprehensive client management and automation control center
             </p>
           </div>
@@ -424,9 +424,9 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
           {activeSection === 'data_collection' && renderDataCollectionSection()}
           {activeSection === 'automation' && (
             <div className="text-center py-12">
-              <Workflow className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Automation Center</h3>
-              <p className="text-gray-600">Advanced automation controls coming soon...</p>
+              <Workflow className="w-16 h-16 text-safe-muted mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-safe mb-2">Automation Center</h3>
+              <p className="text-safe-muted">Advanced automation controls coming soon...</p>
             </div>
           )}
           {activeSection === 'ultimate_automation' && (
@@ -439,13 +439,13 @@ export default function EnhancedSuperAdminDashboard({ user }: EnhancedSuperAdmin
             <div className="text-center py-12">
               <div className="w-16 h-16 bg-gray-200 rounded-lg mx-auto mb-4 flex items-center justify-center">
                 {React.createElement(navigationItems.find(item => item.id === activeSection)?.icon || BarChart3, {
-                  className: "w-8 h-8 text-gray-400"
+                  className: "w-8 h-8 text-safe-muted"
                 })}
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-safe mb-2">
                 {navigationItems.find(item => item.id === activeSection)?.label}
               </h3>
-              <p className="text-gray-600">This section is under development...</p>
+              <p className="text-safe-muted">This section is under development...</p>
             </div>
           )}
         </div>

@@ -98,10 +98,10 @@ export default function AccountManagement({
 
   const getRoleBadgeColor = (role: string) => {
     switch (role) {
-      case 'admin': return 'bg-red-100 text-red-800';
-      case 'member': return 'bg-blue-100 text-blue-800';
-      case 'client': return 'bg-green-100 text-green-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'admin': return 'bg-red-100 text-safe-error';
+      case 'member': return 'bg-blue-100 text-safe-accent';
+      case 'client': return 'bg-green-100 text-safe-success';
+      default: return 'bg-gray-100 text-safe';
     }
   };
 
@@ -109,10 +109,10 @@ export default function AccountManagement({
     <div className="max-w-4xl mx-auto p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 className="text-3xl font-bold text-safe mb-2">
           Account Management
         </h1>
-        <p className="text-gray-600 dark:text-gray-300">
+        <p className="text-safe-muted">
           Manage your account settings and preferences
         </p>
       </div>
@@ -130,19 +130,19 @@ export default function AccountManagement({
             </span>
           </div>
           <div className="flex-1">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            <h2 className="text-xl font-semibold text-safe">
               {user.name}
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-2">{user.email}</p>
+            <p className="text-safe-muted mb-2">{user.email}</p>
             <div className="flex items-center space-x-4">
               <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRoleBadgeColor(user.role)}`}>
                 {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
               </span>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
+              <span className="text-sm text-safe-muted">
                 Joined {new Date(user.joinedAt).toLocaleDateString()}
               </span>
               {user.lastLogin && (
-                <span className="text-sm text-gray-500 dark:text-gray-400">
+                <span className="text-sm text-safe-muted">
                   Last login: {new Date(user.lastLogin).toLocaleDateString()}
                 </span>
               )}
@@ -161,8 +161,8 @@ export default function AccountManagement({
                 onClick={() => setActiveSection(section.id)}
                 className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
                   activeSection === section.id
-                    ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
-                    : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
+                    ? 'bg-blue-100 text-safe-accent dark:bg-blue-900 dark:text-blue-300'
+                    : 'text-safe-muted hover:bg-gray-100 dark:text-safe-muted dark:hover:bg-gray-700'
                 }`}
               >
                 <span className="text-xl">{section.icon}</span>
@@ -183,8 +183,8 @@ export default function AccountManagement({
                 animate={{ opacity: 1, y: 0 }}
                 className={`mb-6 p-4 rounded-lg ${
                   message.type === 'success'
-                    ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
-                    : 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300'
+                    ? 'bg-green-100 text-safe-success dark:bg-green-900 dark:text-green-300'
+                    : 'bg-red-100 text-safe-error dark:bg-red-900 dark:text-red-300'
                 }`}
               >
                 {message.text}
@@ -197,12 +197,12 @@ export default function AccountManagement({
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
               >
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                <h3 className="text-xl font-semibold text-safe mb-6">
                   Profile Information
                 </h3>
                 <form onSubmit={handleProfileUpdate} className="space-y-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Full Name
                     </label>
                     <input
@@ -214,7 +214,7 @@ export default function AccountManagement({
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Email Address
                     </label>
                     <input
@@ -226,14 +226,14 @@ export default function AccountManagement({
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Role
                     </label>
                     <div className="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRoleBadgeColor(user.role)}`}>
                         {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
                       </span>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      <p className="text-sm text-safe-muted mt-1">
                         Role cannot be changed. Contact an administrator for role updates.
                       </p>
                     </div>
@@ -255,12 +255,12 @@ export default function AccountManagement({
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
               >
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                <h3 className="text-xl font-semibold text-safe mb-6">
                   Security Settings
                 </h3>
                 <form onSubmit={handlePasswordChange} className="space-y-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Current Password
                     </label>
                     <input
@@ -272,7 +272,7 @@ export default function AccountManagement({
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       New Password
                     </label>
                     <input
@@ -285,7 +285,7 @@ export default function AccountManagement({
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Confirm New Password
                     </label>
                     <input
@@ -314,12 +314,12 @@ export default function AccountManagement({
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
               >
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                <h3 className="text-xl font-semibold text-safe mb-6">
                   Preferences
                 </h3>
                 <div className="space-y-6">
                   <div>
-                    <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                    <h4 className="text-lg font-medium text-safe mb-4">
                       Notifications
                     </h4>
                     <div className="space-y-3">
@@ -327,10 +327,10 @@ export default function AccountManagement({
                         <input 
                           type="checkbox" 
                           defaultChecked 
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
                           aria-describedby="project-notifications-desc"
                         />
-                        <span className="ml-3 text-gray-700 dark:text-gray-300" id="project-notifications-desc">
+                        <span className="ml-3 text-safe" id="project-notifications-desc">
                           Email notifications for new projects
                         </span>
                       </label>
@@ -338,20 +338,20 @@ export default function AccountManagement({
                         <input 
                           type="checkbox" 
                           defaultChecked 
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
                           aria-describedby="upload-notifications-desc"
                         />
-                        <span className="ml-3 text-gray-700 dark:text-gray-300" id="upload-notifications-desc">
+                        <span className="ml-3 text-safe" id="upload-notifications-desc">
                           Push notifications for file uploads
                         </span>
                       </label>
                       <label className="flex items-center">
                         <input 
                           type="checkbox" 
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
                           aria-describedby="digest-notifications-desc"
                         />
-                        <span className="ml-3 text-gray-700 dark:text-gray-300" id="digest-notifications-desc">
+                        <span className="ml-3 text-safe" id="digest-notifications-desc">
                           Weekly digest emails
                         </span>
                       </label>
@@ -359,7 +359,7 @@ export default function AccountManagement({
                   </div>
                   
                   <div>
-                    <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                    <h4 className="text-lg font-medium text-safe mb-4">
                       Privacy
                     </h4>
                     <div className="space-y-3">
@@ -367,20 +367,20 @@ export default function AccountManagement({
                         <input 
                           type="checkbox" 
                           defaultChecked 
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
                           aria-describedby="profile-visibility-desc"
                         />
-                        <span className="ml-3 text-gray-700 dark:text-gray-300" id="profile-visibility-desc">
+                        <span className="ml-3 text-safe" id="profile-visibility-desc">
                           Show my profile to other members
                         </span>
                       </label>
                       <label className="flex items-center">
                         <input 
                           type="checkbox" 
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="rounded border-gray-300 text-safe-accent focus:ring-blue-500"
                           aria-describedby="analytics-tracking-desc"
                         />
-                        <span className="ml-3 text-gray-700 dark:text-gray-300" id="analytics-tracking-desc">
+                        <span className="ml-3 text-safe" id="analytics-tracking-desc">
                           Allow analytics tracking
                         </span>
                       </label>

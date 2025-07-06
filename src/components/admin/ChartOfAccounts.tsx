@@ -205,14 +205,14 @@ export default function ChartOfAccounts() {
 
   const getAccountTypeColor = (type: string) => {
     const colors = {
-      'ASSET': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-      'LIABILITY': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-      'EQUITY': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+      'ASSET': 'bg-green-100 text-safe-success dark:bg-green-900 dark:text-green-200',
+      'LIABILITY': 'bg-red-100 text-safe-error dark:bg-red-900 dark:text-red-200',
+      'EQUITY': 'bg-blue-100 text-safe-accent dark:bg-blue-900 dark:text-blue-200',
       'REVENUE': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
       'EXPENSE': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
-      'COST_OF_GOODS_SOLD': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+      'COST_OF_GOODS_SOLD': 'bg-yellow-100 text-safe-warning dark:bg-yellow-900 dark:text-yellow-200'
     };
-    return colors[type as keyof typeof colors] || 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+    return colors[type as keyof typeof colors] || 'bg-gray-100 text-safe dark:bg-gray-900 dark:text-gray-200';
   };
 
   if (loading) {
@@ -229,7 +229,7 @@ export default function ChartOfAccounts() {
     <div className="space-y-6">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg">
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold flex items-center gap-2 text-gray-900 dark:text-white">
+          <h2 className="text-2xl font-bold flex items-center gap-2 text-safe">
             <FolderTree className="h-6 w-6" />
             Chart of Accounts
           </h2>
@@ -239,13 +239,13 @@ export default function ChartOfAccounts() {
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-3 h-4 w-4 text-safe-muted" />
                 <input
                   type="text"
                   placeholder="Search accounts..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-safe"
                 />
               </div>
             </div>
@@ -259,7 +259,7 @@ export default function ChartOfAccounts() {
               </button>
               <button
                 onClick={createDefaultAccounts}
-                className="flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
+                className="flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 text-safe"
               >
                 <DollarSign className="h-4 w-4" />
                 Create Default Accounts
@@ -273,26 +273,26 @@ export default function ChartOfAccounts() {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Account #</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Account Name</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Type</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Category</th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Balance</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">Account #</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">Account Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">Type</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">Category</th>
+                    <th className="px-6 py-3 text-right text-xs font-medium text-safe-muted uppercase tracking-wider">Balance</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                   {filteredAccounts.map((account) => (
                     <tr key={account.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900 dark:text-white">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-safe">
                         {account.accountNumber}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div>
-                          <div className="text-sm font-medium text-gray-900 dark:text-white">{account.accountName}</div>
+                          <div className="text-sm font-medium text-safe">{account.accountName}</div>
                           {account.description && (
-                            <div className="text-sm text-gray-500 dark:text-gray-400">{account.description}</div>
+                            <div className="text-sm text-safe-muted">{account.description}</div>
                           )}
                         </div>
                       </td>
@@ -301,17 +301,17 @@ export default function ChartOfAccounts() {
                           {account.accountType.replace(/_/g, ' ')}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-safe">
                         {account.accountCategory.replace(/_/g, ' ')}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900 dark:text-white">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-safe">
                         {formatCurrency(account.balance)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                           account.isActive 
-                            ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' 
-                            : 'bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200'
+                            ? 'bg-green-100 dark:bg-green-900 text-safe-success dark:text-green-200' 
+                            : 'bg-gray-100 dark:bg-gray-900 text-safe dark:text-gray-200'
                         }`}>
                           {account.isActive ? 'Active' : 'Inactive'}
                         </span>
@@ -320,13 +320,13 @@ export default function ChartOfAccounts() {
                         <div className="flex gap-2">
                           <button
                             onClick={() => handleEdit(account)}
-                            className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
+                            className="text-safe-accent hover:text-safe-accent dark:hover:text-blue-300"
                           >
                             <Edit className="h-4 w-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(account.id)}
-                            className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
+                            className="text-safe-error hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
@@ -340,7 +340,7 @@ export default function ChartOfAccounts() {
           </div>
 
           {filteredAccounts.length === 0 && (
-            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+            <div className="text-center py-8 text-safe-muted">
               No accounts found. Create your first account to get started.
             </div>
           )}
@@ -352,14 +352,14 @@ export default function ChartOfAccounts() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+              <h3 className="text-lg font-medium text-safe">
                 {editingAccount ? 'Edit Account' : 'Add New Account'}
               </h3>
             </div>
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                  <label className="block text-sm font-medium mb-2 text-safe">
                     Account Number *
                   </label>
                   <input
@@ -367,12 +367,12 @@ export default function ChartOfAccounts() {
                     required
                     value={newAccount.accountNumber}
                     onChange={(e) => setNewAccount(prev => ({ ...prev, accountNumber: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-safe"
                     placeholder="e.g., 1000"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                  <label className="block text-sm font-medium mb-2 text-safe">
                     Account Name *
                   </label>
                   <input
@@ -380,19 +380,19 @@ export default function ChartOfAccounts() {
                     required
                     value={newAccount.accountName}
                     onChange={(e) => setNewAccount(prev => ({ ...prev, accountName: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-safe"
                     placeholder="e.g., Cash and Cash Equivalents"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                  <label className="block text-sm font-medium mb-2 text-safe">
                     Account Type *
                   </label>
                   <select
                     required
                     value={newAccount.accountType}
                     onChange={(e) => setNewAccount(prev => ({ ...prev, accountType: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-safe"
                   >
                     {accountTypes.map(type => (
                       <option key={type} value={type}>
@@ -402,14 +402,14 @@ export default function ChartOfAccounts() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                  <label className="block text-sm font-medium mb-2 text-safe">
                     Account Category *
                   </label>
                   <select
                     required
                     value={newAccount.accountCategory}
                     onChange={(e) => setNewAccount(prev => ({ ...prev, accountCategory: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-safe"
                   >
                     {accountCategories.map(category => (
                       <option key={category} value={category}>
@@ -419,13 +419,13 @@ export default function ChartOfAccounts() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                  <label className="block text-sm font-medium mb-2 text-safe">
                     Parent Account
                   </label>
                   <select
                     value={newAccount.parentAccountId}
                     onChange={(e) => setNewAccount(prev => ({ ...prev, parentAccountId: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-safe"
                   >
                     <option value="">No parent account</option>
                     {accounts.map(account => (
@@ -437,14 +437,14 @@ export default function ChartOfAccounts() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                <label className="block text-sm font-medium mb-2 text-safe">
                   Description
                 </label>
                 <textarea
                   value={newAccount.description}
                   onChange={(e) => setNewAccount(prev => ({ ...prev, description: e.target.value }))}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-safe"
                   placeholder="Optional description of the account"
                 />
               </div>
@@ -452,7 +452,7 @@ export default function ChartOfAccounts() {
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-safe hover:bg-gray-50 dark:hover:bg-gray-700"
                 >
                   Cancel
                 </button>

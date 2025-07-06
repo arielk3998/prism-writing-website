@@ -43,7 +43,7 @@ export const TranslationWidget: React.FC<TranslationWidgetProps> = ({
         <div className="text-center mt-4">
           <a
             href="/translation-quote"
-            className="inline-block px-6 py-2 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+            className="inline-block px-6 py-2 bg-white text-safe-accent font-semibold rounded-lg hover:bg-gray-100 transition-colors"
           >
             Get Professional Quote →
           </a>
@@ -89,13 +89,13 @@ export const TranslationWidget: React.FC<TranslationWidgetProps> = ({
       
       <div className="bg-gray-50 px-6 py-4 rounded-b-lg border-t border-gray-200">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-safe-muted">
             Experience the quality that powers professional translation services worldwide
           </div>
           <div className="flex gap-3">
             <a
               href="/translation-services"
-              className="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
+              className="px-4 py-2 text-safe-accent border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
             >
               Learn More
             </a>

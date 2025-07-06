@@ -262,11 +262,11 @@ export default function AITeamChatDashboard() {
 
   const getMessageIcon = (type: string) => {
     switch (type) {
-      case 'suggestion': return <Lightbulb className="w-4 h-4 text-yellow-500" />;
-      case 'alert': return <AlertTriangle className="w-4 h-4 text-red-500" />;
-      case 'collaboration': return <Users className="w-4 h-4 text-blue-500" />;
-      case 'status': return <Activity className="w-4 h-4 text-green-500" />;
-      default: return <MessageSquare className="w-4 h-4 text-gray-500" />;
+      case 'suggestion': return <Lightbulb className="w-4 h-4 text-safe-warning" />;
+      case 'alert': return <AlertTriangle className="w-4 h-4 text-safe-error" />;
+      case 'collaboration': return <Users className="w-4 h-4 text-safe-accent" />;
+      case 'status': return <Activity className="w-4 h-4 text-safe-success" />;
+      default: return <MessageSquare className="w-4 h-4 text-safe-muted" />;
     }
   };
 
@@ -282,13 +282,13 @@ export default function AITeamChatDashboard() {
 
   const getRoleIcon = (role?: string) => {
     switch (role) {
-      case 'senior_developer': return <Bot className="w-4 h-4 text-purple-500" />;
-      case 'business_analyst': return <TrendingUp className="w-4 h-4 text-blue-500" />;
-      case 'content_creator': return <Star className="w-4 h-4 text-yellow-500" />;
-      case 'quality_assurance': return <CheckCircle className="w-4 h-4 text-green-500" />;
+      case 'senior_developer': return <Bot className="w-4 h-4 text-safe-accent" />;
+      case 'business_analyst': return <TrendingUp className="w-4 h-4 text-safe-accent" />;
+      case 'content_creator': return <Star className="w-4 h-4 text-safe-warning" />;
+      case 'quality_assurance': return <CheckCircle className="w-4 h-4 text-safe-success" />;
       case 'customer_success': return <Target className="w-4 h-4 text-pink-500" />;
-      case 'process_optimizer': return <Zap className="w-4 h-4 text-orange-500" />;
-      default: return <Brain className="w-4 h-4 text-gray-500" />;
+      case 'process_optimizer': return <Zap className="w-4 h-4 text-safe-warning" />;
+      default: return <Brain className="w-4 h-4 text-safe-muted" />;
     }
   };
 
@@ -299,11 +299,11 @@ export default function AITeamChatDashboard() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-blue-100 rounded-lg">
-              <Users className="w-6 h-6 text-blue-600" />
+              <Users className="w-6 h-6 text-safe-accent" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">AI Team Chat</h1>
-              <p className="text-gray-600">Real-time collaboration with your AI team</p>
+              <h1 className="text-2xl font-bold text-safe">AI Team Chat</h1>
+              <p className="text-safe-muted">Real-time collaboration with your AI team</p>
             </div>
           </div>
           <button
@@ -321,39 +321,39 @@ export default function AITeamChatDashboard() {
             <div className="bg-blue-50 p-4 rounded-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-blue-600">Active Agents</p>
-                  <p className="text-2xl font-bold text-blue-900">{teamStatus.agentStatus.active || 0}</p>
+                  <p className="text-sm text-safe-accent">Active Agents</p>
+                  <p className="text-2xl font-bold text-safe-accent">{teamStatus.agentStatus.active || 0}</p>
                 </div>
-                <Users className="w-8 h-8 text-blue-500" />
+                <Users className="w-8 h-8 text-safe-accent" />
               </div>
             </div>
             <div className="bg-green-50 p-4 rounded-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-green-600">Recent Activity</p>
+                  <p className="text-sm text-safe-success">Recent Activity</p>
                   <p className="text-2xl font-bold text-green-900">{teamStatus.recentActivity.communications}</p>
                 </div>
-                <Activity className="w-8 h-8 text-green-500" />
+                <Activity className="w-8 h-8 text-safe-success" />
               </div>
             </div>
             <div className="bg-yellow-50 p-4 rounded-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-yellow-600">Suggestions</p>
+                  <p className="text-sm text-safe-warning">Suggestions</p>
                   <p className="text-2xl font-bold text-yellow-900">{teamStatus.recentActivity.suggestions}</p>
                 </div>
-                <Lightbulb className="w-8 h-8 text-yellow-500" />
+                <Lightbulb className="w-8 h-8 text-safe-warning" />
               </div>
             </div>
             <div className="bg-purple-50 p-4 rounded-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-purple-600">Performance</p>
+                  <p className="text-sm text-safe-accent">Performance</p>
                   <p className="text-2xl font-bold text-purple-900">
                     {performance ? Math.round(performance.averagePerformanceScore * 100) : 0}%
                   </p>
                 </div>
-                <TrendingUp className="w-8 h-8 text-purple-500" />
+                <TrendingUp className="w-8 h-8 text-safe-accent" />
               </div>
             </div>
           </div>
@@ -365,12 +365,12 @@ export default function AITeamChatDashboard() {
         <div className="lg:col-span-1 space-y-4">
           {/* Team Members */}
           <div className="bg-white rounded-lg shadow-lg p-4 border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">Team Members</h3>
+            <h3 className="text-lg font-semibold text-safe mb-3">Team Members</h3>
             <div className="space-y-2">
               <button
                 onClick={() => setSelectedAgent('all')}
                 className={`w-full text-left p-2 rounded-lg transition-colors ${
-                  selectedAgent === 'all' ? 'bg-blue-100 text-blue-900' : 'hover:bg-gray-100'
+                  selectedAgent === 'all' ? 'bg-blue-100 text-safe-accent' : 'hover:bg-gray-100'
                 }`}
               >
                 <div className="flex items-center space-x-2">
@@ -383,14 +383,14 @@ export default function AITeamChatDashboard() {
                   key={agent.id}
                   onClick={() => setSelectedAgent(agent.id)}
                   className={`w-full text-left p-2 rounded-lg transition-colors ${
-                    selectedAgent === agent.id ? 'bg-blue-100 text-blue-900' : 'hover:bg-gray-100'
+                    selectedAgent === agent.id ? 'bg-blue-100 text-safe-accent' : 'hover:bg-gray-100'
                   }`}
                 >
                   <div className="flex items-center space-x-2">
                     {getRoleIcon(agent.role)}
                     <div>
                       <p className="text-sm font-medium">{agent.name}</p>
-                      <p className="text-xs text-gray-500 capitalize">{agent.role.replace('_', ' ')}</p>
+                      <p className="text-xs text-safe-muted capitalize">{agent.role.replace('_', ' ')}</p>
                     </div>
                   </div>
                 </button>
@@ -400,10 +400,10 @@ export default function AITeamChatDashboard() {
 
           {/* Filters */}
           <div className="bg-white rounded-lg shadow-lg p-4 border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">Filters</h3>
+            <h3 className="text-lg font-semibold text-safe mb-3">Filters</h3>
             <div className="space-y-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message Type</label>
+                <label className="block text-sm font-medium text-safe mb-1">Message Type</label>
                 <select
                   value={filterType}
                   onChange={(e) => setFilterType(e.target.value)}
@@ -418,9 +418,9 @@ export default function AITeamChatDashboard() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Search</label>
+                <label className="block text-sm font-medium text-safe mb-1">Search</label>
                 <div className="relative">
-                  <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+                  <Search className="absolute left-3 top-2.5 w-4 h-4 text-safe-muted" />
                   <input
                     type="text"
                     value={searchTerm}
@@ -438,7 +438,7 @@ export default function AITeamChatDashboard() {
                   onChange={(e) => setShowSuggestions(e.target.checked)}
                   className="mr-2"
                 />
-                <label htmlFor="showSuggestions" className="text-sm text-gray-700">
+                <label htmlFor="showSuggestions" className="text-sm text-safe">
                   Show Suggestions
                 </label>
               </div>
@@ -448,15 +448,15 @@ export default function AITeamChatDashboard() {
           {/* Recent Suggestions */}
           {showSuggestions && recentSuggestions.length > 0 && (
             <div className="bg-white rounded-lg shadow-lg p-4 border border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Recent Suggestions</h3>
+              <h3 className="text-lg font-semibold text-safe mb-3">Recent Suggestions</h3>
               <div className="space-y-2">
                 {recentSuggestions.map((suggestion) => (
                   <div key={suggestion.id} className="p-2 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
                     <div className="flex items-start space-x-2">
-                      <Lightbulb className="w-4 h-4 text-yellow-600 mt-0.5" />
+                      <Lightbulb className="w-4 h-4 text-safe-warning mt-0.5" />
                       <div>
-                        <p className="text-sm font-medium text-yellow-800">{suggestion.sender}</p>
-                        <p className="text-xs text-yellow-700">{suggestion.message}</p>
+                        <p className="text-sm font-medium text-safe-warning">{suggestion.sender}</p>
+                        <p className="text-xs text-safe-warning">{suggestion.message}</p>
                       </div>
                     </div>
                   </div>
@@ -472,8 +472,8 @@ export default function AITeamChatDashboard() {
             {/* Chat Header */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900">Team Chat</h3>
-                <div className="flex items-center space-x-2 text-sm text-gray-500">
+                <h3 className="text-lg font-semibold text-safe">Team Chat</h3>
+                <div className="flex items-center space-x-2 text-sm text-safe-muted">
                   <Clock className="w-4 h-4" />
                   <span>{filteredMessages.length} messages</span>
                 </div>
@@ -505,20 +505,20 @@ export default function AITeamChatDashboard() {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-1">
-                        <span className="font-medium text-gray-900">{message.sender}</span>
+                        <span className="font-medium text-safe">{message.sender}</span>
                         {getMessageIcon(message.type)}
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-safe-muted">
                           {message.timestamp.toLocaleTimeString()}
                         </span>
                         {message.priority === 'urgent' && (
-                          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-safe-error">
                             Urgent
                           </span>
                         )}
                       </div>
-                      <p className="text-gray-800">{message.message}</p>
+                      <p className="text-safe">{message.message}</p>
                       {message.agentRole && (
-                        <p className="text-xs text-gray-500 mt-1 capitalize">
+                        <p className="text-xs text-safe-muted mt-1 capitalize">
                           {message.agentRole.replace('_', ' ')}
                         </p>
                       )}
@@ -548,7 +548,7 @@ export default function AITeamChatDashboard() {
                   <Send className="w-4 h-4" />
                 </button>
               </div>
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-safe-muted mt-2">
                 Your AI team is always listening and ready to help with suggestions, analysis, and automation.
               </p>
             </div>

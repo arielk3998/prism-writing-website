@@ -38,10 +38,10 @@ const TeamSection: React.FC<TeamSectionProps> = ({
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-4xl font-bold text-safe mb-4">
             Meet Our Expert Team
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-safe-muted max-w-3xl mx-auto">
             Our founding members bring decades of specialized experience in technical writing, 
             UX design, and scientific documentation across diverse industries.
           </p>
@@ -65,43 +65,43 @@ const TeamSection: React.FC<TeamSectionProps> = ({
                     {member.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                <h3 className="text-xl font-bold text-safe mb-1">
                   {member.name}
                 </h3>
-                <p className="text-blue-600 dark:text-blue-400 font-medium mb-1">
+                <p className="text-safe-accent font-medium mb-1">
                   {member.title}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-safe-muted">
                   {member.role}
                 </p>
                 {member.isFoundingMember && (
-                  <span className="inline-block mt-2 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs font-medium rounded-full">
+                  <span className="inline-block mt-2 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-safe-accent text-xs font-medium rounded-full">
                     Founding Member
                   </span>
                 )}
               </div>
 
               {/* Bio */}
-              <p className="text-gray-600 dark:text-gray-300 text-sm mb-6 leading-relaxed">
+              <p className="text-safe-muted text-sm mb-6 leading-relaxed">
                 {member.bio}
               </p>
 
               {/* Specializations */}
               <div className="mb-6">
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+                <h4 className="text-sm font-semibold text-safe mb-3">
                   Core Specializations
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {member.specializations.slice(0, 3).map((spec, specIndex) => (
                     <span
                       key={specIndex}
-                      className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-md"
+                      className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-safe text-xs rounded-md"
                     >
                       {spec}
                     </span>
                   ))}
                   {member.specializations.length > 3 && (
-                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs rounded-md">
+                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-safe-muted text-xs rounded-md">
                       +{member.specializations.length - 3} more
                     </span>
                   )}
@@ -110,18 +110,18 @@ const TeamSection: React.FC<TeamSectionProps> = ({
 
               {/* Industries */}
               <div className="mb-6">
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+                <h4 className="text-sm font-semibold text-safe mb-3">
                   Industry Experience
                 </h4>
                 <div className="space-y-1">
                   {member.industries.slice(0, 2).map((industry, industryIndex) => (
-                    <div key={industryIndex} className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+                    <div key={industryIndex} className="flex items-center text-sm text-safe-muted">
                       <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></div>
                       {industry}
                     </div>
                   ))}
                   {member.industries.length > 2 && (
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    <div className="text-xs text-safe-muted mt-1">
                       +{member.industries.length - 2} additional industries
                     </div>
                   )}
@@ -131,10 +131,10 @@ const TeamSection: React.FC<TeamSectionProps> = ({
               {/* Key Achievement */}
               {member.achievements.length > 0 && (
                 <div className="border-t border-gray-200 dark:border-gray-600 pt-4">
-                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                  <h4 className="text-sm font-semibold text-safe mb-2">
                     Notable Achievement
                   </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 italic">
+                  <p className="text-sm text-safe-muted italic">
                     &ldquo;{member.achievements[0]}&rdquo;
                   </p>
                 </div>

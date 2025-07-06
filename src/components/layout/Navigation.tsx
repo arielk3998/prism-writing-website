@@ -72,8 +72,8 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 aria-current={currentPage === item.href ? 'page' : undefined}
                 className={`transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-md px-3 py-2 ${
                   currentPage === item.href
-                    ? 'text-indigo-600 dark:text-indigo-400 font-semibold'  // Active state styling
-                    : 'text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'  // Default and hover states
+                    ? 'text-safe-accent font-semibold'  // Active state styling
+                    : 'text-safe hover:text-safe-accent dark:hover:text-indigo-400'  // Default and hover states
                 }`}
               >
                 {item.name}

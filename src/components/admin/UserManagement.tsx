@@ -54,12 +54,12 @@ const USER_ROLES = {
 } as const;
 
 const ROLE_COLORS = {
-  [USER_ROLES.SUPER_ADMIN]: 'bg-red-100 text-red-800 border-red-200',
+  [USER_ROLES.SUPER_ADMIN]: 'bg-red-100 text-safe-error border-red-200',
   [USER_ROLES.ADMIN]: 'bg-purple-100 text-purple-800 border-purple-200',
-  [USER_ROLES.EDITOR]: 'bg-blue-100 text-blue-800 border-blue-200',
-  [USER_ROLES.MEMBER]: 'bg-green-100 text-green-800 border-green-200',
-  [USER_ROLES.CLIENT]: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-  [USER_ROLES.VIEWER]: 'bg-gray-100 text-gray-800 border-gray-200'
+  [USER_ROLES.EDITOR]: 'bg-blue-100 text-safe-accent border-blue-200',
+  [USER_ROLES.MEMBER]: 'bg-green-100 text-safe-success border-green-200',
+  [USER_ROLES.CLIENT]: 'bg-yellow-100 text-safe-warning border-yellow-200',
+  [USER_ROLES.VIEWER]: 'bg-gray-100 text-safe border-gray-200'
 };
 
 export default function UserManagement({ className = '' }: UserManagementProps) {
@@ -297,8 +297,8 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
     return (
       <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 ${className}`}>
         <div className="flex items-center justify-center">
-          <RefreshCw className="w-8 h-8 animate-spin text-blue-600" />
-          <span className="ml-3 text-gray-600 dark:text-gray-300">Loading users...</span>
+          <RefreshCw className="w-8 h-8 animate-spin text-safe-accent" />
+          <span className="ml-3 text-safe-muted">Loading users...</span>
         </div>
       </div>
     );
@@ -308,9 +308,9 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
     return (
       <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 ${className}`}>
         <div className="text-center">
-          <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Error Loading Users</h3>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">{error}</p>
+          <AlertCircle className="w-12 h-12 text-safe-error mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-safe mb-2">Error Loading Users</h3>
+          <p className="text-safe-muted mb-4">{error}</p>
           <button
             onClick={fetchUsers}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
@@ -343,11 +343,11 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-safe flex items-center gap-2">
               <Users className="w-6 h-6" />
               User Management
             </h2>
-            <p className="text-gray-600 dark:text-gray-300">Manage users, roles, and permissions</p>
+            <p className="text-safe-muted">Manage users, roles, and permissions</p>
           </div>
           <div className="flex items-center gap-3">
             <button
@@ -379,11 +379,11 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
           >
             <div className="flex items-center">
               <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
-                <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                <Users className="w-6 h-6 text-safe-accent" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Total Users</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.total}</p>
+                <p className="text-sm font-medium text-safe-muted">Total Users</p>
+                <p className="text-2xl font-bold text-safe">{stats.total}</p>
               </div>
             </div>
           </motion.div>
@@ -396,11 +396,11 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
           >
             <div className="flex items-center">
               <div className="p-3 bg-green-100 dark:bg-green-900 rounded-lg">
-                <UserCheck className="w-6 h-6 text-green-600 dark:text-green-400" />
+                <UserCheck className="w-6 h-6 text-safe-success" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Active</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.active}</p>
+                <p className="text-sm font-medium text-safe-muted">Active</p>
+                <p className="text-2xl font-bold text-safe">{stats.active}</p>
               </div>
             </div>
           </motion.div>
@@ -413,11 +413,11 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
           >
             <div className="flex items-center">
               <div className="p-3 bg-red-100 dark:bg-red-900 rounded-lg">
-                <UserX className="w-6 h-6 text-red-600 dark:text-red-400" />
+                <UserX className="w-6 h-6 text-safe-error" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Inactive</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.inactive}</p>
+                <p className="text-sm font-medium text-safe-muted">Inactive</p>
+                <p className="text-2xl font-bold text-safe">{stats.inactive}</p>
               </div>
             </div>
           </motion.div>
@@ -430,11 +430,11 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
           >
             <div className="flex items-center">
               <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-lg">
-                <Shield className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                <Shield className="w-6 h-6 text-safe-accent dark:text-purple-400" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Admins</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                <p className="text-sm font-medium text-safe-muted">Admins</p>
+                <p className="text-2xl font-bold text-safe">
                   {(stats.byRole.admin || 0) + (stats.byRole.super_admin || 0)}
                 </p>
               </div>
@@ -447,7 +447,7 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
         <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
           <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-safe-muted w-5 h-5" />
             <input
               type="text"
               placeholder="Search users..."
@@ -461,7 +461,7 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
             <select
               value={roleFilter}
               onChange={(e) => setRoleFilter(e.target.value)}
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
             >
               <option value="">All Roles</option>
               {Object.values(USER_ROLES).map(role => (
@@ -474,7 +474,7 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
             >
               <option value="">All Status</option>
               <option value="active">Active</option>
@@ -498,12 +498,12 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th className="text-left py-4 px-6 font-medium text-gray-700 dark:text-gray-300">User</th>
-                <th className="text-left py-4 px-6 font-medium text-gray-700 dark:text-gray-300">Role</th>
-                <th className="text-left py-4 px-6 font-medium text-gray-700 dark:text-gray-300">Status</th>
-                <th className="text-left py-4 px-6 font-medium text-gray-700 dark:text-gray-300">Last Login</th>
-                <th className="text-left py-4 px-6 font-medium text-gray-700 dark:text-gray-300">Created</th>
-                <th className="text-left py-4 px-6 font-medium text-gray-700 dark:text-gray-300">Actions</th>
+                <th className="text-left py-4 px-6 font-medium text-safe">User</th>
+                <th className="text-left py-4 px-6 font-medium text-safe">Role</th>
+                <th className="text-left py-4 px-6 font-medium text-safe">Status</th>
+                <th className="text-left py-4 px-6 font-medium text-safe">Last Login</th>
+                <th className="text-left py-4 px-6 font-medium text-safe">Created</th>
+                <th className="text-left py-4 px-6 font-medium text-safe">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -521,8 +521,8 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                         {user.name.charAt(0).toUpperCase()}
                       </div>
                       <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">{user.name}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
+                        <div className="text-sm font-medium text-safe">{user.name}</div>
+                        <div className="text-sm text-safe-muted">{user.email}</div>
                       </div>
                     </div>
                   </td>
@@ -534,24 +534,24 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                   <td className="py-4 px-6">
                     <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
                       user.isActive 
-                        ? 'bg-green-100 text-green-800 border border-green-200'
-                        : 'bg-red-100 text-red-800 border border-red-200'
+                        ? 'bg-green-100 text-safe-success border border-green-200'
+                        : 'bg-red-100 text-safe-error border border-red-200'
                     }`}>
                       {user.isActive ? <CheckCircle className="w-3 h-3" /> : <XCircle className="w-3 h-3" />}
                       {user.isActive ? 'Active' : 'Inactive'}
                     </span>
                   </td>
-                  <td className="py-4 px-6 text-sm text-gray-600 dark:text-gray-300">
+                  <td className="py-4 px-6 text-sm text-safe-muted">
                     {user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never'}
                   </td>
-                  <td className="py-4 px-6 text-sm text-gray-600 dark:text-gray-300">
+                  <td className="py-4 px-6 text-sm text-safe-muted">
                     {new Date(user.createdAt).toLocaleDateString()}
                   </td>
                   <td className="py-4 px-6">
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => openEditModal(user)}
-                        className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                        className="text-safe-accent hover:text-safe-accent dark:hover:text-blue-300"
                         title="Edit user"
                       >
                         <Edit3 className="w-4 h-4" />
@@ -559,7 +559,7 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                       {user.role !== USER_ROLES.SUPER_ADMIN && (
                         <button
                           onClick={() => openDeleteModal(user)}
-                          className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+                          className="text-safe-error hover:text-safe-error dark:text-red-400 dark:hover:text-red-300"
                           title="Delete user"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -578,14 +578,14 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
       {users.length > 0 && (
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4">
           <div className="flex items-center justify-between">
-            <div className="text-sm text-gray-700 dark:text-gray-300">
+            <div className="text-sm text-safe">
               Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, stats?.total || 0)} of {stats?.total || 0} users
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                 disabled={currentPage === 1}
-                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-gray-600"
+                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 Previous
               </button>
@@ -596,14 +596,14 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                   .map((page, index, array) => (
                     <React.Fragment key={page}>
                       {index > 0 && array[index - 1] < page - 1 && (
-                        <span className="px-2 text-gray-500">...</span>
+                        <span className="px-2 text-safe-muted">...</span>
                       )}
                       <button
                         onClick={() => setCurrentPage(page)}
                         className={`px-3 py-2 rounded-lg text-sm ${
                           currentPage === page
                             ? 'bg-blue-600 text-white'
-                            : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600'
+                            : 'bg-white dark:bg-gray-700 text-safe border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600'
                         }`}
                       >
                         {page}
@@ -615,7 +615,7 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
               <button
                 onClick={() => setCurrentPage(prev => Math.min(Math.ceil((stats?.total || 0) / itemsPerPage), prev + 1))}
                 disabled={currentPage >= Math.ceil((stats?.total || 0) / itemsPerPage)}
-                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-gray-600"
+                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 Next
               </button>
@@ -640,10 +640,10 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
               className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto"
             >
               <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Add New User</h3>
+                <h3 className="text-lg font-semibold text-safe mb-4">Add New User</h3>
                 <form onSubmit={handleCreateUser} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Full Name *
                     </label>
                     <input
@@ -656,7 +656,7 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Email Address *
                     </label>
                     <input
@@ -669,7 +669,7 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Role *
                     </label>
                     <select
@@ -692,9 +692,9 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                         id="sendWelcomeEmail"
                         checked={formData.sendWelcomeEmail}
                         onChange={(e) => setFormData(prev => ({ ...prev, sendWelcomeEmail: e.target.checked }))}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        className="w-4 h-4 text-safe-accent border-gray-300 rounded focus:ring-blue-500"
                       />
-                      <label htmlFor="sendWelcomeEmail" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                      <label htmlFor="sendWelcomeEmail" className="ml-2 text-sm text-safe">
                         Send welcome email
                       </label>
                     </div>
@@ -705,9 +705,9 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                         id="temporaryPassword"
                         checked={formData.temporaryPassword}
                         onChange={(e) => setFormData(prev => ({ ...prev, temporaryPassword: e.target.checked }))}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        className="w-4 h-4 text-safe-accent border-gray-300 rounded focus:ring-blue-500"
                       />
-                      <label htmlFor="temporaryPassword" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                      <label htmlFor="temporaryPassword" className="ml-2 text-sm text-safe">
                         Generate temporary password
                       </label>
                     </div>
@@ -717,7 +717,7 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                     <button
                       type="button"
                       onClick={() => setShowCreateModal(false)}
-                      className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-lg transition-colors"
+                      className="flex-1 bg-gray-300 hover:bg-gray-400 text-safe px-4 py-2 rounded-lg transition-colors"
                     >
                       Cancel
                     </button>
@@ -752,10 +752,10 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
               className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto"
             >
               <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Edit User</h3>
+                <h3 className="text-lg font-semibold text-safe mb-4">Edit User</h3>
                 <form onSubmit={handleUpdateUser} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Full Name *
                     </label>
                     <input
@@ -768,7 +768,7 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Email Address *
                     </label>
                     <input
@@ -781,7 +781,7 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-safe mb-2">
                       Role *
                     </label>
                     <select
@@ -798,7 +798,7 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                   </div>
 
                   <div className="space-y-3">
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium text-safe">
                       Custom Permissions
                     </label>
                     <div className="max-h-32 overflow-y-auto border border-gray-300 dark:border-gray-600 rounded-lg p-3 space-y-2">
@@ -825,9 +825,9 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                                 }));
                               }
                             }}
-                            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                            className="w-4 h-4 text-safe-accent border-gray-300 rounded focus:ring-blue-500"
                           />
-                          <label htmlFor={`edit-${permission}`} className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                          <label htmlFor={`edit-${permission}`} className="ml-2 text-sm text-safe">
                             {permission.replace(':', ' - ').replace(/\b\w/g, l => l.toUpperCase())}
                           </label>
                         </div>
@@ -842,7 +842,7 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                         setShowEditModal(false);
                         setEditingUser(null);
                       }}
-                      className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-lg transition-colors"
+                      className="flex-1 bg-gray-300 hover:bg-gray-400 text-safe px-4 py-2 rounded-lg transition-colors"
                     >
                       Cancel
                     </button>
@@ -879,15 +879,15 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
               <div className="p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-2 bg-red-100 dark:bg-red-900 rounded-lg">
-                    <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-400" />
+                    <AlertCircle className="w-6 h-6 text-safe-error" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-semibold text-safe">
                     Delete User
                   </h3>
                 </div>
                 
                 <div className="mb-6">
-                  <p className="text-gray-600 dark:text-gray-300 mb-2">
+                  <p className="text-safe-muted mb-2">
                     Are you sure you want to delete this user? This action cannot be undone.
                   </p>
                   <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
@@ -896,8 +896,8 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                         {deletingUser.name.charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <div className="font-medium text-gray-900 dark:text-white">{deletingUser.name}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">{deletingUser.email}</div>
+                        <div className="font-medium text-safe">{deletingUser.name}</div>
+                        <div className="text-sm text-safe-muted">{deletingUser.email}</div>
                       </div>
                     </div>
                   </div>
@@ -910,7 +910,7 @@ export default function UserManagement({ className = '' }: UserManagementProps) 
                       setShowDeleteModal(false);
                       setDeletingUser(null);
                     }}
-                    className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-lg transition-colors"
+                    className="flex-1 bg-gray-300 hover:bg-gray-400 text-safe px-4 py-2 rounded-lg transition-colors"
                   >
                     Cancel
                   </button>

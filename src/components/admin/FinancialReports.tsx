@@ -166,7 +166,7 @@ const FinancialReports: React.FC = () => {
           <button
             onClick={() => exportReport('csv')}
             disabled={loading || !reports}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600"
+            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-safe bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:text-safe-muted dark:hover:bg-gray-600"
           >
             <Download className="h-4 w-4 mr-2" />
             Export CSV
@@ -174,7 +174,7 @@ const FinancialReports: React.FC = () => {
           <button
             onClick={() => exportReport('json')}
             disabled={loading || !reports}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600"
+            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-safe bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:text-safe-muted dark:hover:bg-gray-600"
           >
             <Download className="h-4 w-4 mr-2" />
             Export JSON
@@ -191,14 +191,14 @@ const FinancialReports: React.FC = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           <div>
-            <label htmlFor="reportType" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="reportType" className="block text-sm font-medium text-safe mb-1">
               Report Type
             </label>
             <select
               id="reportType"
               value={reportType}
               onChange={(e) => setReportType(e.target.value)}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-safe-muted"
             >
               <option value="comprehensive">Comprehensive</option>
               <option value="balance-sheet">Balance Sheet</option>
@@ -209,7 +209,7 @@ const FinancialReports: React.FC = () => {
           </div>
 
           <div>
-            <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="startDate" className="block text-sm font-medium text-safe mb-1">
               Start Date
             </label>
             <input
@@ -217,12 +217,12 @@ const FinancialReports: React.FC = () => {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-safe-muted"
             />
           </div>
 
           <div>
-            <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="endDate" className="block text-sm font-medium text-safe mb-1">
               End Date
             </label>
             <input
@@ -230,19 +230,19 @@ const FinancialReports: React.FC = () => {
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-safe-muted"
             />
           </div>
 
           <div>
-            <label htmlFor="standard" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="standard" className="block text-sm font-medium text-safe mb-1">
               Accounting Standard
             </label>
             <select
               id="standard"
               value={standard}
               onChange={(e) => setStandard(e.target.value)}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-safe-muted"
             >
               <option value="GAAP">US GAAP</option>
               <option value="IFRS">IFRS</option>
@@ -265,8 +265,8 @@ const FinancialReports: React.FC = () => {
       {error && (
         <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
           <div className="flex items-center gap-2">
-            <AlertCircle className="h-4 w-4 text-red-600" />
-            <span className="text-red-800 dark:text-red-200">{error}</span>
+            <AlertCircle className="h-4 w-4 text-safe-error" />
+            <span className="text-safe-error dark:text-red-200">{error}</span>
           </div>
         </div>
       )}
@@ -288,8 +288,8 @@ const FinancialReports: React.FC = () => {
                   disabled={tab.disabled}
                   className={`whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm ${
                     activeTab === tab.id
-                      ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+                      ? 'border-indigo-500 text-safe-accent'
+                      : 'border-transparent text-safe-muted hover:text-safe hover:border-gray-300 dark:text-safe-muted dark:hover:text-safe-muted'
                   } ${tab.disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   {tab.label}
@@ -301,15 +301,15 @@ const FinancialReports: React.FC = () => {
           {/* Tab Content */}
           <div className="mt-4">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-safe-muted">
                 Financial reports will be displayed here when the backend accounting system is fully connected.
                 The export functionality is ready and the UI components for Balance Sheet, Income Statement, 
                 Cash Flow Statement, and Trial Balance are prepared.
               </p>
               
               <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                <h4 className="font-medium text-blue-900 dark:text-blue-200 mb-2">Available Reports:</h4>
-                <ul className="text-sm text-blue-800 dark:text-blue-300 space-y-1">
+                <h4 className="font-medium text-safe-accent dark:text-blue-200 mb-2">Available Reports:</h4>
+                <ul className="text-sm text-safe-accent space-y-1">
                   <li>• Balance Sheet (GAAP/IFRS compliant)</li>
                   <li>• Income Statement with profit margins</li>
                   <li>• Cash Flow Statement</li>
@@ -321,19 +321,19 @@ const FinancialReports: React.FC = () => {
               {reports.metadata && (
                 <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Report Type</label>
+                    <label className="block text-sm font-medium text-safe mb-1">Report Type</label>
                     <p className="font-mono">{reports.metadata.reportType}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Standard</label>
+                    <label className="block text-sm font-medium text-safe mb-1">Standard</label>
                     <p className="font-mono">{reports.metadata.standard}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Format</label>
+                    <label className="block text-sm font-medium text-safe mb-1">Format</label>
                     <p className="font-mono">{reports.metadata.format}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Generated</label>
+                    <label className="block text-sm font-medium text-safe mb-1">Generated</label>
                     <p className="font-mono text-xs">{formatDate(reports.metadata.generatedAt)}</p>
                   </div>
                 </div>

@@ -242,48 +242,48 @@ export default function CooperativeResources() {
 
   const getTypeColor = (type: string) => {
     const colors = {
-      'PDF': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-      'Template': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-      'Guide': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+      'PDF': 'bg-red-100 text-safe-error dark:bg-red-900 dark:text-red-200',
+      'Template': 'bg-blue-100 text-safe-accent dark:bg-blue-900 dark:text-blue-200',
+      'Guide': 'bg-green-100 text-safe-success dark:bg-green-900 dark:text-green-200',
       'Video': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
       'Website': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
       'Spreadsheet': 'bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200'
     };
-    return colors[type as keyof typeof colors] || 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+    return colors[type as keyof typeof colors] || 'bg-gray-100 text-safe dark:bg-gray-900 dark:text-gray-200';
   };
 
   return (
     <div className="space-y-6">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg">
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h1 className="text-3xl font-bold flex items-center gap-3 text-gray-900 dark:text-white">
-            <BookOpen className="h-8 w-8 text-blue-600" />
+          <h1 className="text-3xl font-bold flex items-center gap-3 text-safe">
+            <BookOpen className="h-8 w-8 text-safe-accent" />
             Cooperative Resources Library
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
+          <p className="text-safe-muted mt-2">
             Comprehensive collection of resources from Democracy at Work Institute, USFWC, and cooperative development organizations
           </p>
         </div>
 
         {/* Featured Resources */}
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Featured Resources</h2>
+          <h2 className="text-xl font-semibold mb-4 text-safe">Featured Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {featuredResources.map((resource, index) => (
               <div key={index} className="bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
                 <div className="flex items-start justify-between mb-2">
-                  <h3 className="font-medium text-blue-900 dark:text-blue-100 text-sm">{resource.title}</h3>
+                  <h3 className="font-medium text-safe-accent dark:text-blue-100 text-sm">{resource.title}</h3>
                   <span className="text-lg">{getTypeIcon(resource.type)}</span>
                 </div>
-                <p className="text-blue-700 dark:text-blue-300 text-xs mb-3">{resource.description}</p>
+                <p className="text-safe-accent text-xs mb-3">{resource.description}</p>
                 <div className="flex items-center justify-between">
-                  <span className="text-blue-600 dark:text-blue-400 text-xs">{resource.source}</span>
+                  <span className="text-safe-accent text-xs">{resource.source}</span>
                   {resource.url && (
                     <a
                       href={resource.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200"
+                      className="text-safe-accent hover:text-safe-accent dark:hover:text-blue-200"
                     >
                       <ExternalLink className="h-4 w-4" />
                     </a>
@@ -303,7 +303,7 @@ export default function CooperativeResources() {
                 placeholder="Search resources..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-safe"
               />
             </div>
             <div className="flex flex-wrap gap-2">
@@ -316,7 +316,7 @@ export default function CooperativeResources() {
                     className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                       activeCategory === category.id
                         ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                        : 'bg-gray-100 dark:bg-gray-700 text-safe hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                   >
                     <Icon className="h-4 w-4" />
@@ -335,8 +335,8 @@ export default function CooperativeResources() {
               <div key={index} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
-                    <h3 className="font-medium text-gray-900 dark:text-white mb-1">{resource.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">{resource.description}</p>
+                    <h3 className="font-medium text-safe mb-1">{resource.title}</h3>
+                    <p className="text-safe-muted text-sm">{resource.description}</p>
                   </div>
                   <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ml-3 ${getTypeColor(resource.type)}`}>
                     {getTypeIcon(resource.type)} {resource.type}
@@ -344,7 +344,7 @@ export default function CooperativeResources() {
                 </div>
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-500 dark:text-gray-400 text-sm">{resource.source}</span>
+                  <span className="text-safe-muted text-sm">{resource.source}</span>
                   <div className="flex gap-2">
                     {resource.downloadable && (
                       <button className="flex items-center gap-1 px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700">
@@ -370,7 +370,7 @@ export default function CooperativeResources() {
           </div>
 
           {filteredResources.length === 0 && (
-            <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+            <div className="text-center py-12 text-safe-muted">
               <BookOpen className="h-16 w-16 mx-auto mb-4 opacity-50" />
               <h3 className="text-lg font-medium mb-2">No resources found</h3>
               <p>Try adjusting your search terms or category filter.</p>
@@ -380,48 +380,48 @@ export default function CooperativeResources() {
 
         {/* Additional Resources Section */}
         <div className="p-6 border-t border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Key Organizations</h2>
+          <h2 className="text-xl font-semibold mb-4 text-safe">Key Organizations</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 dark:text-white mb-2">Democracy at Work Institute</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+              <h3 className="font-medium text-safe mb-2">Democracy at Work Institute</h3>
+              <p className="text-safe-muted text-sm mb-3">
                 Leading organization for worker cooperative development, providing training, resources, and technical assistance.
               </p>
               <a
                 href="https://institute.coop/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 text-sm"
+                className="text-safe-accent hover:text-safe-accent dark:hover:text-blue-200 text-sm"
               >
                 Visit Website →
               </a>
             </div>
 
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 dark:text-white mb-2">US Federation of Worker Cooperatives</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+              <h3 className="font-medium text-safe mb-2">US Federation of Worker Cooperatives</h3>
+              <p className="text-safe-muted text-sm mb-3">
                 National grassroots membership organization representing worker cooperative businesses and organizations.
               </p>
               <a
                 href="https://www.usworker.coop/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 text-sm"
+                className="text-safe-accent hover:text-safe-accent dark:hover:text-blue-200 text-sm"
               >
                 Visit Website →
               </a>
             </div>
 
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 dark:text-white mb-2">International Cooperative Alliance</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+              <h3 className="font-medium text-safe mb-2">International Cooperative Alliance</h3>
+              <p className="text-safe-muted text-sm mb-3">
                 Global organization representing cooperatives worldwide, promoting cooperative principles and values.
               </p>
               <a
                 href="https://www.ica.coop/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 text-sm"
+                className="text-safe-accent hover:text-safe-accent dark:hover:text-blue-200 text-sm"
               >
                 Visit Website →
               </a>

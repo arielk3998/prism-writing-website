@@ -118,7 +118,7 @@ export function AdminDashboard() {
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading admin dashboard...</p>
+          <p className="text-safe-muted">Loading admin dashboard...</p>
         </div>
       </div>
     );
@@ -135,10 +135,10 @@ export function AdminDashboard() {
     <div className="space-y-8">
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 className="text-3xl font-bold text-safe mb-2">
           Administrative Dashboard
         </h1>
-        <p className="text-gray-600 dark:text-gray-300">
+        <p className="text-safe-muted">
           Complete oversight of members, projects, and clients
         </p>
       </div>
@@ -151,8 +151,8 @@ export function AdminDashboard() {
             onClick={() => setActiveTab(tab.id)}
             className={`flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-md transition-all ${
               activeTab === tab.id
-                ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
-                : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                ? 'bg-white dark:bg-gray-600 text-safe-accent shadow-sm'
+                : 'text-safe-muted hover:text-safe dark:hover:text-white'
             }`}
           >
             <span>{tab.icon}</span>
@@ -234,10 +234,10 @@ function OverviewTab({ overview }: { overview: AdminOverview }) {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+              <p className="text-sm font-medium text-safe-muted">
                 {stat.label}
               </p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">
+              <p className="text-3xl font-bold text-safe">
                 {stat.value}
               </p>
             </div>
@@ -264,7 +264,7 @@ function MembersTab({
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-2xl font-bold text-safe">
           Cooperative Members
         </h2>
         <ModernButton variant="primary" onClick={onCreateMember}>
@@ -285,30 +285,30 @@ function MembersTab({
                   {member.name.charAt(0)}
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">{member.name}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">{member.email}</p>
+                  <h3 className="font-semibold text-safe">{member.name}</h3>
+                  <p className="text-sm text-safe-muted">{member.email}</p>
                 </div>
               </div>
 
               <div className="space-y-2 mb-4">
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Active Projects:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">{activeProjects}</span>
+                  <span className="text-sm text-safe-muted">Active Projects:</span>
+                  <span className="font-medium text-safe">{activeProjects}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Completed:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">{completedProjects}</span>
+                  <span className="text-sm text-safe-muted">Completed:</span>
+                  <span className="font-medium text-safe">{completedProjects}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Joined:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">
+                  <span className="text-sm text-safe-muted">Joined:</span>
+                  <span className="font-medium text-safe">
                     {new Date(member.joinedAt).toLocaleDateString()}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Status:</span>
+                  <span className="text-sm text-safe-muted">Status:</span>
                   <span className={`text-xs px-2 py-1 rounded-full ${
-                    member.status === 'ACTIVE' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                    member.status === 'ACTIVE' ? 'bg-green-100 text-safe-success' : 'bg-gray-100 text-safe'
                   }`}>
                     {member.status}
                   </span>
@@ -351,35 +351,35 @@ function ProjectsTab({
 
   const getStatusColor = (status: Project['status']) => {
     switch (status) {
-      case 'completed': return 'text-green-600 bg-green-100';
-      case 'in_progress': return 'text-blue-600 bg-blue-100';
-      case 'review': return 'text-yellow-600 bg-yellow-100';
-      case 'draft': return 'text-gray-600 bg-gray-100';
-      case 'cancelled': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'completed': return 'text-safe-success bg-green-100';
+      case 'in_progress': return 'text-safe-accent bg-blue-100';
+      case 'review': return 'text-safe-warning bg-yellow-100';
+      case 'draft': return 'text-safe-muted bg-gray-100';
+      case 'cancelled': return 'text-safe-error bg-red-100';
+      default: return 'text-safe-muted bg-gray-100';
     }
   };
 
   const getPriorityColor = (priority: Project['priority']) => {
     switch (priority) {
-      case 'urgent': return 'text-red-600 bg-red-100';
-      case 'high': return 'text-orange-600 bg-orange-100';
-      case 'medium': return 'text-yellow-600 bg-yellow-100';
-      case 'low': return 'text-green-600 bg-green-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'urgent': return 'text-safe-error bg-red-100';
+      case 'high': return 'text-safe-warning bg-orange-100';
+      case 'medium': return 'text-safe-warning bg-yellow-100';
+      case 'low': return 'text-safe-success bg-green-100';
+      default: return 'text-safe-muted bg-gray-100';
     }
   };
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-2xl font-bold text-safe">
           Project Management
         </h2>
         <select
           value={selectedStatus}
           onChange={(e) => setSelectedStatus(e.target.value as Project['status'] | 'all')}
-          className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
         >
           <option value="all">All Projects</option>
           <option value="draft">Draft</option>
@@ -395,28 +395,28 @@ function ProjectsTab({
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Project
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Client
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Member
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Priority
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Progress
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Deadline
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -431,18 +431,18 @@ function ProjectsTab({
                   <tr key={project.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">
+                        <div className="text-sm font-medium text-safe">
                           {project.title}
                         </div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                        <div className="text-sm text-safe-muted">
                           {project.type.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-safe">
                       {client?.name || 'Unassigned'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-safe">
                       {member?.name || 'Unassigned'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -463,14 +463,14 @@ function ProjectsTab({
                             style={{ width: `${project.completionPercentage}%` }}
                           ></div>
                         </div>
-                        <span className="text-sm text-gray-900 dark:text-white">
+                        <span className="text-sm text-safe">
                           {project.completionPercentage}%
                         </span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-safe">
                       {project.deadline ? (
-                        <span className={isOverdue ? 'text-red-600' : ''}>
+                        <span className={isOverdue ? 'text-safe-error' : ''}>
                           {new Date(project.deadline).toLocaleDateString()}
                           {isOverdue && ' (Overdue)'}
                         </span>
@@ -482,7 +482,7 @@ function ProjectsTab({
                       <select
                         value={project.status}
                         onChange={(e) => onUpdateStatus(project.id, e.target.value as Project['status'])}
-                        className="px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-xs"
+                        className="px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-safe text-xs"
                       >
                         <option value="draft">Draft</option>
                         <option value="in_progress">In Progress</option>
@@ -506,7 +506,7 @@ function ProjectsTab({
 function ClientsTab({ clients, projects }: { clients: Client[]; projects: Project[] }) {
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <h2 className="text-2xl font-bold text-safe">
         Client Management
       </h2>
 
@@ -523,32 +523,32 @@ function ClientsTab({ clients, projects }: { clients: Client[]; projects: Projec
                   {client.name.charAt(0)}
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">{client.name}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">{client.company}</p>
+                  <h3 className="font-semibold text-safe">{client.name}</h3>
+                  <p className="text-sm text-safe-muted">{client.company}</p>
                 </div>
               </div>
 
               <div className="space-y-2 mb-4">
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Email:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">{client.email}</span>
+                  <span className="text-sm text-safe-muted">Email:</span>
+                  <span className="font-medium text-safe">{client.email}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Active Projects:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">{activeProjects}</span>
+                  <span className="text-sm text-safe-muted">Active Projects:</span>
+                  <span className="font-medium text-safe">{activeProjects}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Completed:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">{completedProjects}</span>
+                  <span className="text-sm text-safe-muted">Completed:</span>
+                  <span className="font-medium text-safe">{completedProjects}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Total Budget:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">${client.totalBudget.toLocaleString()}</span>
+                  <span className="text-sm text-safe-muted">Total Budget:</span>
+                  <span className="font-medium text-safe">${client.totalBudget.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Status:</span>
+                  <span className="text-sm text-safe-muted">Status:</span>
                   <span className={`text-xs px-2 py-1 rounded-full ${
-                    client.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                    client.status === 'active' ? 'bg-green-100 text-safe-success' : 'bg-gray-100 text-safe'
                   }`}>
                     {client.status}
                   </span>
@@ -592,46 +592,46 @@ function CreateMemberModal({
         animate={{ opacity: 1, scale: 1 }}
         className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md"
       >
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <h3 className="text-lg font-semibold text-safe mb-4">
           Create New Member
         </h3>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-safe mb-1">
               Full Name
             </label>
             <input
               type="text"
               value={formData.name}
               onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-safe mb-1">
               Email Address
             </label>
             <input
               type="email"
               value={formData.email}
               onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-safe mb-1">
               Password
             </label>
             <input
               type="password"
               value={formData.password}
               onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-safe"
               required
               minLength={6}
             />

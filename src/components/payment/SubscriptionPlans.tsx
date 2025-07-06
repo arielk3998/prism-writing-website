@@ -47,10 +47,10 @@ export default function SubscriptionPlans({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-4xl font-bold text-safe mb-4">
             Choose Your Plan
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-safe-muted max-w-3xl mx-auto">
             Select the perfect plan for your writing business needs. Upgrade or downgrade anytime.
           </p>
         </div>
@@ -64,7 +64,7 @@ export default function SubscriptionPlans({
                 className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
                   billingInterval === 'month'
                     ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                    : 'text-safe-muted hover:text-safe dark:hover:text-white'
                 }`}
               >
                 Monthly
@@ -74,7 +74,7 @@ export default function SubscriptionPlans({
                 className={`px-6 py-2 rounded-md text-sm font-medium transition-all relative ${
                   billingInterval === 'year'
                     ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                    : 'text-safe-muted hover:text-safe dark:hover:text-white'
                 }`}
               >
                 Yearly
@@ -127,26 +127,26 @@ export default function SubscriptionPlans({
                 <div className="p-8">
                   {/* Plan Header */}
                   <div className="text-center mb-8">
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                    <h3 className="text-2xl font-bold text-safe mb-2">
                       {plan.name}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300 mb-4">
+                    <p className="text-safe-muted mb-4">
                       {plan.description}
                     </p>
                     
                     {/* Price */}
                     <div className="mb-4">
-                      <span className="text-4xl font-bold text-gray-900 dark:text-white">
+                      <span className="text-4xl font-bold text-safe">
                         ${getPrice(planType as PlanType)}
                       </span>
-                      <span className="text-gray-600 dark:text-gray-400 ml-2">
+                      <span className="text-safe-muted ml-2">
                         /{billingInterval}
                       </span>
                     </div>
 
                     {/* Savings */}
                     {billingInterval === 'year' && (
-                      <div className="text-green-600 dark:text-green-400 text-sm font-medium">
+                      <div className="text-safe-success text-sm font-medium">
                         Save {getSavings(planType as PlanType)}% annually
                       </div>
                     )}
@@ -156,8 +156,8 @@ export default function SubscriptionPlans({
                   <ul className="space-y-4 mb-8">
                     {plan.features.map((feature, index) => (
                       <li key={index} className="flex items-start">
-                        <Check className="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
-                        <span className="text-gray-600 dark:text-gray-300">{feature}</span>
+                        <Check className="w-5 h-5 text-safe-success mt-0.5 mr-3 flex-shrink-0" />
+                        <span className="text-safe-muted">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -168,10 +168,10 @@ export default function SubscriptionPlans({
                     disabled={loading || isCurrent}
                     className={`w-full py-4 px-6 rounded-lg font-medium transition-all duration-200 flex items-center justify-center ${
                       isCurrent
-                        ? 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 cursor-not-allowed'
+                        ? 'bg-gray-100 dark:bg-gray-700 text-safe-muted cursor-not-allowed'
                         : isPopular
                         ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl'
-                        : 'bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 text-white dark:text-gray-900'
+                        : 'bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 text-white dark:text-safe'
                     }`}
                   >
                     {isLoading ? (
@@ -196,20 +196,20 @@ export default function SubscriptionPlans({
 
         {/* Trust Indicators */}
         <div className="text-center mt-12">
-          <p className="text-gray-600 dark:text-gray-400 mb-4">
+          <p className="text-safe-muted mb-4">
             Trusted by professional writers and businesses worldwide
           </p>
-          <div className="flex justify-center items-center space-x-8 text-gray-400">
+          <div className="flex justify-center items-center space-x-8 text-safe-muted">
             <span className="flex items-center">
-              <Check className="w-4 h-4 mr-2 text-green-500" />
+              <Check className="w-4 h-4 mr-2 text-safe-success" />
               30-day money-back guarantee
             </span>
             <span className="flex items-center">
-              <Check className="w-4 h-4 mr-2 text-green-500" />
+              <Check className="w-4 h-4 mr-2 text-safe-success" />
               Cancel anytime
             </span>
             <span className="flex items-center">
-              <Check className="w-4 h-4 mr-2 text-green-500" />
+              <Check className="w-4 h-4 mr-2 text-safe-success" />
               Secure payment processing
             </span>
           </div>

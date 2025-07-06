@@ -68,9 +68,9 @@ export function HeroSection() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center space-y-8 mb-16">
             {/* Badge */}
-            <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
+            <div className="inline-flex items-center px-4 py-2 bg-primary/15 text-primary rounded-full text-sm font-medium border border-primary/30 shadow-sm">
               <Award className="w-4 h-4 mr-2" />
-              <span className="Trusted by Growing Businesses Worldwide">Trusted by Growing Businesses Worldwide</span>
+              <span className="font-semibold">Trusted by Growing Businesses Worldwide</span>
             </div>
 
             {/* Main Heading */}
@@ -106,15 +106,15 @@ export function HeroSection() {
             {/* Trust Indicators */}
             <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-muted">
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-green-500" />
+                <CheckCircle className="w-4 h-4 text-safe-success" />
                 <span className="font-medium">Worker Cooperative</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-green-500" />
+                <CheckCircle className="w-4 h-4 text-safe-success" />
                 <span className="font-medium">AI-Enhanced Quality</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-green-500" />
+                <CheckCircle className="w-4 h-4 text-safe-success" />
                 <span className="font-medium">Ethical Business Model</span>
               </div>
             </div>

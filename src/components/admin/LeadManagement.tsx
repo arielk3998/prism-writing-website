@@ -228,10 +228,10 @@ const LeadManagement = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-safe">
             Lead Management
           </h1>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-safe-muted">
             Manage and track business inquiries and potential clients
           </p>
         </div>
@@ -262,10 +262,10 @@ const LeadManagement = () => {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Total Leads</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{leadStats.total}</p>
+              <p className="text-sm text-safe-muted">Total Leads</p>
+              <p className="text-2xl font-bold text-safe">{leadStats.total}</p>
             </div>
-            <User className="w-8 h-8 text-blue-500" />
+            <User className="w-8 h-8 text-safe-accent" />
           </div>
         </motion.div>
 
@@ -277,10 +277,10 @@ const LeadManagement = () => {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">New</p>
-              <p className="text-2xl font-bold text-blue-600">{leadStats.new}</p>
+              <p className="text-sm text-safe-muted">New</p>
+              <p className="text-2xl font-bold text-safe-accent">{leadStats.new}</p>
             </div>
-            <Plus className="w-8 h-8 text-blue-500" />
+            <Plus className="w-8 h-8 text-safe-accent" />
           </div>
         </motion.div>
 
@@ -292,10 +292,10 @@ const LeadManagement = () => {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Qualified</p>
-              <p className="text-2xl font-bold text-green-600">{leadStats.qualified}</p>
+              <p className="text-sm text-safe-muted">Qualified</p>
+              <p className="text-2xl font-bold text-safe-success">{leadStats.qualified}</p>
             </div>
-            <CheckCircle className="w-8 h-8 text-green-500" />
+            <CheckCircle className="w-8 h-8 text-safe-success" />
           </div>
         </motion.div>
 
@@ -307,7 +307,7 @@ const LeadManagement = () => {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Converted</p>
+              <p className="text-sm text-safe-muted">Converted</p>
               <p className="text-2xl font-bold text-emerald-600">{leadStats.converted}</p>
             </div>
             <Star className="w-8 h-8 text-emerald-500" />
@@ -322,10 +322,10 @@ const LeadManagement = () => {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Urgent</p>
-              <p className="text-2xl font-bold text-red-600">{leadStats.urgent}</p>
+              <p className="text-sm text-safe-muted">Urgent</p>
+              <p className="text-2xl font-bold text-safe-error">{leadStats.urgent}</p>
             </div>
-            <AlertCircle className="w-8 h-8 text-red-500" />
+            <AlertCircle className="w-8 h-8 text-safe-error" />
           </div>
         </motion.div>
       </div>
@@ -340,7 +340,7 @@ const LeadManagement = () => {
         >
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-safe mb-2">
                 Search
               </label>
               <input
@@ -353,7 +353,7 @@ const LeadManagement = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-safe mb-2">
                 Status
               </label>
               <select
@@ -371,7 +371,7 @@ const LeadManagement = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-safe mb-2">
                 Priority
               </label>
               <select
@@ -404,8 +404,8 @@ const LeadManagement = () => {
       {error && (
         <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
           <div className="flex items-center">
-            <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
-            <p className="text-red-700 dark:text-red-400">{error}</p>
+            <AlertCircle className="w-5 h-5 text-safe-error mr-2" />
+            <p className="text-safe-error dark:text-red-400">{error}</p>
           </div>
         </div>
       )}
@@ -416,22 +416,22 @@ const LeadManagement = () => {
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-gray-900">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Lead
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Contact
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Priority
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Created
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-safe-muted uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -439,7 +439,7 @@ const LeadManagement = () => {
             <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                  <td colSpan={6} className="px-6 py-4 text-center text-safe-muted">
                     <div className="flex items-center justify-center">
                       <RefreshCw className="w-5 h-5 animate-spin mr-2" />
                       Loading leads...
@@ -448,7 +448,7 @@ const LeadManagement = () => {
                 </tr>
               ) : leads.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                  <td colSpan={6} className="px-6 py-4 text-center text-safe-muted">
                     No leads found
                   </td>
                 </tr>
@@ -457,25 +457,25 @@ const LeadManagement = () => {
                   <tr key={lead.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">
+                        <div className="text-sm font-medium text-safe">
                           {lead.name}
                         </div>
                         {lead.company && (
-                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                          <div className="text-sm text-safe-muted">
                             {lead.company}
                           </div>
                         )}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 dark:text-white">
+                      <div className="text-sm text-safe">
                         <div className="flex items-center mb-1">
-                          <Mail className="w-4 h-4 mr-1 text-gray-400" />
+                          <Mail className="w-4 h-4 mr-1 text-safe-muted" />
                           {lead.email}
                         </div>
                         {lead.phone && (
                           <div className="flex items-center">
-                            <Phone className="w-4 h-4 mr-1 text-gray-400" />
+                            <Phone className="w-4 h-4 mr-1 text-safe-muted" />
                             {lead.phone}
                           </div>
                         )}
@@ -491,7 +491,7 @@ const LeadManagement = () => {
                         {priorityOptions.find(opt => opt.value === lead.priority)?.label}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-safe">
                       {formatDate(lead.createdAt)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -501,13 +501,13 @@ const LeadManagement = () => {
                             setSelectedLead(lead);
                             setShowDetails(true);
                           }}
-                          className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
+                          className="text-safe-accent hover:text-safe-accent dark:hover:text-blue-300"
                         >
                           <Eye className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => deleteLead(lead.id)}
-                          className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
+                          className="text-safe-error hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -524,24 +524,24 @@ const LeadManagement = () => {
         {pagination.pages > 1 && (
           <div className="px-6 py-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between">
-              <div className="text-sm text-gray-700 dark:text-gray-300">
+              <div className="text-sm text-safe">
                 Showing {((pagination.current - 1) * pagination.limit) + 1} to {Math.min(pagination.current * pagination.limit, pagination.total)} of {pagination.total} leads
               </div>
               <div className="flex items-center space-x-2">
                 <button
                   onClick={() => fetchLeads(pagination.current - 1)}
                   disabled={pagination.current === 1}
-                  className="px-3 py-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-sm text-safe hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Previous
                 </button>
-                <span className="text-sm text-gray-700 dark:text-gray-300">
+                <span className="text-sm text-safe">
                   Page {pagination.current} of {pagination.pages}
                 </span>
                 <button
                   onClick={() => fetchLeads(pagination.current + 1)}
                   disabled={pagination.current === pagination.pages}
-                  className="px-3 py-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-sm text-safe hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Next
                 </button>
@@ -562,12 +562,12 @@ const LeadManagement = () => {
           >
             <div className="p-6 border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h2 className="text-2xl font-bold text-safe">
                   Lead Details
                 </h2>
                 <button
                   onClick={() => setShowDetails(false)}
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                  className="text-safe-muted hover:text-safe-muted dark:hover:text-safe-muted"
                 >
                   <span className="sr-only">Close</span>
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -581,39 +581,39 @@ const LeadManagement = () => {
               {/* Lead Information */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                  <h3 className="text-lg font-semibold text-safe mb-4">
                     Contact Information
                   </h3>
                   <div className="space-y-3">
                     <div className="flex items-center">
-                      <User className="w-5 h-5 text-gray-400 mr-3" />
+                      <User className="w-5 h-5 text-safe-muted mr-3" />
                       <div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Name</p>
-                        <p className="text-gray-900 dark:text-white">{selectedLead.name}</p>
+                        <p className="text-sm text-safe-muted">Name</p>
+                        <p className="text-safe">{selectedLead.name}</p>
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <Mail className="w-5 h-5 text-gray-400 mr-3" />
+                      <Mail className="w-5 h-5 text-safe-muted mr-3" />
                       <div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Email</p>
-                        <p className="text-gray-900 dark:text-white">{selectedLead.email}</p>
+                        <p className="text-sm text-safe-muted">Email</p>
+                        <p className="text-safe">{selectedLead.email}</p>
                       </div>
                     </div>
                     {selectedLead.phone && (
                       <div className="flex items-center">
-                        <Phone className="w-5 h-5 text-gray-400 mr-3" />
+                        <Phone className="w-5 h-5 text-safe-muted mr-3" />
                         <div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">Phone</p>
-                          <p className="text-gray-900 dark:text-white">{selectedLead.phone}</p>
+                          <p className="text-sm text-safe-muted">Phone</p>
+                          <p className="text-safe">{selectedLead.phone}</p>
                         </div>
                       </div>
                     )}
                     {selectedLead.company && (
                       <div className="flex items-center">
-                        <Building className="w-5 h-5 text-gray-400 mr-3" />
+                        <Building className="w-5 h-5 text-safe-muted mr-3" />
                         <div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">Company</p>
-                          <p className="text-gray-900 dark:text-white">{selectedLead.company}</p>
+                          <p className="text-sm text-safe-muted">Company</p>
+                          <p className="text-safe">{selectedLead.company}</p>
                         </div>
                       </div>
                     )}
@@ -621,12 +621,12 @@ const LeadManagement = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                  <h3 className="text-lg font-semibold text-safe mb-4">
                     Lead Status
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Status</p>
+                      <p className="text-sm text-safe-muted mb-2">Status</p>
                       <select
                         value={selectedLead.status}
                         onChange={(e) => updateLead(selectedLead.id, { status: e.target.value as Lead['status'] })}
@@ -640,7 +640,7 @@ const LeadManagement = () => {
                       </select>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Priority</p>
+                      <p className="text-sm text-safe-muted mb-2">Priority</p>
                       <select
                         value={selectedLead.priority}
                         onChange={(e) => updateLead(selectedLead.id, { priority: e.target.value as Lead['priority'] })}
@@ -659,26 +659,26 @@ const LeadManagement = () => {
 
               {/* Project Details */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <h3 className="text-lg font-semibold text-safe mb-4">
                   Project Details
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {selectedLead.projectType && (
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Project Type</p>
-                      <p className="text-gray-900 dark:text-white">{selectedLead.projectType}</p>
+                      <p className="text-sm text-safe-muted">Project Type</p>
+                      <p className="text-safe">{selectedLead.projectType}</p>
                     </div>
                   )}
                   {selectedLead.budget && (
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Budget</p>
-                      <p className="text-gray-900 dark:text-white">{selectedLead.budget}</p>
+                      <p className="text-sm text-safe-muted">Budget</p>
+                      <p className="text-safe">{selectedLead.budget}</p>
                     </div>
                   )}
                   {selectedLead.timeline && (
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Timeline</p>
-                      <p className="text-gray-900 dark:text-white">{selectedLead.timeline}</p>
+                      <p className="text-sm text-safe-muted">Timeline</p>
+                      <p className="text-safe">{selectedLead.timeline}</p>
                     </div>
                   )}
                 </div>
@@ -686,11 +686,11 @@ const LeadManagement = () => {
 
               {/* Message */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <h3 className="text-lg font-semibold text-safe mb-4">
                   Message
                 </h3>
                 <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
-                  <p className="text-gray-900 dark:text-white whitespace-pre-wrap">
+                  <p className="text-safe whitespace-pre-wrap">
                     {selectedLead.message}
                   </p>
                 </div>
@@ -698,7 +698,7 @@ const LeadManagement = () => {
 
               {/* Notes */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <h3 className="text-lg font-semibold text-safe mb-4">
                   Notes
                 </h3>
                 <textarea

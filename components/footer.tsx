@@ -72,22 +72,22 @@ const certifications = [
 
 export function Footer() {
   return (
-    <footer className="bg-surface border-t border-border">
-      {/* Newsletter Section */}
-      <div className="border-b border-border/50">
-        <div className="container section-padding-sm">
+    <footer className="bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800">
+      {/* Premium Newsletter Section - Stripe-inspired */}
+      <div className="border-b border-gray-200 dark:border-gray-800">
+        <div className="container py-16">
           <div className="max-w-4xl mx-auto text-center">
-            <h3 className="heading-3 text-foreground mb-4">
-              Stay Updated with Translation Insights
+            <h3 className="text-3xl md:text-4xl font-bold text-safe mb-6">
+              Join 10,000+ Global Leaders
             </h3>
-            <p className="text-muted max-w-2xl mx-auto leading-relaxed mb-8">
-              Get expert tips, industry news, and exclusive offers delivered to your inbox. 
-              Join 10,000+ professionals who trust our insights.
+            <p className="text-xl text-safe-muted max-w-2xl mx-auto leading-relaxed mb-10">
+              Get exclusive insights, industry trends, and translation tips that drive 
+              international success. Join the world's most ambitious businesses.
             </p>
-            <form className="flex flex-col sm:flex-row max-w-md mx-auto gap-4">
+            <form className="flex flex-col sm:flex-row max-w-lg mx-auto gap-4">
               <Input 
                 type="email" 
-                placeholder="Enter your email address"
+                placeholder="Enter your professional email"
                 className="flex-1 shadow-sm border-border/50 focus:border-primary h-12"
               />
               <Button type="submit" className="sm:w-auto hover:shadow-lg transition-all duration-300 h-12 px-6">

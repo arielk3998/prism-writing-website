@@ -57,23 +57,23 @@ export const TranslationServiceCard = () => (
           </div>
           
           <div>
-            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white tracking-tight">
+            <h3 className="text-2xl font-semibold text-safe tracking-tight">
               Translation Services
             </h3>
-            <p className="text-lg text-gray-500 dark:text-gray-400 mt-1">
+            <p className="text-lg text-safe-muted mt-1">
               Professional. Fast. Accurate.
             </p>
           </div>
         </div>
         
         {/* Status badge - Subtle like Apple */}
-        <div className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 text-sm font-medium rounded-full">
+        <div className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-safe-success text-sm font-medium rounded-full">
           Available
         </div>
       </div>
 
       {/* Clean description - Apple's clarity */}
-      <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl">
+      <p className="text-xl text-safe-muted leading-relaxed max-w-2xl">
         Connect with the world through expert translation. Our native speakers ensure 
         your message resonates across cultures with precision and clarity.
       </p>
@@ -83,20 +83,20 @@ export const TranslationServiceCard = () => (
     <div className="px-8 pb-8">
       <div className="grid grid-cols-2 gap-6">
         <div className="space-y-1">
-          <div className="text-3xl font-bold text-gray-900 dark:text-white">80+</div>
-          <div className="text-sm text-gray-500 dark:text-gray-400">Languages supported</div>
+          <div className="text-3xl font-bold text-safe">80+</div>
+          <div className="text-sm text-safe-muted">Languages supported</div>
         </div>
         <div className="space-y-1">
-          <div className="text-3xl font-bold text-gray-900 dark:text-white">24hrs</div>
-          <div className="text-sm text-gray-500 dark:text-gray-400">Average delivery</div>
+          <div className="text-3xl font-bold text-safe">24hrs</div>
+          <div className="text-sm text-safe-muted">Average delivery</div>
         </div>
         <div className="space-y-1">
-          <div className="text-3xl font-bold text-gray-900 dark:text-white">99.9%</div>
-          <div className="text-sm text-gray-500 dark:text-gray-400">Accuracy rate</div>
+          <div className="text-3xl font-bold text-safe">99.9%</div>
+          <div className="text-sm text-safe-muted">Accuracy rate</div>
         </div>
         <div className="space-y-1">
-          <div className="text-3xl font-bold text-gray-900 dark:text-white">ISO</div>
-          <div className="text-sm text-gray-500 dark:text-gray-400">Certified quality</div>
+          <div className="text-3xl font-bold text-safe">ISO</div>
+          <div className="text-sm text-safe-muted">Certified quality</div>
         </div>
       </div>
     </div>
@@ -112,7 +112,7 @@ export const TranslationServiceCard = () => (
         ].map((feature, index) => (
           <div key={index} className="flex items-start space-x-3">
             <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5 flex-shrink-0"></div>
-            <span className="text-base text-gray-700 dark:text-gray-300">{feature}</span>
+            <span className="text-base text-safe">{feature}</span>
           </div>
         ))}
       </div>
@@ -129,7 +129,7 @@ export const TranslationServiceCard = () => (
         </a>
         <a
           href="/translation-quote"
-          className="flex-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white text-center py-4 px-6 rounded-xl font-semibold text-lg transition-colors duration-200"
+          className="flex-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-safe text-center py-4 px-6 rounded-xl font-semibold text-lg transition-colors duration-200"
         >
           Get quote
         </a>
@@ -138,7 +138,7 @@ export const TranslationServiceCard = () => (
 
     {/* Footer with trust signals - Stripe style */}
     <div className="border-t border-gray-100 dark:border-gray-800 px-8 py-6">
-      <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+      <div className="flex items-center justify-between text-sm text-safe-muted">
         <div className="flex items-center space-x-2">
           <div className="w-2 h-2 bg-green-400 rounded-full"></div>
           <span>Active 24/7</span>

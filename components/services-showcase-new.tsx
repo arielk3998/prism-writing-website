@@ -223,7 +223,7 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
                     <ul className="space-y-2 mb-6">
                       {service.features.map((feature) => (
                         <li key={feature} className="flex items-center text-sm">
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                          <CheckCircle className="w-4 h-4 text-safe-success mr-2 flex-shrink-0" />
                           <span>{feature}</span>
                         </li>
                       ))}
@@ -240,7 +240,7 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
                       </div>
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-muted">Accuracy:</span>
-                        <span className="font-medium text-green-600">{service.accuracy}</span>
+                        <span className="font-medium text-safe-success">{service.accuracy}</span>
                       </div>
                     </div>
 
@@ -271,7 +271,7 @@ export function ServicesShowcase({ className }: ServicesShowcaseProps) {
                     <ul className="space-y-2 mb-6">
                       {service.features.map((feature) => (
                         <li key={feature} className="flex items-center text-sm">
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                          <CheckCircle className="w-4 h-4 text-safe-success mr-2 flex-shrink-0" />
                           <span>{feature}</span>
                         </li>
                       ))}
