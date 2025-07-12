@@ -86,7 +86,7 @@ export interface ActionCondition {
   logicalOperator?: 'AND' | 'OR';
 }
 
-export interface TriggerCondition extends ActionCondition {}
+export type TriggerCondition = ActionCondition;
 
 export interface PersonalizationRule {
   field: string;

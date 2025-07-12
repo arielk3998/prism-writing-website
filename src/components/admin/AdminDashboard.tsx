@@ -77,10 +77,10 @@ export function AdminDashboard() {
     if (!user) return;
     
     try {
-      const result = await impersonateUser(targetUserId);
+      const result = await impersonateUser(user.id, targetUserId);
       if (result) {
         // Store impersonation token
-        localStorage.setItem('prism-impersonation-token', result.token);
+        localStorage.setItem('prism-impersonation-token', result.tokens?.accessToken || '');
         localStorage.setItem('prism-original-admin-id', user.id);
         
         // Redirect to portal as the impersonated user

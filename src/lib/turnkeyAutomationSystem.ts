@@ -274,7 +274,7 @@ export class TurnkeyAutomationSystem {
     this.log('Launching autonomous operations...', 'info');
 
     // Start autonomous business manager
-    autonomousBusinessManager;
+    void autonomousBusinessManager;
     
     // Start intelligent review processor
     new IntelligentReviewProcessor();

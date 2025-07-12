@@ -1,6 +1,4 @@
-// Prism Writing Business Platform Database Schema
-// Comprehensive business platform with user management, content, projects, and analytics
-
+// Prism Writing Platform - Database Schema
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,800 +8,181 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// User Management and Authentication
+// User Management
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  username      String?   @unique
-  firstName     String?
-  lastName      String?
-  passwordHash  String
-  role          UserRole  @default(MEMBER)
-  status        UserStatus @default(ACTIVE)
-  emailVerified DateTime?
-  lastLogin     DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id              String    @id @default(cuid())
+  email           String    @unique
+  username        String?   @unique
+  firstName       String?
+  lastName        String?
+  passwordHash    String
+  role            String    @default("MEMBER") // SUPER_ADMIN, ADMIN, EDITOR, MEMBER, CLIENT, VIEWER
+  status          String    @default("ACTIVE") // ACTIVE, INACTIVE, SUSPENDED, PENDING_VERIFICATION
+  emailVerified   DateTime?
+  lastLogin       DateTime?
+  loginAttempts   Int       @default(0)
+  lockoutUntil    DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
-  // Profile information
-  avatar        String?
-  bio           String?
-  phone         String?
-  company       String?
-  website       String?
-  timezone      String?   @default("UTC")
-  
-  // Security
-  twoFactorEnabled Boolean @default(false)
-  twoFactorSecret  String?
-  loginAttempts    Int     @default(0)
-  lockoutUntil     DateTime?
-  
-  // Business relationships
-  projects      ProjectMember[]
-  tasks         Task[]
-  comments      Comment[]
-  documents     Document[]
-  sessions      Session[]
-  newsletters   NewsletterSubscription[]
-  payments      Payment[]
-  assignedContacts ContactInquiry[] @relation("AssignedContacts")
-  
-  // Content creation
-  createdProjects Project[] @relation("ProjectCreator")
-  createdContent  Content[]
-  
-  // Analytics
-  analyticsEvents AnalyticsEvent[]
-  pageViews       PageView[]
-  userSessions    UserSession[]
-  lastActiveAt    DateTime?
-  
-  // Notifications
-  notifications   Notification[]
-  notificationPreference NotificationPreference?
-  
-  // Audit logs
-  auditLogs       AuditLog[]     @relation("UserAuditLogs")
-  
-  // Accounting
-  createdJournalEntries JournalEntry[]     @relation("CreatedJournalEntries")
-  customerInvoices      Invoice[]          @relation("CustomerInvoices")
-  createdInvoices       Invoice[]          @relation("CreatedInvoices")
-  createdExpenses       Expense[]          @relation("CreatedExpenses")
-  
+  // Relations
+  sessions        Session[]
+  projects        Project[]
+  projectMembers  ProjectMember[]
+  tasks           Task[]
+  content         Content[]
+
   @@map("users")
 }
 
+// Session Management
 model Session {
   id           String   @id @default(cuid())
-  userId       String
   sessionToken String   @unique
+  userId       String
   expires      DateTime
   createdAt    DateTime @default(now())
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@map("sessions")
 }
 
-// Newsletter System
-model NewsletterSubscription {
-  id              String   @id @default(cuid())
-  email           String   @unique
-  firstName       String?
-  lastName        String?
-  isActive        Boolean  @default(true)
-  confirmedAt     DateTime?
-  unsubscribedAt  DateTime?
-  source          String?
-  tags            String?   // Comma-separated values for SQLite compatibility
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  
-  // Optional user association
-  userId          String?
-  user            User?    @relation(fields: [userId], references: [id])
-  
-  @@map("newsletter_subscriptions")
-}
-
-// Project Management System
+// Project Management
 model Project {
-  id          String        @id @default(cuid())
+  id          String   @id @default(cuid())
   name        String
   description String?
-  status      ProjectStatus @default(PLANNING)
-  priority    Priority      @default(MEDIUM)
-  
-  // Dates and deadlines
+  status      String   @default("PLANNING") // PLANNING, IN_PROGRESS, REVIEW, COMPLETED, CANCELLED
+  priority    String   @default("MEDIUM")    // LOW, MEDIUM, HIGH, URGENT
+  budget      Float?
   startDate   DateTime?
   endDate     DateTime?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  
-  // Creator and team
   creatorId   String
-  creator     User          @relation("ProjectCreator", fields: [creatorId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  creator     User            @relation(fields: [creatorId], references: [id])
   members     ProjectMember[]
-  
-  // Project content
   tasks       Task[]
-  documents   Document[]
-  comments    Comment[]
-  
-  // Business
-  budget      Decimal?
-  actualCost  Decimal?
-  invoiceItems InvoiceItem[]
-  
+
   @@map("projects")
 }
 
 model ProjectMember {
-  id        String      @id @default(cuid())
+  id        String   @id @default(cuid())
   projectId String
   userId    String
-  role      ProjectRole @default(MEMBER)
-  joinedAt  DateTime    @default(now())
-  
-  project   Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+  role      String   @default("MEMBER") // OWNER, ADMIN, EDITOR, MEMBER, VIEWER
+  joinedAt  DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@unique([projectId, userId])
   @@map("project_members")
 }
 
 // Task Management
 model Task {
-  id          String     @id @default(cuid())
-  title       String
-  description String?
-  status      TaskStatus @default(TODO)
-  priority    Priority   @default(MEDIUM)
-  
-  // Dates
-  dueDate     DateTime?
-  startDate   DateTime?
-  completedAt DateTime?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  
-  // Relationships
-  projectId   String
-  assigneeId  String?
-  project     Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  assignee    User?      @relation(fields: [assigneeId], references: [id])
-  
-  // Content
-  comments    Comment[]
-  documents   Document[]
-  
-  // Time tracking
-  estimatedHours Decimal?
-  actualHours    Decimal?
-  
+  id             String    @id @default(cuid())
+  title          String
+  description    String?
+  status         String    @default("TODO") // TODO, IN_PROGRESS, REVIEW, COMPLETED, CANCELLED
+  priority       String    @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+  projectId      String
+  assigneeId     String?
+  dueDate        DateTime?
+  completedAt    DateTime?
+  estimatedHours Float?
+  actualHours    Float?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  project  Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assignee User?   @relation(fields: [assigneeId], references: [id])
+
   @@map("tasks")
 }
 
 // Content Management
 model Content {
-  id          String      @id @default(cuid())
-  title       String
-  slug        String      @unique
-  content     String
-  excerpt     String?
-  type        ContentType @default(ARTICLE)
-  status      ContentStatus @default(DRAFT)
-  
-  // SEO
+  id              String    @id @default(cuid())
+  title           String
+  slug            String    @unique
+  content         String
+  excerpt         String?
+  type            String    @default("ARTICLE") // ARTICLE, PAGE, BLOG_POST, DOCUMENTATION
+  status          String    @default("DRAFT")   // DRAFT, PUBLISHED, ARCHIVED
+  authorId        String
+  publishedAt     DateTime?
   metaTitle       String?
   metaDescription String?
-  keywords        String?   // Comma-separated keywords for SQLite compatibility
-  
-  // Publishing
-  publishedAt DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  
-  // Author
-  authorId    String
-  author      User      @relation(fields: [authorId], references: [id])
-  
-  // Categories and tags
-  tags        String?   // Comma-separated tags for SQLite compatibility
-  category    String?
-  
+  tags            String?
+  category        String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  author User @relation(fields: [authorId], references: [id])
+
   @@map("content")
 }
 
-// Document Management
-model Document {
-  id          String       @id @default(cuid())
-  name        String
-  filename    String
-  path        String
-  mimeType    String
-  size        Int
-  description String?
-  type        DocumentType @default(OTHER)
-  
-  // Relationships
-  projectId   String?
-  taskId      String?
-  uploaderId  String
-  project     Project?     @relation(fields: [projectId], references: [id])
-  task        Task?        @relation(fields: [taskId], references: [id])
-  uploader    User         @relation(fields: [uploaderId], references: [id])
-  
-  // Metadata
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  
-  @@map("documents")
+// Newsletter System
+model NewsletterSubscriber {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  status         String    @default("ACTIVE") // ACTIVE, UNSUBSCRIBED, BOUNCED
+  source         String?
+  subscribedAt   DateTime  @default(now())
+  unsubscribedAt DateTime?
+  tags           String?
+
+  @@map("newsletter_subscribers")
 }
 
-// Communication
-model Comment {
-  id        String   @id @default(cuid())
-  content   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
-  // Author
-  authorId  String
-  author    User     @relation(fields: [authorId], references: [id])
-  
-  // Target (polymorphic)
-  projectId String?
-  taskId    String?
-  project   Project? @relation(fields: [projectId], references: [id])
-  task      Task?    @relation(fields: [taskId], references: [id])
-  
-  @@map("comments")
-}
-
-// Financial Management - Removed duplicate Invoice model, using the one below
-
-model Payment {
-  id            String        @id @default(cuid())
-  amount        Decimal
-  currency      String        @default("USD")
-  status        PaymentStatus @default(PENDING)
-  method        PaymentMethod @default(CREDIT_CARD)
-  
-  // External payment processor info
-  stripePaymentId String?
-  paypalOrderId   String?
-  
-  // Relationships
-  userId        String
-  invoiceId     String?
-  user          User          @relation(fields: [userId], references: [id])
-  invoice       Invoice?      @relation(fields: [invoiceId], references: [id])
-  
-  // Timestamps
-  processedAt   DateTime?
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  
-  @@map("payments")
-}
-
-// Accounting & Bookkeeping System
-model Account {
-  id              String         @id @default(cuid())
-  accountNumber   String         @unique
-  accountName     String
-  accountType     AccountType
-  accountCategory AccountCategory
-  description     String?
-  isActive        Boolean        @default(true)
-  parentAccountId String?
-  balance         Float          @default(0)
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  
-  parentAccount   Account?       @relation("AccountHierarchy", fields: [parentAccountId], references: [id])
-  childAccounts   Account[]      @relation("AccountHierarchy")
-  ledgerEntries   LedgerEntry[]
-  expenses        Expense[]
-  
-  @@index([accountNumber])
-  @@index([accountType])
-  @@index([isActive])
-}
-
-model JournalEntry {
-  id           String        @id @default(cuid())
-  entryNumber  String        @unique
-  date         DateTime
-  description  String
-  reference    String?
-  totalDebit   Float
-  totalCredit  Float
-  isPosted     Boolean       @default(false)
-  createdBy    String
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  
-  ledgerEntries LedgerEntry[]
-  creator       User          @relation("CreatedJournalEntries", fields: [createdBy], references: [id])
-  
-  @@index([date])
-  @@index([isPosted])
-  @@index([entryNumber])
-}
-
-model LedgerEntry {
-  id              String       @id @default(cuid())
-  journalEntryId  String
-  accountId       String
-  debitAmount     Float        @default(0)
-  creditAmount    Float        @default(0)
-  description     String?
-  date            DateTime
-  createdAt       DateTime     @default(now())
-  
-  journalEntry    JournalEntry @relation(fields: [journalEntryId], references: [id], onDelete: Cascade)
-  account         Account      @relation(fields: [accountId], references: [id])
-  
-  @@index([accountId])
-  @@index([date])
-  @@index([journalEntryId])
-}
-
-model Invoice {
-  id              String        @id @default(cuid())
-  invoiceNumber   String        @unique
-  customerId      String?
-  customerName    String
-  customerEmail   String?
-  issueDate       DateTime
-  dueDate         DateTime
-  subtotal        Float
-  taxAmount       Float         @default(0)
-  discountAmount  Float         @default(0)
-  totalAmount     Float
-  paidAmount      Float         @default(0)
-  status          InvoiceStatus @default(DRAFT)
-  notes           String?
-  terms           String?
-  createdBy       String
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  
-  customer        User?         @relation("CustomerInvoices", fields: [customerId], references: [id])
-  creator         User          @relation("CreatedInvoices", fields: [createdBy], references: [id])
-  invoiceItems    InvoiceItem[]
-  payments        Payment[]
-  
-  @@index([invoiceNumber])
-  @@index([customerId])
-  @@index([status])
-  @@index([dueDate])
-}
-
-model InvoiceItem {
-  id          String  @id @default(cuid())
-  invoiceId   String
-  description String
-  quantity    Float
-  unitPrice   Float
-  lineTotal   Float
-  projectId   String?
-  
-  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
-  project     Project? @relation(fields: [projectId], references: [id])
-  
-  @@index([invoiceId])
-}
-
-model Expense {
-  id            String        @id @default(cuid())
-  expenseNumber String        @unique
-  date          DateTime
-  vendorName    String
-  accountId     String
-  amount        Float
-  description   String
-  category      String?
-  reference     String?
-  receipt       String?       // File path or URL
-  isReimbursable Boolean      @default(false)
-  status        ExpenseStatus @default(PENDING)
-  createdBy     String
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  
-  account       Account       @relation(fields: [accountId], references: [id])
-  creator       User          @relation("CreatedExpenses", fields: [createdBy], references: [id])
-  
-  @@index([date])
-  @@index([accountId])
-  @@index([status])
-  @@index([expenseNumber])
-}
-
-// Analytics and Tracking Models
-model AnalyticsEvent {
+model NewsletterCampaign {
   id          String   @id @default(cuid())
-  userId      String?
-  sessionId   String?
-  eventType   String
-  eventData   Json?
-  url         String?
-  userAgent   String?
-  ipAddress   String?
-  timestamp   DateTime @default(now())
-  
-  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  @@index([userId])
-  @@index([eventType])
-  @@index([timestamp])
-  @@map("analytics_events")
-}
-
-model PageView {
-  id          String   @id @default(cuid())
-  userId      String?
-  sessionId   String?
-  url         String
-  title       String?
-  referrer    String?
-  userAgent   String?
-  ipAddress   String?
-  duration    Int?     // Time spent on page in seconds
-  timestamp   DateTime @default(now())
-  
-  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  @@index([userId])
-  @@index([url])
-  @@index([timestamp])
-  @@map("page_views")
-}
-
-model UserSession {
-  id          String   @id @default(cuid())
-  userId      String?
-  sessionId   String   @unique
-  ipAddress   String?
-  userAgent   String?
-  country     String?
-  city        String?
-  startTime   DateTime @default(now())
-  endTime     DateTime?
-  duration    Int?     // Session duration in seconds
-  pageViews   Int      @default(0)
-  
-  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  @@index([userId])
-  @@index([sessionId])
-  @@index([startTime])
-  @@map("user_sessions")
-}
-
-// Notification Models
-model Notification {
-  id          String            @id @default(cuid())
-  userId      String
-  title       String
-  message     String
-  type        NotificationType  @default(INFO)
-  status      NotificationStatus @default(UNREAD)
-  actionUrl   String?
-  metadata    Json?
-  createdAt   DateTime          @default(now())
-  readAt      DateTime?
-  
-  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  @@index([userId])
-  @@index([status])
-  @@index([createdAt])
-  @@map("notifications")
-}
-
-model NotificationPreference {
-  id              String  @id @default(cuid())
-  userId          String  @unique
-  emailEnabled    Boolean @default(true)
-  pushEnabled     Boolean @default(true)
-  smsEnabled      Boolean @default(false)
-  projectUpdates  Boolean @default(true)
-  taskReminders   Boolean @default(true)
-  invoiceUpdates  Boolean @default(true)
-  systemAlerts    Boolean @default(true)
-  marketing       Boolean @default(false)
-  
-  user            User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  @@map("notification_preferences")
-}
-
-// Audit Log Model
-model AuditLog {
-  id          String   @id @default(cuid())
-  userId      String?
-  action      String
-  resource    String?
-  resourceId  String?
-  details     Json?
-  ipAddress   String?
-  userAgent   String?
-  timestamp   DateTime @default(now())
-  
-  user        User?    @relation("UserAuditLogs", fields: [userId], references: [id], onDelete: SetNull)
-  
-  @@index([userId])
-  @@index([action])
-  @@index([timestamp])
-  @@map("audit_logs")
-}
-
-// Contact & Lead Management System
-model ContactInquiry {
-  id              String         @id @default(cuid())
-  name            String
-  email           String
-  company         String?
-  phone           String?
-  projectType     String?
-  message         String
-  budget          String?
-  timeline        String?
-  
-  // Lead tracking
-  status          ContactStatus  @default(NEW)
-  priority        Priority       @default(MEDIUM)
-  source          String?        @default("contact-form")
-  
-  // Follow-up tracking
-  lastContactedAt DateTime?
-  nextFollowUpAt  DateTime?
-  assignedTo      String?        // User ID of team member
-  assignedUser    User?          @relation("AssignedContacts", fields: [assignedTo], references: [id])
-  notes           String?
-  
-  // Automation flags
-  autoResponded     Boolean      @default(false)
-  addedToNewsletter Boolean      @default(false)
-  allowFollowUp     Boolean      @default(true)
-  
-  // Compliance tracking
-  ipAddress       String?
-  userAgent       String?
-  
-  // Email automation relations
-  emailSchedules  EmailSchedule[]
-  emailLogs       EmailLog[]
-  
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  
-  @@map("contact_inquiries")
-}
-
-// Email Automation & Follow-up System
-model EmailSchedule {
-  id           String    @id @default(cuid())
-  leadId       String
-  templateId   String
-  scheduledFor DateTime
-  sent         Boolean   @default(false)
-  skipped      Boolean   @default(false)
-  emailId      String?
-  sentAt       DateTime?
-  createdAt    DateTime  @default(now())
-  
-  lead         ContactInquiry @relation(fields: [leadId], references: [id], onDelete: Cascade)
-  
-  @@map("email_schedules")
-}
-
-model EmailLog {
-  id         String      @id @default(cuid())
-  leadId     String
-  templateId String
-  emailId    String?
-  subject    String?
-  status     EmailStatus @default(SENT)
-  sentAt     DateTime    @default(now())
-  openedAt   DateTime?
-  clickedAt  DateTime?
-  bouncedAt  DateTime?
-  
-  lead       ContactInquiry @relation(fields: [leadId], references: [id], onDelete: Cascade)
-  
-  @@map("email_logs")
-}
-
-model EmailTemplate {
-  id          String        @id @default(cuid())
   name        String
   subject     String
   content     String
-  type        EmailType     @default(FOLLOW_UP)
-  active      Boolean       @default(true)
-  delay       Int?          // Hours to wait before sending
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  
-  @@map("email_templates")
+  status      String   @default("DRAFT") // DRAFT, SENT, SCHEDULED, CANCELLED
+  scheduledAt DateTime?
+  sentAt      DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("newsletter_campaigns")
 }
 
-enum UserRole {
-  SUPER_ADMIN
-  ADMIN
-  EDITOR
-  MEMBER
-  CLIENT
-  VIEWER
+// Notification System
+model NotificationPreference {
+  id             String  @id @default(cuid())
+  userId         String  @unique
+  emailEnabled   Boolean @default(true)
+  pushEnabled    Boolean @default(false)
+  projectUpdates Boolean @default(true)
+  taskReminders  Boolean @default(true)
+  invoiceUpdates Boolean @default(true)
+  systemAlerts   Boolean @default(true)
+  marketing      Boolean @default(false)
+
+  @@map("notification_preferences")
 }
 
-enum UserStatus {
-  ACTIVE
-  INACTIVE
-  SUSPENDED
-  PENDING_VERIFICATION
-}
+// Financial Management
+model Account {
+  id              String  @id @default(cuid())
+  accountNumber   String  @unique
+  accountName     String
+  accountType     String  // ASSET, LIABILITY, EQUITY, REVENUE, EXPENSE
+  accountCategory String
+  description     String?
+  balance         Float   @default(0)
+  isActive        Boolean @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-enum ProjectStatus {
-  PLANNING
-  IN_PROGRESS
-  ON_HOLD
-  COMPLETED
-  CANCELLED
-}
-
-enum ProjectRole {
-  OWNER
-  MANAGER
-  EDITOR
-  MEMBER
-  VIEWER
-}
-
-enum TaskStatus {
-  TODO
-  IN_PROGRESS
-  IN_REVIEW
-  COMPLETED
-  CANCELLED
-}
-
-enum Priority {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
-}
-
-enum ContentType {
-  ARTICLE
-  BLOG_POST
-  PAGE
-  TUTORIAL
-  DOCUMENTATION
-}
-
-enum ContentStatus {
-  DRAFT
-  REVIEW
-  PUBLISHED
-  ARCHIVED
-}
-
-enum DocumentType {
-  PROPOSAL
-  CONTRACT
-  INVOICE
-  REPORT
-  TEMPLATE
-  SAMPLE
-  OTHER
-}
-
-enum InvoiceStatus {
-  DRAFT
-  SENT
-  PAID
-  OVERDUE
-  CANCELLED
-}
-
-enum PaymentStatus {
-  PENDING
-  PROCESSING
-  COMPLETED
-  FAILED
-  REFUNDED
-}
-
-enum PaymentMethod {
-  CREDIT_CARD
-  DEBIT_CARD
-  PAYPAL
-  STRIPE
-  BANK_TRANSFER
-  CHECK
-}
-
-enum AccountType {
-  ASSET
-  LIABILITY
-  EQUITY
-  REVENUE
-  EXPENSE
-  COST_OF_GOODS_SOLD
-}
-
-enum AccountCategory {
-  CURRENT_ASSET
-  FIXED_ASSET
-  CURRENT_LIABILITY
-  LONG_TERM_LIABILITY
-  OWNERS_EQUITY
-  OPERATING_REVENUE
-  NON_OPERATING_REVENUE
-  OPERATING_EXPENSE
-  NON_OPERATING_EXPENSE
-  DIRECT_COSTS
-}
-
-enum ExpenseStatus {
-  PENDING
-  APPROVED
-  PAID
-  REJECTED
-}
-
-enum NotificationType {
-  INFO
-  SUCCESS
-  WARNING
-  ERROR
-  SYSTEM
-  PROJECT
-  TASK
-  INVOICE
-  PAYMENT
-}
-
-enum NotificationStatus {
-  UNREAD
-  READ
-  ARCHIVED
-}
-
-enum ContactStatus {
-  NEW
-  CONTACTED
-  QUALIFIED
-  PROPOSAL_SENT
-  CONVERTED
-  CLOSED_LOST
-  FOLLOW_UP_SCHEDULED
-}
-
-enum EmailStatus {
-  SENT
-  DELIVERED
-  OPENED
-  CLICKED
-  BOUNCED
-  FAILED
-}
-
-enum EmailType {
-  WELCOME
-  FOLLOW_UP
-  PROPOSAL
-  NURTURE
-  CLOSING
-  NEWSLETTER
-  PROMOTIONAL
-  TRANSACTIONAL
+  @@map("accounts")
 }

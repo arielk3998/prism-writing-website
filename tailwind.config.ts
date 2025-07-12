@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import { typography, colors, spacing, borderRadius, shadows, animations, breakpoints } from './lib/design-tokens'
+import { typography, breakpoints } from './lib/design-tokens'
 
 const config: Config = {
   content: [
@@ -28,24 +28,18 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: typography.fonts.sans,
+        serif: typography.fonts.serif,
         mono: typography.fonts.mono,
-        display: typography.fonts.display,
-        body: typography.fonts.body,
       },
       fontSize: {
-        xs: [typography.fontSizes.xs.rem, typography.fontSizes.xs.lineHeight],
-        sm: [typography.fontSizes.sm.rem, typography.fontSizes.sm.lineHeight],
-        base: [typography.fontSizes.base.rem, typography.fontSizes.base.lineHeight],
-        lg: [typography.fontSizes.lg.rem, typography.fontSizes.lg.lineHeight],
-        xl: [typography.fontSizes.xl.rem, typography.fontSizes.xl.lineHeight],
-        '2xl': [typography.fontSizes['2xl'].rem, typography.fontSizes['2xl'].lineHeight],
-        '3xl': [typography.fontSizes['3xl'].rem, typography.fontSizes['3xl'].lineHeight],
-        '4xl': [typography.fontSizes['4xl'].rem, typography.fontSizes['4xl'].lineHeight],
-        '5xl': [typography.fontSizes['5xl'].rem, typography.fontSizes['5xl'].lineHeight],
-        '6xl': [typography.fontSizes['6xl'].rem, typography.fontSizes['6xl'].lineHeight],
-        '7xl': [typography.fontSizes['7xl'].rem, typography.fontSizes['7xl'].lineHeight],
-        '8xl': [typography.fontSizes['8xl'].rem, typography.fontSizes['8xl'].lineHeight],
-        '9xl': [typography.fontSizes['9xl'].rem, typography.fontSizes['9xl'].lineHeight],
+        xs: typography.fontSizes.xs,
+        sm: typography.fontSizes.sm,
+        base: typography.fontSizes.base,
+        lg: typography.fontSizes.lg,
+        xl: typography.fontSizes.xl,
+        '2xl': typography.fontSizes['2xl'],
+        '3xl': typography.fontSizes['3xl'],
+        '4xl': typography.fontSizes['4xl'],
       },
       fontWeight: {
         thin: '100',

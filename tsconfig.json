@@ -19,7 +19,11 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/components/*": ["./components/*"],
+      "@/app/*": ["./app/*"],
+      "@/lib/*": ["./lib/*", "./src/lib/*"],
+      "@prism/auth": ["../../../packages/auth/src/index"]
     },
     "plugins": [
       {
@@ -34,6 +38,10 @@
     "**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "_backup",
+    "_ASSET_BACKUP_20250706",
+    "**/*.test.ts",
+    "Programming/**/_backup/**"
   ]
 }

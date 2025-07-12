@@ -1,0 +1,116 @@
+import { prisma } from '../prisma';
+import { verifyPassword } from '../utils/credentials';
+import { generateAuthToken, generateRefreshToken } from '../utils/token';
+import { AuthResponse, User } from '../types';
+
+export async function login(email: string, password: string, ipAddress?: string, userAgent?: string): Promise<AuthResponse> {
+  try {
+    // Find user
+    const user = await prisma.user.findUnique({
+      where: { email },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        password: true,
+        role: true,
+        status: true,
+        lockedUntil: true,
+        failedLoginAttempts: true,
+        emailVerified: true,
+        createdAt: true,
+        updatedAt: true,
+      }
+    });
+
+    if (!user) {
+      return {
+        success: false,
+        message: 'Invalid email or password'
+      };
+    }
+
+    // Check if account is locked
+    if (user.lockedUntil && user.lockedUntil > new Date()) {
+      return {
+        success: false,
+        message: 'Account is temporarily locked. Please try again later.'
+      };
+    }
+
+    // Verify password
+    const isValidPassword = await verifyPassword(password, user.password);
+
+    if (!isValidPassword) {
+      // Increment failed login attempts
+      const failedAttempts = user.failedLoginAttempts + 1;
+      const updateData: { failedLoginAttempts: number; lockedUntil?: Date } = {
+        failedLoginAttempts: failedAttempts
+      };
+
+      // Lock account after 5 failed attempts
+      if (failedAttempts >= 5) {
+        updateData.lockedUntil = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+      }
+
+      await prisma.user.update({
+        where: { id: user.id },
+        data: updateData
+      });
+
+      return {
+        success: false,
+        message: 'Invalid email or password'
+      };
+    }
+
+    // Check user status
+    if (user.status !== 'ACTIVE') {
+      return {
+        success: false,
+        message: 'Account is not active'
+      };
+    }
+
+    // Reset failed login attempts and update last login
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        failedLoginAttempts: 0,
+        lockedUntil: null,
+        lastLoginAt: new Date()
+      }
+    });
+
+    // Generate tokens
+    const { password: _, ...userWithoutPassword } = user;
+
+    const token = generateAuthToken(userWithoutPassword);
+    const refreshToken = generateRefreshToken(user.id);
+
+    // Store session
+    await prisma.userSession.create({
+      data: {
+        userId: user.id,
+        token: refreshToken,
+        ipAddress,
+        userAgent,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+      }
+    });
+
+    return {
+      success: true,
+      message: 'Login successful',
+      user: userWithoutPassword,
+      token,
+      refreshToken
+    };
+  } catch (error) {
+    console.error('Login error:', error);
+    return {
+      success: false,
+      message: 'Login failed'
+    };
+  }
+}

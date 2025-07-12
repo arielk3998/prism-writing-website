@@ -46,8 +46,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
             const userData: User = {
               id: tokenData.userId,
               email: tokenData.email,
+              name: tokenData.email.split('@')[0], // Use email prefix as name
               role: tokenData.role,
-              status: 'ACTIVE' as UserStatus // Default status
+              status: 'ACTIVE' as UserStatus, // Default status
+              emailVerified: new Date(),
+              createdAt: new Date(),
+              updatedAt: new Date()
             };
             setUser(userData);
           } else {
@@ -127,8 +131,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
           const userData: User = {
             id: tokenData.userId,
             email: tokenData.email,
+            name: tokenData.email.split('@')[0], // Use email prefix as name
             role: tokenData.role,
-            status: 'ACTIVE' as UserStatus
+            status: 'ACTIVE' as UserStatus,
+            emailVerified: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date()
           };
           setUser(userData);
         } else {

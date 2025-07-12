@@ -1,0 +1,63 @@
+import { prisma } from '../prisma';
+import { hashPassword } from '../utils/credentials';
+import { generateAuthToken, generateRefreshToken } from '../utils/token';
+import { AuthResponse, User } from '../types';
+
+export async function register(email: string, password: string, name?: string): Promise<AuthResponse> {
+  try {
+    // Check if user already exists
+    const existingUser = await prisma.user.findUnique({
+      where: { email }
+    });
+
+    if (existingUser) {
+      return {
+        success: false,
+        message: 'User already exists with this email'
+      };
+    }
+
+    // Hash password
+    const hashedPassword = await hashPassword(password);
+
+    // Create user
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+        name: name || null,
+        role: 'CLIENT',
+        status: 'ACTIVE'
+      }
+    });
+
+    // Generate tokens
+    const { password: _, ...userWithoutPassword } = user;
+
+    const token = generateAuthToken(userWithoutPassword);
+    const refreshToken = generateRefreshToken(user.id);
+
+    // Store session
+    await prisma.userSession.create({
+      data: {
+        userId: user.id,
+        token: refreshToken,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+      }
+    });
+
+    return {
+      success: true,
+      message: 'User registered successfully',
+      user: userWithoutPassword,
+      token,
+      refreshToken
+    };
+  } catch (error) {
+    console.error('Registration error:', error);
+    return {
+      success: false,
+      message: 'Registration failed'
+    };
+  }
+}
